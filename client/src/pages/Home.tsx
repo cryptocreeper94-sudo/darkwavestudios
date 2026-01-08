@@ -17,7 +17,9 @@ import {
   Star,
   Clock,
   Shield,
-  Users
+  Users,
+  Menu,
+  X
 } from "lucide-react";
 import {
   Accordion,
@@ -185,6 +187,7 @@ function AnimatedElement({ children, className, delay = 0 }: { children: React.R
 
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const nextProject = () => {
     setCurrentProject((prev) => (prev + 1) % projects.length);
@@ -222,14 +225,54 @@ export default function Home() {
             <div className="font-display text-base font-semibold gradient-text" data-testid="logo-mobile">
               DarkWave
             </div>
-            <a 
-              href="#contact" 
-              className="btn-glow bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium"
-              data-testid="nav-contact-mobile"
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors"
+              data-testid="mobile-menu-toggle"
             >
-              Get Started
-            </a>
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
+          
+          {/* Mobile Menu Dropdown */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden glass-strong border-t border-white/5">
+              <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3">
+                <a 
+                  href="#projects" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  data-testid="nav-projects-mobile"
+                >
+                  Projects
+                </a>
+                <a 
+                  href="#services" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  data-testid="nav-services-mobile"
+                >
+                  Services
+                </a>
+                <a 
+                  href="#faq" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  data-testid="nav-faq-mobile"
+                >
+                  FAQ
+                </a>
+                <a 
+                  href="#contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="btn-glow bg-primary text-primary-foreground px-4 py-3 rounded-lg text-sm font-medium text-center mt-2"
+                  data-testid="nav-contact-mobile"
+                >
+                  Get Started
+                </a>
+              </div>
+            </div>
+          )}
           
           {/* Desktop Header */}
           <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-3 items-center justify-between">
