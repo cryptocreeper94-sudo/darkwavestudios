@@ -224,7 +224,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <AnimatedElement delay={0}>
               <div className="font-display text-2xl font-bold gradient-text" data-testid="logo">
-                Jason.dev
+                [Your Brand]
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
@@ -267,9 +267,9 @@ export default function Home() {
                     className="text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed"
                     data-testid="hero-description"
                   >
-                    Stop overpaying development agencies. Get the same quality — often better — 
-                    at a fraction of the cost. Custom web apps built with cutting-edge tech, 
-                    delivered fast.
+                    Stop overpaying development agencies. Get exactly what you envision — 
+                    built around your needs, your way. Custom web apps crafted with cutting-edge 
+                    tech, guided by you every step of the way.
                   </p>
                   
                   <div className="flex flex-wrap gap-4">
@@ -556,10 +556,10 @@ export default function Home() {
         <footer className="relative z-10 glass-strong mt-20">
           <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="font-display text-xl font-bold gradient-text">
-              Jason.dev
+              [Your Brand]
             </div>
             <div className="text-muted-foreground text-sm">
-              © 2025 Jason. Built with passion, priced with honesty.
+              © 2025. Built with passion, priced with honesty.
             </div>
           </div>
         </footer>
