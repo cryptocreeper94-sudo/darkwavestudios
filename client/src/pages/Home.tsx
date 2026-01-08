@@ -217,17 +217,17 @@ export default function Home() {
 
       <div className="relative z-10">
         <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-          <div className="max-w-7xl mx-auto px-6 py-2.5 flex items-center justify-between">
-            <div className="font-display text-lg font-semibold gradient-text" data-testid="logo">
-              DarkWave Studios
+          <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 flex items-center justify-between">
+            <div className="font-display text-base lg:text-lg font-semibold gradient-text whitespace-nowrap" data-testid="logo">
+              DarkWave
             </div>
-            <div className="flex items-center gap-5">
-              <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</a>
-              <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</a>
-              <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-faq">FAQ</a>
+            <div className="flex items-center gap-3 lg:gap-5">
+              <a href="#projects" className="hidden sm:block text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</a>
+              <a href="#services" className="hidden sm:block text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</a>
+              <a href="#faq" className="hidden md:block text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-faq">FAQ</a>
               <a 
                 href="#contact" 
-                className="btn-glow bg-primary text-primary-foreground px-4 py-1.5 rounded-md text-sm font-medium"
+                className="btn-glow bg-primary text-primary-foreground px-3 lg:px-4 py-1.5 rounded-md text-xs lg:text-sm font-medium whitespace-nowrap"
                 data-testid="nav-contact"
               >
                 Get Started
