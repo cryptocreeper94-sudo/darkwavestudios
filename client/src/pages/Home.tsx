@@ -224,7 +224,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <AnimatedElement delay={0}>
               <div className="font-display text-2xl font-bold gradient-text" data-testid="logo">
-                [Your Brand]
+                DarkWave Studios
               </div>
             </AnimatedElement>
             <AnimatedElement delay={100}>
@@ -556,7 +556,7 @@ export default function Home() {
         <footer className="relative z-10 glass-strong mt-20">
           <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="font-display text-xl font-bold gradient-text">
-              [Your Brand]
+              DarkWave Studios
             </div>
             <div className="text-muted-foreground text-sm">
               © 2025. Built with passion, priced with honesty.
