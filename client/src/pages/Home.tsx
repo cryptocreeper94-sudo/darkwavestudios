@@ -216,31 +216,27 @@ export default function Home() {
       <div className="fixed inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
 
       <div className="relative z-10">
-        <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <AnimatedElement delay={0}>
-              <div className="font-display text-2xl font-bold gradient-text" data-testid="logo">
-                DarkWave Studios
-              </div>
-            </AnimatedElement>
-            <AnimatedElement delay={100}>
-              <div className="flex items-center gap-6">
-                <a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</a>
-                <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</a>
-                <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-faq">FAQ</a>
-                <a 
-                  href="#contact" 
-                  className="btn-glow bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-medium"
-                  data-testid="nav-contact"
-                >
-                  Get Started
-                </a>
-              </div>
-            </AnimatedElement>
+        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+          <div className="max-w-7xl mx-auto px-6 py-2.5 flex items-center justify-between">
+            <div className="font-display text-lg font-semibold gradient-text" data-testid="logo">
+              DarkWave Studios
+            </div>
+            <div className="flex items-center gap-5">
+              <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</a>
+              <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</a>
+              <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-faq">FAQ</a>
+              <a 
+                href="#contact" 
+                className="btn-glow bg-primary text-primary-foreground px-4 py-1.5 rounded-md text-sm font-medium"
+                data-testid="nav-contact"
+              >
+                Get Started
+              </a>
+            </div>
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-6 pt-28 pb-20">
+        <main className="max-w-7xl mx-auto px-6 pt-20 pb-20">
           
           {/* BENTO GRID SECTION 1: Hero + Stats */}
           <section className="grid grid-cols-12 gap-4 mb-6">
