@@ -33,8 +33,8 @@ const projects = [
   {
     id: 1,
     title: "Strike Agent",
-    description: "Strategic intelligence platform with real-time analytics and reporting",
-    tech: ["React", "Analytics", "Dashboard"],
+    description: "AI-powered crypto trading signals with 61% win rate and real-time alerts",
+    tech: ["AI", "Trading", "Real-time"],
     image: "🎯",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://strikeagent.io"
@@ -42,8 +42,8 @@ const projects = [
   {
     id: 2,
     title: "DarkWave Pulse",
-    description: "Cutting-edge monitoring and engagement platform",
-    tech: ["React", "Real-time", "API"],
+    description: "Predictive market intelligence powered by AI analytics systems",
+    tech: ["AI", "Analytics", "Markets"],
     image: "📡",
     gradient: "from-purple-500/20 to-pink-600/20",
     url: "https://darkwavepulse.com"
@@ -51,8 +51,8 @@ const projects = [
   {
     id: 3,
     title: "Orbit Staffing",
-    description: "Modern staffing and workforce management solution",
-    tech: ["React", "HR Tech", "Scheduling"],
+    description: "Full-cycle staffing platform with GPS clock-in, payroll automation, and AI matching",
+    tech: ["HR Tech", "Payroll", "AI"],
     image: "🚀",
     gradient: "from-emerald-500/20 to-teal-600/20",
     url: "https://orbitstaffing.io"
@@ -60,8 +60,8 @@ const projects = [
   {
     id: 4,
     title: "Orby",
-    description: "Streamlined business operations and workflow automation",
-    tech: ["React", "Automation", "CRM"],
+    description: "Venue operations command suite with geofencing and facial recognition clock-in",
+    tech: ["Operations", "Geofencing", "Security"],
     image: "🔮",
     gradient: "from-orange-500/20 to-red-600/20",
     url: "https://getorby.io"
@@ -69,8 +69,8 @@ const projects = [
   {
     id: 5,
     title: "Nash Paint Pros",
-    description: "Nashville Painting Professionals - booking, estimates, and service management",
-    tech: ["React", "Booking", "Payments"],
+    description: "Nashville's #1 painters with AI room visualizer and instant estimates",
+    tech: ["AI Estimates", "Booking", "Visualizer"],
     image: "🎨",
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://nashpaintpros.io"
@@ -78,8 +78,8 @@ const projects = [
   {
     id: 6,
     title: "Paint Pros",
-    description: "Contractor marketplace connecting painters with clients",
-    tech: ["React", "Marketplace", "Reviews"],
+    description: "White-label SaaS for painting contractors with blockchain verification",
+    tech: ["SaaS", "Blockchain", "White-label"],
     image: "🖌️",
     gradient: "from-blue-500/20 to-indigo-600/20",
     url: "https://paintpros.io"
@@ -87,26 +87,26 @@ const projects = [
   {
     id: 7,
     title: "DWSC",
-    description: "Custom business solutions and consulting portal",
-    tech: ["React", "Portal", "Auth"],
-    image: "💼",
+    description: "Layer 1 blockchain with 200K+ TPS, DeFi suite, NFTs, and Chronicles game",
+    tech: ["Blockchain", "DeFi", "Gaming"],
+    image: "⛓️",
     gradient: "from-amber-500/20 to-orange-600/20",
     url: "https://dwsc.io"
   },
   {
     id: 8,
     title: "Your Legacy",
-    description: "Digital estate planning and legacy management platform",
-    tech: ["React", "Secure", "Documents"],
-    image: "📜",
+    description: "Parallel life simulation spanning 70+ historical eras on DarkWave Chain",
+    tech: ["Gaming", "Blockchain", "Simulation"],
+    image: "🏰",
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://yourlegacy.io"
   },
   {
     id: 9,
     title: "Garage Bot",
-    description: "Automotive service management with AI-powered diagnostics",
-    tech: ["React", "AI", "Inventory"],
+    description: "Search 15M+ auto parts across 40+ retailers with AI DIY repair guides",
+    tech: ["AI", "E-commerce", "Automotive"],
     image: "🔧",
     gradient: "from-rose-500/20 to-pink-600/20",
     url: "https://garagebot.io"
@@ -114,8 +114,8 @@ const projects = [
   {
     id: 10,
     title: "Brew & Board",
-    description: "Coffee shop and board game cafe experience platform",
-    tech: ["React", "E-commerce", "Events"],
+    description: "Nashville coffee and catering delivery with white-glove service for meetings",
+    tech: ["Delivery", "Catering", "Nashville"],
     image: "☕",
     gradient: "from-lime-500/20 to-green-600/20",
     url: "https://brewandboard.coffee"
