@@ -69,7 +69,7 @@ const projects = [
   {
     id: 5,
     title: "Nash Paint Pros",
-    description: "Professional painting services platform with booking and estimates",
+    description: "Nashville Painting Professionals - booking, estimates, and service management",
     tech: ["React", "Booking", "Payments"],
     image: "🎨",
     gradient: "from-violet-500/20 to-purple-600/20",
