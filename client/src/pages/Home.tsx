@@ -28,6 +28,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
+import webDevImg from "@assets/generated_images/web_development_workspace.png";
+import supportImg from "@assets/generated_images/support_headset_desk.png";
+import domainImg from "@assets/generated_images/domain_hosting_servers.png";
+import designImg from "@assets/generated_images/design_branding_workspace.png";
+import appDevImg from "@assets/generated_images/app_development_devices.png";
+import maintenanceImg from "@assets/generated_images/maintenance_gears_circuits.png";
 
 const projects = [
   {
@@ -126,32 +132,38 @@ const services = [
   {
     icon: Globe,
     title: "Custom Web Development",
-    description: "From simple business sites to complex web applications — built exactly how you envision it. No templates, no compromises."
+    description: "From simple business sites to complex web applications — built exactly how you envision it. No templates, no compromises.",
+    image: webDevImg
   },
   {
     icon: MessageSquare,
     title: "Unlimited Support",
-    description: "Forget 1 hour per month. Get responsive, ongoing support whenever you need it. Your success is our priority."
+    description: "Forget 1 hour per month. Get responsive, ongoing support whenever you need it. Your success is our priority.",
+    image: supportImg
   },
   {
     icon: Database,
     title: "Domain & Hosting",
-    description: "Full-service domain registration and hosting setup. We handle the technical stuff so you don't have to."
+    description: "Full-service domain registration and hosting setup. We handle the technical stuff so you don't have to.",
+    image: domainImg
   },
   {
     icon: Palette,
     title: "Design & Branding",
-    description: "Modern, professional designs that reflect your brand identity and convert visitors into customers."
+    description: "Modern, professional designs that reflect your brand identity and convert visitors into customers.",
+    image: designImg
   },
   {
     icon: Code2,
     title: "App Development",
-    description: "Full-stack applications with databases, user accounts, payments, and everything your business needs to operate."
+    description: "Full-stack applications with databases, user accounts, payments, and everything your business needs to operate.",
+    image: appDevImg
   },
   {
     icon: Layers,
     title: "Maintenance & Updates",
-    description: "Keep your site secure, fast, and up-to-date. We're your ongoing technology partner, not just a one-time vendor."
+    description: "Keep your site secure, fast, and up-to-date. We're your ongoing technology partner, not just a one-time vendor.",
+    image: maintenanceImg
   }
 ];
 
@@ -530,20 +542,24 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Services Grid - 1-col cells on mobile */}
+            {/* Services Grid - 1-col cells on mobile with photorealistic backgrounds */}
             {services.map((service, index) => (
               <div key={service.title} className="col-span-1 lg:col-span-4">
                 <div
-                  className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden group h-full"
+                  className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden group h-full min-h-[80px] lg:min-h-[200px]"
                   data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative z-10">
-                    <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-lg lg:rounded-xl bg-primary/10 flex items-center justify-center mb-1 lg:mb-4 group-hover:glow-primary transition-shadow">
-                      <service.icon className="w-4 h-4 lg:w-6 lg:h-6 text-primary" />
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-50 transition-opacity"
+                    style={{ backgroundImage: `url(${service.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                  <div className="relative z-10 h-full flex flex-col justify-end">
+                    <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-1 lg:mb-3 group-hover:glow-primary transition-shadow">
+                      <service.icon className="w-3 h-3 lg:w-5 lg:h-5 text-primary" />
                     </div>
-                    <h3 className="text-[9px] lg:text-lg font-bold font-display mb-0.5 lg:mb-2 line-clamp-2">{service.title}</h3>
-                    <p className="text-muted-foreground text-[8px] lg:text-sm hidden lg:block">{service.description}</p>
+                    <h3 className="text-[9px] lg:text-lg font-bold font-display mb-0.5 lg:mb-2 line-clamp-2 text-white">{service.title}</h3>
+                    <p className="text-muted-foreground text-[8px] lg:text-sm hidden lg:block line-clamp-2">{service.description}</p>
                   </div>
                 </div>
               </div>
