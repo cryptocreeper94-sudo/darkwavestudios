@@ -505,65 +505,126 @@ export default function Home() {
             </div>
           </section>
 
-          {/* BENTO GRID SECTION 3: Services + Pricing - 3-COL MOBILE */}
-          <section id="services" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24">
-            {/* Pricing Card - 2-col mobile / 4-col desktop */}
-            <div className="col-span-2 lg:col-span-4 row-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10" />
-                <div className="relative z-10 text-center">
-                  <div className="text-[9px] lg:text-sm text-muted-foreground mb-1 lg:mb-2">Agency Price</div>
-                  <div className="text-xl lg:text-4xl font-bold line-through text-muted-foreground mb-2 lg:mb-6">$50,000+</div>
-                  <div className="text-[9px] lg:text-sm text-primary mb-1 lg:mb-2">DarkWave Price</div>
-                  <div className="text-3xl lg:text-6xl font-bold font-display gradient-text mb-0.5 lg:mb-2">60%+</div>
-                  <div className="text-sm lg:text-2xl font-display gradient-text mb-3 lg:mb-6">Less</div>
-                  <ul className="text-left space-y-1 lg:space-y-3 mb-3 lg:mb-6">
-                    {[
-                      "Direct developer access",
-                      "Weekly demos",
-                      "No hidden fees",
-                      "Modern stack"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-1 lg:gap-2 text-[9px] lg:text-sm">
-                        <CheckCircle2 className="w-3 h-3 lg:w-4 lg:h-4 text-primary flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+          {/* BENTO GRID SECTION 3: Services + Pricing */}
+          <section id="services" className="mb-4 lg:mb-6 scroll-mt-24">
+            {/* Mobile: Pricing + Services Carousel */}
+            <div className="lg:hidden space-y-2">
+              {/* Compact Pricing Bar */}
+              <div className="glass-card rounded-xl p-3 gradient-border relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10" />
+                <div className="relative z-10 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="text-center">
+                      <div className="text-[8px] text-muted-foreground">Agency</div>
+                      <div className="text-sm font-bold line-through text-muted-foreground">$50k+</div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-primary" />
+                    <div className="text-center">
+                      <div className="text-[8px] text-primary">DarkWave</div>
+                      <div className="text-lg font-bold font-display gradient-text">60% Less</div>
+                    </div>
+                  </div>
                   <a
                     href="#contact"
-                    className="btn-glow inline-flex items-center justify-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold w-full"
-                    data-testid="pricing-cta"
+                    className="btn-glow inline-flex items-center gap-1 bg-primary text-primary-foreground px-3 py-2 rounded-lg text-xs font-semibold"
+                    data-testid="pricing-cta-mobile"
                   >
-                    Get Quote
-                    <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4" />
+                    Quote
+                    <ArrowRight className="w-3 h-3" />
                   </a>
                 </div>
               </div>
+
+              {/* Services Carousel for Mobile */}
+              <div className="relative">
+                <div className="overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4">
+                  <div className="flex gap-2" style={{ width: 'max-content' }}>
+                    {services.map((service) => (
+                      <div
+                        key={service.title}
+                        className="glass-card rounded-xl p-3 gradient-border relative overflow-hidden group flex-shrink-0"
+                        style={{ width: '140px', height: '100px' }}
+                        data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
+                      >
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center opacity-40"
+                          style={{ backgroundImage: `url(${service.image})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+                        <div className="relative z-10 h-full flex flex-col justify-end">
+                          <div className="w-6 h-6 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-1">
+                            <service.icon className="w-3 h-3 text-primary" />
+                          </div>
+                          <h3 className="text-[10px] font-bold font-display text-white leading-tight">{service.title}</h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+              </div>
             </div>
 
-            {/* Services Grid - 1-col cells on mobile with photorealistic backgrounds */}
-            {services.map((service, index) => (
-              <div key={service.title} className="col-span-1 lg:col-span-4">
-                <div
-                  className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden group h-full min-h-[80px] lg:min-h-[200px]"
-                  data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
-                >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-50 transition-opacity"
-                    style={{ backgroundImage: `url(${service.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-                  <div className="relative z-10 h-full flex flex-col justify-end">
-                    <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-1 lg:mb-3 group-hover:glow-primary transition-shadow">
-                      <service.icon className="w-3 h-3 lg:w-5 lg:h-5 text-primary" />
-                    </div>
-                    <h3 className="text-[9px] lg:text-lg font-bold font-display mb-0.5 lg:mb-2 line-clamp-2 text-white">{service.title}</h3>
-                    <p className="text-muted-foreground text-[8px] lg:text-sm hidden lg:block line-clamp-2">{service.description}</p>
+            {/* Desktop: Original Grid Layout */}
+            <div className="hidden lg:grid lg:grid-cols-12 gap-4">
+              {/* Pricing Card - 4-col desktop */}
+              <div className="lg:col-span-4 row-span-2">
+                <div className="glass-card rounded-2xl p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10" />
+                  <div className="relative z-10 text-center">
+                    <div className="text-sm text-muted-foreground mb-2">Agency Price</div>
+                    <div className="text-4xl font-bold line-through text-muted-foreground mb-6">$50,000+</div>
+                    <div className="text-sm text-primary mb-2">DarkWave Price</div>
+                    <div className="text-6xl font-bold font-display gradient-text mb-2">60%+</div>
+                    <div className="text-2xl font-display gradient-text mb-6">Less</div>
+                    <ul className="text-left space-y-3 mb-6">
+                      {[
+                        "Direct developer access",
+                        "Weekly demos",
+                        "No hidden fees",
+                        "Modern stack"
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href="#contact"
+                      className="btn-glow inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-base font-semibold w-full"
+                      data-testid="pricing-cta"
+                    >
+                      Get Quote
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
                   </div>
                 </div>
               </div>
-            ))}
+
+              {/* Services Grid - Desktop */}
+              {services.map((service) => (
+                <div key={service.title} className="lg:col-span-4">
+                  <div
+                    className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden group h-full min-h-[200px]"
+                    data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
+                  >
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-50 transition-opacity"
+                      style={{ backgroundImage: `url(${service.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                    <div className="relative z-10 h-full flex flex-col justify-end">
+                      <div className="w-10 h-10 rounded-lg bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-3 group-hover:glow-primary transition-shadow">
+                        <service.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-bold font-display mb-2 text-white">{service.title}</h3>
+                      <p className="text-muted-foreground text-sm line-clamp-2">{service.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
