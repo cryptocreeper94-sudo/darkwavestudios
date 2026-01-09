@@ -32,83 +32,93 @@ import heroBackground from "@assets/generated_images/dark_tech_abstract_backgrou
 const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-featured shopping experience with cart, checkout, and inventory management",
-    tech: ["React", "Node.js", "Stripe"],
-    image: "🛒",
-    gradient: "from-cyan-500/20 to-blue-600/20"
+    title: "Strike Agent",
+    description: "Strategic intelligence platform with real-time analytics and reporting",
+    tech: ["React", "Analytics", "Dashboard"],
+    image: "🎯",
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://strikeagent.io"
   },
   {
     id: 2,
-    title: "SaaS Dashboard",
-    description: "Analytics dashboard with real-time data visualization and user management",
-    tech: ["React", "PostgreSQL", "Charts"],
-    image: "📊",
-    gradient: "from-purple-500/20 to-pink-600/20"
+    title: "DarkWave Pulse",
+    description: "Cutting-edge monitoring and engagement platform",
+    tech: ["React", "Real-time", "API"],
+    image: "📡",
+    gradient: "from-purple-500/20 to-pink-600/20",
+    url: "https://darkwavepulse.com"
   },
   {
     id: 3,
-    title: "Booking System",
-    description: "Appointment scheduling with calendar integration and automated reminders",
-    tech: ["React", "Calendar API", "SMS"],
-    image: "📅",
-    gradient: "from-emerald-500/20 to-teal-600/20"
+    title: "Orbit Staffing",
+    description: "Modern staffing and workforce management solution",
+    tech: ["React", "HR Tech", "Scheduling"],
+    image: "🚀",
+    gradient: "from-emerald-500/20 to-teal-600/20",
+    url: "https://orbitstaffing.io"
   },
   {
     id: 4,
-    title: "Social Platform",
-    description: "Community platform with profiles, messaging, and content sharing",
-    tech: ["React", "WebSocket", "Media"],
-    image: "💬",
-    gradient: "from-orange-500/20 to-red-600/20"
+    title: "Orby",
+    description: "Streamlined business operations and workflow automation",
+    tech: ["React", "Automation", "CRM"],
+    image: "🔮",
+    gradient: "from-orange-500/20 to-red-600/20",
+    url: "https://getorby.io"
   },
   {
     id: 5,
-    title: "Portfolio Builder",
-    description: "Dynamic portfolio generator with customizable themes and SEO optimization",
-    tech: ["React", "CMS", "SEO"],
+    title: "NAS Paint Pros",
+    description: "Professional painting services platform with booking and estimates",
+    tech: ["React", "Booking", "Payments"],
     image: "🎨",
-    gradient: "from-violet-500/20 to-purple-600/20"
+    gradient: "from-violet-500/20 to-purple-600/20",
+    url: "https://naspaintpros.io"
   },
   {
     id: 6,
-    title: "Task Management",
-    description: "Project management tool with Kanban boards, assignments, and deadlines",
-    tech: ["React", "Drag & Drop", "Teams"],
-    image: "✅",
-    gradient: "from-blue-500/20 to-indigo-600/20"
+    title: "Paint Pros",
+    description: "Contractor marketplace connecting painters with clients",
+    tech: ["React", "Marketplace", "Reviews"],
+    image: "🖌️",
+    gradient: "from-blue-500/20 to-indigo-600/20",
+    url: "https://paintpros.io"
   },
   {
     id: 7,
-    title: "Learning Platform",
-    description: "Course management with video hosting, quizzes, and progress tracking",
-    tech: ["React", "Video", "Auth"],
-    image: "📚",
-    gradient: "from-amber-500/20 to-orange-600/20"
+    title: "DWSC",
+    description: "Custom business solutions and consulting portal",
+    tech: ["React", "Portal", "Auth"],
+    image: "💼",
+    gradient: "from-amber-500/20 to-orange-600/20",
+    url: "https://dwsc.io"
   },
   {
     id: 8,
-    title: "Inventory System",
-    description: "Stock management with barcode scanning and automated reorder alerts",
-    tech: ["React", "API", "Reports"],
-    image: "📦",
-    gradient: "from-teal-500/20 to-cyan-600/20"
+    title: "Your Legacy",
+    description: "Digital estate planning and legacy management platform",
+    tech: ["React", "Secure", "Documents"],
+    image: "📜",
+    gradient: "from-teal-500/20 to-cyan-600/20",
+    url: "https://yourlegacy.io"
   },
   {
     id: 9,
-    title: "Healthcare Portal",
-    description: "Patient management with appointments, records, and secure messaging",
-    tech: ["React", "HIPAA", "Secure"],
-    image: "🏥",
-    gradient: "from-rose-500/20 to-pink-600/20"
+    title: "Garage Bot",
+    description: "Automotive service management with AI-powered diagnostics",
+    tech: ["React", "AI", "Inventory"],
+    image: "🔧",
+    gradient: "from-rose-500/20 to-pink-600/20",
+    url: "https://garagebot.io"
   },
   {
     id: 10,
-    title: "Real Estate App",
-    description: "Property listings with search filters, maps, and virtual tours",
-    tech: ["React", "Maps", "Media"],
-    image: "🏠",
-    gradient: "from-lime-500/20 to-green-600/20"
+    title: "Brew & Board",
+    description: "Coffee shop and board game cafe experience platform",
+    tech: ["React", "E-commerce", "Events"],
+    image: "☕",
+    gradient: "from-lime-500/20 to-green-600/20",
+    url: "https://brewandboard.coffee"
   }
 ];
 
@@ -415,9 +425,12 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {visibleProjects().map((project, index) => (
-                    <div
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       key={`${project.id}-${currentProject}`}
-                      className={`glass rounded-xl p-5 hover-lift relative overflow-hidden group cursor-pointer transition-all duration-300 ${
+                      className={`glass rounded-xl p-5 hover-lift relative overflow-hidden group cursor-pointer transition-all duration-300 block ${
                         index === 0 ? 'ring-2 ring-primary/50' : ''
                       }`}
                       data-testid={`project-card-${project.id}`}
@@ -427,13 +440,16 @@ export default function Home() {
                         <div className="text-4xl mb-3">{project.image}</div>
                         <h3 className="text-lg font-bold font-display mb-1">{project.title}</h3>
                         <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{project.description}</p>
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap gap-1 mb-3">
                           {project.tech.map((tech) => (
                             <span key={tech} className="text-xs bg-white/10 px-2 py-0.5 rounded-full">{tech}</span>
                           ))}
                         </div>
+                        <div className="flex items-center gap-1 text-primary text-xs font-medium group-hover:gap-2 transition-all">
+                          View Live <ArrowRight className="w-3 h-3" />
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
 
