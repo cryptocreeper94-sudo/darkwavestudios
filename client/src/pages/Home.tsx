@@ -310,84 +310,84 @@ export default function Home() {
 
         <main className="max-w-7xl mx-auto px-6 pt-20 pb-20">
           
-          {/* BENTO GRID SECTION 1: Hero + Stats */}
-          <section className="grid grid-cols-12 gap-4 mb-6">
-            {/* Main Hero - Large Cell */}
-            <AnimatedElement delay={100} className="col-span-12 lg:col-span-8 row-span-2">
-              <div className="glass-card rounded-2xl p-8 lg:p-10 relative overflow-hidden gradient-border h-full min-h-[400px] flex flex-col justify-center">
+          {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6">
+            {/* Main Hero - 3-col mobile / 8-col desktop */}
+            <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden gradient-border h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
                 <div className="absolute inset-0 noise-overlay" />
                 <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
-                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    <span className="text-sm font-medium text-primary">Full-Service Web Agency</span>
+                  <div className="inline-flex items-center gap-1.5 lg:gap-2 bg-primary/10 border border-primary/20 rounded-full px-2 lg:px-4 py-1 lg:py-2 mb-3 lg:mb-6">
+                    <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 bg-primary rounded-full animate-pulse" />
+                    <span className="text-[10px] lg:text-sm font-medium text-primary">Full-Service Web Agency</span>
                   </div>
                   
-                  <h1 className="text-4xl lg:text-6xl font-bold font-display leading-tight mb-4" data-testid="hero-title">
+                  <h1 className="text-xl lg:text-6xl font-bold font-display leading-tight mb-2 lg:mb-4" data-testid="hero-title">
                     Agency Quality.
                     <br />
                     <span className="gradient-text text-glow-primary">Without the Agency Price.</span>
                   </h1>
                   
-                  <p className="text-lg text-muted-foreground max-w-xl mb-6 leading-relaxed" data-testid="hero-description">
+                  <p className="text-xs lg:text-lg text-muted-foreground max-w-xl mb-3 lg:mb-6 leading-relaxed hidden lg:block" data-testid="hero-description">
                     Custom websites, web applications, and ongoing support — all with direct access to your developer. 
                     No gatekeepers. No limits on support. Just results.
                   </p>
                   
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 lg:gap-3">
                     <a 
                       href="#contact"
-                      className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold animate-pulse-glow"
+                      className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold animate-pulse-glow"
                       data-testid="hero-cta-primary"
                     >
-                      Start Your Project
-                      <ArrowRight className="w-5 h-5" />
+                      Start Project
+                      <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
                     </a>
                     <a 
                       href="#projects"
-                      className="inline-flex items-center gap-2 glass px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-colors"
+                      className="inline-flex items-center gap-1 glass px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold hover:bg-white/10 transition-colors"
                       data-testid="hero-cta-secondary"
                     >
-                      View My Work
+                      View Work
                     </a>
                   </div>
                 </div>
                 
-                <div className="absolute -right-20 -bottom-20 w-60 h-60 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl opacity-50" />
+                <div className="absolute -right-20 -bottom-20 w-40 lg:w-60 h-40 lg:h-60 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl opacity-50" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 1 - Live Projects */}
-            <AnimatedElement delay={200} className="col-span-6 lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-apps">
-                <Rocket className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">10+</div>
-                <div className="text-muted-foreground text-sm">Live Projects</div>
+            {/* Stat 1 - Live Projects - 1 col mobile */}
+            <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-apps">
+                <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">10+</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 2 - AI Powered */}
-            <AnimatedElement delay={250} className="col-span-6 lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-ai">
-                <Zap className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">AI</div>
-                <div className="text-muted-foreground text-sm">Powered Apps</div>
+            {/* Stat 2 - AI Powered - 1 col mobile */}
+            <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-ai">
+                <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">AI</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Powered</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-accent/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 3 - Cost Savings */}
-            <AnimatedElement delay={300} className="col-span-6 lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-savings">
-                <DollarSign className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">60%+</div>
-                <div className="text-muted-foreground text-sm">Less Than Agencies</div>
+            {/* Stat 3 - Cost Savings - 1 col mobile */}
+            <AnimatedElement delay={300} className="col-span-1 lg:col-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-savings">
+                <DollarSign className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">60%</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Less Cost</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 4 - Satisfaction */}
-            <AnimatedElement delay={350} className="col-span-6 lg:col-span-2">
+            {/* Stat 4 - Satisfaction - hidden on mobile, shown on desktop */}
+            <AnimatedElement delay={350} className="hidden lg:block lg:col-span-2">
               <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-satisfaction">
                 <Star className="w-8 h-8 text-primary mb-2" />
                 <div className="text-3xl font-bold font-display gradient-text">100%</div>
@@ -397,60 +397,60 @@ export default function Home() {
             </AnimatedElement>
           </section>
 
-          {/* BENTO GRID SECTION 2: Projects Carousel + Value Props */}
-          <section id="projects" className="grid grid-cols-12 gap-4 mb-6 scroll-mt-24">
-            {/* Projects Carousel - Wide */}
-            <div className="col-span-12 lg:col-span-8">
-              <div className="glass-card rounded-2xl p-6 gradient-border h-full">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold font-display" data-testid="projects-title">
+          {/* BENTO GRID SECTION 2: Projects Carousel + Value Props - 3-COL MOBILE */}
+          <section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24">
+            {/* Projects Carousel - 3-col mobile / 8-col desktop */}
+            <div className="col-span-3 lg:col-span-8">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
+                <div className="flex items-center justify-between mb-3 lg:mb-4">
+                  <h2 className="text-base lg:text-2xl font-bold font-display" data-testid="projects-title">
                     Built to <span className="gradient-text">Perform</span>
                   </h2>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5 lg:gap-3">
                     <button
                       onClick={prevProject}
-                      className="glass w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors btn-glow"
+                      className="glass w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors btn-glow"
                       data-testid="carousel-prev"
                     >
-                      <ChevronLeft className="w-5 h-5" />
+                      <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
                     </button>
-                    <span className="text-muted-foreground text-sm">
+                    <span className="text-muted-foreground text-[10px] lg:text-sm">
                       <span className="text-primary font-bold">{currentProject + 1}</span>/{projects.length}
                     </span>
                     <button
                       onClick={nextProject}
-                      className="glass w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors btn-glow"
+                      className="glass w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors btn-glow"
                       data-testid="carousel-next"
                     >
-                      <ChevronRight className="w-5 h-5" />
+                      <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
                     </button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 lg:gap-4">
                   {visibleProjects().map((project, index) => (
                     <a
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       key={`${project.id}-${currentProject}`}
-                      className={`glass rounded-xl p-5 hover-lift relative overflow-hidden group cursor-pointer transition-all duration-300 block ${
-                        index === 0 ? 'ring-2 ring-primary/50' : ''
+                      className={`glass rounded-lg lg:rounded-xl p-2 lg:p-5 hover-lift relative overflow-hidden group cursor-pointer transition-all duration-300 block ${
+                        index === 0 ? 'ring-1 lg:ring-2 ring-primary/50' : ''
                       }`}
                       data-testid={`project-card-${project.id}`}
                     >
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-50 group-hover:opacity-70 transition-opacity`} />
                       <div className="relative z-10">
-                        <div className="text-4xl mb-3">{project.image}</div>
-                        <h3 className="text-lg font-bold font-display mb-1">{project.title}</h3>
-                        <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{project.description}</p>
-                        <div className="flex flex-wrap gap-1 mb-3">
+                        <div className="text-xl lg:text-4xl mb-1 lg:mb-3">{project.image}</div>
+                        <h3 className="text-[10px] lg:text-lg font-bold font-display mb-0.5 lg:mb-1 line-clamp-1">{project.title}</h3>
+                        <p className="text-muted-foreground text-[8px] lg:text-xs mb-1 lg:mb-3 line-clamp-2 hidden lg:block">{project.description}</p>
+                        <div className="hidden lg:flex flex-wrap gap-1 mb-3">
                           {project.tech.map((tech) => (
                             <span key={tech} className="text-xs bg-white/10 px-2 py-0.5 rounded-full">{tech}</span>
                           ))}
                         </div>
-                        <div className="flex items-center gap-1 text-primary text-xs font-medium group-hover:gap-2 transition-all">
-                          View Live <ArrowRight className="w-3 h-3" />
+                        <div className="flex items-center gap-0.5 lg:gap-1 text-primary text-[8px] lg:text-xs font-medium group-hover:gap-1 lg:group-hover:gap-2 transition-all">
+                          View <ArrowRight className="w-2 h-2 lg:w-3 lg:h-3" />
                         </div>
                       </div>
                     </a>
@@ -472,104 +472,104 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Value Props - Tall Stack */}
-            <div className="col-span-12 lg:col-span-4 grid grid-rows-2 gap-4">
-              <div className="glass-card rounded-2xl p-6 hover-lift gradient-border relative overflow-hidden">
+            {/* Value Props - Side by side on mobile */}
+            <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-2 lg:gap-4">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 <div className="relative z-10">
-                  <MessageSquare className="w-10 h-10 text-primary mb-3" />
-                  <h3 className="text-xl font-bold font-display mb-2">Real Support</h3>
-                  <p className="text-muted-foreground text-sm">Not 1 hour per month. Responsive, ongoing support whenever you need it. Text, call, or email.</p>
+                  <MessageSquare className="w-6 h-6 lg:w-10 lg:h-10 text-primary mb-1 lg:mb-3" />
+                  <h3 className="text-xs lg:text-xl font-bold font-display mb-0.5 lg:mb-2">Real Support</h3>
+                  <p className="text-muted-foreground text-[9px] lg:text-sm hidden lg:block">Not 1 hour per month. Responsive, ongoing support whenever you need it.</p>
                 </div>
               </div>
-              <div className="glass-card rounded-2xl p-6 hover-lift gradient-border relative overflow-hidden">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
                 <div className="relative z-10">
-                  <Zap className="w-10 h-10 text-accent mb-3" />
-                  <h3 className="text-xl font-bold font-display mb-2">AI-Powered</h3>
-                  <p className="text-muted-foreground text-sm">Modern apps with AI features built in — not basic brochure sites that cost $40k.</p>
+                  <Zap className="w-6 h-6 lg:w-10 lg:h-10 text-accent mb-1 lg:mb-3" />
+                  <h3 className="text-xs lg:text-xl font-bold font-display mb-0.5 lg:mb-2">AI-Powered</h3>
+                  <p className="text-muted-foreground text-[9px] lg:text-sm hidden lg:block">Modern apps with AI features — not $40k brochure sites.</p>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* BENTO GRID SECTION 3: Services + Pricing */}
-          <section id="services" className="grid grid-cols-12 gap-4 mb-6 scroll-mt-24">
-            {/* Pricing Card - Tall */}
-            <div className="col-span-12 lg:col-span-4 row-span-2">
-              <div className="glass-card rounded-2xl p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
+          {/* BENTO GRID SECTION 3: Services + Pricing - 3-COL MOBILE */}
+          <section id="services" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24">
+            {/* Pricing Card - 2-col mobile / 4-col desktop */}
+            <div className="col-span-2 lg:col-span-4 row-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10" />
                 <div className="relative z-10 text-center">
-                  <div className="text-sm text-muted-foreground mb-2">Agency Price</div>
-                  <div className="text-4xl font-bold line-through text-muted-foreground mb-6">$50,000+</div>
-                  <div className="text-sm text-primary mb-2">DarkWave Price</div>
-                  <div className="text-6xl font-bold font-display gradient-text mb-2">60%+</div>
-                  <div className="text-2xl font-display gradient-text mb-6">Less</div>
-                  <ul className="text-left space-y-3 mb-6">
+                  <div className="text-[9px] lg:text-sm text-muted-foreground mb-1 lg:mb-2">Agency Price</div>
+                  <div className="text-xl lg:text-4xl font-bold line-through text-muted-foreground mb-2 lg:mb-6">$50,000+</div>
+                  <div className="text-[9px] lg:text-sm text-primary mb-1 lg:mb-2">DarkWave Price</div>
+                  <div className="text-3xl lg:text-6xl font-bold font-display gradient-text mb-0.5 lg:mb-2">60%+</div>
+                  <div className="text-sm lg:text-2xl font-display gradient-text mb-3 lg:mb-6">Less</div>
+                  <ul className="text-left space-y-1 lg:space-y-3 mb-3 lg:mb-6">
                     {[
                       "Direct developer access",
-                      "Weekly progress demos",
+                      "Weekly demos",
                       "No hidden fees",
-                      "Modern tech stack"
+                      "Modern stack"
                     ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                      <li key={i} className="flex items-center gap-1 lg:gap-2 text-[9px] lg:text-sm">
+                        <CheckCircle2 className="w-3 h-3 lg:w-4 lg:h-4 text-primary flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                   <a
                     href="#contact"
-                    className="btn-glow inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold w-full"
+                    className="btn-glow inline-flex items-center justify-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold w-full"
                     data-testid="pricing-cta"
                   >
                     Get Quote
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Services Grid - 2x3 */}
+            {/* Services Grid - 1-col cells on mobile */}
             {services.map((service, index) => (
-              <div key={service.title} className="col-span-6 lg:col-span-4">
+              <div key={service.title} className="col-span-1 lg:col-span-4">
                 <div
-                  className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden group h-full"
+                  className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden group h-full"
                   data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:glow-primary transition-shadow">
-                      <service.icon className="w-6 h-6 text-primary" />
+                    <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-lg lg:rounded-xl bg-primary/10 flex items-center justify-center mb-1 lg:mb-4 group-hover:glow-primary transition-shadow">
+                      <service.icon className="w-4 h-4 lg:w-6 lg:h-6 text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold font-display mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground text-sm">{service.description}</p>
+                    <h3 className="text-[9px] lg:text-lg font-bold font-display mb-0.5 lg:mb-2 line-clamp-2">{service.title}</h3>
+                    <p className="text-muted-foreground text-[8px] lg:text-sm hidden lg:block">{service.description}</p>
                   </div>
                 </div>
               </div>
             ))}
           </section>
 
-          {/* BENTO GRID SECTION 4: FAQ + CTA */}
-          <section id="faq" className="grid grid-cols-12 gap-4 scroll-mt-24">
-            {/* FAQ - Wide */}
-            <div className="col-span-12 lg:col-span-7">
-              <div className="glass-card rounded-2xl p-6 gradient-border h-full">
-                <h2 className="text-2xl font-bold font-display mb-4" data-testid="faq-title">
-                  Common <span className="gradient-text">Questions</span>
+          {/* BENTO GRID SECTION 4: FAQ + CTA - 3-COL MOBILE */}
+          <section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 scroll-mt-24">
+            {/* FAQ - 2-col mobile / 7-col desktop */}
+            <div className="col-span-2 lg:col-span-7">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
+                <h2 className="text-base lg:text-2xl font-bold font-display mb-2 lg:mb-4" data-testid="faq-title">
+                  <span className="gradient-text">FAQ</span>
                 </h2>
-                <Accordion type="single" collapsible className="space-y-3">
+                <Accordion type="single" collapsible className="space-y-1.5 lg:space-y-3">
                   {faqs.map((faq, index) => (
                     <AccordionItem 
                       key={index} 
                       value={`item-${index}`}
-                      className="glass rounded-xl border-0 overflow-hidden"
+                      className="glass rounded-lg lg:rounded-xl border-0 overflow-hidden"
                       data-testid={`faq-item-${index}`}
                     >
-                      <AccordionTrigger className="px-4 py-4 text-left font-display font-semibold text-sm hover:no-underline hover:text-primary transition-colors">
+                      <AccordionTrigger className="px-2 lg:px-4 py-2 lg:py-4 text-left font-display font-semibold text-[9px] lg:text-sm hover:no-underline hover:text-primary transition-colors">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-4 text-muted-foreground text-sm leading-relaxed">
+                      <AccordionContent className="px-2 lg:px-4 pb-2 lg:pb-4 text-muted-foreground text-[8px] lg:text-sm leading-relaxed">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -578,34 +578,34 @@ export default function Home() {
               </div>
             </div>
 
-            {/* CTA + Trust Signals */}
-            <div className="col-span-12 lg:col-span-5 grid gap-4" id="contact">
+            {/* CTA + Trust Signals - 1-col mobile / 5-col desktop */}
+            <div className="col-span-1 lg:col-span-5 grid gap-2 lg:gap-4" id="contact">
               {/* Main CTA */}
-              <div className="glass-card rounded-2xl p-8 gradient-border relative overflow-hidden">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-8 gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20" />
-                <div className="absolute -left-10 -top-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl" />
-                <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
+                <div className="absolute -left-10 -top-10 w-20 lg:w-40 h-20 lg:h-40 bg-primary/20 rounded-full blur-3xl" />
+                <div className="absolute -right-10 -bottom-10 w-20 lg:w-40 h-20 lg:h-40 bg-accent/20 rounded-full blur-3xl" />
                 <div className="relative z-10 text-center">
-                  <MessageSquare className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold font-display mb-2" data-testid="contact-title">
+                  <MessageSquare className="w-8 h-8 lg:w-12 lg:h-12 text-primary mx-auto mb-2 lg:mb-4" />
+                  <h2 className="text-sm lg:text-2xl font-bold font-display mb-1 lg:mb-2" data-testid="contact-title">
                     Ready to <span className="gradient-text">Start?</span>
                   </h2>
-                  <p className="text-muted-foreground text-sm mb-4">
+                  <p className="text-muted-foreground text-[9px] lg:text-sm mb-2 lg:mb-4 hidden lg:block">
                     Let's discuss your project. No commitment, no pressure.
                   </p>
                   <a
                     href="mailto:contact@darkwavestudios.com"
-                    className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-bold text-lg animate-pulse-glow hover:scale-105 transition-transform w-full justify-center"
+                    className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-8 py-2 lg:py-4 rounded-lg lg:rounded-xl font-bold text-xs lg:text-lg animate-pulse-glow hover:scale-105 transition-transform w-full justify-center"
                     data-testid="contact-cta"
                   >
-                    Get in Touch
-                    <ArrowRight className="w-5 h-5" />
+                    Contact
+                    <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
                   </a>
                 </div>
               </div>
 
-              {/* Trust Signal */}
-              <div className="glass-card rounded-2xl p-5 gradient-border">
+              {/* Trust Signal - hidden on mobile */}
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 gradient-border hidden lg:block">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Users className="w-6 h-6 text-primary" />
@@ -620,12 +620,12 @@ export default function Home() {
           </section>
         </main>
 
-        <footer className="relative z-10 glass-strong mt-12">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="font-display text-xl font-bold gradient-text">
+        <footer className="relative z-10 glass-strong mt-6 lg:mt-12">
+          <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-6 flex flex-col md:flex-row items-center justify-between gap-2 lg:gap-4">
+            <div className="font-display text-sm lg:text-xl font-bold gradient-text">
               DarkWave Studios
             </div>
-            <div className="text-muted-foreground text-sm">
+            <div className="text-muted-foreground text-[10px] lg:text-sm">
               © 2025. Built with passion, priced with honesty.
             </div>
           </div>
