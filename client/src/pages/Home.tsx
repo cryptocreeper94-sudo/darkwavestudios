@@ -566,26 +566,26 @@ export default function Home() {
             ))}
           </section>
 
-          {/* BENTO GRID SECTION 4: FAQ + CTA - 3-COL MOBILE */}
+          {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
           <section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 scroll-mt-24">
             {/* FAQ - 2-col mobile / 7-col desktop */}
             <div className="col-span-2 lg:col-span-7">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
-                <h2 className="text-base lg:text-2xl font-bold font-display mb-2 lg:mb-4" data-testid="faq-title">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-6 gradient-border h-full">
+                <h2 className="text-xs lg:text-2xl font-bold font-display mb-1.5 lg:mb-4" data-testid="faq-title">
                   <span className="gradient-text">FAQ</span>
                 </h2>
-                <Accordion type="single" collapsible className="space-y-1.5 lg:space-y-3">
-                  {faqs.map((faq, index) => (
+                <Accordion type="single" collapsible className="space-y-0.5 lg:space-y-3">
+                  {faqs.slice(0, 4).map((faq, index) => (
                     <AccordionItem 
                       key={index} 
                       value={`item-${index}`}
-                      className="glass rounded-lg lg:rounded-xl border-0 overflow-hidden"
+                      className="glass rounded-md lg:rounded-xl border-0 overflow-hidden"
                       data-testid={`faq-item-${index}`}
                     >
-                      <AccordionTrigger className="px-2 lg:px-4 py-2 lg:py-4 text-left font-display font-semibold text-[9px] lg:text-sm hover:no-underline hover:text-primary transition-colors">
+                      <AccordionTrigger className="px-1.5 lg:px-4 py-1 lg:py-4 text-left font-display font-semibold text-[7px] lg:text-sm hover:no-underline hover:text-primary transition-colors [&>svg]:w-2.5 [&>svg]:h-2.5 lg:[&>svg]:w-4 lg:[&>svg]:h-4">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="px-2 lg:px-4 pb-2 lg:pb-4 text-muted-foreground text-[8px] lg:text-sm leading-relaxed">
+                      <AccordionContent className="px-1.5 lg:px-4 pb-1.5 lg:pb-4 text-muted-foreground text-[6px] lg:text-sm leading-relaxed">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -594,34 +594,35 @@ export default function Home() {
               </div>
             </div>
 
-            {/* CTA + Trust Signals - 1-col mobile / 5-col desktop */}
-            <div className="col-span-1 lg:col-span-5 grid gap-2 lg:gap-4" id="contact">
-              {/* Main CTA */}
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-8 gradient-border relative overflow-hidden">
+            {/* CTA - 1-col mobile / 5-col desktop */}
+            <div className="col-span-1 lg:col-span-5" id="contact">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-8 gradient-border relative overflow-hidden h-full flex flex-col justify-center">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20" />
-                <div className="absolute -left-10 -top-10 w-20 lg:w-40 h-20 lg:h-40 bg-primary/20 rounded-full blur-3xl" />
-                <div className="absolute -right-10 -bottom-10 w-20 lg:w-40 h-20 lg:h-40 bg-accent/20 rounded-full blur-3xl" />
+                <div className="absolute -left-10 -top-10 w-16 lg:w-40 h-16 lg:h-40 bg-primary/20 rounded-full blur-3xl" />
+                <div className="absolute -right-10 -bottom-10 w-16 lg:w-40 h-16 lg:h-40 bg-accent/20 rounded-full blur-3xl" />
                 <div className="relative z-10 text-center">
-                  <MessageSquare className="w-8 h-8 lg:w-12 lg:h-12 text-primary mx-auto mb-2 lg:mb-4" />
-                  <h2 className="text-sm lg:text-2xl font-bold font-display mb-1 lg:mb-2" data-testid="contact-title">
-                    Ready to <span className="gradient-text">Start?</span>
+                  <MessageSquare className="w-5 h-5 lg:w-12 lg:h-12 text-primary mx-auto mb-1 lg:mb-4" />
+                  <h2 className="text-[9px] lg:text-2xl font-bold font-display mb-0.5 lg:mb-2" data-testid="contact-title">
+                    <span className="gradient-text">Start?</span>
                   </h2>
                   <p className="text-muted-foreground text-[9px] lg:text-sm mb-2 lg:mb-4 hidden lg:block">
                     Let's discuss your project. No commitment, no pressure.
                   </p>
                   <a
                     href="mailto:contact@darkwavestudios.com"
-                    className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-8 py-2 lg:py-4 rounded-lg lg:rounded-xl font-bold text-xs lg:text-lg animate-pulse-glow hover:scale-105 transition-transform w-full justify-center"
+                    className="btn-glow inline-flex items-center gap-0.5 lg:gap-2 bg-primary text-primary-foreground px-2 lg:px-8 py-1 lg:py-4 rounded-md lg:rounded-xl font-bold text-[8px] lg:text-lg animate-pulse-glow hover:scale-105 transition-transform w-full justify-center"
                     data-testid="contact-cta"
                   >
                     Contact
-                    <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
+                    <ArrowRight className="w-2 h-2 lg:w-5 lg:h-5" />
                   </a>
                 </div>
               </div>
+            </div>
 
-              {/* Trust Signal - hidden on mobile */}
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 gradient-border hidden lg:block">
+            {/* Trust Signal - hidden on mobile, shown on desktop below */}
+            <div className="col-span-3 lg:col-span-5 lg:col-start-8 hidden lg:block">
+              <div className="glass-card rounded-2xl p-5 gradient-border">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Users className="w-6 h-6 text-primary" />
