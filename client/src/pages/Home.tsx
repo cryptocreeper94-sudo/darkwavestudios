@@ -68,12 +68,12 @@ const projects = [
   },
   {
     id: 5,
-    title: "NAS Paint Pros",
+    title: "Nash Paint Pros",
     description: "Professional painting services platform with booking and estimates",
     tech: ["React", "Booking", "Payments"],
     image: "🎨",
     gradient: "from-violet-500/20 to-purple-600/20",
-    url: "https://naspaintpros.io"
+    url: "https://nashpaintpros.io"
   },
   {
     id: 6,
