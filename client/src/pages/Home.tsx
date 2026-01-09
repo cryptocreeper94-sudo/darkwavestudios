@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -264,58 +265,58 @@ export default function Home() {
           {mobileMenuOpen && (
             <div className="lg:hidden glass-strong border-t border-white/5">
               <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3">
-                <a 
-                  href="#projects" 
+                <Link 
+                  href="/projects" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
                   data-testid="nav-projects-mobile"
                 >
                   Projects
-                </a>
-                <a 
-                  href="#services" 
+                </Link>
+                <Link 
+                  href="/services" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
                   data-testid="nav-services-mobile"
                 >
                   Services
-                </a>
-                <a 
-                  href="#faq" 
+                </Link>
+                <Link 
+                  href="/about" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
-                  data-testid="nav-faq-mobile"
+                  data-testid="nav-about-mobile"
                 >
-                  FAQ
-                </a>
-                <a 
-                  href="#contact" 
+                  About
+                </Link>
+                <Link 
+                  href="/contact" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="btn-glow bg-primary text-primary-foreground px-4 py-3 rounded-lg text-sm font-medium text-center mt-2"
                   data-testid="nav-contact-mobile"
                 >
                   Get Started
-                </a>
+                </Link>
               </div>
             </div>
           )}
           
           {/* Desktop Header */}
           <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-3 items-center justify-between">
-            <div className="font-display text-lg font-semibold gradient-text" data-testid="logo">
+            <Link href="/" className="font-display text-lg font-semibold gradient-text" data-testid="logo">
               DarkWave Studios
-            </div>
+            </Link>
             <div className="flex items-center gap-8">
-              <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</a>
-              <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</a>
-              <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-faq">FAQ</a>
-              <a 
-                href="#contact" 
+              <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</Link>
+              <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
+              <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
+              <Link 
+                href="/contact" 
                 className="btn-glow bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-medium"
                 data-testid="nav-contact"
               >
                 Get Started
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
@@ -346,21 +347,21 @@ export default function Home() {
                   </p>
                   
                   <div className="flex flex-wrap gap-2 lg:gap-3">
-                    <a 
-                      href="#contact"
+                    <Link 
+                      href="/contact"
                       className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold animate-pulse-glow"
                       data-testid="hero-cta-primary"
                     >
                       Start Project
                       <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
-                    </a>
-                    <a 
-                      href="#projects"
+                    </Link>
+                    <Link 
+                      href="/projects"
                       className="inline-flex items-center gap-1 glass px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold hover:bg-white/10 transition-colors"
                       data-testid="hero-cta-secondary"
                     >
                       View Work
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 
@@ -524,14 +525,14 @@ export default function Home() {
                       <div className="text-lg font-bold font-display gradient-text">60% Less</div>
                     </div>
                   </div>
-                  <a
-                    href="#contact"
+                  <Link
+                    href="/contact"
                     className="btn-glow inline-flex items-center gap-1 bg-primary text-primary-foreground px-3 py-2 rounded-lg text-xs font-semibold"
                     data-testid="pricing-cta-mobile"
                   >
                     Quote
                     <ArrowRight className="w-3 h-3" />
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -590,14 +591,14 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <a
-                      href="#contact"
+                    <Link
+                      href="/contact"
                       className="btn-glow inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-base font-semibold w-full"
                       data-testid="pricing-cta"
                     >
                       Get Quote
                       <ArrowRight className="w-4 h-4" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -669,14 +670,14 @@ export default function Home() {
                       Free consultation. No commitment required.
                     </p>
                   </div>
-                  <a
-                    href="mailto:contact@darkwavestudios.com"
+                  <Link
+                    href="/contact"
                     className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-8 py-2 lg:py-4 rounded-lg lg:rounded-xl font-bold text-xs lg:text-lg animate-pulse-glow hover:scale-105 transition-transform lg:w-full justify-center"
                     data-testid="contact-cta"
                   >
                     Get Quote
                     <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
