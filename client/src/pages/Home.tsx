@@ -125,56 +125,60 @@ const projects = [
 const services = [
   {
     icon: Globe,
-    title: "Custom Web Applications",
-    description: "Full-stack web apps built from scratch, tailored to your exact requirements."
+    title: "Custom Web Development",
+    description: "From simple business sites to complex web applications — built exactly how you envision it. No templates, no compromises."
   },
   {
-    icon: Smartphone,
-    title: "Responsive Design",
-    description: "Pixel-perfect designs that look stunning on every device."
+    icon: MessageSquare,
+    title: "Unlimited Support",
+    description: "Forget 1 hour per month. Get responsive, ongoing support whenever you need it. Your success is our priority."
   },
   {
     icon: Database,
-    title: "Database Architecture",
-    description: "Efficient, scalable database design that grows with your business."
+    title: "Domain & Hosting",
+    description: "Full-service domain registration and hosting setup. We handle the technical stuff so you don't have to."
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
-    description: "Beautiful, intuitive interfaces your users will love."
+    title: "Design & Branding",
+    description: "Modern, professional designs that reflect your brand identity and convert visitors into customers."
   },
   {
     icon: Code2,
-    title: "API Development",
-    description: "Clean, documented APIs that integrate seamlessly."
+    title: "App Development",
+    description: "Full-stack applications with databases, user accounts, payments, and everything your business needs to operate."
   },
   {
     icon: Layers,
-    title: "System Integration",
-    description: "Connect your tools into a unified workflow."
+    title: "Maintenance & Updates",
+    description: "Keep your site secure, fast, and up-to-date. We're your ongoing technology partner, not just a one-time vendor."
   }
 ];
 
 const faqs = [
   {
-    question: "How do you keep prices so low compared to agencies?",
-    answer: "Simple: no bloated teams, no fancy office overhead, no account managers who don't code. You work directly with me, the developer who's actually building your project. Every dollar goes toward actual development."
+    question: "How are you different from traditional agencies?",
+    answer: "Traditional agencies charge $40,000+ for websites, then limit you to 1 hour of support per month at $200/hour. We don't operate that way. You get direct access to your developer, responsive support when you need it, and pricing that doesn't require a second mortgage."
   },
   {
-    question: "What's your typical timeline for a project?",
-    answer: "Most projects are delivered in 2-6 weeks depending on complexity. I move fast because I'm not juggling meetings all day. You'll see real progress every week with regular demos and updates."
+    question: "What kind of support do you actually provide?",
+    answer: "Real support. Need a quick change? Text me. Have a question about your site? I'll respond same-day. Want to discuss new features? Let's hop on a call. No ticket systems, no waiting weeks, no nickel-and-diming for every small request."
   },
   {
-    question: "Do you offer ongoing maintenance?",
-    answer: "Absolutely. I offer flexible maintenance packages to keep your app updated, secure, and running smoothly. Most clients pay a fraction of what agencies charge for the same support."
+    question: "How can you charge so much less?",
+    answer: "No downtown office. No layers of project managers. No bloated team. You work directly with the person building your project. Every dollar goes toward actual development, not overhead. Simple math."
   },
   {
-    question: "What technologies do you work with?",
-    answer: "Primarily React, Node.js, and PostgreSQL — the modern stack that powers most successful startups. But I adapt to your needs and can work with whatever makes sense for your project."
+    question: "Can you really build what the big agencies build?",
+    answer: "Look at the portfolio above — those are all live, functional applications handling real users and real transactions. AI trading platforms, staffing systems, e-commerce, blockchain apps. If they can build it, so can we. Usually faster."
   },
   {
-    question: "Can I see examples of your work?",
-    answer: "You're looking at 10 of them right here! Each project above is a real, functional application I've built. I can also arrange demos or provide references upon request."
+    question: "What about domains and hosting?",
+    answer: "We handle everything. Domain registration, DNS setup, hosting configuration, SSL certificates — the full package. You don't need to juggle multiple vendors or figure out the technical details yourself."
+  },
+  {
+    question: "How fast can you deliver?",
+    answer: "Most websites launch in 2-4 weeks. Complex applications take 4-8 weeks. You'll see working demos every week so you can guide the direction. No surprises at the end."
   }
 ];
 
@@ -315,18 +319,18 @@ export default function Home() {
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
                     <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    <span className="text-sm font-medium text-primary">Available for new projects</span>
+                    <span className="text-sm font-medium text-primary">Full-Service Web Agency</span>
                   </div>
                   
                   <h1 className="text-4xl lg:text-6xl font-bold font-display leading-tight mb-4" data-testid="hero-title">
-                    Premium Apps.
+                    Agency Quality.
                     <br />
-                    <span className="gradient-text text-glow-primary">Honest Prices.</span>
+                    <span className="gradient-text text-glow-primary">Without the Agency Price.</span>
                   </h1>
                   
                   <p className="text-lg text-muted-foreground max-w-xl mb-6 leading-relaxed" data-testid="hero-description">
-                    Get exactly what you envision — built around your needs, your way. 
-                    Guided by you every step of the way.
+                    Custom websites, web applications, and ongoing support — all with direct access to your developer. 
+                    No gatekeepers. No limits on support. Just results.
                   </p>
                   
                   <div className="flex flex-wrap gap-3">
@@ -352,32 +356,32 @@ export default function Home() {
               </div>
             </AnimatedElement>
 
-            {/* Stat 1 - Apps Built */}
+            {/* Stat 1 - Live Projects */}
             <AnimatedElement delay={200} className="col-span-6 lg:col-span-2">
               <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-8 h-8 text-primary mb-2" />
                 <div className="text-3xl font-bold font-display gradient-text">10+</div>
-                <div className="text-muted-foreground text-sm">Apps Built</div>
+                <div className="text-muted-foreground text-sm">Live Projects</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 2 - Cost Savings */}
+            {/* Stat 2 - AI Powered */}
             <AnimatedElement delay={250} className="col-span-6 lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-savings">
-                <DollarSign className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">60%+</div>
-                <div className="text-muted-foreground text-sm">Cost Savings</div>
+              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-ai">
+                <Zap className="w-8 h-8 text-primary mb-2" />
+                <div className="text-3xl font-bold font-display gradient-text">AI</div>
+                <div className="text-muted-foreground text-sm">Powered Apps</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-accent/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
-            {/* Stat 3 - Week Delivery */}
+            {/* Stat 3 - Cost Savings */}
             <AnimatedElement delay={300} className="col-span-6 lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-delivery">
-                <Zap className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">2-6</div>
-                <div className="text-muted-foreground text-sm">Week Delivery</div>
+              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-savings">
+                <DollarSign className="w-8 h-8 text-primary mb-2" />
+                <div className="text-3xl font-bold font-display gradient-text">60%+</div>
+                <div className="text-muted-foreground text-sm">Less Than Agencies</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
@@ -473,17 +477,17 @@ export default function Home() {
               <div className="glass-card rounded-2xl p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 <div className="relative z-10">
-                  <Clock className="w-10 h-10 text-primary mb-3" />
-                  <h3 className="text-xl font-bold font-display mb-2">Fast Turnaround</h3>
-                  <p className="text-muted-foreground text-sm">No endless meetings. Real progress every week with demos you can see and test.</p>
+                  <MessageSquare className="w-10 h-10 text-primary mb-3" />
+                  <h3 className="text-xl font-bold font-display mb-2">Real Support</h3>
+                  <p className="text-muted-foreground text-sm">Not 1 hour per month. Responsive, ongoing support whenever you need it. Text, call, or email.</p>
                 </div>
               </div>
               <div className="glass-card rounded-2xl p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
                 <div className="relative z-10">
-                  <Shield className="w-10 h-10 text-accent mb-3" />
-                  <h3 className="text-xl font-bold font-display mb-2">Your Vision</h3>
-                  <p className="text-muted-foreground text-sm">You guide the process. I build exactly what you need — no compromises.</p>
+                  <Zap className="w-10 h-10 text-accent mb-3" />
+                  <h3 className="text-xl font-bold font-display mb-2">AI-Powered</h3>
+                  <p className="text-muted-foreground text-sm">Modern apps with AI features built in — not basic brochure sites that cost $40k.</p>
                 </div>
               </div>
             </div>
