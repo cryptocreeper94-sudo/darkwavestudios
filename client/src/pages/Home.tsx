@@ -290,6 +290,14 @@ export default function Home() {
                   About
                 </Link>
                 <Link 
+                  href="/compare" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  data-testid="nav-compare-mobile"
+                >
+                  Compare
+                </Link>
+                <Link 
                   href="/contact" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="btn-glow bg-primary text-primary-foreground px-4 py-3 rounded-lg text-sm font-medium text-center mt-2"
@@ -310,6 +318,7 @@ export default function Home() {
               <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Projects</Link>
               <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
+              <Link href="/compare" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-compare">Compare</Link>
               <Link 
                 href="/contact" 
                 className="btn-glow bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-medium"

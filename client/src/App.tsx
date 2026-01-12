@@ -8,6 +8,7 @@ import Services from "@/pages/Services";
 import Projects from "@/pages/Projects";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Compare from "@/pages/Compare";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/projects" component={Projects}/>
       <Route path="/about" component={About}/>
       <Route path="/contact" component={Contact}/>
+      <Route path="/compare" component={Compare}/>
       <Route component={NotFound} />
     </Switch>
   );
