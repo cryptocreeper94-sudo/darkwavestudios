@@ -174,6 +174,85 @@ export default function Compare() {
           </p>
         </div>
 
+        {/* BENTO GRID: Brochure vs AI Application */}
+        <section className="grid grid-cols-2 lg:grid-cols-12 gap-2 lg:gap-4 mb-8 lg:mb-12">
+          {/* They Build - Glorified Brochure */}
+          <div className="col-span-1 lg:col-span-6">
+            <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border h-full border-red-500/20 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent" />
+              <div className="relative z-10">
+                <div className="text-red-400 text-xs lg:text-sm font-semibold uppercase tracking-wider mb-2">What They Build</div>
+                <h3 className="text-xl lg:text-3xl font-bold font-display mb-3 lg:mb-4 text-red-400">
+                  Glorified Brochure
+                </h3>
+                <p className="text-muted-foreground text-sm lg:text-base mb-4">
+                  $47,000 for a static website with pretty pictures and a contact form.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span>Static WordPress or template site</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span>Basic contact forms</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span>Photo gallery</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span>Blog they charge to update</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span>No automation or intelligence</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* We Build - AI-Driven Applications */}
+          <div className="col-span-1 lg:col-span-6">
+            <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border h-full relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5" />
+              <div className="relative z-10">
+                <div className="gradient-text text-xs lg:text-sm font-semibold uppercase tracking-wider mb-2">What We Build</div>
+                <h3 className="text-xl lg:text-3xl font-bold font-display mb-3 lg:mb-4 gradient-text">
+                  AI-Driven Applications
+                </h3>
+                <p className="text-muted-foreground text-sm lg:text-base mb-4">
+                  Functional software that actually works for your business — at a fraction of the cost.
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>Custom-coded applications</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>AI-powered features & automation</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>Real databases & user accounts</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>Payment processing & integrations</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>Admin dashboards & analytics</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* BENTO GRID: Main Comparison */}
         <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-8 lg:mb-12">
           
