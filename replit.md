@@ -18,7 +18,7 @@ Preferred communication style: Simple, everyday language.
 - **UI Components**: Shadcn/ui component library (New York style variant)
 - **Build Tool**: Vite with custom plugins for Replit integration
 
-The frontend follows a page-based architecture with shared components. Pages include Home, Services, Projects, About, Contact, Compare, Quote, Book, and Admin. The design uses a dark theme with gradient accents and glass-morphism effects.
+The frontend follows a page-based architecture with shared components. Pages include Home, Services, Projects, About, Contact, Compare, Quote, Book, Admin, Blog, Analytics, BlogAdmin, Mission, Investors, Terms, Privacy, and Documents. The design uses a dark theme with gradient accents and glass-morphism effects.
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express
@@ -66,7 +66,21 @@ Admin routes are protected with X-Admin-Key header middleware. Protected routes 
 - Analytics viewing (stats, pageviews, events)
 - SEO keyword management
 - Blog post management
+- Document management
 - Note: Public tracking endpoints remain unprotected for client-side analytics
+
+### Documents System
+The platform includes a documents management system for:
+- Business Plan (living document)
+- Executive Summary / Mission Statement
+- Roadmap for future additions
+- Categories: business, roadmap, legal
+
+### Public Information Pages
+- **Mission Page**: Company vision, mission statement, core values, and strategic goals
+- **Investors Page**: Key metrics, growth opportunities, investment highlights
+- **Terms of Service**: Legal terms and conditions
+- **Privacy Policy**: Data collection and privacy practices
 
 ### Storage Pattern
 The application uses a storage abstraction layer (`server/storage.ts`) that implements an `IStorage` interface. This pattern allows for potential swapping of database implementations while maintaining consistent API contracts.
