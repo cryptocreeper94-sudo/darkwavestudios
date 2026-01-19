@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema } from "@shared/schema";
+import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -13,6 +14,9 @@ export async function registerRoutes(
     try {
       const data = insertLeadSchema.parse(req.body);
       const lead = await storage.createLead(data);
+      
+      notifyNewLead(data.name, data.email, data.projectType || undefined);
+      
       res.status(201).json({ success: true, lead });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
@@ -80,6 +84,9 @@ export async function registerRoutes(
     try {
       const data = insertQuoteRequestSchema.parse(req.body);
       const quote = await storage.createQuoteRequest(data);
+      
+      notifyNewQuote(data.name, data.projectType, data.estimatedCost?.toString() || "TBD");
+      
       res.status(201).json({ success: true, quote });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
@@ -113,6 +120,10 @@ export async function registerRoutes(
     try {
       const data = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(data);
+      
+      const dateStr = new Date(data.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      notifyNewBooking(data.name, dateStr, data.timeSlot);
+      
       res.status(201).json({ success: true, booking });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
