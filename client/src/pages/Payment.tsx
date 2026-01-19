@@ -238,73 +238,77 @@ export default function Payment() {
           </div>
 
           {/* Monthly Plans - 3 Cards Side by Side */}
-          {activeTab === "monthly" && monthlyPlans.map((plan) => (
-            <div 
-              key={plan.id}
-              onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 lg:col-span-4 glass-card rounded-2xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
-                selectedPlan === plan.id 
-                  ? "ring-2 ring-primary bg-primary/10" 
-                  : "hover:bg-white/5"
-              } ${plan.popular ? "lg:-mt-2 lg:mb-2" : ""}`}
-              data-testid={`card-plan-${plan.id}`}
-            >
-              {plan.popular && (
-                <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
-                  POPULAR
-                </div>
-              )}
-              
-              <div className="relative w-full h-24 overflow-hidden">
-                <img 
-                  src={plan.image} 
-                  alt={plan.name}
-                  className="w-full h-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                <div className={`absolute bottom-2 left-3 w-8 h-8 rounded-lg flex items-center justify-center ${
-                  plan.popular 
-                    ? "bg-gradient-to-br from-primary to-accent" 
-                    : "bg-gradient-to-br from-primary/80 to-accent/80"
-                }`}>
-                  {plan.id === "starter" && <Zap className="w-4 h-4 text-white" />}
-                  {plan.id === "growth" && <Rocket className="w-4 h-4 text-white" />}
-                  {plan.id === "scale" && <Users className="w-4 h-4 text-white" />}
-                </div>
-              </div>
+          {activeTab === "monthly" && (
+            <div className="col-span-3 lg:col-span-12 flex flex-row gap-4">
+              {monthlyPlans.map((plan) => (
+                <div 
+                  key={plan.id}
+                  onClick={() => setSelectedPlan(plan.id)}
+                  className={`flex-1 min-w-0 glass-card rounded-2xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
+                    selectedPlan === plan.id 
+                      ? "ring-2 ring-primary bg-primary/10" 
+                      : "hover:bg-white/5"
+                  } ${plan.popular ? "-mt-2 mb-2" : ""}`}
+                  data-testid={`card-plan-${plan.id}`}
+                >
+                  {plan.popular && (
+                    <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
+                      POPULAR
+                    </div>
+                  )}
+                  
+                  <div className="relative w-full h-20 lg:h-24 overflow-hidden">
+                    <img 
+                      src={plan.image} 
+                      alt={plan.name}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                    <div className={`absolute bottom-2 left-2 w-7 h-7 lg:w-8 lg:h-8 rounded-lg flex items-center justify-center ${
+                      plan.popular 
+                        ? "bg-gradient-to-br from-primary to-accent" 
+                        : "bg-gradient-to-br from-primary/80 to-accent/80"
+                    }`}>
+                      {plan.id === "starter" && <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
+                      {plan.id === "growth" && <Rocket className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
+                      {plan.id === "scale" && <Users className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
+                    </div>
+                  </div>
 
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="font-display font-bold text-lg">{plan.name}</h3>
-                  <div>
-                    <span className="text-2xl font-bold gradient-text">${plan.price}</span>
-                    <span className="text-muted-foreground text-xs">/mo</span>
+                  <div className="p-3 lg:p-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-display font-bold text-sm lg:text-lg">{plan.name}</h3>
+                      <div>
+                        <span className="text-lg lg:text-2xl font-bold gradient-text">${plan.price}</span>
+                        <span className="text-muted-foreground text-xs">/mo</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-2 lg:mb-3 hidden lg:block">{plan.description}</p>
+
+                    <ul className="space-y-1 lg:space-y-1.5 mb-3 lg:mb-4">
+                      {plan.features.slice(0, 3).map((feature, i) => (
+                        <li key={i} className="flex items-start gap-1.5 lg:gap-2 text-xs">
+                          <Check className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                          <span className="truncate">{feature}</span>
+                        </li>
+                      ))}
+                      {plan.features.length > 3 && (
+                        <li className="text-xs text-primary">+{plan.features.length - 3} more</li>
+                      )}
+                    </ul>
+
+                    <div className={`w-full py-2 rounded-lg text-center text-xs lg:text-sm font-medium transition-all ${
+                      selectedPlan === plan.id 
+                        ? "bg-gradient-to-r from-primary to-accent text-white" 
+                        : "bg-white/10 text-foreground"
+                    }`}>
+                      {selectedPlan === plan.id ? "Selected" : "Select"}
+                    </div>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mb-3">{plan.description}</p>
-
-                <ul className="space-y-1.5 mb-4">
-                  {plan.features.slice(0, 4).map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs">
-                      <Check className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                  {plan.features.length > 4 && (
-                    <li className="text-xs text-primary">+{plan.features.length - 4} more</li>
-                  )}
-                </ul>
-
-                <div className={`w-full py-2 rounded-lg text-center text-sm font-medium transition-all ${
-                  selectedPlan === plan.id 
-                    ? "bg-gradient-to-r from-primary to-accent text-white" 
-                    : "bg-white/10 text-foreground"
-                }`}>
-                  {selectedPlan === plan.id ? "Selected" : "Select"}
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
+          )}
 
           {/* One-Time Project Plans - Horizontal Layout */}
           {activeTab === "onetime" && oneTimePlans.map((plan) => (
