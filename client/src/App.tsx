@@ -12,6 +12,9 @@ import Compare from "@/pages/Compare";
 import Quote from "@/pages/Quote";
 import Admin from "@/pages/Admin";
 import Book from "@/pages/Book";
+import Payment from "@/pages/Payment";
+import PaymentSuccess from "@/pages/PaymentSuccess";
+import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -25,6 +28,9 @@ function Router() {
       <Route path="/compare" component={Compare}/>
       <Route path="/quote" component={Quote}/>
       <Route path="/book" component={Book}/>
+      <Route path="/payment" component={Payment}/>
+      <Route path="/payment/success" component={PaymentSuccess}/>
+      <Route path="/payment/cancel" component={PaymentCancel}/>
       <Route path="/admin" component={Admin}/>
       <Route component={NotFound} />
     </Switch>
