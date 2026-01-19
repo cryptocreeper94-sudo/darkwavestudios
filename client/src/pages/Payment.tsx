@@ -237,16 +237,16 @@ export default function Payment() {
             </div>
           </div>
 
-          {/* Monthly Plans */}
+          {/* Monthly Plans - Horizontal Layout */}
           {activeTab === "monthly" && monthlyPlans.map((plan) => (
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 lg:col-span-4 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
+              className={`col-span-3 lg:col-span-12 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
                   : "hover:bg-white/5"
-              } ${plan.popular ? "lg:-mt-4 lg:mb-4" : ""}`}
+              }`}
               data-testid={`card-plan-${plan.id}`}
             >
               {plan.popular && (
@@ -255,100 +255,104 @@ export default function Payment() {
                 </div>
               )}
               
-              <div className="relative h-32 overflow-hidden">
-                <img 
-                  src={plan.image} 
-                  alt={plan.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                <div className={`absolute bottom-3 left-3 w-10 h-10 rounded-xl flex items-center justify-center ${
-                  plan.popular 
-                    ? "bg-gradient-to-br from-primary to-accent" 
-                    : "bg-gradient-to-br from-primary/80 to-accent/80"
-                }`}>
-                  {plan.id === "starter" && <Zap className="w-5 h-5 text-white" />}
-                  {plan.id === "growth" && <Rocket className="w-5 h-5 text-white" />}
-                  {plan.id === "scale" && <Users className="w-5 h-5 text-white" />}
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="mb-4">
-                  <h3 className="font-display font-bold text-lg">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground">{plan.description}</p>
+              <div className="flex flex-col lg:flex-row">
+                <div className="relative w-full lg:w-64 h-40 lg:h-auto flex-shrink-0 overflow-hidden">
+                  <img 
+                    src={plan.image} 
+                    alt={plan.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/90 hidden lg:block" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent lg:hidden" />
+                  <div className={`absolute bottom-3 left-3 lg:bottom-auto lg:top-3 w-10 h-10 rounded-xl flex items-center justify-center ${
+                    plan.popular 
+                      ? "bg-gradient-to-br from-primary to-accent" 
+                      : "bg-gradient-to-br from-primary/80 to-accent/80"
+                  }`}>
+                    {plan.id === "starter" && <Zap className="w-5 h-5 text-white" />}
+                    {plan.id === "growth" && <Rocket className="w-5 h-5 text-white" />}
+                    {plan.id === "scale" && <Users className="w-5 h-5 text-white" />}
+                  </div>
                 </div>
 
-                <div className="mb-5">
-                  <span className="text-4xl font-bold gradient-text">${plan.price}</span>
-                  <span className="text-muted-foreground">/month</span>
-                </div>
+                <div className="flex-1 p-5 lg:p-6 flex flex-col lg:flex-row lg:items-center lg:gap-8">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-4 mb-2">
+                      <h3 className="font-display font-bold text-xl">{plan.name}</h3>
+                      <div>
+                        <span className="text-3xl font-bold gradient-text">${plan.price}</span>
+                        <span className="text-muted-foreground text-sm">/month</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4 lg:mb-0">{plan.description}</p>
+                  </div>
 
-                <ul className="space-y-2.5 mb-6">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm">
-                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="flex-1 grid grid-cols-2 gap-x-4 gap-y-2 mb-4 lg:mb-0">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <div className={`w-full py-3 rounded-xl text-center font-medium transition-all ${
-                  selectedPlan === plan.id 
-                    ? "bg-gradient-to-r from-primary to-accent text-white" 
-                    : "bg-white/10 text-foreground"
-                }`}>
-                  {selectedPlan === plan.id ? "Selected" : "Select Plan"}
+                  <div className={`w-full lg:w-40 py-3 rounded-xl text-center font-medium transition-all flex-shrink-0 ${
+                    selectedPlan === plan.id 
+                      ? "bg-gradient-to-r from-primary to-accent text-white" 
+                      : "bg-white/10 text-foreground"
+                  }`}>
+                    {selectedPlan === plan.id ? "Selected" : "Select Plan"}
+                  </div>
                 </div>
               </div>
             </div>
           ))}
 
-          {/* One-Time Project Plans */}
+          {/* One-Time Project Plans - Horizontal Layout */}
           {activeTab === "onetime" && oneTimePlans.map((plan) => (
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all ${
+              className={`col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
                   : "hover:bg-white/5"
               }`}
               data-testid={`card-plan-${plan.id}`}
             >
-              <div className="relative h-28 overflow-hidden">
-                <img 
-                  src={plan.image} 
-                  alt={plan.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-                <div className="absolute bottom-2 left-3 w-8 h-8 rounded-lg bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
-              </div>
-
-              <div className="p-5">
-                <h3 className="font-display font-bold mb-1">{plan.name}</h3>
-
-                <div className="mb-2">
-                  <span className="text-2xl font-bold gradient-text">${plan.price.toLocaleString()}</span>
-                  <span className="text-sm text-muted-foreground ml-2">one-time</span>
+              <div className="flex flex-col sm:flex-row">
+                <div className="relative w-full sm:w-32 h-32 sm:h-auto flex-shrink-0 overflow-hidden">
+                  <img 
+                    src={plan.image} 
+                    alt={plan.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 hidden sm:block" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent sm:hidden" />
+                  <div className="absolute bottom-2 left-2 sm:bottom-auto sm:top-2 w-8 h-8 rounded-lg bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-white" />
+                  </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                <div className="flex-1 p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display font-bold">{plan.name}</h3>
+                    <div>
+                      <span className="text-xl font-bold gradient-text">${plan.price.toLocaleString()}</span>
+                    </div>
+                  </div>
 
-                <ul className="space-y-2">
-                  {plan.features.slice(0, 3).map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Check className="w-3 h-3 text-primary" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                  {plan.features.length > 3 && (
-                    <li className="text-xs text-primary">+{plan.features.length - 3} more</li>
-                  )}
-                </ul>
+                  <p className="text-xs text-muted-foreground mb-3">{plan.description}</p>
+
+                  <ul className="grid grid-cols-2 gap-x-2 gap-y-1">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Check className="w-3 h-3 text-primary flex-shrink-0" />
+                        <span className="truncate">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           ))}
