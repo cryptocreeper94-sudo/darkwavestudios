@@ -5,6 +5,14 @@ import {
   Clock, Users, Rocket, Star, Sparkles, ArrowRight
 } from "lucide-react";
 
+import starterImg from "@assets/stock_images/lightning_bolt_energ_68ff76c6.jpg";
+import growthImg from "@assets/stock_images/rocket_launch_startu_40b43218.jpg";
+import scaleImg from "@assets/stock_images/corporate_team_enter_95dad31a.jpg";
+import landingImg from "@assets/stock_images/landing_page_website_fda32b35.jpg";
+import businessImg from "@assets/stock_images/business_office_prof_8a9b1bf4.jpg";
+import ecommerceImg from "@assets/stock_images/ecommerce_shopping_o_b2b447ef.jpg";
+import saasImg from "@assets/stock_images/software_development_226178c9.jpg";
+
 interface PaymentConfig {
   stripePublishableKey: string | null;
   coinbaseEnabled: boolean;
@@ -17,6 +25,7 @@ const monthlyPlans = [
     name: "Starter",
     price: 99,
     description: "Perfect for small businesses",
+    image: starterImg,
     features: [
       "Up to 5 support tickets/month",
       "48-hour response time",
@@ -31,6 +40,7 @@ const monthlyPlans = [
     name: "Growth",
     price: 199,
     description: "Scale your online presence",
+    image: growthImg,
     features: [
       "Unlimited support tickets",
       "24-hour response time",
@@ -46,6 +56,7 @@ const monthlyPlans = [
     name: "Scale",
     price: 399,
     description: "Enterprise-grade support",
+    image: scaleImg,
     features: [
       "Dedicated account manager",
       "4-hour response time",
@@ -65,6 +76,7 @@ const oneTimePlans = [
     name: "Landing Page",
     price: 997,
     description: "High-converting single page",
+    image: landingImg,
     features: ["Custom design", "Mobile optimized", "SEO setup", "Contact form", "Analytics"],
   },
   {
@@ -72,6 +84,7 @@ const oneTimePlans = [
     name: "Business Site",
     price: 1997,
     description: "Professional multi-page site",
+    image: businessImg,
     features: ["5-10 pages", "CMS integration", "Blog setup", "Lead capture", "Social integration"],
   },
   {
@@ -79,6 +92,7 @@ const oneTimePlans = [
     name: "E-Commerce",
     price: 3997,
     description: "Full online store",
+    image: ecommerceImg,
     features: ["Product catalog", "Payment integration", "Inventory management", "Customer accounts", "Analytics dashboard"],
   },
   {
@@ -86,6 +100,7 @@ const oneTimePlans = [
     name: "SaaS App",
     price: 4997,
     description: "Custom web application",
+    image: saasImg,
     features: ["User authentication", "Database design", "API development", "Admin dashboard", "Scalable architecture"],
   },
 ];
@@ -227,7 +242,7 @@ export default function Payment() {
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 lg:col-span-4 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d cursor-pointer transition-all relative overflow-hidden ${
+              className={`col-span-3 lg:col-span-4 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
                   : "hover:bg-white/5"
@@ -235,47 +250,56 @@ export default function Payment() {
               data-testid={`card-plan-${plan.id}`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10">
                   MOST POPULAR
                 </div>
               )}
               
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+              <div className="relative h-32 overflow-hidden">
+                <img 
+                  src={plan.image} 
+                  alt={plan.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                <div className={`absolute bottom-3 left-3 w-10 h-10 rounded-xl flex items-center justify-center ${
                   plan.popular 
                     ? "bg-gradient-to-br from-primary to-accent" 
-                    : "bg-gradient-to-br from-primary/30 to-accent/30"
+                    : "bg-gradient-to-br from-primary/80 to-accent/80"
                 }`}>
-                  {plan.id === "starter" && <Zap className="w-6 h-6 text-white" />}
-                  {plan.id === "growth" && <Rocket className="w-6 h-6 text-white" />}
-                  {plan.id === "scale" && <Users className="w-6 h-6 text-white" />}
+                  {plan.id === "starter" && <Zap className="w-5 h-5 text-white" />}
+                  {plan.id === "growth" && <Rocket className="w-5 h-5 text-white" />}
+                  {plan.id === "scale" && <Users className="w-5 h-5 text-white" />}
                 </div>
-                <div>
+              </div>
+
+              <div className="p-6">
+                <div className="mb-4">
                   <h3 className="font-display font-bold text-lg">{plan.name}</h3>
                   <p className="text-sm text-muted-foreground">{plan.description}</p>
                 </div>
-              </div>
 
-              <div className="mb-6">
-                <span className="text-4xl font-bold gradient-text">${plan.price}</span>
-                <span className="text-muted-foreground">/month</span>
-              </div>
+                <div className="mb-5">
+                  <span className="text-4xl font-bold gradient-text">${plan.price}</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
 
-              <ul className="space-y-3 mb-6">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm">
-                    <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+                <ul className="space-y-2.5 mb-6">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
 
-              <div className={`w-full py-3 rounded-xl text-center font-medium transition-all ${
-                selectedPlan === plan.id 
-                  ? "bg-gradient-to-r from-primary to-accent text-white" 
-                  : "bg-white/10 text-foreground"
-              }`}>
-                {selectedPlan === plan.id ? "Selected" : "Select Plan"}
+                <div className={`w-full py-3 rounded-xl text-center font-medium transition-all ${
+                  selectedPlan === plan.id 
+                    ? "bg-gradient-to-r from-primary to-accent text-white" 
+                    : "bg-white/10 text-foreground"
+                }`}>
+                  {selectedPlan === plan.id ? "Selected" : "Select Plan"}
+                </div>
               </div>
             </div>
           ))}
@@ -285,38 +309,47 @@ export default function Payment() {
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d cursor-pointer transition-all ${
+              className={`col-span-3 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
                   : "hover:bg-white/5"
               }`}
               data-testid={`card-plan-${plan.id}`}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-primary" />
+              <div className="relative h-28 overflow-hidden">
+                <img 
+                  src={plan.image} 
+                  alt={plan.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                <div className="absolute bottom-2 left-3 w-8 h-8 rounded-lg bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="font-display font-bold">{plan.name}</h3>
               </div>
 
-              <div className="mb-3">
-                <span className="text-2xl font-bold gradient-text">${plan.price.toLocaleString()}</span>
-                <span className="text-sm text-muted-foreground ml-2">one-time</span>
+              <div className="p-5">
+                <h3 className="font-display font-bold mb-1">{plan.name}</h3>
+
+                <div className="mb-2">
+                  <span className="text-2xl font-bold gradient-text">${plan.price.toLocaleString()}</span>
+                  <span className="text-sm text-muted-foreground ml-2">one-time</span>
+                </div>
+
+                <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+
+                <ul className="space-y-2">
+                  {plan.features.slice(0, 3).map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Check className="w-3 h-3 text-primary" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                  {plan.features.length > 3 && (
+                    <li className="text-xs text-primary">+{plan.features.length - 3} more</li>
+                  )}
+                </ul>
               </div>
-
-              <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-
-              <ul className="space-y-2">
-                {plan.features.slice(0, 3).map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Check className="w-3 h-3 text-primary" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-                {plan.features.length > 3 && (
-                  <li className="text-xs text-primary">+{plan.features.length - 3} more</li>
-                )}
-              </ul>
             </div>
           ))}
 
