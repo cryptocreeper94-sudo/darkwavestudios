@@ -12,25 +12,31 @@ import aiImg from "@assets/generated_images/ai_neural_network_visual.png";
 import apiImg from "@assets/generated_images/api_data_connections_visual.png";
 
 const projectTypes = [
-  { id: "landing", name: "Landing Page", base: 2500, icon: "🌐", image: landingImg },
-  { id: "webapp", name: "Web Application", base: 8000, icon: "💻", image: webappImg },
-  { id: "ecommerce", name: "E-Commerce Store", base: 12000, icon: "🛒", image: ecommerceImg },
-  { id: "saas", name: "SaaS Platform", base: 18000, icon: "☁️", image: saasImg },
-  { id: "mobile", name: "Mobile App", base: 15000, icon: "📱", image: mobileImg },
-  { id: "dashboard", name: "Custom Dashboard", base: 10000, icon: "📊", image: dashboardImg },
-  { id: "ai", name: "AI Integration", base: 6000, icon: "🤖", image: aiImg },
-  { id: "api", name: "API Development", base: 5000, icon: "🔗", image: apiImg }
+  { id: "landing", name: "Landing Page", base: 997, icon: "🌐", image: landingImg },
+  { id: "webapp", name: "Web Application", base: 2997, icon: "💻", image: webappImg },
+  { id: "ecommerce", name: "E-Commerce Store", base: 3997, icon: "🛒", image: ecommerceImg },
+  { id: "saas", name: "SaaS Platform", base: 4997, icon: "☁️", image: saasImg },
+  { id: "mobile", name: "Mobile App", base: 4497, icon: "📱", image: mobileImg },
+  { id: "dashboard", name: "Custom Dashboard", base: 2497, icon: "📊", image: dashboardImg },
+  { id: "ai", name: "AI Integration", base: 1997, icon: "🤖", image: aiImg },
+  { id: "api", name: "API Development", base: 1497, icon: "🔗", image: apiImg }
 ];
 
 const features = [
-  { id: "auth", name: "User Authentication", price: 1500, desc: "Login, signup, password reset" },
-  { id: "payments", name: "Payment Processing", price: 2000, desc: "Stripe, subscriptions, invoicing" },
-  { id: "analytics", name: "Analytics Dashboard", price: 2500, desc: "Real-time metrics & reporting" },
-  { id: "ai", name: "AI/ML Features", price: 3500, desc: "ChatGPT, automation, predictions" },
-  { id: "admin", name: "Admin Panel", price: 2000, desc: "Content management, user management" },
-  { id: "notifications", name: "Notifications", price: 1000, desc: "Email, SMS, push notifications" },
-  { id: "integrations", name: "3rd Party Integrations", price: 1500, desc: "CRM, ERP, APIs" },
-  { id: "mobile", name: "Mobile Responsive", price: 1000, desc: "Fully optimized for all devices" }
+  { id: "auth", name: "User Authentication", price: 497, desc: "Login, signup, password reset" },
+  { id: "payments", name: "Payment Processing", price: 697, desc: "Stripe, subscriptions, invoicing" },
+  { id: "analytics", name: "Analytics Dashboard", price: 797, desc: "Real-time metrics & reporting" },
+  { id: "ai", name: "AI/ML Features", price: 997, desc: "ChatGPT, automation, predictions" },
+  { id: "admin", name: "Admin Panel", price: 597, desc: "Content management, user management" },
+  { id: "notifications", name: "Notifications", price: 297, desc: "Email, SMS, push notifications" },
+  { id: "integrations", name: "3rd Party Integrations", price: 497, desc: "CRM, ERP, APIs" },
+  { id: "mobile", name: "Mobile Responsive", price: 0, desc: "Included FREE with all projects" }
+];
+
+const monthlyPlans = [
+  { id: "starter", name: "Starter", price: 99, desc: "Hosting, SSL, basic support" },
+  { id: "growth", name: "Growth", price: 199, desc: "Priority support, updates, backups" },
+  { id: "scale", name: "Scale", price: 399, desc: "Unlimited support, dedicated manager" }
 ];
 
 const timelines = [
@@ -43,6 +49,7 @@ export default function Quote() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedTimeline, setSelectedTimeline] = useState("standard");
+  const [selectedPlan, setSelectedPlan] = useState("growth");
   const [expandedSection, setExpandedSection] = useState<string | null>("type");
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", description: "" });
   const [loading, setLoading] = useState(false);
@@ -55,7 +62,9 @@ export default function Quote() {
     return Math.round((typePrice + featuresPrice) * (timeline?.multiplier || 1));
   };
 
-  const traditionalPrice = () => Math.round(calculateTotal() * 2.5);
+  const getMonthlyPrice = () => monthlyPlans.find(p => p.id === selectedPlan)?.price || 0;
+
+  const traditionalPrice = () => Math.round(calculateTotal() * 3);
 
   const toggleFeature = (id: string) => {
     setSelectedFeatures(prev => 
@@ -306,6 +315,49 @@ export default function Quote() {
                 )}
               </div>
 
+              {/* Monthly Service Plan */}
+              <div className="glass-card rounded-2xl lg:rounded-3xl gradient-border overflow-hidden card-3d">
+                <button
+                  onClick={() => setExpandedSection(expandedSection === "plan" ? null : "plan")}
+                  className="w-full p-6 flex items-center justify-between"
+                  data-testid="button-expand-plan"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-primary/20 flex items-center justify-center">
+                      <Sparkles className="w-6 h-6 text-green-400" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="font-bold text-lg">4. Monthly Service Plan</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {monthlyPlans.find(p => p.id === selectedPlan)?.name} - ${monthlyPlans.find(p => p.id === selectedPlan)?.price}/mo
+                      </p>
+                    </div>
+                  </div>
+                  {expandedSection === "plan" ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                </button>
+                
+                {expandedSection === "plan" && (
+                  <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
+                    {monthlyPlans.map((plan) => (
+                      <button
+                        key={plan.id}
+                        onClick={() => setSelectedPlan(plan.id)}
+                        className={`p-4 rounded-xl border-2 transition-all text-left ${
+                          selectedPlan === plan.id 
+                            ? "border-green-400 bg-green-500/10" 
+                            : "border-white/10 bg-white/5 hover:border-white/20"
+                        }`}
+                        data-testid={`button-plan-${plan.id}`}
+                      >
+                        <div className="font-semibold">{plan.name}</div>
+                        <div className="text-2xl font-bold text-green-400">${plan.price}<span className="text-sm text-muted-foreground">/mo</span></div>
+                        <div className="text-xs text-muted-foreground mt-1">{plan.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* Contact Info */}
               <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
                 <div className="flex items-center gap-4 mb-6">
@@ -313,7 +365,7 @@ export default function Quote() {
                     <Shield className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">4. Your Details</h3>
+                    <h3 className="font-bold text-lg">5. Your Details</h3>
                     <p className="text-sm text-muted-foreground">We'll send your detailed quote</p>
                   </div>
                 </div>
@@ -386,15 +438,21 @@ export default function Quote() {
                   )}
                 </div>
 
-                <div className="p-4 rounded-xl bg-primary/10 mb-4">
-                  <div className="text-sm text-muted-foreground mb-1">DarkWave Price</div>
+                <div className="p-4 rounded-xl bg-primary/10 mb-3">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">One-Time Build</div>
                   <div className="text-3xl font-bold gradient-text">${calculateTotal().toLocaleString()}</div>
                 </div>
 
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 mb-3">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Monthly Service</div>
+                  <div className="text-2xl font-bold text-green-400">${getMonthlyPrice()}<span className="text-sm">/mo</span></div>
+                  <div className="text-xs text-muted-foreground mt-1">{monthlyPlans.find(p => p.id === selectedPlan)?.desc}</div>
+                </div>
+
                 <div className="p-4 rounded-xl bg-white/5 mb-6">
-                  <div className="text-sm text-muted-foreground mb-1">Traditional Agency</div>
-                  <div className="text-2xl font-bold text-red-400 line-through">${traditionalPrice().toLocaleString()}</div>
-                  <div className="text-xs text-green-400 mt-1">You save ${(traditionalPrice() - calculateTotal()).toLocaleString()}</div>
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Traditional Agency</div>
+                  <div className="text-xl font-bold text-red-400 line-through">${traditionalPrice().toLocaleString()}</div>
+                  <div className="text-xs text-green-400 mt-1">Save ${(traditionalPrice() - calculateTotal()).toLocaleString()} + get ongoing support!</div>
                 </div>
 
                 <button
