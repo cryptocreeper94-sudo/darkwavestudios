@@ -153,37 +153,45 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project) => (
             <a
               key={project.id}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card rounded-2xl p-6 gradient-border hover-lift group cursor-pointer"
+              className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border hover-lift group cursor-pointer card-3d"
               data-testid={`project-card-${project.id}`}
             >
-              <div className={`w-full h-32 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-4 relative overflow-hidden`}>
-                <span className="text-5xl">{project.image}</span>
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <ExternalLink className="w-8 h-8 text-white" />
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className={`w-full lg:w-48 h-40 lg:h-48 rounded-xl lg:rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden flex-shrink-0`}>
+                  <span className="text-6xl lg:text-7xl">{project.image}</span>
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <ExternalLink className="w-10 h-10 text-white" />
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase tracking-wider text-primary font-semibold">{project.category}</span>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
-              
-              <h3 className="text-xl font-bold font-display mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-              <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{project.description}</p>
-              
-              <div className="flex flex-wrap gap-2">
-                {project.tech.slice(0, 3).map((tech, i) => (
-                  <span key={i} className="px-2 py-1 text-[10px] rounded-full bg-primary/10 text-primary">
-                    {tech}
-                  </span>
-                ))}
+                
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs uppercase tracking-wider text-primary font-semibold bg-primary/10 px-3 py-1 rounded-full">{project.category}</span>
+                    <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  
+                  <h3 className="text-2xl lg:text-3xl font-bold font-display mb-3 group-hover:text-primary transition-colors">{project.title}</h3>
+                  <p className="text-muted-foreground text-base mb-5 line-clamp-3">{project.description}</p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech, i) => (
+                      <span key={i} className="px-3 py-1.5 text-xs rounded-full bg-white/5 text-foreground border border-white/10">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-5 flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                    View Live <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
               </div>
             </a>
           ))}
