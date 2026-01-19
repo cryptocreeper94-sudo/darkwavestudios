@@ -3,12 +3,17 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema } from "@shared/schema";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
-import Stripe from "stripe";
+import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
+import { z } from "zod";
 
-// Initialize Stripe
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-04-30.basil" as any })
-  : null;
+// Validation schemas for payment routes
+const paymentCheckoutSchema = z.object({
+  planType: z.enum(["starter", "growth", "scale", "custom_landing", "custom_business", "custom_ecommerce", "custom_saas"]),
+  customerName: z.string().min(1, "Name is required").max(100),
+  customerEmail: z.string().email("Valid email required"),
+  successUrl: z.string().url().optional(),
+  cancelUrl: z.string().url().optional(),
+});
 
 // Service plans configuration
 const SERVICE_PLANS = {
@@ -282,15 +287,25 @@ export async function registerRoutes(
   // ============ STRIPE PAYMENTS ============
   app.post("/api/payments/stripe/create-checkout", async (req, res) => {
     try {
-      if (!stripe) {
-        return res.status(500).json({ success: false, error: "Stripe not configured" });
+      // Validate request body
+      const validationResult = paymentCheckoutSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          success: false, 
+          error: validationResult.error.errors[0]?.message || "Invalid request data" 
+        });
       }
 
-      const { planType, customerName, customerEmail, successUrl, cancelUrl } = req.body;
-      const plan = SERVICE_PLANS[planType as keyof typeof SERVICE_PLANS];
-      
-      if (!plan) {
-        return res.status(400).json({ success: false, error: "Invalid plan type" });
+      const { planType, customerName, customerEmail, successUrl, cancelUrl } = validationResult.data;
+      const plan = SERVICE_PLANS[planType];
+
+      // Get Stripe client
+      let stripe;
+      try {
+        stripe = await getUncachableStripeClient();
+      } catch (stripeError) {
+        console.error("Failed to initialize Stripe client:", stripeError);
+        return res.status(500).json({ success: false, error: "Payment service unavailable" });
       }
 
       // Create Stripe checkout session
@@ -337,69 +352,30 @@ export async function registerRoutes(
       });
     } catch (error: any) {
       console.error("Stripe checkout error:", error);
-      res.status(500).json({ success: false, error: error.message });
+      // Don't expose internal Stripe errors
+      res.status(500).json({ success: false, error: "Failed to create checkout session" });
     }
-  });
-
-  // Stripe Webhook
-  app.post("/api/webhooks/stripe", async (req: Request, res: Response) => {
-    const sig = req.headers["stripe-signature"] as string;
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-    if (!stripe || !webhookSecret) {
-      return res.status(500).json({ error: "Stripe webhook not configured" });
-    }
-
-    let event: Stripe.Event;
-    try {
-      // Use rawBody from express middleware for webhook signature verification
-      const rawBody = (req as any).rawBody as Buffer;
-      event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-    } catch (err: any) {
-      console.error("Webhook signature verification failed:", err.message);
-      return res.status(400).json({ error: `Webhook Error: ${err.message}` });
-    }
-
-    // Handle the event
-    switch (event.type) {
-      case "checkout.session.completed": {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const payment = await storage.getPaymentByStripeSession(session.id);
-        if (payment) {
-          await storage.updatePaymentStatus(payment.id, "completed", new Date());
-          if (session.payment_intent) {
-            await storage.updatePaymentStripeIntent(payment.id, session.payment_intent as string);
-          }
-        }
-        break;
-      }
-      case "checkout.session.expired": {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const payment = await storage.getPaymentByStripeSession(session.id);
-        if (payment) {
-          await storage.updatePaymentStatus(payment.id, "failed");
-        }
-        break;
-      }
-    }
-
-    res.json({ received: true });
   });
 
   // ============ COINBASE COMMERCE PAYMENTS ============
   app.post("/api/payments/coinbase/create-charge", async (req, res) => {
     try {
-      const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
-      if (!coinbaseApiKey) {
-        return res.status(500).json({ success: false, error: "Coinbase Commerce not configured" });
+      // Validate request body
+      const validationResult = paymentCheckoutSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          success: false, 
+          error: validationResult.error.errors[0]?.message || "Invalid request data" 
+        });
       }
 
-      const { planType, customerName, customerEmail } = req.body;
-      const plan = SERVICE_PLANS[planType as keyof typeof SERVICE_PLANS];
-      
-      if (!plan) {
-        return res.status(400).json({ success: false, error: "Invalid plan type" });
+      const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+      if (!coinbaseApiKey) {
+        return res.status(500).json({ success: false, error: "Crypto payments not configured" });
       }
+
+      const { planType, customerName, customerEmail } = validationResult.data;
+      const plan = SERVICE_PLANS[planType];
 
       // Create Coinbase Commerce charge
       const response = await fetch("https://api.commerce.coinbase.com/charges", {
@@ -501,12 +477,21 @@ export async function registerRoutes(
   });
 
   // Get Stripe config for frontend
-  app.get("/api/payments/config", (req, res) => {
-    res.json({
-      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || null,
-      coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
-      plans: SERVICE_PLANS,
-    });
+  app.get("/api/payments/config", async (req, res) => {
+    try {
+      const stripePublishableKey = await getStripePublishableKey();
+      res.json({
+        stripePublishableKey,
+        coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
+        plans: SERVICE_PLANS,
+      });
+    } catch (error) {
+      res.json({
+        stripePublishableKey: null,
+        coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
+        plans: SERVICE_PLANS,
+      });
+    }
   });
 
   return httpServer;
