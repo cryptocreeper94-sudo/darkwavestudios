@@ -28,6 +28,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Newsletter from "@/components/Newsletter";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
 import supportImg from "@assets/generated_images/support_headset_desk.png";
@@ -702,6 +703,60 @@ export default function Home() {
                     <div className="text-lg font-bold font-display">Direct Communication</div>
                     <p className="text-muted-foreground text-sm">Work directly with the developer — no middlemen, no delays.</p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* NEWSLETTER SECTION */}
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mt-6 lg:mt-12">
+            <div className="col-span-3 lg:col-span-6">
+              <Newsletter />
+            </div>
+            <div className="col-span-3 lg:col-span-6">
+              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d h-full">
+                <h3 className="font-bold text-lg lg:text-xl mb-4 gradient-text">Quick Actions</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link 
+                    href="/quote"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-quote-calculator"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <DollarSign className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium text-center">Quote Calculator</span>
+                  </Link>
+                  <Link 
+                    href="/book"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-book-call"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Clock className="w-6 h-6 text-accent" />
+                    </div>
+                    <span className="text-sm font-medium text-center">Book a Call</span>
+                  </Link>
+                  <Link 
+                    href="/compare"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-compare-pricing"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Shield className="w-6 h-6 text-green-400" />
+                    </div>
+                    <span className="text-sm font-medium text-center">Compare Pricing</span>
+                  </Link>
+                  <Link 
+                    href="/projects"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-view-portfolio"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Rocket className="w-6 h-6 text-purple-400" />
+                    </div>
+                    <span className="text-sm font-medium text-center">View Portfolio</span>
+                  </Link>
                 </div>
               </div>
             </div>

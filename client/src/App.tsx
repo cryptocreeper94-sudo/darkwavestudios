@@ -11,6 +11,7 @@ import Contact from "@/pages/Contact";
 import Compare from "@/pages/Compare";
 import Quote from "@/pages/Quote";
 import Admin from "@/pages/Admin";
+import Book from "@/pages/Book";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/contact" component={Contact}/>
       <Route path="/compare" component={Compare}/>
       <Route path="/quote" component={Quote}/>
+      <Route path="/book" component={Book}/>
       <Route path="/admin" component={Admin}/>
       <Route component={NotFound} />
     </Switch>
