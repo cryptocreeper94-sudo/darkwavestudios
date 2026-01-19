@@ -4,6 +4,7 @@ import {
   ArrowLeft, CreditCard, Bitcoin, Check, Zap, Shield, 
   Clock, Users, Rocket, Star, Sparkles, ArrowRight
 } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 import starterImg from "@assets/stock_images/electric_energy_ligh_ce0a8be1.jpg";
 import growthImg from "@assets/stock_images/business_growth_char_5920f51f.jpg";
@@ -176,6 +177,19 @@ export default function Payment() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Plans & Pricing - Web Development Services"
+        description="Transparent web development pricing. Monthly retainer plans starting at $497/mo or one-time projects. Stripe and crypto payments accepted."
+        keywords="web development pricing, monthly web services, web development plans, affordable web agency"
+        type="website"
+        url="https://darkwavestudios.com/payment"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Plans & Pricing", url: "https://darkwavestudios.com/payment" }
+        ]}
+      />
       <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-display font-bold text-xl gradient-text" data-testid="link-home">

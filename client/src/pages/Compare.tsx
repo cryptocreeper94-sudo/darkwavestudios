@@ -20,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 const comparisonPoints = [
   {
@@ -137,6 +138,19 @@ export default function Compare() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Compare - DarkWave Studios vs Traditional Agencies"
+        description="See how DarkWave Studios compares to traditional web development agencies. Same quality, 60%+ savings, direct developer access, and unlimited support."
+        keywords="compare web agencies, DarkWave vs agencies, affordable web development, boutique web agency comparison"
+        type="website"
+        url="https://darkwavestudios.com/compare"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Compare", url: "https://darkwavestudios.com/compare" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

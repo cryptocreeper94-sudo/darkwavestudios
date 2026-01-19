@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { ArrowLeft, TrendingUp, DollarSign, Users, Globe, Rocket, BarChart3, Target, Shield, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 export default function Investors() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,6 +48,19 @@ export default function Investors() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Investor Relations - Partner with the Future of Web Development"
+        description="Investment opportunities at DarkWave Studios. 180% YoY growth, 45+ active clients, AI-powered development, and disrupting the traditional agency model."
+        keywords="web development investment, tech startup, agency disruption, AI development company, Nashville startup"
+        type="website"
+        url="https://darkwavestudios.com/investors"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Investors", url: "https://darkwavestudios.com/investors" }
+        ]}
+      />
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}

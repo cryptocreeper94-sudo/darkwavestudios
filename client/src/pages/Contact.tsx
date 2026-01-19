@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Mail, MessageSquare, Clock, CheckCircle2, Phone, Building2, Zap, Loader2, Send } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -54,6 +55,19 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Contact Us - Start Your Web Development Project"
+        description="Get in touch with DarkWave Studios. Free consultation for your web development project. Direct developer access, fast response, and honest pricing."
+        keywords="contact web developer, Nashville web agency, free consultation, web development quote, hire developer"
+        type="website"
+        url="https://darkwavestudios.com/contact"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Contact", url: "https://darkwavestudios.com/contact" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Calendar, User, ArrowRight, Tag, Clock, Menu, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 interface BlogPost {
   id: string;
@@ -32,6 +33,19 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-[#0a0f1e] text-white">
+      <SEOHead
+        title="Blog - Web Development Insights & Resources"
+        description="Expert insights on web development, AI integration, React development, and digital transformation. Stay updated with the latest trends and best practices from DarkWave Studios."
+        keywords="web development blog, AI development, React tutorials, web app development, tech insights, coding best practices, Nashville web development"
+        type="website"
+        url="https://darkwavestudios.com/blog"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Blog", url: "https://darkwavestudios.com/blog" }
+        ]}
+      />
       <div 
         className="fixed inset-0 z-0"
         style={{

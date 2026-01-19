@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Calculator, Zap, Check, Loader2, ChevronDown, ChevronUp, Sparkles, Clock, Shield, Code } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 import landingImg from "@assets/generated_images/landing_page_laptop_mockup.png";
 import webappImg from "@assets/generated_images/web_application_dashboard_screen.png";
@@ -104,6 +105,19 @@ export default function Quote() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Get a Quote - Instant Web Development Pricing Calculator"
+        description="Calculate your web project cost instantly. Custom websites, web apps, e-commerce, and SaaS - all 60% less than traditional agencies. Transparent pricing, no surprises."
+        keywords="web development quote, website pricing, app development cost, custom website quote, instant pricing calculator"
+        type="website"
+        url="https://darkwavestudios.com/quote"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Get a Quote", url: "https://darkwavestudios.com/quote" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

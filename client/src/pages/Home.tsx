@@ -29,6 +29,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Newsletter from "@/components/Newsletter";
+import { FAQSchema } from "@/components/SEOHead";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
 import supportImg from "@assets/generated_images/support_headset_desk.png";
@@ -235,6 +236,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <FAQSchema faqs={faqs} />
       <div 
         className="fixed inset-0 opacity-40 pointer-events-none"
         style={{

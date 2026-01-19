@@ -2,12 +2,26 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { ArrowLeft, FileText, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 export default function Terms() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Terms of Service"
+        description="DarkWave Studios Terms of Service. Read our policies on services, payments, intellectual property, and client responsibilities."
+        keywords="terms of service, web development terms, service agreement"
+        type="website"
+        url="https://darkwavestudios.com/terms"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Terms of Service", url: "https://darkwavestudios.com/terms" }
+        ]}
+      />
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}

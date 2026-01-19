@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 const projects = [
   {
@@ -107,6 +108,19 @@ const projects = [
 export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Portfolio - Live Web Applications & Case Studies"
+        description="Explore 12+ live web applications built by DarkWave Studios. From AI trading platforms to staffing systems, e-commerce to blockchain - see our work in action."
+        keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
+        type="website"
+        url="https://darkwavestudios.com/projects"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Portfolio", url: "https://darkwavestudios.com/projects" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Code2, Users, Zap, Shield, Clock, DollarSign } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 const values = [
   {
@@ -44,6 +45,19 @@ const stats = [
 export default function About() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="About Us - Nashville's Premier Boutique Web Agency"
+        description="Meet DarkWave Studios - a boutique web development agency offering direct developer access, unlimited support, and agency-quality results at 60% less cost. Based in Nashville, serving clients worldwide."
+        keywords="about DarkWave Studios, Nashville web developer, boutique web agency, direct developer access, unlimited support, affordable web development"
+        type="website"
+        url="https://darkwavestudios.com/about"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "About", url: "https://darkwavestudios.com/about" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

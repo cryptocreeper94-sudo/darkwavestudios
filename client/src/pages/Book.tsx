@@ -4,6 +4,7 @@ import {
   ArrowRight, ArrowLeft, Calendar, Clock, Video, Phone, 
   CheckCircle2, Loader2, ChevronLeft, ChevronRight, Zap, User, Mail, Check
 } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 import videoCallImg from "@assets/generated_images/video_call_meeting_laptop.png";
 import phoneImg from "@assets/generated_images/phone_consultation_screen.png";
@@ -110,6 +111,19 @@ export default function Book() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Book a Call - Free Consultation with a Developer"
+        description="Schedule a free consultation with DarkWave Studios. Discuss your project, get expert advice, and see our portfolio. No obligation, no sales pressure."
+        keywords="book consultation, free web development consultation, schedule meeting developer, project discussion"
+        type="website"
+        url="https://darkwavestudios.com/book"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Book a Call", url: "https://darkwavestudios.com/book" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ArrowLeft
 } from "lucide-react";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
 import supportImg from "@assets/generated_images/support_headset_desk.png";
 import domainImg from "@assets/generated_images/domain_hosting_servers.png";
@@ -107,6 +108,19 @@ const services = [
 export default function Services() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Web Development Services - Custom Apps, AI Integration & More"
+        description="Full-stack web development services including custom websites, AI-powered applications, e-commerce, SaaS platforms, and unlimited support. 60% savings vs traditional agencies."
+        keywords="web development services, custom websites, AI development, e-commerce development, SaaS development, React development, Node.js, Nashville web agency"
+        type="website"
+        url="https://darkwavestudios.com/services"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Services", url: "https://darkwavestudios.com/services" }
+        ]}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">

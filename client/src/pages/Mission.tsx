@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ArrowLeft, Target, Sparkles, Rocket, Heart, Globe, Shield, Menu, X } from "lucide-react";
 import { useState } from "react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 export default function Mission() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,6 +31,19 @@ export default function Mission() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Our Mission - Democratizing Premium Web Development"
+        description="Learn about DarkWave Studios' mission to deliver agency-quality web solutions at accessible prices. Our vision, values, and commitment to client success."
+        keywords="web development mission, company values, affordable web development, client-first approach, Nashville web agency"
+        type="website"
+        url="https://darkwavestudios.com/mission"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Our Mission", url: "https://darkwavestudios.com/mission" }
+        ]}
+      />
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}

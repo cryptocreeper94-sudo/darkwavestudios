@@ -2,12 +2,26 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { ArrowLeft, Shield, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 export default function Privacy() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Privacy Policy"
+        description="DarkWave Studios Privacy Policy. Learn how we collect, use, and protect your personal information. Your privacy matters to us."
+        keywords="privacy policy, data protection, web development privacy"
+        type="website"
+        url="https://darkwavestudios.com/privacy"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Privacy Policy", url: "https://darkwavestudios.com/privacy" }
+        ]}
+      />
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
