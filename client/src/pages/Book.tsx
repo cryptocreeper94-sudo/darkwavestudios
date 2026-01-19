@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { 
   ArrowRight, ArrowLeft, Calendar, Clock, Video, Phone, 
-  CheckCircle2, Loader2, ChevronLeft, ChevronRight, Zap, User, Mail
+  CheckCircle2, Loader2, ChevronLeft, ChevronRight, Zap, User, Mail, Check
 } from "lucide-react";
+
+import videoCallImg from "@assets/generated_images/video_call_meeting_laptop.png";
+import phoneImg from "@assets/generated_images/phone_consultation_screen.png";
+import portfolioImg from "@assets/generated_images/portfolio_presentation_screen.png";
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
@@ -11,9 +15,9 @@ const timeSlots = [
 ];
 
 const meetingTypes = [
-  { id: "discovery", name: "Discovery Call", duration: "30 min", icon: Video, desc: "Let's discuss your project goals" },
-  { id: "consultation", name: "Technical Consultation", duration: "45 min", icon: Phone, desc: "Deep dive into requirements" },
-  { id: "demo", name: "Portfolio Demo", duration: "20 min", icon: Calendar, desc: "See our work in action" }
+  { id: "discovery", name: "Discovery Call", duration: "30 min", icon: Video, desc: "Let's discuss your project goals", image: videoCallImg },
+  { id: "consultation", name: "Technical Consultation", duration: "45 min", icon: Phone, desc: "Deep dive into requirements", image: phoneImg },
+  { id: "demo", name: "Portfolio Demo", duration: "20 min", icon: Calendar, desc: "See our work in action", image: portfolioImg }
 ];
 
 export default function Book() {
@@ -196,21 +200,33 @@ export default function Book() {
                       <button
                         key={type.id}
                         onClick={() => { setSelectedType(type.id); setStep("date"); }}
-                        className={`w-full p-5 rounded-xl border-2 transition-all text-left flex items-center gap-4 ${
+                        className={`w-full rounded-xl border-2 transition-all text-left relative overflow-hidden h-28 lg:h-32 group ${
                           selectedType === type.id 
-                            ? "border-primary bg-primary/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            ? "border-primary" 
+                            : "border-white/10 hover:border-white/20"
                         }`}
                         data-testid={`button-meeting-${type.id}`}
                       >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                          <type.icon className="w-6 h-6 text-primary" />
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
+                          style={{ backgroundImage: `url(${type.image})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+                        <div className="relative z-10 h-full flex items-center gap-4 p-5">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 backdrop-blur-sm flex items-center justify-center">
+                            <type.icon className="w-6 h-6 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-bold text-white">{type.name}</div>
+                            <div className="text-sm text-muted-foreground">{type.desc}</div>
+                          </div>
+                          <div className="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-sm text-sm">{type.duration}</div>
                         </div>
-                        <div className="flex-1">
-                          <div className="font-bold">{type.name}</div>
-                          <div className="text-sm text-muted-foreground">{type.desc}</div>
-                        </div>
-                        <div className="px-3 py-1 rounded-lg bg-white/10 text-sm">{type.duration}</div>
+                        {selectedType === type.id && (
+                          <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                            <Check className="w-4 h-4 text-white" />
+                          </div>
+                        )}
                       </button>
                     ))}
                   </div>

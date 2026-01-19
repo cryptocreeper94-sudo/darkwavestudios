@@ -2,15 +2,24 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Calculator, Zap, Check, Loader2, ChevronDown, ChevronUp, Sparkles, Clock, Shield, Code } from "lucide-react";
 
+import landingImg from "@assets/generated_images/landing_page_laptop_mockup.png";
+import webappImg from "@assets/generated_images/web_application_dashboard_screen.png";
+import ecommerceImg from "@assets/generated_images/e-commerce_shopping_interface.png";
+import saasImg from "@assets/generated_images/saas_cloud_platform_visual.png";
+import mobileImg from "@assets/generated_images/mobile_app_phones_floating.png";
+import dashboardImg from "@assets/generated_images/analytics_dashboard_monitor.png";
+import aiImg from "@assets/generated_images/ai_neural_network_visual.png";
+import apiImg from "@assets/generated_images/api_data_connections_visual.png";
+
 const projectTypes = [
-  { id: "landing", name: "Landing Page", base: 2500, icon: "🌐" },
-  { id: "webapp", name: "Web Application", base: 8000, icon: "💻" },
-  { id: "ecommerce", name: "E-Commerce Store", base: 12000, icon: "🛒" },
-  { id: "saas", name: "SaaS Platform", base: 18000, icon: "☁️" },
-  { id: "mobile", name: "Mobile App", base: 15000, icon: "📱" },
-  { id: "dashboard", name: "Custom Dashboard", base: 10000, icon: "📊" },
-  { id: "ai", name: "AI Integration", base: 6000, icon: "🤖" },
-  { id: "api", name: "API Development", base: 5000, icon: "🔗" }
+  { id: "landing", name: "Landing Page", base: 2500, icon: "🌐", image: landingImg },
+  { id: "webapp", name: "Web Application", base: 8000, icon: "💻", image: webappImg },
+  { id: "ecommerce", name: "E-Commerce Store", base: 12000, icon: "🛒", image: ecommerceImg },
+  { id: "saas", name: "SaaS Platform", base: 18000, icon: "☁️", image: saasImg },
+  { id: "mobile", name: "Mobile App", base: 15000, icon: "📱", image: mobileImg },
+  { id: "dashboard", name: "Custom Dashboard", base: 10000, icon: "📊", image: dashboardImg },
+  { id: "ai", name: "AI Integration", base: 6000, icon: "🤖", image: aiImg },
+  { id: "api", name: "API Development", base: 5000, icon: "🔗", image: apiImg }
 ];
 
 const features = [
@@ -172,16 +181,28 @@ export default function Quote() {
                       <button
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
-                        className={`p-4 rounded-xl border-2 transition-all text-left ${
+                        className={`relative overflow-hidden rounded-xl border-2 transition-all text-left h-32 lg:h-40 group ${
                           selectedType === type.id 
-                            ? "border-primary bg-primary/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            ? "border-primary" 
+                            : "border-white/10 hover:border-white/20"
                         }`}
                         data-testid={`button-type-${type.id}`}
                       >
-                        <div className="text-2xl mb-2">{type.icon}</div>
-                        <div className="font-semibold text-sm">{type.name}</div>
-                        <div className="text-xs text-muted-foreground">From ${type.base.toLocaleString()}</div>
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
+                          style={{ backgroundImage: `url(${type.image})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                        <div className="relative z-10 h-full flex flex-col justify-end p-4">
+                          <div className="text-2xl mb-1">{type.icon}</div>
+                          <div className="font-semibold text-sm text-white">{type.name}</div>
+                          <div className="text-xs text-primary">From ${type.base.toLocaleString()}</div>
+                        </div>
+                        {selectedType === type.id && (
+                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                            <Check className="w-4 h-4 text-white" />
+                          </div>
+                        )}
                       </button>
                     ))}
                   </div>
