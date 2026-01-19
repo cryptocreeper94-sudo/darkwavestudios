@@ -298,20 +298,20 @@ export default function Book() {
 
                   <p className="text-center text-muted-foreground mb-6">{formatDate(selectedDate!)}</p>
 
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
                     {timeSlots.map((time) => (
                       <button
                         key={time}
                         onClick={() => { setSelectedTime(time); setStep("details"); }}
-                        className={`p-3 rounded-xl border-2 transition-all ${
+                        className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border-2 transition-all ${
                           selectedTime === time 
                             ? "border-primary bg-primary/10" 
                             : "border-white/10 bg-white/5 hover:border-white/20"
                         }`}
                         data-testid={`button-time-${time.replace(/[:\s]/g, "-")}`}
                       >
-                        <Clock className="w-4 h-4 mx-auto mb-1 text-primary" />
-                        <div className="text-sm font-medium">{time}</div>
+                        <Clock className="w-3 h-3 lg:w-4 lg:h-4 mx-auto mb-0.5 lg:mb-1 text-primary" />
+                        <div className="text-[10px] lg:text-sm font-medium">{time}</div>
                       </button>
                     ))}
                   </div>

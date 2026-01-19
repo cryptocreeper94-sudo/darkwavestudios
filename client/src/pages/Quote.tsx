@@ -185,12 +185,12 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "type" && (
-                  <div className="px-6 pb-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-3">
                     {projectTypes.map((type) => (
                       <button
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
-                        className={`relative overflow-hidden rounded-xl border-2 transition-all text-left h-32 lg:h-40 group ${
+                        className={`relative overflow-hidden rounded-lg lg:rounded-xl border-2 transition-all text-left h-20 lg:h-40 group ${
                           selectedType === type.id 
                             ? "border-primary" 
                             : "border-white/10 hover:border-white/20"
@@ -240,30 +240,28 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "features" && (
-                  <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-2 gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
                     {features.map((feature) => (
                       <button
                         key={feature.id}
                         onClick={() => toggleFeature(feature.id)}
-                        className={`p-4 rounded-xl border-2 transition-all text-left flex items-start gap-3 ${
+                        className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border-2 transition-all text-left relative ${
                           selectedFeatures.includes(feature.id) 
                             ? "border-primary bg-primary/10" 
                             : "border-white/10 bg-white/5 hover:border-white/20"
                         }`}
                         data-testid={`button-feature-${feature.id}`}
                       >
-                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                        <div className={`absolute top-1 right-1 lg:top-2 lg:right-2 w-4 h-4 lg:w-5 lg:h-5 rounded-md border-2 flex items-center justify-center ${
                           selectedFeatures.includes(feature.id) ? "border-primary bg-primary" : "border-white/30"
                         }`}>
-                          {selectedFeatures.includes(feature.id) && <Check className="w-3 h-3 text-white" />}
+                          {selectedFeatures.includes(feature.id) && <Check className="w-2 h-2 lg:w-3 lg:h-3 text-white" />}
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="font-semibold text-sm">{feature.name}</span>
-                            <span className="text-xs text-primary">+${feature.price.toLocaleString()}</span>
-                          </div>
-                          <div className="text-xs text-muted-foreground mt-1">{feature.desc}</div>
+                        <div className="font-semibold text-[10px] lg:text-sm pr-5">{feature.name}</div>
+                        <div className="text-[9px] lg:text-xs text-primary mt-0.5">
+                          {feature.price === 0 ? "FREE" : `+$${feature.price}`}
                         </div>
+                        <div className="text-[8px] lg:text-xs text-muted-foreground mt-0.5 hidden lg:block">{feature.desc}</div>
                       </button>
                     ))}
                   </div>
@@ -292,22 +290,22 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "timeline" && (
-                  <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 gap-2 lg:gap-3">
                     {timelines.map((timeline) => (
                       <button
                         key={timeline.id}
                         onClick={() => setSelectedTimeline(timeline.id)}
-                        className={`p-4 rounded-xl border-2 transition-all text-left ${
+                        className={`p-2 lg:p-4 rounded-lg lg:rounded-xl border-2 transition-all text-left ${
                           selectedTimeline === timeline.id 
                             ? "border-primary bg-primary/10" 
                             : "border-white/10 bg-white/5 hover:border-white/20"
                         }`}
                         data-testid={`button-timeline-${timeline.id}`}
                       >
-                        <div className="font-semibold">{timeline.name}</div>
-                        <div className="text-sm text-muted-foreground">{timeline.weeks}</div>
+                        <div className="font-semibold text-[10px] lg:text-base">{timeline.name}</div>
+                        <div className="text-[9px] lg:text-sm text-muted-foreground">{timeline.weeks}</div>
                         {timeline.multiplier > 1 && (
-                          <div className="text-xs text-accent mt-1">+{Math.round((timeline.multiplier - 1) * 100)}% rush fee</div>
+                          <div className="text-[8px] lg:text-xs text-accent mt-0.5 lg:mt-1">+{Math.round((timeline.multiplier - 1) * 100)}%</div>
                         )}
                       </button>
                     ))}
@@ -337,21 +335,21 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "plan" && (
-                  <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 gap-2 lg:gap-3">
                     {monthlyPlans.map((plan) => (
                       <button
                         key={plan.id}
                         onClick={() => setSelectedPlan(plan.id)}
-                        className={`p-4 rounded-xl border-2 transition-all text-left ${
+                        className={`p-2 lg:p-4 rounded-lg lg:rounded-xl border-2 transition-all text-left ${
                           selectedPlan === plan.id 
                             ? "border-green-400 bg-green-500/10" 
                             : "border-white/10 bg-white/5 hover:border-white/20"
                         }`}
                         data-testid={`button-plan-${plan.id}`}
                       >
-                        <div className="font-semibold">{plan.name}</div>
-                        <div className="text-2xl font-bold text-green-400">${plan.price}<span className="text-sm text-muted-foreground">/mo</span></div>
-                        <div className="text-xs text-muted-foreground mt-1">{plan.desc}</div>
+                        <div className="font-semibold text-[10px] lg:text-base">{plan.name}</div>
+                        <div className="text-lg lg:text-2xl font-bold text-green-400">${plan.price}<span className="text-[9px] lg:text-sm text-muted-foreground">/mo</span></div>
+                        <div className="text-[8px] lg:text-xs text-muted-foreground mt-0.5 lg:mt-1 hidden lg:block">{plan.desc}</div>
                       </button>
                     ))}
                   </div>
