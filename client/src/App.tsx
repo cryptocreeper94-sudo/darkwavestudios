@@ -18,6 +18,11 @@ import PaymentCancel from "@/pages/PaymentCancel";
 import Analytics from "@/pages/Analytics";
 import Blog from "@/pages/Blog";
 import BlogAdmin from "@/pages/BlogAdmin";
+import Mission from "@/pages/Mission";
+import Investors from "@/pages/Investors";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
+import Documents from "@/pages/Documents";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -38,6 +43,11 @@ function Router() {
       <Route path="/analytics" component={Analytics}/>
       <Route path="/blog" component={Blog}/>
       <Route path="/blog/admin" component={BlogAdmin}/>
+      <Route path="/mission" component={Mission}/>
+      <Route path="/investors" component={Investors}/>
+      <Route path="/terms" component={Terms}/>
+      <Route path="/privacy" component={Privacy}/>
+      <Route path="/documents" component={Documents}/>
       <Route component={NotFound} />
     </Switch>
   );

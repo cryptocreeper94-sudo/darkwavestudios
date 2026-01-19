@@ -320,6 +320,22 @@ export default function Home() {
                   About Us
                 </Link>
                 <Link 
+                  href="/mission" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-mission-mobile"
+                >
+                  Our Mission
+                </Link>
+                <Link 
+                  href="/investors" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-investors-mobile"
+                >
+                  Investors
+                </Link>
+                <Link 
                   href="/book" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
@@ -835,6 +851,8 @@ export default function Home() {
                 <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Company</div>
                 <div className="flex flex-col gap-2">
                   <Link href="/about" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-about">About Us</Link>
+                  <Link href="/mission" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-mission">Our Mission</Link>
+                  <Link href="/investors" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-investors">Investors</Link>
                   <Link href="/contact" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-contact">Contact</Link>
                   <Link href="/book" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-book">Book a Call</Link>
                 </div>
@@ -843,6 +861,7 @@ export default function Home() {
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Resources</div>
                 <div className="flex flex-col gap-2">
+                  <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
                   <Link href="/admin" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-developers">Developers</Link>
                 </div>
               </div>
@@ -853,6 +872,8 @@ export default function Home() {
                 © 2025 DarkWave Studios. Built with passion, priced with honesty.
               </div>
               <div className="flex items-center gap-4">
+                <Link href="/terms" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-terms">Terms</Link>
+                <Link href="/privacy" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">Privacy</Link>
                 <span className="text-[10px] lg:text-xs text-muted-foreground">Nashville, TN</span>
               </div>
             </div>

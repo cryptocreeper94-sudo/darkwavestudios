@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { 
   LayoutDashboard, Users, FileText, MessageSquare, Calendar, Mail, 
   TrendingUp, ArrowRight, ChevronDown, ChevronUp, Clock, Check, X,
-  Eye, Trash2, RefreshCw, AlertCircle, DollarSign, Zap, BarChart3, Globe, Bot, PenTool
+  Eye, Trash2, RefreshCw, AlertCircle, DollarSign, Zap, BarChart3, Globe, Bot, PenTool, FolderOpen
 } from "lucide-react";
 
 type TabType = "overview" | "leads" | "quotes" | "bookings" | "subscribers";
@@ -344,15 +344,15 @@ export default function Admin() {
                     </div>
                   </Link>
 
-                  <Link href="/blog/admin" className="col-span-3 lg:col-span-3">
-                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-orange-500/20 to-red-600/20 hover:from-orange-500/30 hover:to-red-600/30 transition-all cursor-pointer group" data-testid="link-ai-blog">
+                  <Link href="/documents" className="col-span-3 lg:col-span-3">
+                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 transition-all cursor-pointer group" data-testid="link-documents">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400/30 to-red-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <Bot className="w-6 h-6 text-orange-400" />
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400/30 to-amber-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <FolderOpen className="w-6 h-6 text-orange-400" />
                         </div>
                         <div>
-                          <div className="font-bold text-white">AI Writer</div>
-                          <div className="text-xs text-muted-foreground">Generate SEO content</div>
+                          <div className="font-bold text-white">Documents</div>
+                          <div className="text-xs text-muted-foreground">Business docs & roadmap</div>
                         </div>
                       </div>
                     </div>

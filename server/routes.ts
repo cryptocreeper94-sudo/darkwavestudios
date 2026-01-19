@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema } from "@shared/schema";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { z } from "zod";
@@ -679,6 +679,69 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
   app.delete("/api/blog/:id", requireAdminAuth, async (req, res) => {
     try {
       await storage.deleteBlogPost(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ DOCUMENTS (Public read, Protected write) ============
+  app.get("/api/documents", async (req, res) => {
+    try {
+      const docs = await storage.getDocuments();
+      res.json({ success: true, documents: docs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/documents/:slug", async (req, res) => {
+    try {
+      const doc = await storage.getDocument(req.params.slug);
+      if (!doc) {
+        return res.status(404).json({ success: false, error: "Document not found" });
+      }
+      res.json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/documents/category/:category", async (req, res) => {
+    try {
+      const docs = await storage.getDocumentsByCategory(req.params.category);
+      res.json({ success: true, documents: docs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/documents", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertDocumentSchema.parse(req.body);
+      const doc = await storage.createDocument(data);
+      res.status(201).json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/documents/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertDocumentSchema.partial().parse(req.body);
+      const doc = await storage.updateDocument(req.params.id, data);
+      if (!doc) {
+        return res.status(404).json({ success: false, error: "Document not found" });
+      }
+      res.json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/documents/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteDocument(req.params.id);
       res.json({ success: true });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });

@@ -1,6 +1,6 @@
 import { 
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings, payments,
-  pageViews, analyticsEvents, seoKeywords, conversations, messages,
+  pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -14,7 +14,8 @@ import {
   type AnalyticsEvent, type InsertAnalyticsEvent,
   type SeoKeyword, type InsertSeoKeyword,
   type Conversation, type InsertConversation,
-  type Message, type InsertMessage
+  type Message, type InsertMessage,
+  type Document, type InsertDocument
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, sql, count } from "drizzle-orm";
@@ -97,6 +98,14 @@ export interface IStorage {
   // Messages
   getMessages(conversationId: string): Promise<Message[]>;
   createMessage(message: InsertMessage): Promise<Message>;
+
+  // Documents
+  getDocuments(): Promise<Document[]>;
+  getDocument(slug: string): Promise<Document | undefined>;
+  getDocumentsByCategory(category: string): Promise<Document[]>;
+  createDocument(doc: InsertDocument): Promise<Document>;
+  updateDocument(id: string, doc: Partial<InsertDocument>): Promise<Document | undefined>;
+  deleteDocument(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -378,6 +387,34 @@ export class DatabaseStorage implements IStorage {
   async createMessage(message: InsertMessage): Promise<Message> {
     const [newMessage] = await db.insert(messages).values(message).returning();
     return newMessage;
+  }
+
+  // Documents
+  async getDocuments(): Promise<Document[]> {
+    return db.select().from(documents).orderBy(documents.category, documents.title);
+  }
+
+  async getDocument(slug: string): Promise<Document | undefined> {
+    const [doc] = await db.select().from(documents).where(eq(documents.slug, slug));
+    return doc || undefined;
+  }
+
+  async getDocumentsByCategory(category: string): Promise<Document[]> {
+    return db.select().from(documents).where(eq(documents.category, category)).orderBy(documents.title);
+  }
+
+  async createDocument(doc: InsertDocument): Promise<Document> {
+    const [newDoc] = await db.insert(documents).values(doc).returning();
+    return newDoc;
+  }
+
+  async updateDocument(id: string, doc: Partial<InsertDocument>): Promise<Document | undefined> {
+    const [updated] = await db.update(documents).set({ ...doc, updatedAt: new Date() }).where(eq(documents.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async deleteDocument(id: string): Promise<void> {
+    await db.delete(documents).where(eq(documents.id, id));
   }
 }
 
