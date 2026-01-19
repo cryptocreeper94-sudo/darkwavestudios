@@ -180,3 +180,32 @@ export const insertBookingSchema = createInsertSchema(bookings).omit({
 });
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
 export type Booking = typeof bookings.$inferSelect;
+
+// Payments
+export const payments = pgTable("payments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  customerName: text("customer_name").notNull(),
+  customerEmail: text("customer_email").notNull(),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  currency: text("currency").default("usd"),
+  planType: text("plan_type").notNull(), // starter, growth, scale, custom
+  planName: text("plan_name").notNull(),
+  paymentMethod: text("payment_method").notNull(), // stripe, coinbase
+  stripeSessionId: text("stripe_session_id"),
+  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  coinbaseChargeId: text("coinbase_charge_id"),
+  coinbaseChargeCode: text("coinbase_charge_code"),
+  status: text("status").default("pending"), // pending, completed, failed, refunded
+  metadata: text("metadata"), // JSON string for additional data
+  createdAt: timestamp("created_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+export const insertPaymentSchema = createInsertSchema(payments).omit({
+  id: true,
+  status: true,
+  createdAt: true,
+  completedAt: true,
+});
+export type InsertPayment = z.infer<typeof insertPaymentSchema>;
+export type Payment = typeof payments.$inferSelect;

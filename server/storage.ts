@@ -1,5 +1,5 @@
 import { 
-  users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings,
+  users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings, payments,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -7,7 +7,8 @@ import {
   type Testimonial, type InsertTestimonial,
   type CaseStudy, type InsertCaseStudy,
   type QuoteRequest, type InsertQuoteRequest,
-  type Booking, type InsertBooking
+  type Booking, type InsertBooking,
+  type Payment, type InsertPayment
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
@@ -56,6 +57,15 @@ export interface IStorage {
   getBookings(): Promise<Booking[]>;
   createBooking(booking: InsertBooking): Promise<Booking>;
   updateBookingStatus(id: string, status: string): Promise<Booking | undefined>;
+
+  // Payments
+  getPayments(): Promise<Payment[]>;
+  getPayment(id: string): Promise<Payment | undefined>;
+  getPaymentByStripeSession(sessionId: string): Promise<Payment | undefined>;
+  getPaymentByCoinbaseCharge(chargeId: string): Promise<Payment | undefined>;
+  createPayment(payment: InsertPayment): Promise<Payment>;
+  updatePaymentStatus(id: string, status: string, completedAt?: Date): Promise<Payment | undefined>;
+  updatePaymentStripeIntent(id: string, paymentIntentId: string): Promise<Payment | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -204,6 +214,41 @@ export class DatabaseStorage implements IStorage {
 
   async updateBookingStatus(id: string, status: string): Promise<Booking | undefined> {
     const [updated] = await db.update(bookings).set({ status }).where(eq(bookings.id, id)).returning();
+    return updated || undefined;
+  }
+
+  // Payments
+  async getPayments(): Promise<Payment[]> {
+    return db.select().from(payments).orderBy(desc(payments.createdAt));
+  }
+
+  async getPayment(id: string): Promise<Payment | undefined> {
+    const [payment] = await db.select().from(payments).where(eq(payments.id, id));
+    return payment || undefined;
+  }
+
+  async getPaymentByStripeSession(sessionId: string): Promise<Payment | undefined> {
+    const [payment] = await db.select().from(payments).where(eq(payments.stripeSessionId, sessionId));
+    return payment || undefined;
+  }
+
+  async getPaymentByCoinbaseCharge(chargeId: string): Promise<Payment | undefined> {
+    const [payment] = await db.select().from(payments).where(eq(payments.coinbaseChargeId, chargeId));
+    return payment || undefined;
+  }
+
+  async createPayment(payment: InsertPayment): Promise<Payment> {
+    const [newPayment] = await db.insert(payments).values(payment).returning();
+    return newPayment;
+  }
+
+  async updatePaymentStatus(id: string, status: string, completedAt?: Date): Promise<Payment | undefined> {
+    const [updated] = await db.update(payments).set({ status, completedAt }).where(eq(payments.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async updatePaymentStripeIntent(id: string, paymentIntentId: string): Promise<Payment | undefined> {
+    const [updated] = await db.update(payments).set({ stripePaymentIntentId: paymentIntentId }).where(eq(payments.id, id)).returning();
     return updated || undefined;
   }
 }
