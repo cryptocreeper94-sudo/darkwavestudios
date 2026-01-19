@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { 
   LayoutDashboard, Users, FileText, MessageSquare, Calendar, Mail, 
   TrendingUp, ArrowRight, ChevronDown, ChevronUp, Clock, Check, X,
-  Eye, Trash2, RefreshCw, AlertCircle, DollarSign, Zap
+  Eye, Trash2, RefreshCw, AlertCircle, DollarSign, Zap, BarChart3, Globe, Bot, PenTool
 } from "lucide-react";
 
 type TabType = "overview" | "leads" | "quotes" | "bookings" | "subscribers";
@@ -298,6 +298,65 @@ export default function Admin() {
                       <div className="text-3xl font-bold">{stats.totalSubscribers}</div>
                     </div>
                   </div>
+                </div>
+
+                {/* Quick Actions - Analytics & AI */}
+                <div className="col-span-3 lg:col-span-12 grid grid-cols-3 lg:grid-cols-12 gap-4">
+                  <Link href="/analytics" className="col-span-3 lg:col-span-3">
+                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 transition-all cursor-pointer group" data-testid="link-analytics">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/30 to-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <BarChart3 className="w-6 h-6 text-cyan-400" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white">Analytics</div>
+                          <div className="text-xs text-muted-foreground">View real-time stats</div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link href="/blog/admin" className="col-span-3 lg:col-span-3">
+                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 transition-all cursor-pointer group" data-testid="link-blog-admin">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-400/30 to-pink-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <PenTool className="w-6 h-6 text-purple-400" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white">Blog Manager</div>
+                          <div className="text-xs text-muted-foreground">AI content creation</div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link href="/analytics" className="col-span-3 lg:col-span-3">
+                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-green-500/20 to-emerald-600/20 hover:from-green-500/30 hover:to-emerald-600/30 transition-all cursor-pointer group" data-testid="link-seo">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400/30 to-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Globe className="w-6 h-6 text-green-400" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white">SEO & Analytics</div>
+                          <div className="text-xs text-muted-foreground">Monitor rankings</div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link href="/blog/admin" className="col-span-3 lg:col-span-3">
+                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-orange-500/20 to-red-600/20 hover:from-orange-500/30 hover:to-red-600/30 transition-all cursor-pointer group" data-testid="link-ai-blog">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400/30 to-red-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Bot className="w-6 h-6 text-orange-400" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white">AI Writer</div>
+                          <div className="text-xs text-muted-foreground">Generate SEO content</div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
 
                 {/* Recent Activity */}

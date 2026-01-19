@@ -1,10 +1,21 @@
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema } from "@shared/schema";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { z } from "zod";
+import OpenAI from "openai";
+
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "darkwave-admin-2024";
+
+const requireAdminAuth = (req: Request, res: Response, next: NextFunction) => {
+  const apiKey = req.headers["x-admin-key"] || req.query.adminKey;
+  if (apiKey !== ADMIN_API_KEY) {
+    return res.status(401).json({ success: false, error: "Unauthorized - Admin access required" });
+  }
+  next();
+};
 
 // Validation schemas for payment routes
 const paymentCheckoutSchema = z.object({
@@ -491,6 +502,186 @@ export async function registerRoutes(
         coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
         plans: SERVICE_PLANS,
       });
+    }
+  });
+
+  // ============ ANALYTICS - PAGE VIEWS ============
+  app.post("/api/analytics/pageview", async (req, res) => {
+    try {
+      const data = insertPageViewSchema.parse(req.body);
+      const view = await storage.createPageView(data);
+      res.status(201).json({ success: true, view });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/pageviews", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const views = await storage.getPageViews(days);
+      res.json({ success: true, views });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/stats", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const stats = await storage.getPageViewStats(days);
+      const events = await storage.getAnalyticsEvents(days);
+      
+      const eventCounts: Record<string, number> = {};
+      events.forEach(e => {
+        eventCounts[e.name] = (eventCounts[e.name] || 0) + 1;
+      });
+
+      res.json({ 
+        success: true, 
+        stats: {
+          ...stats,
+          totalEvents: events.length,
+          eventBreakdown: eventCounts
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ANALYTICS - EVENTS ============
+  app.post("/api/analytics/event", async (req, res) => {
+    try {
+      const data = insertAnalyticsEventSchema.parse(req.body);
+      const event = await storage.createAnalyticsEvent(data);
+      res.status(201).json({ success: true, event });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/events", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const events = await storage.getAnalyticsEvents(days);
+      res.json({ success: true, events });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ SEO KEYWORDS (Protected) ============
+  app.get("/api/seo/keywords", requireAdminAuth, async (req, res) => {
+    try {
+      const keywords = await storage.getSeoKeywords();
+      res.json({ success: true, keywords });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/seo/keywords", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertSeoKeywordSchema.parse(req.body);
+      const keyword = await storage.createSeoKeyword(data);
+      res.status(201).json({ success: true, keyword });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/seo/keywords/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const keyword = await storage.updateSeoKeyword(req.params.id, req.body);
+      if (!keyword) {
+        return res.status(404).json({ success: false, error: "Keyword not found" });
+      }
+      res.json({ success: true, keyword });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/seo/keywords/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteSeoKeyword(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ AI BLOG GENERATION (Protected) ============
+  app.post("/api/blog/generate", requireAdminAuth, async (req, res) => {
+    try {
+      const { topic, keywords, tone = "professional" } = req.body;
+
+      if (!topic) {
+        return res.status(400).json({ success: false, error: "Topic is required" });
+      }
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are an expert SEO content writer for DarkWave Studios, a premium web development agency. 
+Write engaging, informative blog posts that:
+- Target the provided keywords naturally
+- Follow ${tone} tone
+- Include proper headings (H2, H3)
+- Are optimized for search engines
+- Provide actionable value to readers
+- Are 800-1200 words long
+Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (markdown), tags (array), category`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Write a blog post about: ${topic}\nTarget keywords: ${keywords?.join(", ") || "web development, agency"}` }
+        ],
+        response_format: { type: "json_object" },
+      });
+
+      const blogData = JSON.parse(response.choices[0].message.content || "{}");
+      
+      res.json({ success: true, blog: blogData });
+    } catch (error: any) {
+      console.error("AI blog generation error:", error);
+      res.status(500).json({ success: false, error: "Failed to generate blog post" });
+    }
+  });
+
+  app.post("/api/blog", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(data);
+      res.status(201).json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/blog/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const post = await storage.updateBlogPost(req.params.id, req.body);
+      if (!post) {
+        return res.status(404).json({ success: false, error: "Post not found" });
+      }
+      res.json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/blog/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteBlogPost(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
     }
   });
 

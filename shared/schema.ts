@@ -209,3 +209,103 @@ export const insertPaymentSchema = createInsertSchema(payments).omit({
 });
 export type InsertPayment = z.infer<typeof insertPaymentSchema>;
 export type Payment = typeof payments.$inferSelect;
+
+// Analytics Page Views
+export const pageViews = pgTable("page_views", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  path: text("path").notNull(),
+  title: text("title"),
+  referrer: text("referrer"),
+  userAgent: text("user_agent"),
+  sessionId: text("session_id"),
+  visitorId: text("visitor_id"),
+  country: text("country"),
+  city: text("city"),
+  device: text("device"),
+  browser: text("browser"),
+  os: text("os"),
+  duration: integer("duration"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertPageViewSchema = createInsertSchema(pageViews).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertPageView = z.infer<typeof insertPageViewSchema>;
+export type PageView = typeof pageViews.$inferSelect;
+
+// Analytics Events
+export const analyticsEvents = pgTable("analytics_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  category: text("category"),
+  label: text("label"),
+  value: decimal("value", { precision: 10, scale: 2 }),
+  sessionId: text("session_id"),
+  visitorId: text("visitor_id"),
+  path: text("path"),
+  metadata: text("metadata"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertAnalyticsEventSchema = createInsertSchema(analyticsEvents).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertAnalyticsEvent = z.infer<typeof insertAnalyticsEventSchema>;
+export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;
+
+// SEO Keywords
+export const seoKeywords = pgTable("seo_keywords", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  keyword: text("keyword").notNull(),
+  volume: integer("volume"),
+  difficulty: integer("difficulty"),
+  position: integer("position"),
+  url: text("url"),
+  clicks: integer("clicks"),
+  impressions: integer("impressions"),
+  ctr: decimal("ctr", { precision: 5, scale: 2 }),
+  tracked: boolean("tracked").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertSeoKeywordSchema = createInsertSchema(seoKeywords).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertSeoKeyword = z.infer<typeof insertSeoKeywordSchema>;
+export type SeoKeyword = typeof seoKeywords.$inferSelect;
+
+// AI Chat Conversations
+export const conversations = pgTable("conversations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertConversationSchema = createInsertSchema(conversations).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertConversation = z.infer<typeof insertConversationSchema>;
+export type Conversation = typeof conversations.$inferSelect;
+
+// AI Chat Messages
+export const messages = pgTable("messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  conversationId: varchar("conversation_id").notNull(),
+  role: text("role").notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertMessageSchema = createInsertSchema(messages).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertMessage = z.infer<typeof insertMessageSchema>;
+export type Message = typeof messages.$inferSelect;

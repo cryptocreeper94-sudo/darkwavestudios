@@ -15,6 +15,9 @@ import Book from "@/pages/Book";
 import Payment from "@/pages/Payment";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancel from "@/pages/PaymentCancel";
+import Analytics from "@/pages/Analytics";
+import Blog from "@/pages/Blog";
+import BlogAdmin from "@/pages/BlogAdmin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -32,6 +35,9 @@ function Router() {
       <Route path="/payment/success" component={PaymentSuccess}/>
       <Route path="/payment/cancel" component={PaymentCancel}/>
       <Route path="/admin" component={Admin}/>
+      <Route path="/analytics" component={Analytics}/>
+      <Route path="/blog" component={Blog}/>
+      <Route path="/blog/admin" component={BlogAdmin}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,5 +1,6 @@
 import { 
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings, payments,
+  pageViews, analyticsEvents, seoKeywords, conversations, messages,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -8,10 +9,15 @@ import {
   type CaseStudy, type InsertCaseStudy,
   type QuoteRequest, type InsertQuoteRequest,
   type Booking, type InsertBooking,
-  type Payment, type InsertPayment
+  type Payment, type InsertPayment,
+  type PageView, type InsertPageView,
+  type AnalyticsEvent, type InsertAnalyticsEvent,
+  type SeoKeyword, type InsertSeoKeyword,
+  type Conversation, type InsertConversation,
+  type Message, type InsertMessage
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, gte, sql, count } from "drizzle-orm";
 
 export interface IStorage {
   // Users
@@ -66,6 +72,31 @@ export interface IStorage {
   createPayment(payment: InsertPayment): Promise<Payment>;
   updatePaymentStatus(id: string, status: string, completedAt?: Date): Promise<Payment | undefined>;
   updatePaymentStripeIntent(id: string, paymentIntentId: string): Promise<Payment | undefined>;
+
+  // Analytics - Page Views
+  getPageViews(days?: number): Promise<PageView[]>;
+  createPageView(view: InsertPageView): Promise<PageView>;
+  getPageViewStats(days?: number): Promise<{totalViews: number; uniqueVisitors: number; topPages: {path: string; views: number}[]}>;
+
+  // Analytics - Events
+  getAnalyticsEvents(days?: number): Promise<AnalyticsEvent[]>;
+  createAnalyticsEvent(event: InsertAnalyticsEvent): Promise<AnalyticsEvent>;
+
+  // SEO Keywords
+  getSeoKeywords(): Promise<SeoKeyword[]>;
+  createSeoKeyword(keyword: InsertSeoKeyword): Promise<SeoKeyword>;
+  updateSeoKeyword(id: string, data: Partial<InsertSeoKeyword>): Promise<SeoKeyword | undefined>;
+  deleteSeoKeyword(id: string): Promise<void>;
+
+  // Conversations
+  getConversations(): Promise<Conversation[]>;
+  getConversation(id: string): Promise<Conversation | undefined>;
+  createConversation(title: string): Promise<Conversation>;
+  deleteConversation(id: string): Promise<void>;
+
+  // Messages
+  getMessages(conversationId: string): Promise<Message[]>;
+  createMessage(message: InsertMessage): Promise<Message>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -250,6 +281,103 @@ export class DatabaseStorage implements IStorage {
   async updatePaymentStripeIntent(id: string, paymentIntentId: string): Promise<Payment | undefined> {
     const [updated] = await db.update(payments).set({ stripePaymentIntentId: paymentIntentId }).where(eq(payments.id, id)).returning();
     return updated || undefined;
+  }
+
+  // Analytics - Page Views
+  async getPageViews(days = 30): Promise<PageView[]> {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+    return db.select().from(pageViews).where(gte(pageViews.createdAt, since)).orderBy(desc(pageViews.createdAt));
+  }
+
+  async createPageView(view: InsertPageView): Promise<PageView> {
+    const [newView] = await db.insert(pageViews).values(view).returning();
+    return newView;
+  }
+
+  async getPageViewStats(days = 30): Promise<{totalViews: number; uniqueVisitors: number; topPages: {path: string; views: number}[]}> {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+    
+    const views = await db.select().from(pageViews).where(gte(pageViews.createdAt, since));
+    const uniqueVisitorIds = new Set(views.map(v => v.visitorId).filter(Boolean));
+    
+    const pageViewCounts: Record<string, number> = {};
+    views.forEach(v => {
+      pageViewCounts[v.path] = (pageViewCounts[v.path] || 0) + 1;
+    });
+    
+    const topPages = Object.entries(pageViewCounts)
+      .map(([path, viewCount]) => ({ path, views: viewCount }))
+      .sort((a, b) => b.views - a.views)
+      .slice(0, 10);
+
+    return {
+      totalViews: views.length,
+      uniqueVisitors: uniqueVisitorIds.size,
+      topPages
+    };
+  }
+
+  // Analytics - Events
+  async getAnalyticsEvents(days = 30): Promise<AnalyticsEvent[]> {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+    return db.select().from(analyticsEvents).where(gte(analyticsEvents.createdAt, since)).orderBy(desc(analyticsEvents.createdAt));
+  }
+
+  async createAnalyticsEvent(event: InsertAnalyticsEvent): Promise<AnalyticsEvent> {
+    const [newEvent] = await db.insert(analyticsEvents).values(event).returning();
+    return newEvent;
+  }
+
+  // SEO Keywords
+  async getSeoKeywords(): Promise<SeoKeyword[]> {
+    return db.select().from(seoKeywords).orderBy(desc(seoKeywords.createdAt));
+  }
+
+  async createSeoKeyword(keyword: InsertSeoKeyword): Promise<SeoKeyword> {
+    const [newKeyword] = await db.insert(seoKeywords).values(keyword).returning();
+    return newKeyword;
+  }
+
+  async updateSeoKeyword(id: string, data: Partial<InsertSeoKeyword>): Promise<SeoKeyword | undefined> {
+    const [updated] = await db.update(seoKeywords).set({ ...data, updatedAt: new Date() }).where(eq(seoKeywords.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async deleteSeoKeyword(id: string): Promise<void> {
+    await db.delete(seoKeywords).where(eq(seoKeywords.id, id));
+  }
+
+  // Conversations
+  async getConversations(): Promise<Conversation[]> {
+    return db.select().from(conversations).orderBy(desc(conversations.createdAt));
+  }
+
+  async getConversation(id: string): Promise<Conversation | undefined> {
+    const [conversation] = await db.select().from(conversations).where(eq(conversations.id, id));
+    return conversation || undefined;
+  }
+
+  async createConversation(title: string): Promise<Conversation> {
+    const [conversation] = await db.insert(conversations).values({ title }).returning();
+    return conversation;
+  }
+
+  async deleteConversation(id: string): Promise<void> {
+    await db.delete(messages).where(eq(messages.conversationId, id));
+    await db.delete(conversations).where(eq(conversations.id, id));
+  }
+
+  // Messages
+  async getMessages(conversationId: string): Promise<Message[]> {
+    return db.select().from(messages).where(eq(messages.conversationId, conversationId)).orderBy(messages.createdAt);
+  }
+
+  async createMessage(message: InsertMessage): Promise<Message> {
+    const [newMessage] = await db.insert(messages).values(message).returning();
+    return newMessage;
   }
 }
 
