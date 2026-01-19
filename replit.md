@@ -39,11 +39,34 @@ Database tables include:
 - `users` - Admin authentication
 - `leads` - Contact form submissions
 - `subscribers` - Newsletter signups
-- `blogPosts` - Content management
+- `blogPosts` - AI-generated blog content with SEO optimization
 - `testimonials` - Client reviews
 - `caseStudies` - Portfolio pieces
 - `quoteRequests` - Pricing calculator submissions
 - `bookings` - Consultation scheduling
+- `pageViews` - Analytics page view tracking
+- `analyticsEvents` - Custom event tracking
+- `seoKeywords` - SEO keyword position monitoring
+
+### Analytics System
+The platform includes a comprehensive analytics system:
+- **Page View Tracking**: Captures visits with path, referrer, device info, browser, and geolocation
+- **Event Tracking**: Custom events (button clicks, form submissions, etc.)
+- **SEO Monitoring**: Keyword position tracking with historical data
+- **Real-time Dashboard**: Charts and metrics for traffic analysis
+
+### AI Blog Generator
+- **OpenAI Integration**: Uses GPT-4o for content generation
+- **SEO Optimization**: Auto-generates meta descriptions, tags, and slugs
+- **Tone Selection**: Professional, conversational, technical, or persuasive
+- **Draft System**: Save as draft or publish immediately
+
+### Admin Authentication
+Admin routes are protected with X-Admin-Key header middleware. Protected routes include:
+- Analytics viewing (stats, pageviews, events)
+- SEO keyword management
+- Blog post management
+- Note: Public tracking endpoints remain unprotected for client-side analytics
 
 ### Storage Pattern
 The application uses a storage abstraction layer (`server/storage.ts`) that implements an `IStorage` interface. This pattern allows for potential swapping of database implementations while maintaining consistent API contracts.
