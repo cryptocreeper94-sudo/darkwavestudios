@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import strikeAgentImg from "@assets/generated_images/ai_sniper_trading_bot.png";
 
 const projects = [
   {
@@ -8,10 +9,11 @@ const projects = [
     title: "Strike Agent",
     description: "AI-powered crypto trading signals platform with 61% win rate. Real-time alerts, backtested strategies, and comprehensive analytics dashboard for serious traders.",
     tech: ["AI/ML", "Real-time", "Analytics", "Crypto"],
-    image: "🎯",
+    image: strikeAgentImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://strikeagent.io",
-    category: "FinTech"
+    category: "FinTech",
+    isImage: true
   },
   {
     id: 2,
@@ -164,7 +166,11 @@ export default function Projects() {
               data-testid={`project-card-${project.id}`}
             >
               <div className={`w-full h-20 md:h-32 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
-                <span className="text-3xl md:text-5xl">{project.image}</span>
+                {(project as any).isImage ? (
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-3xl md:text-5xl">{project.image}</span>
+                )}
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
