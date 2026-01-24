@@ -23,6 +23,7 @@ import Investors from "@/pages/Investors";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import Documents from "@/pages/Documents";
+import TrustLayerHub from "@/pages/TrustLayerHub";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -48,6 +49,7 @@ function Router() {
       <Route path="/terms" component={Terms}/>
       <Route path="/privacy" component={Privacy}/>
       <Route path="/documents" component={Documents}/>
+      <Route path="/hub" component={TrustLayerHub}/>
       <Route component={NotFound} />
     </Switch>
   );
