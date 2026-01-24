@@ -1010,5 +1010,258 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     }
   });
 
+  // ============ ORBIT INTEGRATION WEBHOOKS ============
+
+  // Webhook receiver for ORBIT Hub events
+  app.post("/api/orbit/webhook", async (req, res) => {
+    try {
+      const signature = req.headers["x-ecosystem-signature"] as string;
+      const rawBody = JSON.stringify(req.body);
+      
+      // Verify signature using HMAC-SHA256
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      if (!orbitSecret) {
+        return res.status(500).json({ success: false, error: "ORBIT secret not configured" });
+      }
+
+      const computedSignature = crypto
+        .createHmac("sha256", orbitSecret)
+        .update(rawBody)
+        .digest("hex");
+
+      // Use timing-safe comparison
+      if (!signature || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(computedSignature))) {
+        await storage.createEcosystemLog({
+          appName: "ORBIT Hub",
+          action: "webhook_received",
+          status: "failed",
+          metadata: JSON.stringify({ error: "Invalid signature" })
+        });
+        return res.status(401).json({ success: false, error: "Invalid signature" });
+      }
+
+      const event = req.body;
+      
+      // Log the webhook event
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: `webhook_${event.event}`,
+        status: "success",
+        metadata: JSON.stringify(event.payload)
+      });
+
+      // Handle different event types
+      switch (event.event) {
+        case "snippet.created":
+        case "snippet.updated":
+          // Sync snippet from ORBIT
+          console.log(`ORBIT snippet sync: ${event.event}`, event.payload);
+          break;
+        
+        case "app.registered":
+          // New app registered in ecosystem
+          console.log(`ORBIT app registered:`, event.payload);
+          break;
+        
+        case "blockchain.anchored":
+          // Blockchain verification complete
+          console.log(`ORBIT blockchain anchored:`, event.payload);
+          break;
+        
+        default:
+          console.log(`Unknown ORBIT event: ${event.event}`);
+      }
+
+      res.json({ success: true, received: event.event });
+    } catch (error: any) {
+      console.error("ORBIT webhook error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ORBIT connection test endpoint
+  app.get("/api/orbit/status", async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.json({
+          connected: false,
+          message: "ORBIT credentials not configured"
+        });
+      }
+
+      // Try to connect to ORBIT
+      const response = await fetch("https://orbitstaffing.io/api/ecosystem/apps", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWave Trust Layer Hub"
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        await storage.createEcosystemLog({
+          appName: "ORBIT Hub",
+          action: "connection_test",
+          status: "success"
+        });
+        res.json({
+          connected: true,
+          message: "Successfully connected to ORBIT Hub",
+          ecosystemApps: data.apps?.length || 0
+        });
+      } else {
+        res.json({
+          connected: false,
+          message: `ORBIT connection failed: ${response.status}`
+        });
+      }
+    } catch (error: any) {
+      res.json({
+        connected: false,
+        message: `ORBIT connection error: ${error.message}`
+      });
+    }
+  });
+
+  // Sync snippets from ORBIT Hub
+  app.post("/api/orbit/sync-snippets", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch("https://orbitstaffing.io/api/ecosystem/snippets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWave Trust Layer Hub"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT sync failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "snippets_synced",
+        status: "success",
+        metadata: JSON.stringify({ count: data.snippets?.length || 0 })
+      });
+
+      res.json({
+        success: true,
+        message: "Snippets synced from ORBIT Hub",
+        count: data.snippets?.length || 0
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Push snippet to ORBIT Hub
+  app.post("/api/orbit/push-snippet", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch("https://orbitstaffing.io/api/ecosystem/snippets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWave Trust Layer Hub"
+        },
+        body: JSON.stringify(req.body)
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT push failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "snippet_pushed",
+        status: "success",
+        resourceType: "snippet",
+        metadata: JSON.stringify(req.body)
+      });
+
+      res.json({ success: true, result: data });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Request blockchain verification via ORBIT
+  app.post("/api/orbit/anchor", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const { recordType, recordId, data } = req.body;
+      
+      // Generate SHA-256 hash of the data
+      const dataHash = crypto
+        .createHash("sha256")
+        .update(JSON.stringify(data))
+        .digest("hex");
+
+      const response = await fetch("https://orbitstaffing.io/api/blockchain/anchor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWave Trust Layer Hub"
+        },
+        body: JSON.stringify({ recordType, recordId, dataHash })
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT anchor failed: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "blockchain_anchor_requested",
+        status: "success",
+        resourceType: recordType,
+        resourceId: recordId,
+        metadata: JSON.stringify({ dataHash, batchId: result.batchId })
+      });
+
+      res.json({ success: true, ...result, dataHash });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   return httpServer;
 }
