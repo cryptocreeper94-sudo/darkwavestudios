@@ -328,3 +328,103 @@ export const insertDocumentSchema = createInsertSchema(documents).omit({
 });
 export type InsertDocument = z.infer<typeof insertDocumentSchema>;
 export type Document = typeof documents.$inferSelect;
+
+// ============ TRUST LAYER HUB ============
+
+// Ecosystem Apps - Registered applications in the hub
+export const ecosystemApps = pgTable("ecosystem_apps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  appName: text("app_name").notNull().unique(),
+  displayName: text("display_name").notNull(),
+  description: text("description"),
+  apiKey: text("api_key").notNull(),
+  apiSecret: text("api_secret").notNull(),
+  baseUrl: text("base_url"),
+  logoUrl: text("logo_url"),
+  permissions: text("permissions").array().default(sql`'{}'::text[]`),
+  isActive: boolean("is_active").default(true),
+  isVerified: boolean("is_verified").default(false),
+  lastSync: timestamp("last_sync"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertEcosystemAppSchema = createInsertSchema(ecosystemApps).omit({
+  id: true,
+  isActive: true,
+  isVerified: true,
+  lastSync: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertEcosystemApp = z.infer<typeof insertEcosystemAppSchema>;
+export type EcosystemApp = typeof ecosystemApps.$inferSelect;
+
+// Code Snippets - Shared code and widgets
+export const codeSnippets = pgTable("code_snippets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  description: text("description"),
+  code: text("code").notNull(),
+  language: text("language").notNull(),
+  category: text("category").notNull(),
+  tags: text("tags").array().default(sql`'{}'::text[]`),
+  authorAppId: varchar("author_app_id"),
+  authorName: text("author_name"),
+  version: text("version").default("1.0.0"),
+  downloads: integer("downloads").default(0),
+  likes: integer("likes").default(0),
+  isPublic: boolean("is_public").default(true),
+  isPremium: boolean("is_premium").default(false),
+  price: decimal("price", { precision: 10, scale: 2 }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertCodeSnippetSchema = createInsertSchema(codeSnippets).omit({
+  id: true,
+  downloads: true,
+  likes: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertCodeSnippet = z.infer<typeof insertCodeSnippetSchema>;
+export type CodeSnippet = typeof codeSnippets.$inferSelect;
+
+// Snippet Categories
+export const snippetCategories = pgTable("snippet_categories", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull().unique(),
+  displayName: text("display_name").notNull(),
+  description: text("description"),
+  icon: text("icon"),
+  color: text("color"),
+  order: integer("order").default(0),
+});
+
+export const insertSnippetCategorySchema = createInsertSchema(snippetCategories).omit({
+  id: true,
+});
+export type InsertSnippetCategory = z.infer<typeof insertSnippetCategorySchema>;
+export type SnippetCategory = typeof snippetCategories.$inferSelect;
+
+// Ecosystem Sync Logs
+export const ecosystemLogs = pgTable("ecosystem_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  appId: varchar("app_id"),
+  appName: text("app_name"),
+  action: text("action").notNull(),
+  resourceType: text("resource_type"),
+  resourceId: varchar("resource_id"),
+  status: text("status").default("success"),
+  message: text("message"),
+  metadata: text("metadata"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertEcosystemLogSchema = createInsertSchema(ecosystemLogs).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertEcosystemLog = z.infer<typeof insertEcosystemLogSchema>;
+export type EcosystemLog = typeof ecosystemLogs.$inferSelect;

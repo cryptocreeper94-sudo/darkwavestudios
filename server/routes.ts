@@ -1,7 +1,8 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema } from "@shared/schema";
+import crypto from "crypto";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { z } from "zod";
@@ -745,6 +746,267 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
       res.json({ success: true });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ TRUST LAYER HUB / ECOSYSTEM ============
+
+  // Ecosystem Status (public - for app verification)
+  app.get("/api/ecosystem/status", async (req, res) => {
+    try {
+      const apiKey = req.headers["x-api-key"] as string;
+      const appName = req.headers["x-app-name"] as string;
+
+      if (!apiKey || !appName) {
+        return res.json({
+          connected: false,
+          hubName: "DarkWave Trust Layer Hub",
+          message: "Missing X-API-Key or X-App-Name headers"
+        });
+      }
+
+      const app = await storage.getEcosystemAppByApiKey(apiKey);
+      if (!app || app.appName !== appName) {
+        return res.json({
+          connected: false,
+          hubName: "DarkWave Trust Layer Hub",
+          message: "Invalid credentials or app not registered"
+        });
+      }
+
+      await storage.updateEcosystemAppLastSync(app.id);
+      await storage.createEcosystemLog({
+        appId: app.id,
+        appName: app.appName,
+        action: "status_check",
+        status: "success"
+      });
+
+      res.json({
+        connected: true,
+        hubName: "DarkWave Trust Layer Hub",
+        appName: app.displayName,
+        permissions: app.permissions || [],
+        isVerified: app.isVerified,
+        lastSync: app.lastSync
+      });
+    } catch (error: any) {
+      res.status(500).json({ connected: false, error: error.message });
+    }
+  });
+
+  // Get Hub Stats (public)
+  app.get("/api/ecosystem/stats", async (req, res) => {
+    try {
+      const stats = await storage.getEcosystemStats();
+      res.json({ success: true, stats });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // List Connected Apps (public info only)
+  app.get("/api/ecosystem/apps", async (req, res) => {
+    try {
+      const apps = await storage.getEcosystemApps();
+      const publicApps = apps.filter(a => a.isActive).map(app => ({
+        id: app.id,
+        appName: app.appName,
+        displayName: app.displayName,
+        description: app.description,
+        logoUrl: app.logoUrl,
+        isVerified: app.isVerified,
+        createdAt: app.createdAt
+      }));
+      res.json({ success: true, apps: publicApps });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Register New App (admin)
+  app.post("/api/ecosystem/apps", requireAdminAuth, async (req, res) => {
+    try {
+      const apiKey = crypto.randomBytes(32).toString("hex");
+      const apiSecret = crypto.randomBytes(48).toString("hex");
+      
+      const data = insertEcosystemAppSchema.parse({
+        ...req.body,
+        apiKey,
+        apiSecret
+      });
+      
+      const app = await storage.createEcosystemApp(data);
+      
+      await storage.createEcosystemLog({
+        appId: app.id,
+        appName: app.appName,
+        action: "app_registered",
+        status: "success"
+      });
+
+      res.status(201).json({ 
+        success: true, 
+        app,
+        credentials: { apiKey, apiSecret }
+      });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Update App (admin)
+  app.patch("/api/ecosystem/apps/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const app = await storage.updateEcosystemApp(req.params.id, req.body);
+      if (!app) {
+        return res.status(404).json({ success: false, error: "App not found" });
+      }
+      res.json({ success: true, app });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Delete App (admin)
+  app.delete("/api/ecosystem/apps/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteEcosystemApp(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ CODE SNIPPETS ============
+
+  // Get All Snippets (public)
+  app.get("/api/ecosystem/snippets", async (req, res) => {
+    try {
+      const category = req.query.category as string;
+      let snippets;
+      if (category) {
+        snippets = await storage.getCodeSnippetsByCategory(category);
+      } else {
+        snippets = await storage.getCodeSnippets(true);
+      }
+      res.json({ success: true, snippets });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get Single Snippet
+  app.get("/api/ecosystem/snippets/:id", async (req, res) => {
+    try {
+      const snippet = await storage.getCodeSnippet(req.params.id);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      res.json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Create Snippet (admin or authenticated app)
+  app.post("/api/ecosystem/snippets", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertCodeSnippetSchema.parse(req.body);
+      const snippet = await storage.createCodeSnippet(data);
+      
+      await storage.createEcosystemLog({
+        appId: data.authorAppId || undefined,
+        appName: data.authorName || "Admin",
+        action: "snippet_created",
+        resourceType: "snippet",
+        resourceId: snippet.id,
+        status: "success"
+      });
+
+      res.status(201).json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Update Snippet
+  app.patch("/api/ecosystem/snippets/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const snippet = await storage.updateCodeSnippet(req.params.id, req.body);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      res.json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Download Snippet (increments counter)
+  app.post("/api/ecosystem/snippets/:id/download", async (req, res) => {
+    try {
+      const snippet = await storage.getCodeSnippet(req.params.id);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      await storage.incrementSnippetDownloads(req.params.id);
+      res.json({ success: true, code: snippet.code, language: snippet.language });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Like Snippet
+  app.post("/api/ecosystem/snippets/:id/like", async (req, res) => {
+    try {
+      await storage.incrementSnippetLikes(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Delete Snippet
+  app.delete("/api/ecosystem/snippets/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteCodeSnippet(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ SNIPPET CATEGORIES ============
+
+  app.get("/api/ecosystem/categories", async (req, res) => {
+    try {
+      const categories = await storage.getSnippetCategories();
+      res.json({ success: true, categories });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/ecosystem/categories", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertSnippetCategorySchema.parse(req.body);
+      const category = await storage.createSnippetCategory(data);
+      res.status(201).json({ success: true, category });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ECOSYSTEM LOGS ============
+
+  app.get("/api/ecosystem/logs", requireAdminAuth, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const logs = await storage.getEcosystemLogs(limit);
+      res.json({ success: true, logs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
     }
   });
 

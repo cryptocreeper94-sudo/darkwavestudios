@@ -1,6 +1,7 @@
 import { 
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings, payments,
   pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
+  ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -15,7 +16,11 @@ import {
   type SeoKeyword, type InsertSeoKeyword,
   type Conversation, type InsertConversation,
   type Message, type InsertMessage,
-  type Document, type InsertDocument
+  type Document, type InsertDocument,
+  type EcosystemApp, type InsertEcosystemApp,
+  type CodeSnippet, type InsertCodeSnippet,
+  type SnippetCategory, type InsertSnippetCategory,
+  type EcosystemLog, type InsertEcosystemLog
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, sql, count } from "drizzle-orm";
@@ -415,6 +420,128 @@ export class DatabaseStorage implements IStorage {
 
   async deleteDocument(id: string): Promise<void> {
     await db.delete(documents).where(eq(documents.id, id));
+  }
+
+  // ============ TRUST LAYER HUB ============
+
+  // Ecosystem Apps
+  async getEcosystemApps(): Promise<EcosystemApp[]> {
+    return db.select().from(ecosystemApps).orderBy(desc(ecosystemApps.createdAt));
+  }
+
+  async getEcosystemApp(id: string): Promise<EcosystemApp | undefined> {
+    const [app] = await db.select().from(ecosystemApps).where(eq(ecosystemApps.id, id));
+    return app || undefined;
+  }
+
+  async getEcosystemAppByName(appName: string): Promise<EcosystemApp | undefined> {
+    const [app] = await db.select().from(ecosystemApps).where(eq(ecosystemApps.appName, appName));
+    return app || undefined;
+  }
+
+  async getEcosystemAppByApiKey(apiKey: string): Promise<EcosystemApp | undefined> {
+    const [app] = await db.select().from(ecosystemApps).where(eq(ecosystemApps.apiKey, apiKey));
+    return app || undefined;
+  }
+
+  async createEcosystemApp(app: InsertEcosystemApp): Promise<EcosystemApp> {
+    const [newApp] = await db.insert(ecosystemApps).values(app).returning();
+    return newApp;
+  }
+
+  async updateEcosystemApp(id: string, app: Partial<InsertEcosystemApp>): Promise<EcosystemApp | undefined> {
+    const [updated] = await db.update(ecosystemApps).set({ ...app, updatedAt: new Date() }).where(eq(ecosystemApps.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async updateEcosystemAppLastSync(id: string): Promise<void> {
+    await db.update(ecosystemApps).set({ lastSync: new Date() }).where(eq(ecosystemApps.id, id));
+  }
+
+  async deleteEcosystemApp(id: string): Promise<void> {
+    await db.delete(ecosystemApps).where(eq(ecosystemApps.id, id));
+  }
+
+  // Code Snippets
+  async getCodeSnippets(publicOnly: boolean = false): Promise<CodeSnippet[]> {
+    if (publicOnly) {
+      return db.select().from(codeSnippets).where(eq(codeSnippets.isPublic, true)).orderBy(desc(codeSnippets.createdAt));
+    }
+    return db.select().from(codeSnippets).orderBy(desc(codeSnippets.createdAt));
+  }
+
+  async getCodeSnippet(id: string): Promise<CodeSnippet | undefined> {
+    const [snippet] = await db.select().from(codeSnippets).where(eq(codeSnippets.id, id));
+    return snippet || undefined;
+  }
+
+  async getCodeSnippetsByCategory(category: string): Promise<CodeSnippet[]> {
+    return db.select().from(codeSnippets).where(eq(codeSnippets.category, category)).orderBy(desc(codeSnippets.createdAt));
+  }
+
+  async getCodeSnippetsByApp(appId: string): Promise<CodeSnippet[]> {
+    return db.select().from(codeSnippets).where(eq(codeSnippets.authorAppId, appId)).orderBy(desc(codeSnippets.createdAt));
+  }
+
+  async createCodeSnippet(snippet: InsertCodeSnippet): Promise<CodeSnippet> {
+    const [newSnippet] = await db.insert(codeSnippets).values(snippet).returning();
+    return newSnippet;
+  }
+
+  async updateCodeSnippet(id: string, snippet: Partial<InsertCodeSnippet>): Promise<CodeSnippet | undefined> {
+    const [updated] = await db.update(codeSnippets).set({ ...snippet, updatedAt: new Date() }).where(eq(codeSnippets.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async incrementSnippetDownloads(id: string): Promise<void> {
+    await db.update(codeSnippets).set({ downloads: sql`${codeSnippets.downloads} + 1` }).where(eq(codeSnippets.id, id));
+  }
+
+  async incrementSnippetLikes(id: string): Promise<void> {
+    await db.update(codeSnippets).set({ likes: sql`${codeSnippets.likes} + 1` }).where(eq(codeSnippets.id, id));
+  }
+
+  async deleteCodeSnippet(id: string): Promise<void> {
+    await db.delete(codeSnippets).where(eq(codeSnippets.id, id));
+  }
+
+  // Snippet Categories
+  async getSnippetCategories(): Promise<SnippetCategory[]> {
+    return db.select().from(snippetCategories).orderBy(snippetCategories.order);
+  }
+
+  async createSnippetCategory(category: InsertSnippetCategory): Promise<SnippetCategory> {
+    const [newCategory] = await db.insert(snippetCategories).values(category).returning();
+    return newCategory;
+  }
+
+  async deleteSnippetCategory(id: string): Promise<void> {
+    await db.delete(snippetCategories).where(eq(snippetCategories.id, id));
+  }
+
+  // Ecosystem Logs
+  async getEcosystemLogs(limit: number = 100): Promise<EcosystemLog[]> {
+    return db.select().from(ecosystemLogs).orderBy(desc(ecosystemLogs.createdAt)).limit(limit);
+  }
+
+  async getEcosystemLogsByApp(appId: string): Promise<EcosystemLog[]> {
+    return db.select().from(ecosystemLogs).where(eq(ecosystemLogs.appId, appId)).orderBy(desc(ecosystemLogs.createdAt)).limit(100);
+  }
+
+  async createEcosystemLog(log: InsertEcosystemLog): Promise<EcosystemLog> {
+    const [newLog] = await db.insert(ecosystemLogs).values(log).returning();
+    return newLog;
+  }
+
+  async getEcosystemStats(): Promise<{ totalApps: number; totalSnippets: number; totalDownloads: number }> {
+    const [appCount] = await db.select({ count: count() }).from(ecosystemApps).where(eq(ecosystemApps.isActive, true));
+    const [snippetCount] = await db.select({ count: count() }).from(codeSnippets);
+    const [downloadSum] = await db.select({ sum: sql<number>`COALESCE(SUM(${codeSnippets.downloads}), 0)` }).from(codeSnippets);
+    return {
+      totalApps: appCount?.count || 0,
+      totalSnippets: snippetCount?.count || 0,
+      totalDownloads: Number(downloadSum?.sum) || 0
+    };
   }
 }
 
