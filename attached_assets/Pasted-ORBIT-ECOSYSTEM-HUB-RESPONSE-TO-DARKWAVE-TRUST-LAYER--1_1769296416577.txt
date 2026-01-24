@@ -1,0 +1,152 @@
+ORBIT ECOSYSTEM HUB - RESPONSE TO DARKWAVE TRUST LAYER
+
+================================================================================
+PRIORITY 1: AUTHENTICATION & SECURITY
+================================================================================
+
+OAUTH FLOW:
+- We use API Key + Secret header authentication (not OAuth)
+- Headers required: X-API-Key, X-API-Secret, X-App-Name
+- Keys are generated on app registration via POST /api/admin/ecosystem/register-app
+
+API KEY ROTATION:
+- Call: POST /api/ecosystem/app/{appId}/regenerate-credentials (admin only)
+- Returns new apiKey + apiSecret (save immediately - secret shown once)
+- Old credentials invalidated immediately
+
+WEBHOOK SIGNATURE VERIFICATION:
+- We use HMAC-SHA256
+- Signature header: X-Ecosystem-Signature
+- Compute: HMAC-SHA256(requestBody, apiSecret)
+- Compare signature to validate authenticity
+
+================================================================================
+PRIORITY 2: BLOCKCHAIN VERIFICATION
+================================================================================
+
+ENDPOINT FOR SUBMITTING CODE HASHES:
+- POST /api/blockchain/anchor
+- Body: { "recordType": "snippet", "recordId": "xxx", "dataHash": "sha256-hash" }
+- Returns: { "queued": true, "batchId": "xxx" }
+
+VERIFICATION STATUS CALLBACK FORMAT:
+{
+  "event": "blockchain.anchored",
+  "recordType": "snippet",
+  "recordId": "xxx",
+  "txSignature": "solana-tx-signature",
+  "blockTime": 1706123456,
+  "explorerUrl": "https://solscan.io/tx/xxx"
+}
+
+BADGE FORMAT:
+- Verified snippets get: blockchainHash, txSignature, anchoredAt timestamp
+- Display badge with Solana explorer link
+
+================================================================================
+PRIORITY 3: CROSS-APP SYNC
+================================================================================
+
+EVENT SUBSCRIPTION:
+- Register webhook URL during app registration
+- webhookUrl field in app profile
+- Events pushed to your webhook endpoint
+
+DATA FORMAT FOR SYNC PAYLOADS:
+{
+  "event": "snippet.created" | "snippet.updated" | "app.registered",
+  "timestamp": "ISO-8601",
+  "source": "ORBIT",
+  "payload": { ...entity data... },
+  "signature": "hmac-sha256-signature"
+}
+
+CONFLICT RESOLUTION:
+- Last-write-wins based on updatedAt timestamp
+- Source app ID tracked for audit
+
+RATE LIMITS:
+- 100 requests/minute per app
+- 1000 snippets max per app
+- Bulk sync: 50 records per request
+
+================================================================================
+PRIORITY 4: ECOSYSTEM DIRECTORY
+================================================================================
+
+MASTER LIST OF CONNECTED APPS:
+- GET /api/ecosystem/apps (public, no auth)
+- Returns all registered apps with metadata
+
+APP DISCOVERY API:
+- GET /api/ecosystem/app-metadata
+- Returns enhanced metadata for portals
+
+CURRENTLY CONNECTED:
+- ORBIT Staffing OS (Hub Owner)
+- Brew & Board Coffee
+- GarageBot
+- PaintPros
+- DarkWave Health (ready)
+- DarkWave Smart Chain (ready)
+
+================================================================================
+PRIORITY 5: DEVELOPER RESOURCES
+================================================================================
+
+SDK/CLIENT CLASS (TypeScript):
+Already built - see server/ecosystemHub.ts → EcosystemClient class
+
+Usage:
+import { EcosystemClient } from './ecosystemHub';
+
+const client = new EcosystemClient({
+  hubUrl: 'https://orbitstaffing.io',
+  apiKey: 'your-key',
+  apiSecret: 'your-secret',
+  appName: 'Your App'
+});
+
+await client.checkConnection();
+await client.pushSnippet({ name, code, language, category });
+await client.getSnippets('utility');
+await client.syncWorkers([...]);
+
+SANDBOX ENVIRONMENT:
+- Dev URL: https://606bb700-1745-49b9-8ff5-b83937d394a3-00-1b1vrn19wm7h.spock.replit.dev
+- Production: https://orbitstaffing.io
+
+================================================================================
+ANSWERS TO YOUR QUESTIONS
+================================================================================
+
+1. PREFERRED SYNC METHOD:
+   Webhooks for real-time events, polling for bulk reconciliation
+
+2. STAGING ENVIRONMENT:
+   Yes - use the dev URL above for testing
+
+3. SLA EXPECTATIONS:
+   99.5% uptime target, 5-minute response window for incidents
+
+4. RATE LIMITS:
+   100 req/min per app, 1000 snippets max, 50 records per bulk sync
+
+5. BLOCKCHAIN VERIFICATION REQUEST:
+   POST /api/blockchain/anchor with your snippet hash
+   We batch and anchor to Solana mainnet via Helius RPC
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. ORBIT has provided: This documentation + your API credentials
+2. DarkWave to implement: Webhook handlers using HMAC-SHA256 verification
+3. Test against dev URL first
+4. Coordinate production launch when ready
+
+Your PaintPros credentials are LIVE on production (just republished):
+- API Key: dw_app_7b93ce818f59cc4498d9ebf35d22ab45cac7104d8f690d34
+- API Secret: dw_secret_531a2649eaaf6a9d56b60550d91a636e68420baae30844ddebf9fe79f1456e40
+
+Ready to connect!
