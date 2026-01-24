@@ -1084,6 +1084,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.json({
@@ -1093,13 +1094,13 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
       }
 
       // Try to connect to ORBIT
-      const response = await fetch("https://orbitstaffing.io/api/ecosystem/apps", {
+      const response = await fetch(`${orbitBaseUrl}/status`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": orbitKey,
           "X-API-Secret": orbitSecret,
-          "X-App-Name": "DarkWave Trust Layer Hub"
+          "X-App-Name": "DarkWaveStudios"
         }
       });
 
@@ -1112,8 +1113,11 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
         });
         res.json({
           connected: true,
-          message: "Successfully connected to ORBIT Hub",
-          ecosystemApps: data.apps?.length || 0
+          hubName: data.hubName || "ORBIT Staffing Ecosystem Hub",
+          appName: data.appName || "DarkWaveStudios",
+          permissions: data.permissions || [],
+          lastSync: data.lastSync,
+          message: "Successfully connected to ORBIT Hub"
         });
       } else {
         res.json({
@@ -1129,23 +1133,61 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     }
   });
 
-  // Sync snippets from ORBIT Hub
-  app.post("/api/orbit/sync-snippets", requireAdminAuth, async (req, res) => {
+  // Get snippets from ORBIT Hub (public - for Trust Layer Hub UI)
+  app.get("/api/orbit/snippets", async (req, res) => {
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
-        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+        return res.status(503).json({ success: false, error: "ORBIT credentials not configured" });
       }
 
-      const response = await fetch("https://orbitstaffing.io/api/ecosystem/snippets", {
+      const category = req.query.category as string;
+      const url = category 
+        ? `${orbitBaseUrl}/snippets?category=${encodeURIComponent(category)}`
+        : `${orbitBaseUrl}/snippets`;
+
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": orbitKey,
           "X-API-Secret": orbitSecret,
-          "X-App-Name": "DarkWave Trust Layer Hub"
+          "X-App-Name": "DarkWaveStudios"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT fetch failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Sync snippets from ORBIT Hub
+  app.post("/api/orbit/sync-snippets", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch(`${orbitBaseUrl}/snippets`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWaveStudios"
         }
       });
 
@@ -1177,18 +1219,19 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
       }
 
-      const response = await fetch("https://orbitstaffing.io/api/ecosystem/snippets", {
+      const response = await fetch(`${orbitBaseUrl}/snippets`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": orbitKey,
           "X-API-Secret": orbitSecret,
-          "X-App-Name": "DarkWave Trust Layer Hub"
+          "X-App-Name": "DarkWaveStudios"
         },
         body: JSON.stringify(req.body)
       });
@@ -1218,6 +1261,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
@@ -1231,13 +1275,15 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
         .update(JSON.stringify(data))
         .digest("hex");
 
-      const response = await fetch("https://orbitstaffing.io/api/blockchain/anchor", {
+      // Note: blockchain anchor uses different base URL structure
+      const blockchainUrl = orbitBaseUrl.replace('/api/ecosystem', '/api/blockchain');
+      const response = await fetch(`${blockchainUrl}/anchor`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": orbitKey,
           "X-API-Secret": orbitSecret,
-          "X-App-Name": "DarkWave Trust Layer Hub"
+          "X-App-Name": "DarkWaveStudios"
         },
         body: JSON.stringify({ recordType, recordId, dataHash })
       });
