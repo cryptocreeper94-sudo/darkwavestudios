@@ -312,6 +312,16 @@ export default function Home() {
                   Compare
                 </Link>
                 
+                <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Developers</div>
+                <Link 
+                  href="/hub" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-hub-mobile"
+                >
+                  Trust Layer Hub
+                </Link>
+                
                 <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Company</div>
                 <Link 
                   href="/about" 
@@ -375,8 +385,8 @@ export default function Home() {
               <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Portfolio</Link>
               <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
+              <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-hub">Developers</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
-              <Link href="/book" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-book">Book a Call</Link>
               <Link 
                 href="/contact" 
                 className="btn-glow bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-medium"
