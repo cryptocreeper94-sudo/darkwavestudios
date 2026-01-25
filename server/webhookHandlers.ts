@@ -1,5 +1,6 @@
 import { getStripeSync } from './stripeClient';
 import { storage } from './storage';
+import { syncPaymentToOrbit } from './orbitClient';
 
 export class WebhookHandlers {
   static async processWebhook(payload: Buffer, signature: string): Promise<void> {
@@ -36,6 +37,22 @@ export class WebhookHandlers {
             await storage.updatePaymentStatus(payment.id, 'completed', new Date());
             if (session.payment_intent) {
               await storage.updatePaymentStripeIntent(payment.id, session.payment_intent);
+            }
+            
+            // Sync completed payment to ORBIT for bookkeeping
+            const updatedPayment = await storage.getPaymentByStripeSession(session.id);
+            if (updatedPayment) {
+              await syncPaymentToOrbit({
+                id: updatedPayment.id,
+                customerName: updatedPayment.customerName,
+                customerEmail: updatedPayment.customerEmail,
+                amount: updatedPayment.amount,
+                planType: updatedPayment.planType,
+                planName: updatedPayment.planName,
+                paymentMethod: updatedPayment.paymentMethod,
+                stripePaymentIntentId: session.payment_intent || updatedPayment.stripePaymentIntentId,
+                coinbaseChargeId: updatedPayment.coinbaseChargeId,
+              });
             }
           }
         }

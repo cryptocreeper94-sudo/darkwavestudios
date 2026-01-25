@@ -5,6 +5,7 @@ import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, ins
 import crypto from "crypto";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
+import { getOrbitClient, syncPaymentToOrbit } from "./orbitClient";
 import { z } from "zod";
 import OpenAI from "openai";
 
@@ -459,6 +460,19 @@ export async function registerRoutes(
           const payment = await storage.getPaymentByCoinbaseCharge(chargeId);
           if (payment) {
             await storage.updatePaymentStatus(payment.id, "completed", new Date());
+            
+            // Sync completed payment to ORBIT for bookkeeping
+            await syncPaymentToOrbit({
+              id: payment.id,
+              customerName: payment.customerName,
+              customerEmail: payment.customerEmail,
+              amount: payment.amount,
+              planType: payment.planType,
+              planName: payment.planName,
+              paymentMethod: payment.paymentMethod,
+              stripePaymentIntentId: payment.stripePaymentIntentId,
+              coinbaseChargeId: chargeId,
+            });
           }
         }
       } else if (event.event?.type === "charge:failed" || event.event?.type === "charge:expired") {
@@ -1084,7 +1098,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
-      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.json({
@@ -1138,7 +1152,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
-      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(503).json({ success: false, error: "ORBIT credentials not configured" });
@@ -1175,7 +1189,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
-      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
@@ -1219,7 +1233,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
-      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
@@ -1261,7 +1275,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     try {
       const orbitKey = process.env.ORBIT_API_KEY;
       const orbitSecret = process.env.ORBIT_API_SECRET;
-      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_DEV_URL || "https://orbitstaffing.io/api/ecosystem";
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
       
       if (!orbitKey || !orbitSecret) {
         return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
@@ -1283,7 +1297,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
           "Content-Type": "application/json",
           "X-API-Key": orbitKey,
           "X-API-Secret": orbitSecret,
-          "X-App-Name": "DarkWaveStudios"
+          "X-App-Name": "DarkWave Studios"
         },
         body: JSON.stringify({ recordType, recordId, dataHash })
       });
@@ -1304,6 +1318,151 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
       });
 
       res.json({ success: true, ...result, dataHash });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ORBIT FINANCIAL SYNC ============
+
+  // Get financial statement from ORBIT
+  app.get("/api/orbit/financial-statement", requireAdminAuth, async (req, res) => {
+    try {
+      const period = req.query.period as string || new Date().toISOString().slice(0, 7);
+      const orbitClient = getOrbitClient();
+      const statement = await orbitClient.getFinancialStatement(period);
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "financial_statement_fetched",
+        status: "success",
+        metadata: JSON.stringify({ period, totalRevenue: statement.totalRevenue })
+      });
+
+      res.json({ success: true, statement });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Sync contractor payment to ORBIT (1099 tracking)
+  app.post("/api/orbit/contractor-payment", requireAdminAuth, async (req, res) => {
+    try {
+      const { payeeId, payeeName, payeeEmail, amount, description, category } = req.body;
+
+      if (!payeeId || !payeeName || !payeeEmail || !amount) {
+        return res.status(400).json({ 
+          success: false, 
+          error: "Missing required fields: payeeId, payeeName, payeeEmail, amount" 
+        });
+      }
+
+      const orbitClient = getOrbitClient();
+      const result = await orbitClient.syncContractorPayment({
+        payeeId,
+        payeeName,
+        payeeEmail,
+        amount: parseFloat(amount),
+        paymentDate: new Date().toISOString().slice(0, 10),
+        description: description || "Contractor services",
+        sourceApp: "DarkWave Studios",
+        category: category || "contractor-services"
+      });
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "contractor_payment_synced",
+        status: "success",
+        metadata: JSON.stringify({ 
+          payeeId, 
+          amount, 
+          ytdTotal: result.ytdTotal,
+          requiresForm1099: result.requiresForm1099 
+        })
+      });
+
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Manual sync of a payment to ORBIT
+  app.post("/api/orbit/sync-payment/:paymentId", requireAdminAuth, async (req, res) => {
+    try {
+      const payment = await storage.getPayment(req.params.paymentId);
+      if (!payment) {
+        return res.status(404).json({ success: false, error: "Payment not found" });
+      }
+
+      await syncPaymentToOrbit({
+        id: payment.id,
+        customerName: payment.customerName,
+        customerEmail: payment.customerEmail,
+        amount: payment.amount,
+        planType: payment.planType,
+        planName: payment.planName,
+        paymentMethod: payment.paymentMethod,
+        stripePaymentIntentId: payment.stripePaymentIntentId,
+        coinbaseChargeId: payment.coinbaseChargeId,
+      });
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "payment_manually_synced",
+        status: "success",
+        resourceType: "payment",
+        resourceId: payment.id
+      });
+
+      res.json({ success: true, message: "Payment synced to ORBIT" });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Bulk sync all completed payments to ORBIT
+  app.post("/api/orbit/sync-all-payments", requireAdminAuth, async (req, res) => {
+    try {
+      const payments = await storage.getPayments();
+      const completedPayments = payments.filter(p => p.status === "completed");
+      
+      let synced = 0;
+      let failed = 0;
+
+      for (const payment of completedPayments) {
+        try {
+          await syncPaymentToOrbit({
+            id: payment.id,
+            customerName: payment.customerName,
+            customerEmail: payment.customerEmail,
+            amount: payment.amount,
+            planType: payment.planType,
+            planName: payment.planName,
+            paymentMethod: payment.paymentMethod,
+            stripePaymentIntentId: payment.stripePaymentIntentId,
+            coinbaseChargeId: payment.coinbaseChargeId,
+          });
+          synced++;
+        } catch {
+          failed++;
+        }
+      }
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "bulk_payment_sync",
+        status: "success",
+        metadata: JSON.stringify({ synced, failed, total: completedPayments.length })
+      });
+
+      res.json({ 
+        success: true, 
+        message: `Synced ${synced} payments to ORBIT`,
+        synced,
+        failed,
+        total: completedPayments.length
+      });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }

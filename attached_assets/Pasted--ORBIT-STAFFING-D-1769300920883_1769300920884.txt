@@ -1,0 +1,165 @@
+================================================================================
+ORBIT STAFFING → DARKWAVE STUDIOS - HANDOFF RESPONSE
+================================================================================
+FROM: ORBIT Staffing (Financial Hub)
+TO: DarkWave Studios (Trust Layer Hub)
+DATE: January 25, 2026
+================================================================================
+ISSUE #1: PRODUCTION CREDENTIALS
+================================================================================
+EXPLANATION:
+Replit uses SEPARATE databases for development and production. Your app 
+registration exists in the dev database but production has its own database.
+SOLUTION:
+ORBIT was just republished. Your credentials should now work on production.
+Test: GET https://orbitstaffing.io/api/ecosystem/status
+Headers:
+  X-API-Key: dw_app_a9f2e81c6b34d7590e12f48ca3b67d91e5c02f8a7d1649bc
+  X-API-Secret: dw_secret_c4e7b2f19a8d36c05e71f94ba2d08c63e5f17a92b4d860cf3e29a15d78b64021
+  X-App-Name: DarkWave Studios
+If still failing, Jason will need to republish again or run the INSERT on 
+the production database directly.
+================================================================================
+ISSUE #2: FINANCIAL INTEGRATION DOCUMENTATION
+================================================================================
+DarkWave Studios revenue = 100% Jason (no royalty split)
+--------------------------------------------------------------------------------
+1. PAYMENT SYNC
+--------------------------------------------------------------------------------
+ENDPOINT: POST /api/ecosystem/sync/financial-transaction
+HEADERS:
+  X-API-Key: [your key]
+  X-API-Secret: [your secret]
+  X-App-Name: DarkWave Studios
+  Content-Type: application/json
+BODY:
+{
+  "transactionId": "stripe_pi_xxx",           // Unique ID from Stripe/Coinbase
+  "type": "subscription" | "payment" | "refund",
+  "amount": 199.00,
+  "currency": "USD",
+  "sourceApp": "DarkWave Studios",
+  "productName": "Growth Plan",               // Which plan/project
+  "customerEmail": "customer@example.com",
+  "customerName": "Customer Name",
+  "paymentMethod": "stripe" | "coinbase",
+  "stripePaymentIntentId": "pi_xxx",          // If Stripe
+  "coinbaseChargeId": "xxx",                  // If Coinbase
+  "metadata": {
+    "planTier": "growth",
+    "billingCycle": "monthly"
+  },
+  "timestamp": "2026-01-25T12:00:00Z"
+}
+RESPONSE:
+{
+  "success": true,
+  "transactionId": "orbit_txn_xxx",
+  "recorded": true,
+  "owner": "jason",
+  "ownerShare": 199.00,
+  "partnerShare": 0.00
+}
+--------------------------------------------------------------------------------
+2. STRIPE WEBHOOK SETUP (RECOMMENDED)
+--------------------------------------------------------------------------------
+Set up a Stripe webhook to auto-push transactions:
+In your Stripe Dashboard:
+1. Webhooks → Add endpoint
+2. URL: https://darkwavestudios.io/api/stripe/webhook
+3. Events: payment_intent.succeeded, invoice.paid, charge.refunded
+In your webhook handler, forward to ORBIT:
+```javascript
+// When Stripe payment succeeds, push to ORBIT
+await fetch('https://orbitstaffing.io/api/ecosystem/sync/financial-transaction', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': process.env.ORBIT_API_KEY,
+    'X-API-Secret': process.env.ORBIT_API_SECRET,
+    'X-App-Name': 'DarkWave Studios',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    transactionId: paymentIntent.id,
+    type: 'payment',
+    amount: paymentIntent.amount / 100,
+    currency: paymentIntent.currency.toUpperCase(),
+    sourceApp: 'DarkWave Studios',
+    ...
+  })
+});
+CONTRACTOR PAYMENTS (1099)
+ENDPOINT: POST /api/ecosystem/sync/1099-payment
+
+BODY:
+{
+"payeeId": "contractor-uuid",
+"payeeName": "John Developer",
+"payeeEmail": "john@example.com",
+"payeeSSN": "encrypted-ssn", // AES-256 encrypted
+"payeeAddress": {
+"street": "123 Main St",
+"city": "Nashville",
+"state": "TN",
+"zip": "37201"
+},
+"amount": 500.00,
+"paymentDate": "2026-01-25",
+"description": "Code contribution - Trust Layer feature",
+"sourceApp": "DarkWave Studios",
+"category": "contractor-services"
+}
+
+RESPONSE:
+{
+"success": true,
+"paymentId": "orbit_1099_xxx",
+"ytdTotal": 2500.00, // Year-to-date for this contractor
+"threshold1099": 600.00, // IRS reporting threshold
+"requiresForm1099": true
+}
+
+FINANCIAL REPORTING
+GET STATEMENT:
+GET /api/ecosystem/financial-statement?app=darkwave-studios&period=2026-01
+
+Returns:
+{
+"app": "DarkWave Studios",
+"period": "2026-01",
+"totalRevenue": 4500.00,
+"transactions": [...],
+"ownerDistribution": {
+"jason": 4500.00,
+"sidonie": 0.00
+},
+"contractorPayments": [...],
+"blockchainAnchor": "solana-tx-hash"
+}
+
+BLOCKCHAIN STAMP:
+POST /api/blockchain/anchor
+{
+"recordType": "financial-statement",
+"recordId": "stmt-2026-01-darkwave",
+"dataHash": "sha256-of-statement"
+}
+
+ACCOUNT MAPPING
+DarkWave Studios transactions auto-categorize to:
+
+Revenue: "ecosystem-app-revenue"
+Subscriptions: "saas-subscriptions"
+Projects: "custom-development"
+Contractor payments: "1099-contractor-expense"
+================================================================================
+SUMMARY
+CREDENTIALS: Active (test production after latest publish)
+REVENUE SPLIT: 100% Jason (no partner split)
+SYNC METHOD: Push transactions via API or Stripe webhook forwarding
+1099 TRACKING: Full support with YTD calculations
+REPORTS: Monthly statements with blockchain anchoring
+
+Ready to receive financial data from DarkWave Studios!
+
+================================================================================

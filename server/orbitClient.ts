@@ -27,6 +27,67 @@ interface BlockchainAnchorResponse {
   batchId: string;
 }
 
+interface FinancialTransactionPayload {
+  transactionId: string;
+  type: 'subscription' | 'payment' | 'refund';
+  amount: number;
+  currency: string;
+  sourceApp: string;
+  productName: string;
+  customerEmail: string;
+  customerName: string;
+  paymentMethod: 'stripe' | 'coinbase';
+  stripePaymentIntentId?: string;
+  coinbaseChargeId?: string;
+  metadata?: Record<string, unknown>;
+  timestamp: string;
+}
+
+interface FinancialTransactionResponse {
+  success: boolean;
+  transactionId: string;
+  recorded: boolean;
+  owner: string;
+  ownerShare: number;
+  partnerShare: number;
+}
+
+interface ContractorPaymentPayload {
+  payeeId: string;
+  payeeName: string;
+  payeeEmail: string;
+  payeeSSN?: string;
+  payeeAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  amount: number;
+  paymentDate: string;
+  description: string;
+  sourceApp: string;
+  category: string;
+}
+
+interface ContractorPaymentResponse {
+  success: boolean;
+  paymentId: string;
+  ytdTotal: number;
+  threshold1099: number;
+  requiresForm1099: boolean;
+}
+
+interface FinancialStatementResponse {
+  app: string;
+  period: string;
+  totalRevenue: number;
+  transactions: unknown[];
+  ownerDistribution: Record<string, number>;
+  contractorPayments: unknown[];
+  blockchainAnchor?: string;
+}
+
 interface WebhookEvent {
   event: string;
   timestamp: string;
@@ -173,6 +234,60 @@ export class OrbitEcosystemClient {
   generateDataHash(data: string): string {
     return crypto.createHash('sha256').update(data).digest('hex');
   }
+
+  async syncFinancialTransaction(transaction: FinancialTransactionPayload): Promise<FinancialTransactionResponse> {
+    const response = await fetch(`${this.hubUrl}/api/ecosystem/sync/financial-transaction`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(transaction),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Failed to sync financial transaction: ${response.status} - ${error}`);
+    }
+
+    return response.json();
+  }
+
+  async syncContractorPayment(payment: ContractorPaymentPayload): Promise<ContractorPaymentResponse> {
+    const response = await fetch(`${this.hubUrl}/api/ecosystem/sync/1099-payment`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(payment),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Failed to sync contractor payment: ${response.status} - ${error}`);
+    }
+
+    return response.json();
+  }
+
+  async getFinancialStatement(period: string): Promise<FinancialStatementResponse> {
+    const response = await fetch(
+      `${this.hubUrl}/api/ecosystem/financial-statement?app=darkwave-studios&period=${encodeURIComponent(period)}`,
+      {
+        method: 'GET',
+        headers: this.getHeaders(),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch financial statement: ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  async anchorFinancialStatement(statementId: string, dataHash: string): Promise<BlockchainAnchorResponse> {
+    return this.anchorToBlockchain({
+      recordType: 'snippet',
+      recordId: statementId,
+      dataHash,
+    });
+  }
 }
 
 let orbitClient: OrbitEcosystemClient | null = null;
@@ -186,13 +301,56 @@ export function getOrbitClient(): OrbitEcosystemClient {
       throw new Error('ORBIT_API_KEY and ORBIT_API_SECRET must be set');
     }
 
+    const baseUrl = process.env.ORBIT_ECOSYSTEM_URL || 'https://orbitstaffing.io/api/ecosystem';
+    const hubUrl = baseUrl.replace('/api/ecosystem', '');
+
     orbitClient = new OrbitEcosystemClient({
-      hubUrl: process.env.ORBIT_HUB_URL || 'https://orbitstaffing.io',
+      hubUrl,
       apiKey,
       apiSecret,
-      appName: 'DarkWave Trust Layer Hub',
+      appName: 'DarkWave Studios',
     });
   }
 
   return orbitClient;
+}
+
+export async function syncPaymentToOrbit(payment: {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+  amount: string;
+  planType: string;
+  planName: string;
+  paymentMethod: string;
+  stripePaymentIntentId?: string | null;
+  coinbaseChargeId?: string | null;
+}): Promise<void> {
+  try {
+    const client = getOrbitClient();
+    
+    const transaction = {
+      transactionId: payment.stripePaymentIntentId || payment.coinbaseChargeId || payment.id,
+      type: payment.planType.startsWith('custom_') ? 'payment' as const : 'subscription' as const,
+      amount: parseFloat(payment.amount),
+      currency: 'USD',
+      sourceApp: 'DarkWave Studios',
+      productName: payment.planName,
+      customerEmail: payment.customerEmail,
+      customerName: payment.customerName,
+      paymentMethod: payment.paymentMethod as 'stripe' | 'coinbase',
+      stripePaymentIntentId: payment.stripePaymentIntentId || undefined,
+      coinbaseChargeId: payment.coinbaseChargeId || undefined,
+      metadata: {
+        planType: payment.planType,
+        internalPaymentId: payment.id,
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = await client.syncFinancialTransaction(transaction);
+    console.log(`[ORBIT] Payment synced: ${result.transactionId}, Owner: ${result.owner}, Share: $${result.ownerShare}`);
+  } catch (error) {
+    console.error('[ORBIT] Failed to sync payment:', error);
+  }
 }
