@@ -251,16 +251,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <FAQSchema faqs={faqs} />
-      <div 
-        className="fixed inset-0 opacity-40 pointer-events-none"
-        style={{
-          backgroundImage: `url(${heroBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
-      />
-      <div className="fixed inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
+      <div className="fixed inset-0 bg-background pointer-events-none" />
 
       <div className="relative z-10">
         <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
@@ -431,12 +422,7 @@ export default function Home() {
           <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
             {/* Main Hero - 3-col mobile / 8-col desktop */}
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden gradient-border h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-10"
-                  style={{ backgroundImage: `url(${heroWorkspaceImg})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
+              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-1.5 lg:gap-2 bg-primary/10 border border-primary/20 rounded-full px-2 lg:px-4 py-1 lg:py-2 mb-3 lg:mb-6">
                     <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 bg-primary rounded-full animate-pulse" />
@@ -473,47 +459,42 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <div className="absolute -right-20 -bottom-20 w-40 lg:w-60 h-40 lg:h-60 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl opacity-50" />
-              </div>
+                              </div>
             </AnimatedElement>
 
             {/* Stat 1 - Live Projects - 1 col mobile */}
             <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-apps">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">10+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">10+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
-                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
             {/* Stat 2 - AI Powered - 1 col mobile */}
             <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-ai">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-ai">
                 <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">AI</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">AI</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Powered</div>
-                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-accent/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
             {/* Stat 3 - Cost Savings - 1 col mobile */}
             <AnimatedElement delay={300} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-savings">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-savings">
                 <DollarSign className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display gradient-text">60%</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">60%</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Less Cost</div>
-                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
 
             {/* Stat 4 - Satisfaction - hidden on mobile, shown on desktop */}
             <AnimatedElement delay={350} className="hidden lg:block lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden h-full flex flex-col justify-center" data-testid="stat-satisfaction">
+              <div className="glass-card rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-satisfaction">
                 <Star className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display gradient-text">100%</div>
+                <div className="text-3xl font-bold font-display text-foreground">100%</div>
                 <div className="text-muted-foreground text-sm">Satisfaction</div>
-                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-accent/10 rounded-full blur-2xl" />
               </div>
             </AnimatedElement>
           </section>
@@ -525,33 +506,28 @@ export default function Home() {
                 href="https://darkwavestudios.io/studio" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border relative overflow-hidden group hover-lift h-full"
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 relative overflow-hidden group hover-lift h-full border border-white/10"
                 data-testid="studio-ide-card"
               >
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity"
-                  style={{ backgroundImage: `url(${studioIdeImg})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
-                <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8">
-                  <div className="w-14 h-14 lg:w-20 lg:h-20 rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 backdrop-blur-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <Terminal className="w-7 h-7 lg:w-10 lg:h-10 text-primary" />
+                <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8">
+                  <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Terminal className="w-7 h-7 lg:w-8 lg:h-8 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 mb-2 lg:mb-3">
-                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="text-[10px] lg:text-xs font-medium text-primary">Now Available</span>
+                    <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-3 py-1 mb-2 lg:mb-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full" />
+                      <span className="text-[10px] lg:text-xs font-medium text-green-400">Now Available</span>
                     </div>
-                    <h3 className="text-lg lg:text-3xl font-bold font-display mb-1 lg:mb-2">
-                      DarkWave <span className="gradient-text">Studio IDE</span>
+                    <h3 className="text-lg lg:text-2xl font-bold font-display mb-1 lg:mb-2">
+                      DarkWave <span className="text-primary">Studio IDE</span>
                     </h3>
-                    <p className="text-muted-foreground text-xs lg:text-base max-w-xl">
-                      Build faster with our AI-powered development environment. Modern tools, seamless deployment, and collaborative workflows — all in one place.
+                    <p className="text-muted-foreground text-xs lg:text-sm max-w-xl">
+                      AI-powered development environment with modern tools and seamless deployment.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-primary font-semibold text-sm lg:text-base group-hover:gap-3 transition-all">
-                    Launch IDE
-                    <ExternalLink className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <div className="flex items-center gap-2 text-primary font-medium text-sm">
+                    Launch
+                    <ExternalLink className="w-4 h-4" />
                   </div>
                 </div>
               </a>
@@ -560,28 +536,23 @@ export default function Home() {
             <AnimatedElement delay={150} className="col-span-3 lg:col-span-4">
               <Link 
                 href="/hub" 
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border relative overflow-hidden group hover-lift h-full"
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-white/10"
                 data-testid="trust-layer-card"
               >
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity"
-                  style={{ backgroundImage: `url(${trustLayerImg})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-                <div className="relative z-10 h-full flex flex-col justify-between">
+                <div className="h-full flex flex-col justify-between">
                   <div>
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-gradient-to-br from-accent/30 to-primary/30 backdrop-blur-sm flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">
-                      <Shield className="w-6 h-6 lg:w-7 lg:h-7 text-accent" />
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                      <Shield className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-base lg:text-xl font-bold font-display mb-1 lg:mb-2">
-                      Trust Layer <span className="gradient-text">Hub</span>
+                    <h3 className="text-base lg:text-lg font-bold font-display mb-1">
+                      Trust Layer Hub
                     </h3>
                     <p className="text-muted-foreground text-[10px] lg:text-sm">
-                      Blockchain-verified code marketplace and developer ecosystem.
+                      Developer ecosystem & verified code.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-primary font-medium text-xs lg:text-sm mt-3 group-hover:gap-3 transition-all">
-                    Explore <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4" />
+                  <div className="flex items-center gap-2 text-primary font-medium text-xs mt-3">
+                    Explore <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
               </Link>
