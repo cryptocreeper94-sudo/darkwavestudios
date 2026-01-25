@@ -20,7 +20,9 @@ import {
   Shield,
   Users,
   Menu,
-  X
+  X,
+  ExternalLink,
+  Terminal
 } from "lucide-react";
 import {
   Accordion,
@@ -37,6 +39,9 @@ import domainImg from "@assets/generated_images/domain_hosting_servers.png";
 import designImg from "@assets/generated_images/design_branding_workspace.png";
 import appDevImg from "@assets/generated_images/app_development_devices.png";
 import maintenanceImg from "@assets/generated_images/maintenance_gears_circuits.png";
+import studioIdeImg from "@assets/images/studio-ide.png";
+import heroWorkspaceImg from "@assets/images/hero-workspace.png";
+import trustLayerImg from "@assets/images/trust-layer.png";
 
 const projects = [
   {
@@ -497,6 +502,76 @@ export default function Home() {
                 <div className="text-muted-foreground text-sm">Satisfaction</div>
                 <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-accent/10 rounded-full blur-2xl" />
               </div>
+            </AnimatedElement>
+          </section>
+
+          {/* STUDIO IDE FEATURED SECTION */}
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
+            <AnimatedElement delay={100} className="col-span-3 lg:col-span-8">
+              <a 
+                href="https://darkwavestudios.io/studio" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border relative overflow-hidden group hover-lift h-full"
+                data-testid="studio-ide-card"
+              >
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity"
+                  style={{ backgroundImage: `url(${studioIdeImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
+                <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8">
+                  <div className="w-14 h-14 lg:w-20 lg:h-20 rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 backdrop-blur-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Terminal className="w-7 h-7 lg:w-10 lg:h-10 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 mb-2 lg:mb-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                      <span className="text-[10px] lg:text-xs font-medium text-primary">Now Available</span>
+                    </div>
+                    <h3 className="text-lg lg:text-3xl font-bold font-display mb-1 lg:mb-2">
+                      DarkWave <span className="gradient-text">Studio IDE</span>
+                    </h3>
+                    <p className="text-muted-foreground text-xs lg:text-base max-w-xl">
+                      Build faster with our AI-powered development environment. Modern tools, seamless deployment, and collaborative workflows — all in one place.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-primary font-semibold text-sm lg:text-base group-hover:gap-3 transition-all">
+                    Launch IDE
+                    <ExternalLink className="w-4 h-4 lg:w-5 lg:h-5" />
+                  </div>
+                </div>
+              </a>
+            </AnimatedElement>
+
+            <AnimatedElement delay={150} className="col-span-3 lg:col-span-4">
+              <a 
+                href="/hub" 
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border relative overflow-hidden group hover-lift h-full"
+                data-testid="trust-layer-card"
+              >
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity"
+                  style={{ backgroundImage: `url(${trustLayerImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div>
+                    <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-gradient-to-br from-accent/30 to-primary/30 backdrop-blur-sm flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">
+                      <Shield className="w-6 h-6 lg:w-7 lg:h-7 text-accent" />
+                    </div>
+                    <h3 className="text-base lg:text-xl font-bold font-display mb-1 lg:mb-2">
+                      Trust Layer <span className="gradient-text">Hub</span>
+                    </h3>
+                    <p className="text-muted-foreground text-[10px] lg:text-sm">
+                      Blockchain-verified code marketplace and developer ecosystem.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-primary font-medium text-xs lg:text-sm mt-3 group-hover:gap-3 transition-all">
+                    Explore <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4" />
+                  </div>
+                </div>
+              </a>
             </AnimatedElement>
           </section>
 
