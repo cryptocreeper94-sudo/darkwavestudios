@@ -42,6 +42,15 @@ import maintenanceImg from "@assets/generated_images/maintenance_gears_circuits.
 import studioIdeImg from "@assets/images/studio-ide.png";
 import heroWorkspaceImg from "@assets/images/hero-workspace.png";
 import trustLayerImg from "@assets/images/trust-layer.png";
+import projectStrikeImg from "@assets/images/project-strike.png";
+import projectPulseImg from "@assets/images/project-pulse.png";
+import projectOrbitImg from "@assets/images/project-orbit.png";
+import projectOrbyImg from "@assets/images/project-orby.png";
+import projectPaintImg from "@assets/images/project-paint.png";
+import projectChainImg from "@assets/images/project-chain.png";
+import projectLegacyImg from "@assets/images/project-legacy.png";
+import projectGarageImg from "@assets/images/project-garage.png";
+import projectCoffeeImg from "@assets/images/project-coffee.png";
 
 const projects = [
   {
@@ -49,7 +58,7 @@ const projects = [
     title: "Strike Agent",
     description: "AI-powered crypto trading signals with 61% win rate and real-time alerts",
     tech: ["AI", "Trading", "Real-time"],
-    image: "🎯",
+    image: projectStrikeImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://strikeagent.io"
   },
@@ -58,7 +67,7 @@ const projects = [
     title: "DarkWave Pulse",
     description: "Predictive market intelligence powered by AI analytics systems",
     tech: ["AI", "Analytics", "Markets"],
-    image: "📡",
+    image: projectPulseImg,
     gradient: "from-purple-500/20 to-pink-600/20",
     url: "https://darkwavepulse.com"
   },
@@ -67,7 +76,7 @@ const projects = [
     title: "Orbit Staffing",
     description: "Full-cycle staffing platform with GPS clock-in, payroll automation, and AI matching",
     tech: ["HR Tech", "Payroll", "AI"],
-    image: "🚀",
+    image: projectOrbitImg,
     gradient: "from-emerald-500/20 to-teal-600/20",
     url: "https://orbitstaffing.io"
   },
@@ -76,7 +85,7 @@ const projects = [
     title: "Orby",
     description: "Venue operations command suite with geofencing and facial recognition clock-in",
     tech: ["Operations", "Geofencing", "Security"],
-    image: "🔮",
+    image: projectOrbyImg,
     gradient: "from-orange-500/20 to-red-600/20",
     url: "https://getorby.io"
   },
@@ -85,7 +94,7 @@ const projects = [
     title: "Nash Paint Pros",
     description: "Nashville's #1 painters with AI room visualizer and instant estimates",
     tech: ["AI Estimates", "Booking", "Visualizer"],
-    image: "🎨",
+    image: projectPaintImg,
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://nashpaintpros.io"
   },
@@ -94,7 +103,7 @@ const projects = [
     title: "Paint Pros",
     description: "White-label SaaS for painting contractors with blockchain verification",
     tech: ["SaaS", "Blockchain", "White-label"],
-    image: "🖌️",
+    image: projectPaintImg,
     gradient: "from-blue-500/20 to-indigo-600/20",
     url: "https://paintpros.io"
   },
@@ -103,7 +112,7 @@ const projects = [
     title: "DWSC",
     description: "Layer 1 blockchain with 200K+ TPS, DeFi suite, NFTs, and Chronicles game",
     tech: ["Blockchain", "DeFi", "Gaming"],
-    image: "⛓️",
+    image: projectChainImg,
     gradient: "from-amber-500/20 to-orange-600/20",
     url: "https://dwsc.io"
   },
@@ -112,7 +121,7 @@ const projects = [
     title: "Your Legacy",
     description: "Parallel life simulation spanning 70+ historical eras on DarkWave Chain",
     tech: ["Gaming", "Blockchain", "Simulation"],
-    image: "🏰",
+    image: projectLegacyImg,
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://yourlegacy.io"
   },
@@ -121,7 +130,7 @@ const projects = [
     title: "Garage Bot",
     description: "Search 15M+ auto parts across 40+ retailers with AI DIY repair guides",
     tech: ["AI", "E-commerce", "Automotive"],
-    image: "🔧",
+    image: projectGarageImg,
     gradient: "from-rose-500/20 to-pink-600/20",
     url: "https://garagebot.io"
   },
@@ -130,7 +139,7 @@ const projects = [
     title: "Brew & Board",
     description: "Nashville coffee and catering delivery with white-glove service for meetings",
     tech: ["Delivery", "Catering", "Nashville"],
-    image: "☕",
+    image: projectCoffeeImg,
     gradient: "from-lime-500/20 to-green-600/20",
     url: "https://brewandboard.coffee"
   }
@@ -423,7 +432,11 @@ export default function Home() {
             {/* Main Hero - 3-col mobile / 8-col desktop */}
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden gradient-border h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
-                <div className="absolute inset-0 noise-overlay" />
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10"
+                  style={{ backgroundImage: `url(${heroWorkspaceImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-1.5 lg:gap-2 bg-primary/10 border border-primary/20 rounded-full px-2 lg:px-4 py-1 lg:py-2 mb-3 lg:mb-6">
                     <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 bg-primary rounded-full animate-pulse" />
@@ -545,7 +558,7 @@ export default function Home() {
             </AnimatedElement>
 
             <AnimatedElement delay={150} className="col-span-3 lg:col-span-4">
-              <a 
+              <Link 
                 href="/hub" 
                 className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 gradient-border relative overflow-hidden group hover-lift h-full"
                 data-testid="trust-layer-card"
@@ -571,7 +584,7 @@ export default function Home() {
                     Explore <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4" />
                   </div>
                 </div>
-              </a>
+              </Link>
             </AnimatedElement>
           </section>
 
@@ -617,10 +630,14 @@ export default function Home() {
                       }`}
                       data-testid={`project-card-${project.id}`}
                     >
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-50 transition-opacity"
+                        style={{ backgroundImage: `url(${project.image})` }}
+                      />
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-50 group-hover:opacity-70 transition-opacity`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
                       <div className="relative z-10">
-                        <div className="text-xl lg:text-4xl mb-1 lg:mb-3">{project.image}</div>
-                        <h3 className="text-[10px] lg:text-lg font-bold font-display mb-0.5 lg:mb-1 line-clamp-1">{project.title}</h3>
+                        <h3 className="text-[10px] lg:text-lg font-bold font-display mb-0.5 lg:mb-1 line-clamp-1 mt-4 lg:mt-8">{project.title}</h3>
                         <p className="text-muted-foreground text-[8px] lg:text-xs mb-1 lg:mb-3 line-clamp-2 hidden lg:block">{project.description}</p>
                         <div className="hidden lg:flex flex-wrap gap-1 mb-3">
                           {project.tech.map((tech) => (
@@ -961,6 +978,16 @@ export default function Home() {
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Resources</div>
                 <div className="flex flex-col gap-2">
+                  <a 
+                    href="https://darkwavestudios.io/studio" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" 
+                    data-testid="footer-link-studio"
+                  >
+                    Studio IDE <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
                   <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
                   <Link href="/admin" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-developers">Developers</Link>
                 </div>
