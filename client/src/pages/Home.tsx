@@ -398,10 +398,10 @@ export default function Home() {
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-6 pt-20 pb-20">
+        <main className="max-w-7xl mx-auto px-4 lg:px-6 pt-24 pb-24 lg:pt-20 lg:pb-20">
           
           {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6">
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
             {/* Main Hero - 3-col mobile / 8-col desktop */}
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden gradient-border h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
@@ -488,7 +488,7 @@ export default function Home() {
           </section>
 
           {/* BENTO GRID SECTION 2: Projects Carousel + Value Props - 3-COL MOBILE */}
-          <section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24">
+          <section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10 scroll-mt-24">
             {/* Projects Carousel - 3-col mobile / 8-col desktop */}
             <div className="col-span-3 lg:col-span-8">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
@@ -517,7 +517,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 lg:gap-4">
+                <div className="grid grid-cols-3 gap-3 lg:gap-5">
                   {visibleProjects().map((project, index) => (
                     <a
                       href={project.url}
@@ -563,7 +563,7 @@ export default function Home() {
             </div>
 
             {/* Value Props - Side by side on mobile */}
-            <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-2 lg:gap-4">
+            <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-3 lg:gap-5">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 <div className="relative z-10">
@@ -584,7 +584,7 @@ export default function Home() {
           </section>
 
           {/* BENTO GRID SECTION 3: Services + Pricing */}
-          <section id="services" className="mb-4 lg:mb-6 scroll-mt-24">
+          <section id="services" className="mb-6 lg:mb-10 scroll-mt-24">
             {/* Mobile: Pricing + Services Carousel */}
             <div className="lg:hidden space-y-2">
               {/* Compact Pricing Bar */}
@@ -706,7 +706,7 @@ export default function Home() {
           </section>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
-          <section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 scroll-mt-24">
+          <section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
             {/* FAQ - Full width on mobile, 7-col desktop */}
             <div className="col-span-3 lg:col-span-7">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-6 gradient-border">
@@ -776,7 +776,7 @@ export default function Home() {
           </section>
 
           {/* NEWSLETTER SECTION */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mt-6 lg:mt-12">
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mt-6 lg:mt-12">
             <div className="col-span-3 lg:col-span-6">
               <Newsletter />
             </div>
@@ -879,7 +879,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 lg:gap-4">
+            <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 lg:gap-5">
               <div className="text-muted-foreground text-[10px] lg:text-sm">
                 © 2025 DarkWave Studios. Built with passion, priced with honesty.
               </div>
