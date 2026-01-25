@@ -321,6 +321,17 @@ export default function Home() {
                 >
                   Trust Layer Hub
                 </Link>
+                <a 
+                  href="https://darkwavestudios.io/studio" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3 flex items-center gap-2"
+                  data-testid="nav-studio-mobile"
+                >
+                  Studio IDE
+                  <ExternalLink className="w-3 h-3" />
+                </a>
                 
                 <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Company</div>
                 <Link 
@@ -387,13 +398,15 @@ export default function Home() {
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
               <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-hub">Developers</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
-              <Link 
-                href="/contact" 
+              <a 
+                href="https://darkwavestudios.io/studio" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-glow bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-medium"
-                data-testid="nav-contact"
+                data-testid="nav-studio"
               >
-                Get Started
-              </Link>
+                Studio IDE
+              </a>
             </div>
           </div>
         </nav>
