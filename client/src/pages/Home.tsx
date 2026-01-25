@@ -39,18 +39,18 @@ import domainImg from "@assets/generated_images/domain_hosting_servers.png";
 import designImg from "@assets/generated_images/design_branding_workspace.png";
 import appDevImg from "@assets/generated_images/app_development_devices.png";
 import maintenanceImg from "@assets/generated_images/maintenance_gears_circuits.png";
-import studioIdeImg from "@assets/images/studio-ide.png";
-import heroWorkspaceImg from "@assets/images/hero-workspace.png";
-import trustLayerImg from "@assets/images/trust-layer.png";
-import projectStrikeImg from "@assets/images/project-strike.png";
-import projectPulseImg from "@assets/images/project-pulse.png";
-import projectOrbitImg from "@assets/images/project-orbit.png";
-import projectOrbyImg from "@assets/images/project-orby.png";
-import projectPaintImg from "@assets/images/project-paint.png";
-import projectChainImg from "@assets/images/project-chain.png";
-import projectLegacyImg from "@assets/images/project-legacy.png";
-import projectGarageImg from "@assets/images/project-garage.png";
-import projectCoffeeImg from "@assets/images/project-coffee.png";
+import studioIdeImg from "@/assets/images/studio-ide.png";
+import heroWorkspaceImg from "@/assets/images/hero-workspace.png";
+import trustLayerImg from "@/assets/images/trust-layer.png";
+import projectStrikeImg from "@/assets/images/project-strike.png";
+import projectPulseImg from "@/assets/images/project-pulse.png";
+import projectOrbitImg from "@/assets/images/project-orbit.png";
+import projectOrbyImg from "@/assets/images/project-orby.png";
+import projectPaintImg from "@/assets/images/project-paint.png";
+import projectChainImg from "@/assets/images/project-chain.png";
+import projectLegacyImg from "@/assets/images/project-legacy.png";
+import projectGarageImg from "@/assets/images/project-garage.png";
+import projectCoffeeImg from "@/assets/images/project-coffee.png";
 
 const projects = [
   {
