@@ -327,7 +327,7 @@ export default function Home() {
                   Trust Layer Hub
                 </Link>
                 <a 
-                  href="https://darkwavestudios.io/studio" 
+                  href="https://dwtl.io/studio" 
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
@@ -404,7 +404,7 @@ export default function Home() {
               <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-hub">Developers</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
-                href="https://darkwavestudios.io/studio" 
+                href="https://dwtl.io/studio" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-glow bg-primary text-primary-foreground px-5 py-2 rounded-lg text-sm font-medium"
@@ -503,7 +503,7 @@ export default function Home() {
           <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8">
               <a 
-                href="https://darkwavestudios.io/studio" 
+                href="https://dwtl.io/studio" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 relative overflow-hidden group hover-lift h-full border border-white/10"
@@ -887,7 +887,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href="https://darkwavestudios.io/studio"
+                    href="https://dwtl.io/studio"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-base font-semibold"
@@ -1021,7 +1021,7 @@ export default function Home() {
                 <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Resources</div>
                 <div className="flex flex-col gap-2">
                   <a 
-                    href="https://darkwavestudios.io/studio" 
+                    href="https://dwtl.io/studio" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" 
