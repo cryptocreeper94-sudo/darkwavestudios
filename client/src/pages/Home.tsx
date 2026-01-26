@@ -851,6 +851,77 @@ export default function Home() {
             </div>
           </section>
 
+          {/* BUILD YOUR OWN - STUDIO IDE CTA */}
+          <section className="mt-6 lg:mt-12 mb-6 lg:mb-10">
+            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-20"
+                style={{ backgroundImage: `url(${studioIdeImg})` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
+              <div className="relative z-10 grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                    <Terminal className="w-3 h-3" />
+                    For Developers
+                  </div>
+                  <h2 className="text-2xl lg:text-4xl font-bold font-display mb-4">
+                    Build Your Own Website with <span className="text-primary">Studio IDE</span>
+                  </h2>
+                  <p className="text-muted-foreground text-sm lg:text-base mb-6">
+                    Prefer to code it yourself? Our cloud-based development environment gives you professional-grade tools, 
+                    AI assistance, and one-click deployment. Build, test, and ship faster than ever.
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {[
+                      "Cloud-based IDE - code from anywhere",
+                      "AI-powered code assistance",
+                      "One-click deployments",
+                      "Built-in database & hosting",
+                      "Real-time collaboration"
+                    ].map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="https://darkwavestudios.io/studio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl text-base font-semibold"
+                    data-testid="studio-cta-button"
+                  >
+                    Launch Studio IDE
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+                <div className="hidden lg:block">
+                  <div className="glass rounded-xl p-4 border border-white/10">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                      <span className="text-xs text-muted-foreground ml-2">studio.darkwavestudios.io</span>
+                    </div>
+                    <div className="font-mono text-xs space-y-1 text-muted-foreground">
+                      <div><span className="text-purple-400">import</span> <span className="text-green-400">{'{ createApp }'}</span> <span className="text-purple-400">from</span> <span className="text-yellow-400">'darkwave'</span>;</div>
+                      <div></div>
+                      <div><span className="text-purple-400">const</span> <span className="text-blue-400">app</span> = <span className="text-yellow-400">createApp</span>{'({'}</div>
+                      <div>  <span className="text-blue-400">name</span>: <span className="text-green-400">'My Awesome Site'</span>,</div>
+                      <div>  <span className="text-blue-400">ai</span>: <span className="text-orange-400">true</span>,</div>
+                      <div>  <span className="text-blue-400">deploy</span>: <span className="text-green-400">'production'</span></div>
+                      <div>{'});'}</div>
+                      <div></div>
+                      <div className="text-primary">// Your site is live!</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* NEWSLETTER SECTION */}
           <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mt-6 lg:mt-12">
             <div className="col-span-3 lg:col-span-6">
