@@ -8,6 +8,7 @@ import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClie
 import { getOrbitClient, syncPaymentToOrbit } from "./orbitClient";
 import { z } from "zod";
 import OpenAI from "openai";
+import widgetRoutes from "./widgets/widget-routes";
 
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "darkwave-admin-2024";
 
@@ -1467,6 +1468,9 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
       res.status(500).json({ success: false, error: error.message });
     }
   });
+
+  // ============ TRUST LAYER WIDGET API ============
+  app.use("/api/widgets", widgetRoutes);
 
   return httpServer;
 }
