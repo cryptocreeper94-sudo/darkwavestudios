@@ -1,0 +1,760 @@
+FILE 6: tl-crew-tracker.js
+Path: client/public/widgets/tl-crew-tracker.js
+
+/**
+ * TrustLayer Crew Tracker Widget
+ * Version: 1.0.0
+ */
+(function() {
+  'use strict';
+  var scripts = document.getElementsByTagName('script');
+  var currentScript = scripts[scripts.length - 1];
+  var siteId = currentScript.getAttribute('data-site-id');
+  var apiKey = currentScript.getAttribute('data-api-key');
+  var primaryColor = currentScript.getAttribute('data-primary-color') || '#3b82f6';
+  var containerId = currentScript.getAttribute('data-container') || 'tl-crew-tracker';
+  var jobId = currentScript.getAttribute('data-job-id');
+  var container = document.getElementById(containerId);
+  if (!container) {
+    console.warn('[TL Crew Tracker] Container not found:', containerId);
+    return;
+  }
+  var css = '\
+    .tl-crew-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 400px; margin: 0 auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }\
+    .tl-crew-header { background: linear-gradient(135deg, ' + primaryColor + ' 0%, ' + adjustColor(primaryColor, -30) + ' 100%); color: #fff; padding: 20px; }\
+    .tl-crew-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }\
+    .tl-crew-job { font-size: 14px; opacity: 0.9; }\
+    .tl-crew-map { height: 200px; background: #e5e7eb; position: relative; }\
+    .tl-crew-map-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 14px; }\
+    .tl-crew-info { padding: 20px; }\
+    .tl-crew-status { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }\
+    .tl-crew-status-dot { width: 12px; height: 12px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }\
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }\
+    .tl-crew-status-text { font-weight: 600; color: #1f2937; }\
+    .tl-crew-eta { font-size: 14px; color: #6b7280; }\
+    .tl-crew-details { border-top: 1px solid #e5e7eb; padding-top: 16px; }\
+    .tl-crew-detail { display: flex; justify-content: space-between; margin-bottom: 12px; }\
+    .tl-crew-detail-label { font-size: 14px; color: #6b7280; }\
+    .tl-crew-detail-value { font-size: 14px; font-weight: 600; color: #1f2937; }\
+    .tl-crew-member { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f9fafb; border-radius: 8px; margin-bottom: 8px; }\
+    .tl-crew-avatar { width: 40px; height: 40px; border-radius: 50%; background: ' + primaryColor + '; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; }\
+    .tl-crew-name { font-weight: 600; color: #1f2937; }\
+    .tl-crew-role { font-size: 12px; color: #6b7280; }\
+    .tl-crew-contact { display: flex; gap: 8px; margin-top: 16px; }\
+    .tl-crew-btn { flex: 1; padding: 12px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; text-align: center; text-decoration: none; }\
+    .tl-crew-btn-call { background: ' + primaryColor + '; color: #fff; border: none; }\
+    .tl-crew-btn-text { background: #fff; color: ' + primaryColor + '; border: 2px solid ' + primaryColor + '; }\
+    .tl-crew-powered { text-align: center; font-size: 11px; color: #9ca3af; padding: 12px; }\
+    .tl-crew-powered a { color: ' + primaryColor + '; text-decoration: none; }\
+  ';
+  var SAMPLE_DATA = {
+    job: { id: jobId || 'JOB-001', address: '123 Main St, Nashville, TN' },
+    status: 'En Route',
+    eta: '15 minutes',
+    crew: [
+      { name: 'Mike Johnson', role: 'Crew Lead', phone: '615-555-0101' },
+      { name: 'Sarah Williams', role: 'Painter', phone: '615-555-0102' }
+    ],
+    lastUpdate: new Date()
+  };
+  function adjustColor(hex, percent) {
+    var num = parseInt(hex.replace('#', ''), 16);
+    var r = Math.min(255, Math.max(0, (num >> 16) + percent));
+    var g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + percent));
+    var b = Math.min(255, Math.max(0, (num & 0x0000FF) + percent));
+    return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+  }
+  function injectStyles() {
+    if (document.getElementById('tl-crew-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'tl-crew-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  function getInitials(name) {
+    return name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase();
+  }
+  function render() {
+    injectStyles();
+    
+    var data = SAMPLE_DATA;
+    var crewHtml = data.crew.map(function(c) {
+      return '<div class="tl-crew-member">\
+        <div class="tl-crew-avatar">' + getInitials(c.name) + '</div>\
+        <div><div class="tl-crew-name">' + c.name + '</div><div class="tl-crew-role">' + c.role + '</div></div>\
+      </div>';
+    }).join('');
+    container.innerHTML = '\
+      <div class="tl-crew-container">\
+        <div class="tl-crew-header">\
+          <div class="tl-crew-title">Your Crew is on the Way!</div>\
+          <div class="tl-crew-job">' + data.job.address + '</div>\
+        </div>\
+        <div class="tl-crew-map"><div class="tl-crew-map-placeholder">Map Loading...</div></div>\
+        <div class="tl-crew-info">\
+          <div class="tl-crew-status">\
+            <div class="tl-crew-status-dot"></div>\
+            <div>\
+              <div class="tl-crew-status-text">' + data.status + '</div>\
+              <div class="tl-crew-eta">ETA: ' + data.eta + '</div>\
+            </div>\
+          </div>\
+          <div class="tl-crew-details">\
+            <div class="tl-crew-detail"><span class="tl-crew-detail-label">Job #</span><span class="tl-crew-detail-value">' + data.job.id + '</span></div>\
+            <div class="tl-crew-detail"><span class="tl-crew-detail-label">Crew Size</span><span class="tl-crew-detail-value">' + data.crew.length + ' members</span></div>\
+          </div>\
+          <div style="margin-top:16px;font-weight:600;color:#374151;margin-bottom:8px;">Your Team</div>\
+          ' + crewHtml + '\
+          <div class="tl-crew-contact">\
+            <a href="tel:' + data.crew[0].phone + '" class="tl-crew-btn tl-crew-btn-call">Call Crew Lead</a>\
+            <a href="sms:' + data.crew[0].phone + '" class="tl-crew-btn tl-crew-btn-text">Send Text</a>\
+          </div>\
+        </div>\
+        <div class="tl-crew-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+      </div>\
+    ';
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  window.TLCrewTracker = { refresh: render };
+  console.log('[TL Crew Tracker] Loaded for site:', siteId);
+})();
+FILE 7: tl-crm.js
+Path: client/public/widgets/tl-crm.js
+
+/**
+ * TrustLayer CRM Pipeline Widget
+ * Version: 1.0.0
+ */
+(function() {
+  'use strict';
+  var scripts = document.getElementsByTagName('script');
+  var currentScript = scripts[scripts.length - 1];
+  var siteId = currentScript.getAttribute('data-site-id');
+  var apiKey = currentScript.getAttribute('data-api-key');
+  var primaryColor = currentScript.getAttribute('data-primary-color') || '#3b82f6';
+  var containerId = currentScript.getAttribute('data-container') || 'tl-crm';
+  var webhookUrl = currentScript.getAttribute('data-webhook-url');
+  var container = document.getElementById(containerId);
+  if (!container) {
+    console.warn('[TL CRM] Container not found:', containerId);
+    return;
+  }
+  var STAGES = [
+    { id: 'new', name: 'New Leads', color: '#6b7280' },
+    { id: 'contacted', name: 'Contacted', color: '#3b82f6' },
+    { id: 'quoted', name: 'Quoted', color: '#f59e0b' },
+    { id: 'won', name: 'Won', color: '#10b981' }
+  ];
+  var leads = [
+    { id: 1, name: 'John Smith', email: 'john@example.com', phone: '615-555-0101', stage: 'new', value: 2500, created: '2026-01-28' },
+    { id: 2, name: 'Sarah Johnson', email: 'sarah@example.com', phone: '615-555-0102', stage: 'contacted', value: 4200, created: '2026-01-27' },
+    { id: 3, name: 'Mike Davis', email: 'mike@example.com', phone: '615-555-0103', stage: 'quoted', value: 3800, created: '2026-01-26' },
+    { id: 4, name: 'Emily Wilson', email: 'emily@example.com', phone: '615-555-0104', stage: 'quoted', value: 5100, created: '2026-01-25' },
+    { id: 5, name: 'Robert Brown', email: 'robert@example.com', phone: '615-555-0105', stage: 'won', value: 6200, created: '2026-01-24' }
+  ];
+  var css = '\
+    .tl-crm-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; border-radius: 12px; padding: 20px; }\
+    .tl-crm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }\
+    .tl-crm-title { font-size: 20px; font-weight: 700; color: #1f2937; }\
+    .tl-crm-stats { display: flex; gap: 16px; }\
+    .tl-crm-stat { text-align: center; }\
+    .tl-crm-stat-value { font-size: 24px; font-weight: 700; color: ' + primaryColor + '; }\
+    .tl-crm-stat-label { font-size: 12px; color: #6b7280; }\
+    .tl-crm-board { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }\
+    .tl-crm-column { flex: 0 0 280px; background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }\
+    .tl-crm-column-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }\
+    .tl-crm-column-title { font-weight: 600; color: #374151; display: flex; align-items: center; gap: 8px; }\
+    .tl-crm-column-dot { width: 10px; height: 10px; border-radius: 50%; }\
+    .tl-crm-column-count { font-size: 12px; color: #9ca3af; background: #f3f4f6; padding: 2px 8px; border-radius: 10px; }\
+    .tl-crm-cards { display: flex; flex-direction: column; gap: 8px; min-height: 100px; }\
+    .tl-crm-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; cursor: grab; transition: box-shadow 0.2s; }\
+    .tl-crm-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }\
+    .tl-crm-card.dragging { opacity: 0.5; }\
+    .tl-crm-card-name { font-weight: 600; color: #1f2937; margin-bottom: 4px; }\
+    .tl-crm-card-email { font-size: 13px; color: #6b7280; margin-bottom: 8px; }\
+    .tl-crm-card-footer { display: flex; justify-content: space-between; align-items: center; }\
+    .tl-crm-card-value { font-size: 14px; font-weight: 600; color: ' + primaryColor + '; }\
+    .tl-crm-card-date { font-size: 12px; color: #9ca3af; }\
+    .tl-crm-powered { text-align: center; font-size: 11px; color: #9ca3af; margin-top: 16px; }\
+    .tl-crm-powered a { color: ' + primaryColor + '; text-decoration: none; }\
+  ';
+  function injectStyles() {
+    if (document.getElementById('tl-crm-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'tl-crm-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  function formatCurrency(amount) {
+    return '$' + amount.toLocaleString();
+  }
+  function formatDate(dateStr) {
+    var date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  function getLeadsByStage(stageId) {
+    return leads.filter(function(l) { return l.stage === stageId; });
+  }
+  function getTotalValue() {
+    return leads.reduce(function(sum, l) { return sum + l.value; }, 0);
+  }
+  function sendWebhook(data) {
+    if (!webhookUrl) return;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', webhookUrl, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      event: 'crm.lead_moved',
+      siteId: siteId,
+      timestamp: new Date().toISOString(),
+      data: data
+    }));
+  }
+  function render() {
+    injectStyles();
+    var columnsHtml = STAGES.map(function(stage) {
+      var stageLeads = getLeadsByStage(stage.id);
+      var cardsHtml = stageLeads.map(function(lead) {
+        return '<div class="tl-crm-card" draggable="true" data-lead-id="' + lead.id + '">\
+          <div class="tl-crm-card-name">' + lead.name + '</div>\
+          <div class="tl-crm-card-email">' + lead.email + '</div>\
+          <div class="tl-crm-card-footer">\
+            <span class="tl-crm-card-value">' + formatCurrency(lead.value) + '</span>\
+            <span class="tl-crm-card-date">' + formatDate(lead.created) + '</span>\
+          </div>\
+        </div>';
+      }).join('');
+      return '<div class="tl-crm-column" data-stage="' + stage.id + '">\
+        <div class="tl-crm-column-header">\
+          <div class="tl-crm-column-title">\
+            <span class="tl-crm-column-dot" style="background:' + stage.color + '"></span>\
+            ' + stage.name + '\
+          </div>\
+          <span class="tl-crm-column-count">' + stageLeads.length + '</span>\
+        </div>\
+        <div class="tl-crm-cards">' + cardsHtml + '</div>\
+      </div>';
+    }).join('');
+    container.innerHTML = '\
+      <div class="tl-crm-container">\
+        <div class="tl-crm-header">\
+          <div class="tl-crm-title">Sales Pipeline</div>\
+          <div class="tl-crm-stats">\
+            <div class="tl-crm-stat"><div class="tl-crm-stat-value">' + leads.length + '</div><div class="tl-crm-stat-label">Total Leads</div></div>\
+            <div class="tl-crm-stat"><div class="tl-crm-stat-value">' + formatCurrency(getTotalValue()) + '</div><div class="tl-crm-stat-label">Pipeline Value</div></div>\
+          </div>\
+        </div>\
+        <div class="tl-crm-board">' + columnsHtml + '</div>\
+        <div class="tl-crm-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+      </div>\
+    ';
+    bindDragEvents();
+  }
+  function bindDragEvents() {
+    var cards = container.querySelectorAll('.tl-crm-card');
+    var columns = container.querySelectorAll('.tl-crm-column');
+    cards.forEach(function(card) {
+      card.addEventListener('dragstart', function(e) {
+        card.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', card.getAttribute('data-lead-id'));
+      });
+      card.addEventListener('dragend', function() {
+        card.classList.remove('dragging');
+      });
+    });
+    columns.forEach(function(column) {
+      column.addEventListener('dragover', function(e) {
+        e.preventDefault();
+      });
+      column.addEventListener('drop', function(e) {
+        e.preventDefault();
+        var leadId = parseInt(e.dataTransfer.getData('text/plain'));
+        var newStage = column.getAttribute('data-stage');
+        
+        var lead = leads.find(function(l) { return l.id === leadId; });
+        if (lead && lead.stage !== newStage) {
+          var oldStage = lead.stage;
+          lead.stage = newStage;
+          render();
+          sendWebhook({ leadId: leadId, from: oldStage, to: newStage });
+          
+          if (window.TLAnalytics) {
+            window.TLAnalytics.track('crm_lead_moved', { leadId: leadId, from: oldStage, to: newStage });
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  window.TLCRM = {
+    refresh: render,
+    getLeads: function() { return leads; },
+    addLead: function(lead) { leads.push(lead); render(); }
+  };
+  console.log('[TL CRM] Loaded for site:', siteId);
+})();
+FILE 8: tl-lead-capture.js
+Path: client/public/widgets/tl-lead-capture.js
+
+/**
+ * TrustLayer Lead Capture Widget
+ * Version: 1.0.0
+ */
+(function() {
+  'use strict';
+  var scripts = document.getElementsByTagName('script');
+  var currentScript = scripts[scripts.length - 1];
+  var siteId = currentScript.getAttribute('data-site-id');
+  var apiKey = currentScript.getAttribute('data-api-key');
+  var primaryColor = currentScript.getAttribute('data-primary-color') || '#3b82f6';
+  var containerId = currentScript.getAttribute('data-container') || 'tl-lead-capture';
+  var webhookUrl = currentScript.getAttribute('data-webhook-url');
+  var formStyle = currentScript.getAttribute('data-style') || 'multi-step';
+  var container = document.getElementById(containerId);
+  if (!container) {
+    console.warn('[TL Lead Capture] Container not found:', containerId);
+    return;
+  }
+  var currentStep = 1;
+  var totalSteps = 3;
+  var formData = {};
+  var css = '\
+    .tl-lead-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #fff; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); }\
+    .tl-lead-header { text-align: center; margin-bottom: 24px; }\
+    .tl-lead-title { font-size: 24px; font-weight: 700; color: #1f2937; margin-bottom: 8px; }\
+    .tl-lead-subtitle { font-size: 14px; color: #6b7280; }\
+    .tl-lead-progress { display: flex; gap: 8px; margin-bottom: 24px; }\
+    .tl-lead-progress-step { flex: 1; height: 4px; border-radius: 2px; background: #e5e7eb; transition: background 0.3s; }\
+    .tl-lead-progress-step.active { background: ' + primaryColor + '; }\
+    .tl-lead-step { display: none; }\
+    .tl-lead-step.active { display: block; }\
+    .tl-lead-field { margin-bottom: 16px; }\
+    .tl-lead-label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; }\
+    .tl-lead-input, .tl-lead-select, .tl-lead-textarea { width: 100%; padding: 14px 16px; font-size: 16px; border: 2px solid #e5e7eb; border-radius: 10px; box-sizing: border-box; transition: border-color 0.2s; }\
+    .tl-lead-input:focus, .tl-lead-select:focus, .tl-lead-textarea:focus { outline: none; border-color: ' + primaryColor + '; }\
+    .tl-lead-textarea { min-height: 100px; resize: vertical; }\
+    .tl-lead-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }\
+    .tl-lead-option { padding: 16px; border: 2px solid #e5e7eb; border-radius: 10px; cursor: pointer; text-align: center; transition: all 0.2s; }\
+    .tl-lead-option:hover { border-color: ' + primaryColor + '; }\
+    .tl-lead-option.selected { border-color: ' + primaryColor + '; background: ' + primaryColor + '10; }\
+    .tl-lead-option-icon { font-size: 28px; margin-bottom: 8px; }\
+    .tl-lead-option-label { font-size: 14px; font-weight: 600; color: #374151; }\
+    .tl-lead-buttons { display: flex; gap: 12px; margin-top: 24px; }\
+    .tl-lead-btn { flex: 1; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s; }\
+    .tl-lead-btn-back { background: #f3f4f6; color: #374151; border: none; }\
+    .tl-lead-btn-back:hover { background: #e5e7eb; }\
+    .tl-lead-btn-next { background: ' + primaryColor + '; color: #fff; border: none; }\
+    .tl-lead-btn-next:hover { opacity: 0.9; transform: translateY(-1px); }\
+    .tl-lead-success { text-align: center; padding: 40px 20px; }\
+    .tl-lead-success-icon { width: 64px; height: 64px; margin: 0 auto 16px; background: ' + primaryColor + '; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; }\
+    .tl-lead-powered { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 20px; }\
+    .tl-lead-powered a { color: ' + primaryColor + '; text-decoration: none; }\
+  ';
+  var SERVICES = [
+    { id: 'interior', label: 'Interior', icon: '🏠' },
+    { id: 'exterior', label: 'Exterior', icon: '🏡' },
+    { id: 'cabinet', label: 'Cabinets', icon: '🚪' },
+    { id: 'commercial', label: 'Commercial', icon: '🏢' }
+  ];
+  var TIMELINE = [
+    { id: 'asap', label: 'ASAP' },
+    { id: '1-2weeks', label: '1-2 Weeks' },
+    { id: '1month', label: '1 Month' },
+    { id: 'flexible', label: 'Flexible' }
+  ];
+  function injectStyles() {
+    if (document.getElementById('tl-lead-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'tl-lead-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  function sendWebhook(data) {
+    if (!webhookUrl) return;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', webhookUrl, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      event: 'lead.captured',
+      siteId: siteId,
+      timestamp: new Date().toISOString(),
+      data: data
+    }));
+  }
+  function updateProgress() {
+    var steps = container.querySelectorAll('.tl-lead-progress-step');
+    steps.forEach(function(step, i) {
+      step.classList.toggle('active', i < currentStep);
+    });
+  }
+  function showStep(step) {
+    container.querySelectorAll('.tl-lead-step').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    var stepEl = container.querySelector('[data-step="' + step + '"]');
+    if (stepEl) stepEl.classList.add('active');
+    currentStep = step;
+    updateProgress();
+  }
+  function validateStep(step) {
+    if (step === 1) {
+      return !!formData.service;
+    } else if (step === 2) {
+      var name = container.querySelector('#tl-lead-name').value.trim();
+      var email = container.querySelector('#tl-lead-email').value.trim();
+      var phone = container.querySelector('#tl-lead-phone').value.trim();
+      formData.name = name;
+      formData.email = email;
+      formData.phone = phone;
+      return name && email;
+    } else if (step === 3) {
+      formData.address = container.querySelector('#tl-lead-address').value.trim();
+      formData.timeline = formData.timeline || 'flexible';
+      formData.notes = container.querySelector('#tl-lead-notes').value.trim();
+      return !!formData.address;
+    }
+    return true;
+  }
+  function submitForm() {
+    sendWebhook(formData);
+    if (window.TLAnalytics) {
+      window.TLAnalytics.track('lead_captured', formData);
+    }
+    container.querySelector('.tl-lead-container').innerHTML = '\
+      <div class="tl-lead-success">\
+        <div class="tl-lead-success-icon">✓</div>\
+        <div class="tl-lead-title">Thank You!</div>\
+        <p style="color:#6b7280;margin-top:8px;">We\'ve received your request and will be in touch within 24 hours.</p>\
+      </div>\
+      <div class="tl-lead-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+    ';
+  }
+  function render() {
+    injectStyles();
+    
+    var serviceOptions = SERVICES.map(function(s) {
+      return '<div class="tl-lead-option" data-service="' + s.id + '">\
+        <div class="tl-lead-option-icon">' + s.icon + '</div>\
+        <div class="tl-lead-option-label">' + s.label + '</div>\
+      </div>';
+    }).join('');
+    var timelineOptions = TIMELINE.map(function(t) {
+      return '<div class="tl-lead-option" data-timeline="' + t.id + '">\
+        <div class="tl-lead-option-label">' + t.label + '</div>\
+      </div>';
+    }).join('');
+    container.innerHTML = '\
+      <div class="tl-lead-container">\
+        <div class="tl-lead-header">\
+          <div class="tl-lead-title">Get Your Free Quote</div>\
+          <div class="tl-lead-subtitle">Takes less than 2 minutes</div>\
+        </div>\
+        <div class="tl-lead-progress">\
+          <div class="tl-lead-progress-step active"></div>\
+          <div class="tl-lead-progress-step"></div>\
+          <div class="tl-lead-progress-step"></div>\
+        </div>\
+        <div class="tl-lead-step active" data-step="1">\
+          <div class="tl-lead-label">What type of service do you need?</div>\
+          <div class="tl-lead-options">' + serviceOptions + '</div>\
+          <div class="tl-lead-buttons">\
+            <button class="tl-lead-btn tl-lead-btn-next" id="tl-next-1" disabled>Next</button>\
+          </div>\
+        </div>\
+        <div class="tl-lead-step" data-step="2">\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">Full Name</label>\
+            <input type="text" class="tl-lead-input" id="tl-lead-name" placeholder="John Smith">\
+          </div>\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">Email Address</label>\
+            <input type="email" class="tl-lead-input" id="tl-lead-email" placeholder="john@example.com">\
+          </div>\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">Phone Number</label>\
+            <input type="tel" class="tl-lead-input" id="tl-lead-phone" placeholder="(555) 123-4567">\
+          </div>\
+          <div class="tl-lead-buttons">\
+            <button class="tl-lead-btn tl-lead-btn-back" id="tl-back-2">Back</button>\
+            <button class="tl-lead-btn tl-lead-btn-next" id="tl-next-2">Next</button>\
+          </div>\
+        </div>\
+        <div class="tl-lead-step" data-step="3">\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">Project Address</label>\
+            <input type="text" class="tl-lead-input" id="tl-lead-address" placeholder="123 Main St, City, ST">\
+          </div>\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">When do you need this done?</label>\
+            <div class="tl-lead-options">' + timelineOptions + '</div>\
+          </div>\
+          <div class="tl-lead-field">\
+            <label class="tl-lead-label">Additional Details (optional)</label>\
+            <textarea class="tl-lead-textarea" id="tl-lead-notes" placeholder="Tell us more about your project..."></textarea>\
+          </div>\
+          <div class="tl-lead-buttons">\
+            <button class="tl-lead-btn tl-lead-btn-back" id="tl-back-3">Back</button>\
+            <button class="tl-lead-btn tl-lead-btn-next" id="tl-submit">Get My Quote</button>\
+          </div>\
+        </div>\
+        <div class="tl-lead-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+      </div>\
+    ';
+    bindEvents();
+  }
+  function bindEvents() {
+    container.querySelectorAll('[data-service]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        container.querySelectorAll('[data-service]').forEach(function(o) { o.classList.remove('selected'); });
+        el.classList.add('selected');
+        formData.service = el.getAttribute('data-service');
+        container.querySelector('#tl-next-1').disabled = false;
+      });
+    });
+    container.querySelectorAll('[data-timeline]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        container.querySelectorAll('[data-timeline]').forEach(function(o) { o.classList.remove('selected'); });
+        el.classList.add('selected');
+        formData.timeline = el.getAttribute('data-timeline');
+      });
+    });
+    container.querySelector('#tl-next-1').addEventListener('click', function() {
+      if (validateStep(1)) showStep(2);
+    });
+    container.querySelector('#tl-back-2').addEventListener('click', function() {
+      showStep(1);
+    });
+    container.querySelector('#tl-next-2').addEventListener('click', function() {
+      if (validateStep(2)) {
+        showStep(3);
+      } else {
+        alert('Please enter your name and email');
+      }
+    });
+    container.querySelector('#tl-back-3').addEventListener('click', function() {
+      showStep(2);
+    });
+    container.querySelector('#tl-submit').addEventListener('click', function() {
+      if (validateStep(3)) {
+        submitForm();
+      } else {
+        alert('Please enter your address');
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  window.TLLeadCapture = { refresh: render };
+  console.log('[TL Lead Capture] Loaded for site:', siteId);
+})();
+FILE 9: tl-proposal.js
+Path: client/public/widgets/tl-proposal.js
+
+/**
+ * TrustLayer Proposal Builder Widget
+ * Version: 1.0.0
+ */
+(function() {
+  'use strict';
+  var scripts = document.getElementsByTagName('script');
+  var currentScript = scripts[scripts.length - 1];
+  var siteId = currentScript.getAttribute('data-site-id');
+  var apiKey = currentScript.getAttribute('data-api-key');
+  var proposalId = currentScript.getAttribute('data-proposal-id');
+  var primaryColor = currentScript.getAttribute('data-primary-color') || '#3b82f6';
+  var containerId = currentScript.getAttribute('data-container') || 'tl-proposal';
+  var webhookUrl = currentScript.getAttribute('data-webhook-url');
+  var companyName = currentScript.getAttribute('data-company') || 'Your Company';
+  var container = document.getElementById(containerId);
+  if (!container) {
+    console.warn('[TL Proposal] Container not found:', containerId);
+    return;
+  }
+  var css = '\
+    .tl-prop-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }\
+    .tl-prop-header { background: linear-gradient(135deg, ' + primaryColor + ' 0%, ' + adjustColor(primaryColor, -30) + ' 100%); color: #fff; padding: 32px; }\
+    .tl-prop-company { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }\
+    .tl-prop-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }\
+    .tl-prop-meta { font-size: 14px; opacity: 0.8; }\
+    .tl-prop-body { padding: 32px; }\
+    .tl-prop-section { margin-bottom: 32px; }\
+    .tl-prop-section-title { font-size: 18px; font-weight: 600; color: #1f2937; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }\
+    .tl-prop-customer { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }\
+    .tl-prop-field { }\
+    .tl-prop-label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }\
+    .tl-prop-value { font-size: 14px; color: #1f2937; font-weight: 500; }\
+    .tl-prop-items { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }\
+    .tl-prop-item { display: grid; grid-template-columns: 1fr 100px 100px; padding: 16px; border-bottom: 1px solid #e5e7eb; }\
+    .tl-prop-item:last-child { border-bottom: none; }\
+    .tl-prop-item-header { background: #f9fafb; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase; }\
+    .tl-prop-item-name { font-weight: 500; color: #1f2937; }\
+    .tl-prop-item-desc { font-size: 13px; color: #6b7280; margin-top: 4px; }\
+    .tl-prop-item-qty, .tl-prop-item-price { text-align: right; font-weight: 500; }\
+    .tl-prop-total { display: flex; justify-content: flex-end; padding: 20px; background: #f9fafb; }\
+    .tl-prop-total-row { display: flex; gap: 40px; }\
+    .tl-prop-total-label { color: #6b7280; }\
+    .tl-prop-total-value { font-size: 24px; font-weight: 700; color: ' + primaryColor + '; }\
+    .tl-prop-terms { font-size: 13px; color: #6b7280; line-height: 1.6; }\
+    .tl-prop-signature { margin-top: 32px; padding: 24px; border: 2px dashed #e5e7eb; border-radius: 8px; }\
+    .tl-prop-sig-title { font-weight: 600; color: #1f2937; margin-bottom: 16px; }\
+    .tl-prop-sig-input { width: 100%; padding: 16px; font-size: 24px; font-family: "Brush Script MT", cursive; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 16px; }\
+    .tl-prop-sig-line { display: flex; justify-content: space-between; gap: 20px; }\
+    .tl-prop-sig-field { flex: 1; }\
+    .tl-prop-sig-field input { width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px; box-sizing: border-box; }\
+    .tl-prop-btn { width: 100%; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; background: ' + primaryColor + '; border: none; border-radius: 8px; cursor: pointer; margin-top: 24px; transition: opacity 0.2s; }\
+    .tl-prop-btn:hover { opacity: 0.9; }\
+    .tl-prop-btn:disabled { opacity: 0.5; cursor: not-allowed; }\
+    .tl-prop-success { text-align: center; padding: 60px 32px; }\
+    .tl-prop-success-icon { font-size: 64px; margin-bottom: 16px; }\
+    .tl-prop-powered { text-align: center; font-size: 12px; color: #9ca3af; padding: 16px; }\
+    .tl-prop-powered a { color: ' + primaryColor + '; text-decoration: none; }\
+    @media (max-width: 600px) { .tl-prop-customer { grid-template-columns: 1fr; } .tl-prop-item { grid-template-columns: 1fr; gap: 8px; } .tl-prop-item-qty, .tl-prop-item-price { text-align: left; } }\
+  ';
+  var SAMPLE_PROPOSAL = {
+    id: proposalId || 'P-2026-001',
+    customer: { name: 'John Smith', email: 'john@example.com', phone: '(555) 123-4567', address: '123 Main St, Nashville, TN 37201' },
+    items: [
+      { name: 'Interior Painting - Living Room', description: 'Walls and ceiling, 2 coats', qty: '400 sq ft', price: 1200 },
+      { name: 'Interior Painting - Kitchen', description: 'Walls only, premium paint', qty: '250 sq ft', price: 850 },
+      { name: 'Trim & Baseboards', description: 'All rooms, semi-gloss finish', qty: '180 linear ft', price: 540 },
+      { name: 'Prep Work & Materials', description: 'Patching, sanding, primer', qty: '1', price: 350 }
+    ],
+    terms: 'Payment: 50% deposit, 50% upon completion. Work guaranteed for 2 years. Estimate valid for 30 days.',
+    validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+  };
+  function adjustColor(hex, percent) {
+    var num = parseInt(hex.replace('#', ''), 16);
+    var r = Math.min(255, Math.max(0, (num >> 16) + percent));
+    var g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + percent));
+    var b = Math.min(255, Math.max(0, (num & 0x0000FF) + percent));
+    return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+  }
+  function injectStyles() {
+    if (document.getElementById('tl-prop-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'tl-prop-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  function formatCurrency(amount) {
+    return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function sendWebhook(data) {
+    if (!webhookUrl) return;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', webhookUrl, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      event: 'proposal.signed',
+      siteId: siteId,
+      timestamp: new Date().toISOString(),
+      data: data
+    }));
+  }
+  function render() {
+    injectStyles();
+    
+    var proposal = SAMPLE_PROPOSAL;
+    var total = proposal.items.reduce(function(sum, item) { return sum + item.price; }, 0);
+    
+    var itemsHtml = proposal.items.map(function(item) {
+      return '<div class="tl-prop-item">\
+        <div><div class="tl-prop-item-name">' + item.name + '</div><div class="tl-prop-item-desc">' + item.description + '</div></div>\
+        <div class="tl-prop-item-qty">' + item.qty + '</div>\
+        <div class="tl-prop-item-price">' + formatCurrency(item.price) + '</div>\
+      </div>';
+    }).join('');
+    container.innerHTML = '\
+      <div class="tl-prop-container">\
+        <div class="tl-prop-header">\
+          <div class="tl-prop-company">' + companyName + '</div>\
+          <div class="tl-prop-title">Project Proposal</div>\
+          <div class="tl-prop-meta">Proposal #' + proposal.id + ' | Valid until ' + proposal.validUntil + '</div>\
+        </div>\
+        <div class="tl-prop-body">\
+          <div class="tl-prop-section">\
+            <div class="tl-prop-section-title">Customer Information</div>\
+            <div class="tl-prop-customer">\
+              <div class="tl-prop-field"><div class="tl-prop-label">Name</div><div class="tl-prop-value">' + proposal.customer.name + '</div></div>\
+              <div class="tl-prop-field"><div class="tl-prop-label">Email</div><div class="tl-prop-value">' + proposal.customer.email + '</div></div>\
+              <div class="tl-prop-field"><div class="tl-prop-label">Phone</div><div class="tl-prop-value">' + proposal.customer.phone + '</div></div>\
+              <div class="tl-prop-field"><div class="tl-prop-label">Address</div><div class="tl-prop-value">' + proposal.customer.address + '</div></div>\
+            </div>\
+          </div>\
+          <div class="tl-prop-section">\
+            <div class="tl-prop-section-title">Scope of Work</div>\
+            <div class="tl-prop-items">\
+              <div class="tl-prop-item tl-prop-item-header"><div>Description</div><div class="tl-prop-item-qty">Quantity</div><div class="tl-prop-item-price">Price</div></div>\
+              ' + itemsHtml + '\
+            </div>\
+            <div class="tl-prop-total">\
+              <div class="tl-prop-total-row">\
+                <div class="tl-prop-total-label">Total</div>\
+                <div class="tl-prop-total-value">' + formatCurrency(total) + '</div>\
+              </div>\
+            </div>\
+          </div>\
+          <div class="tl-prop-section">\
+            <div class="tl-prop-section-title">Terms & Conditions</div>\
+            <div class="tl-prop-terms">' + proposal.terms + '</div>\
+          </div>\
+          <div class="tl-prop-signature">\
+            <div class="tl-prop-sig-title">Sign to Accept Proposal</div>\
+            <input type="text" class="tl-prop-sig-input" id="tl-signature" placeholder="Type your signature">\
+            <div class="tl-prop-sig-line">\
+              <div class="tl-prop-sig-field"><input type="text" id="tl-sig-name" placeholder="Printed Name"></div>\
+              <div class="tl-prop-sig-field"><input type="date" id="tl-sig-date" value="' + new Date().toISOString().split('T')[0] + '"></div>\
+            </div>\
+            <button class="tl-prop-btn" id="tl-accept-btn">Accept & Sign Proposal</button>\
+          </div>\
+        </div>\
+        <div class="tl-prop-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+      </div>\
+    ';
+    document.getElementById('tl-accept-btn').addEventListener('click', function() {
+      var signature = document.getElementById('tl-signature').value.trim();
+      var name = document.getElementById('tl-sig-name').value.trim();
+      var date = document.getElementById('tl-sig-date').value;
+      if (!signature || !name) {
+        alert('Please provide your signature and printed name');
+        return;
+      }
+      var signatureData = {
+        proposalId: proposal.id,
+        signature: signature,
+        printedName: name,
+        signedDate: date,
+        total: total
+      };
+      sendWebhook(signatureData);
+      if (window.TLAnalytics) {
+        window.TLAnalytics.track('proposal_signed', signatureData);
+      }
+      container.querySelector('.tl-prop-body').innerHTML = '\
+        <div class="tl-prop-success">\
+          <div class="tl-prop-success-icon">✓</div>\
+          <div style="font-size:24px;font-weight:700;color:#1f2937;margin-bottom:8px;">Proposal Accepted!</div>\
+          <p style="color:#6b7280;">Thank you for your business. We\'ll be in touch shortly to schedule your project.</p>\
+        </div>\
+      ';
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  window.TLProposal = { refresh: render };
+  console.log('[TL Proposal] Loaded for site:', siteId);
+})();
