@@ -924,6 +924,31 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     }
   });
 
+  // Get Full Widget Code from file
+  app.get("/api/ecosystem/widget-code/:widgetName", async (req, res) => {
+    try {
+      const { widgetName } = req.params;
+      const validWidgets = [
+        'tl-analytics', 'tl-booking', 'tl-chat', 'tl-crew-tracker',
+        'tl-crm', 'tl-estimator', 'tl-lead-capture', 'tl-proposal',
+        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather'
+      ];
+      
+      if (!validWidgets.includes(widgetName)) {
+        return res.status(404).json({ success: false, error: "Widget not found" });
+      }
+      
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      const widgetPath = path.join(process.cwd(), 'client', 'public', 'widgets', `${widgetName}.js`);
+      const code = await fs.readFile(widgetPath, 'utf-8');
+      
+      res.json({ success: true, widgetName, code, lines: code.split('\n').length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // Create Snippet (admin or authenticated app)
   app.post("/api/ecosystem/snippets", requireAdminAuth, async (req, res) => {
     try {

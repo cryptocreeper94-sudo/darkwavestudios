@@ -66,6 +66,21 @@ const categories = [
   { id: "auth", name: "Auth", icon: Lock },
 ];
 
+// Widget name mapping for full code lookup
+const WIDGET_MAP: Record<string, string> = {
+  "TrustLayer Analytics Widget": "tl-analytics",
+  "Trade Estimator Widget": "tl-estimator",
+  "Booking Widget": "tl-booking",
+  "Lead Capture Widget": "tl-lead-capture",
+  "Review Display Widget": "tl-reviews",
+  "SEO Manager Widget": "tl-seo",
+  "Live Chat Widget": "tl-chat",
+  "Proposal Builder Widget": "tl-proposal",
+  "Crew Tracker / GPS Clock-In": "tl-crew-tracker",
+  "CRM Pipeline Manager": "tl-crm",
+  "Weather-Based Scheduling": "tl-weather",
+};
+
 export default function TrustLayerHub() {
   const [apps, setApps] = useState<EcosystemApp[]>([]);
   const [snippets, setSnippets] = useState<CodeSnippet[]>([]);
@@ -75,6 +90,40 @@ export default function TrustLayerHub() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [codeModal, setCodeModal] = useState<{ open: boolean; title: string; code: string; lines: number; loading: boolean }>({
+    open: false,
+    title: "",
+    code: "",
+    lines: 0,
+    loading: false
+  });
+
+  const openFullCode = async (snippetTitle: string) => {
+    const widgetName = WIDGET_MAP[snippetTitle];
+    if (!widgetName) {
+      return;
+    }
+    
+    setCodeModal({ open: true, title: snippetTitle, code: "", lines: 0, loading: true });
+    
+    try {
+      const res = await fetch(`/api/ecosystem/widget-code/${widgetName}`);
+      const data = await res.json();
+      if (data.success) {
+        setCodeModal({ open: true, title: snippetTitle, code: data.code, lines: data.lines, loading: false });
+      } else {
+        setCodeModal(prev => ({ ...prev, loading: false, code: "// Error loading code" }));
+      }
+    } catch (err) {
+      setCodeModal(prev => ({ ...prev, loading: false, code: "// Error loading code" }));
+    }
+  };
+
+  const copyFullCode = async () => {
+    await navigator.clipboard.writeText(codeModal.code);
+    setCopiedId("modal");
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   useEffect(() => {
     Promise.all([
@@ -390,8 +439,19 @@ export default function TrustLayerHub() {
                         {snippet.likes}
                       </button>
                     </div>
-                    <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid={`text-snippet-author-${snippet.id}`}>
-                      by <span className="text-primary">{snippet.authorName || "DarkWave"}</span>
+                    <div className="flex items-center gap-2">
+                      {WIDGET_MAP[snippet.title] && (
+                        <button
+                          onClick={() => openFullCode(snippet.title)}
+                          className="text-[8px] lg:text-xs px-2 py-1 rounded-md bg-primary/20 text-primary hover:bg-primary/30 transition-colors"
+                          data-testid={`button-view-full-${snippet.id}`}
+                        >
+                          View Full Code
+                        </button>
+                      )}
+                      <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid={`text-snippet-author-${snippet.id}`}>
+                        by <span className="text-primary">{snippet.authorName || "DarkWave"}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -458,6 +518,61 @@ export default function TrustLayerHub() {
           <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by DarkWave Trust Layer Blockchain</div>
         </div>
       </footer>
+
+      {/* Full Code Modal */}
+      {codeModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="modal-full-code">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setCodeModal(prev => ({ ...prev, open: false }))}
+          />
+          <div className="relative w-full max-w-4xl max-h-[85vh] glass-card rounded-2xl overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div>
+                <h3 className="font-bold font-display text-lg">{codeModal.title}</h3>
+                <p className="text-sm text-muted-foreground">{codeModal.lines} lines of code</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={copyFullCode}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors text-sm"
+                  data-testid="button-copy-full"
+                >
+                  {copiedId === "modal" ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      Copy All
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => setCodeModal(prev => ({ ...prev, open: false }))}
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                  data-testid="button-close-modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              {codeModal.loading ? (
+                <div className="flex items-center justify-center h-64">
+                  <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
+                </div>
+              ) : (
+                <pre className="bg-black/40 rounded-xl p-4 overflow-x-auto text-xs lg:text-sm font-mono text-gray-300 leading-relaxed">
+                  <code>{codeModal.code}</code>
+                </pre>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
