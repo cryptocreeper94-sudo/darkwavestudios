@@ -5,6 +5,7 @@ import { createServer } from "http";
 import { runMigrations } from 'stripe-replit-sync';
 import { getStripeSync } from './stripeClient';
 import { WebhookHandlers } from './webhookHandlers';
+import { seedSnippets } from './seedSnippets';
 
 const app = express();
 const httpServer = createServer(app);
@@ -138,6 +139,9 @@ app.use((req, res, next) => {
 (async () => {
   // Initialize Stripe integration
   await initStripe();
+  
+  // Seed snippets if database is empty
+  await seedSnippets();
   
   await registerRoutes(httpServer, app);
 
