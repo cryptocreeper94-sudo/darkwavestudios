@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { 
   ArrowLeft, 
@@ -20,7 +20,8 @@ import {
   Lock,
   Activity,
   Menu,
-  X
+  X,
+  Eye
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -140,6 +141,59 @@ export default function TrustLayerHub() {
       console.error('[TL Hub] Error loading data:', err);
       setLoading(false);
     });
+  }, []);
+
+  // Load live widget previews
+  useEffect(() => {
+    const loadWidgets = () => {
+      // Clear existing widget content
+      const containers = ['demo-estimator', 'demo-lead-capture', 'demo-reviews', 'demo-booking'];
+      containers.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '';
+      });
+      
+      // Remove any existing widget scripts
+      document.querySelectorAll('script[data-widget-demo]').forEach(s => s.remove());
+      document.querySelectorAll('style[id^="tl-"]').forEach(s => s.remove());
+      
+      // Load Estimator Widget
+      const estScript = document.createElement('script');
+      estScript.src = '/widgets/tl-estimator.js';
+      estScript.setAttribute('data-widget-demo', 'true');
+      estScript.setAttribute('data-container', 'demo-estimator');
+      estScript.setAttribute('data-primary-color', '#3b82f6');
+      estScript.setAttribute('data-trade', 'painting');
+      document.body.appendChild(estScript);
+      
+      // Load Lead Capture Widget
+      const leadScript = document.createElement('script');
+      leadScript.src = '/widgets/tl-lead-capture.js';
+      leadScript.setAttribute('data-widget-demo', 'true');
+      leadScript.setAttribute('data-container', 'demo-lead-capture');
+      leadScript.setAttribute('data-primary-color', '#8b5cf6');
+      document.body.appendChild(leadScript);
+      
+      // Load Reviews Widget
+      const reviewScript = document.createElement('script');
+      reviewScript.src = '/widgets/tl-reviews.js';
+      reviewScript.setAttribute('data-widget-demo', 'true');
+      reviewScript.setAttribute('data-container', 'demo-reviews');
+      reviewScript.setAttribute('data-primary-color', '#10b981');
+      document.body.appendChild(reviewScript);
+      
+      // Load Booking Widget
+      const bookScript = document.createElement('script');
+      bookScript.src = '/widgets/tl-booking.js';
+      bookScript.setAttribute('data-widget-demo', 'true');
+      bookScript.setAttribute('data-container', 'demo-booking');
+      bookScript.setAttribute('data-primary-color', '#f59e0b');
+      document.body.appendChild(bookScript);
+    };
+    
+    // Delay slightly to ensure containers are mounted
+    const timer = setTimeout(loadWidgets, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const copyCode = async (id: string, code: string) => {
@@ -475,7 +529,62 @@ export default function TrustLayerHub() {
           )}
         </section>
 
-        {/* BENTO GRID SECTION 5: CTA - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        {/* BENTO GRID SECTION 5: Live Widget Previews */}
+        <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
+          <div className="col-span-3 lg:col-span-12">
+            <div className="flex items-center gap-2 mb-3 lg:mb-4">
+              <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
+              <h3 className="font-display font-bold text-sm lg:text-lg" data-testid="text-live-preview-title">Live Widget Previews</h3>
+              <span className="text-[10px] lg:text-xs text-muted-foreground">(Interactive demos)</span>
+            </div>
+          </div>
+          
+          {/* Estimator Widget Preview */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-estimator">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Trade Estimator</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+              <div id="demo-estimator" />
+            </div>
+          </div>
+          
+          {/* Lead Capture Widget Preview */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-lead-capture">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Lead Capture Form</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+              <div id="demo-lead-capture" />
+            </div>
+          </div>
+          
+          {/* Reviews Widget Preview */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-reviews">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Review Display</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '300px' }}>
+              <div id="demo-reviews" />
+            </div>
+          </div>
+          
+          {/* Booking Widget Preview */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-booking">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Booking Calendar</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '300px' }}>
+              <div id="demo-booking" />
+            </div>
+          </div>
+        </section>
+
+        {/* BENTO GRID SECTION 6: CTA - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
         <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4">
           <div className="col-span-3 lg:col-span-12">
             <div className="glass-card rounded-xl lg:rounded-3xl p-4 lg:p-12 gradient-border text-center relative overflow-hidden">
