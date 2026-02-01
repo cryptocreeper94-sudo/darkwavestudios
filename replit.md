@@ -76,6 +76,20 @@ The platform includes a documents management system for:
 - Roadmap for future additions
 - Categories: business, roadmap, legal
 
+### Trust Layer Hub
+The platform includes a blockchain-verified code marketplace:
+- **Widget Marketplace**: 12+ embeddable widgets (analytics, booking, lead capture, estimators, etc.)
+- **Live Widget Previews**: Interactive widget demonstrations
+- **Full Code View**: Modal displaying complete widget source code
+- **Categories**: Components, utilities, hooks, API, auth
+
+### Guardian AI
+AI agent certification platform for the crypto ecosystem:
+- **Certification Tiers**: Basic ($999), Professional ($4,999), Enterprise ($14,999)
+- **Trust Score System**: 4 dimensions (Security, Transparency, Reliability, Compliance)
+- **Certified Agent Registry**: Searchable database of verified AI agents
+- **Certification Request Form**: Lead capture for certification inquiries
+
 ### Public Information Pages
 - **Mission Page**: Company vision, mission statement, core values, and strategic goals
 - **Investors Page**: Key metrics, growth opportunities, investment highlights

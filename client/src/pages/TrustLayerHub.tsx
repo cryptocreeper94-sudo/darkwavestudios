@@ -132,13 +132,11 @@ export default function TrustLayerHub() {
       fetch("/api/ecosystem/snippets").then(r => r.json()),
       fetch("/api/ecosystem/stats").then(r => r.json())
     ]).then(([appsData, snippetsData, statsData]) => {
-      console.log('[TL Hub] API responses:', { appsData, snippetsData, statsData });
       setApps(appsData.apps || []);
       setSnippets(snippetsData.snippets || []);
       setStats(statsData.stats || { totalApps: 0, totalSnippets: 0, totalDownloads: 0 });
       setLoading(false);
-    }).catch((err) => {
-      console.error('[TL Hub] Error loading data:', err);
+    }).catch(() => {
       setLoading(false);
     });
   }, []);
