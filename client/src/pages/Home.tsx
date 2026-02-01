@@ -326,6 +326,14 @@ export default function Home() {
                 >
                   Trust Layer Hub
                 </Link>
+                <Link 
+                  href="/guardian-ai" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-guardian-mobile"
+                >
+                  Guardian AI
+                </Link>
                 <a 
                   href="https://dwtl.io/studio" 
                   target="_blank"
@@ -402,6 +410,7 @@ export default function Home() {
               <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
               <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-hub">Developers</Link>
+              <Link href="/guardian-ai" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
                 href="https://dwtl.io/studio" 
@@ -1030,6 +1039,7 @@ export default function Home() {
                     Studio IDE <ExternalLink className="w-3 h-3" />
                   </a>
                   <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
+                  <Link href="/guardian-ai" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-guardian">Guardian AI</Link>
                   <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
                   <Link href="/admin" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-developers">Developers</Link>
                 </div>

@@ -24,6 +24,8 @@ import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import Documents from "@/pages/Documents";
 import TrustLayerHub from "@/pages/TrustLayerHub";
+import GuardianAI from "@/pages/GuardianAI";
+import GuardianAIRegistry from "@/pages/GuardianAIRegistry";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -50,6 +52,8 @@ function Router() {
       <Route path="/privacy" component={Privacy}/>
       <Route path="/documents" component={Documents}/>
       <Route path="/hub" component={TrustLayerHub}/>
+      <Route path="/guardian-ai" component={GuardianAI}/>
+      <Route path="/guardian-ai-registry" component={GuardianAIRegistry}/>
       <Route component={NotFound} />
     </Switch>
   );
