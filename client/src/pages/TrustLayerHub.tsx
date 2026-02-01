@@ -143,52 +143,48 @@ export default function TrustLayerHub() {
     });
   }, []);
 
-  // Load live widget previews
+  // Load live widget previews - ALL 11 widgets
   useEffect(() => {
     const loadWidgets = () => {
+      // All widget configurations
+      const widgetConfigs = [
+        { name: 'tl-estimator', container: 'demo-estimator', color: '#3b82f6', extra: { 'data-trade': 'painting' } },
+        { name: 'tl-lead-capture', container: 'demo-lead-capture', color: '#8b5cf6' },
+        { name: 'tl-reviews', container: 'demo-reviews', color: '#10b981' },
+        { name: 'tl-booking', container: 'demo-booking', color: '#f59e0b' },
+        { name: 'tl-analytics', container: 'demo-analytics', color: '#6366f1' },
+        { name: 'tl-chat', container: 'demo-chat', color: '#ec4899' },
+        { name: 'tl-crm', container: 'demo-crm', color: '#14b8a6' },
+        { name: 'tl-crew-tracker', container: 'demo-crew-tracker', color: '#f97316' },
+        { name: 'tl-proposal', container: 'demo-proposal', color: '#8b5cf6' },
+        { name: 'tl-seo', container: 'demo-seo', color: '#22c55e' },
+        { name: 'tl-weather', container: 'demo-weather', color: '#0ea5e9' },
+      ];
+      
       // Clear existing widget content
-      const containers = ['demo-estimator', 'demo-lead-capture', 'demo-reviews', 'demo-booking'];
-      containers.forEach(id => {
-        const el = document.getElementById(id);
+      widgetConfigs.forEach(({ container }) => {
+        const el = document.getElementById(container);
         if (el) el.innerHTML = '';
       });
       
-      // Remove any existing widget scripts
+      // Remove any existing widget scripts and styles
       document.querySelectorAll('script[data-widget-demo]').forEach(s => s.remove());
       document.querySelectorAll('style[id^="tl-"]').forEach(s => s.remove());
       
-      // Load Estimator Widget
-      const estScript = document.createElement('script');
-      estScript.src = '/widgets/tl-estimator.js';
-      estScript.setAttribute('data-widget-demo', 'true');
-      estScript.setAttribute('data-container', 'demo-estimator');
-      estScript.setAttribute('data-primary-color', '#3b82f6');
-      estScript.setAttribute('data-trade', 'painting');
-      document.body.appendChild(estScript);
-      
-      // Load Lead Capture Widget
-      const leadScript = document.createElement('script');
-      leadScript.src = '/widgets/tl-lead-capture.js';
-      leadScript.setAttribute('data-widget-demo', 'true');
-      leadScript.setAttribute('data-container', 'demo-lead-capture');
-      leadScript.setAttribute('data-primary-color', '#8b5cf6');
-      document.body.appendChild(leadScript);
-      
-      // Load Reviews Widget
-      const reviewScript = document.createElement('script');
-      reviewScript.src = '/widgets/tl-reviews.js';
-      reviewScript.setAttribute('data-widget-demo', 'true');
-      reviewScript.setAttribute('data-container', 'demo-reviews');
-      reviewScript.setAttribute('data-primary-color', '#10b981');
-      document.body.appendChild(reviewScript);
-      
-      // Load Booking Widget
-      const bookScript = document.createElement('script');
-      bookScript.src = '/widgets/tl-booking.js';
-      bookScript.setAttribute('data-widget-demo', 'true');
-      bookScript.setAttribute('data-container', 'demo-booking');
-      bookScript.setAttribute('data-primary-color', '#f59e0b');
-      document.body.appendChild(bookScript);
+      // Load all widgets
+      widgetConfigs.forEach(({ name, container, color, extra }) => {
+        const script = document.createElement('script');
+        script.src = `/widgets/${name}.js`;
+        script.setAttribute('data-widget-demo', 'true');
+        script.setAttribute('data-container', container);
+        script.setAttribute('data-primary-color', color);
+        if (extra) {
+          Object.entries(extra).forEach(([key, value]) => {
+            script.setAttribute(key, value);
+          });
+        }
+        document.body.appendChild(script);
+      });
     };
     
     // Delay slightly to ensure containers are mounted
@@ -529,57 +525,134 @@ export default function TrustLayerHub() {
           )}
         </section>
 
-        {/* BENTO GRID SECTION 5: Live Widget Previews */}
+        {/* BENTO GRID SECTION 5: Live Widget Previews - Full Storefront */}
         <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
           <div className="col-span-3 lg:col-span-12">
             <div className="flex items-center gap-2 mb-3 lg:mb-4">
               <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
-              <h3 className="font-display font-bold text-sm lg:text-lg" data-testid="text-live-preview-title">Live Widget Previews</h3>
-              <span className="text-[10px] lg:text-xs text-muted-foreground">(Interactive demos)</span>
+              <h3 className="font-display font-bold text-sm lg:text-lg" data-testid="text-live-preview-title">Live Widget Storefront</h3>
+              <span className="text-[10px] lg:text-xs text-muted-foreground">(All 11 widgets - Interactive demos)</span>
             </div>
           </div>
           
-          {/* Estimator Widget Preview */}
+          {/* Estimator Widget */}
           <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-estimator">
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
               <h4 className="font-bold text-sm lg:text-base">Trade Estimator</h4>
             </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
               <div id="demo-estimator" />
             </div>
           </div>
           
-          {/* Lead Capture Widget Preview */}
+          {/* Lead Capture Widget */}
           <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-lead-capture">
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
               <h4 className="font-bold text-sm lg:text-base">Lead Capture Form</h4>
             </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
               <div id="demo-lead-capture" />
             </div>
           </div>
           
-          {/* Reviews Widget Preview */}
+          {/* Reviews Widget */}
           <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-reviews">
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
               <h4 className="font-bold text-sm lg:text-base">Review Display</h4>
             </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '300px' }}>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
               <div id="demo-reviews" />
             </div>
           </div>
           
-          {/* Booking Widget Preview */}
+          {/* Booking Widget */}
           <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-booking">
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
               <h4 className="font-bold text-sm lg:text-base">Booking Calendar</h4>
             </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '300px' }}>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
               <div id="demo-booking" />
+            </div>
+          </div>
+          
+          {/* Analytics Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-analytics">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Analytics Dashboard</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+              <div id="demo-analytics" />
+            </div>
+          </div>
+          
+          {/* Chat Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-chat">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Live Chat</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '400px' }}>
+              <div id="demo-chat" />
+            </div>
+          </div>
+          
+          {/* CRM Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-crm">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">CRM Pipeline</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
+              <div id="demo-crm" />
+            </div>
+          </div>
+          
+          {/* Crew Tracker Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-crew-tracker">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Crew Tracker / GPS Clock-In</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
+              <div id="demo-crew-tracker" />
+            </div>
+          </div>
+          
+          {/* Proposal Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-proposal">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Proposal Builder</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '400px' }}>
+              <div id="demo-proposal" />
+            </div>
+          </div>
+          
+          {/* SEO Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-seo">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">SEO Manager</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+              <div id="demo-seo" />
+            </div>
+          </div>
+          
+          {/* Weather Widget */}
+          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-weather">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
+              <h4 className="font-bold text-sm lg:text-base">Weather-Based Scheduling</h4>
+            </div>
+            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
+              <div id="demo-weather" />
             </div>
           </div>
         </section>
