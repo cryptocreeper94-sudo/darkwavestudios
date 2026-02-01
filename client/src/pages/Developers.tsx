@@ -27,6 +27,26 @@ const developerProducts = [
     features: ["Agent builder", "Smart contract integration", "Revenue sharing", "Guardian AI certified"]
   },
   {
+    id: "guardian",
+    title: "Guardian AI",
+    description: "AI agent certification platform. Verify autonomous agents meet security, transparency, and reliability standards.",
+    icon: Shield,
+    href: "https://dwsc.io/guardian-ai",
+    external: true,
+    gradient: "from-red-500 to-orange-500",
+    features: ["Trust score ratings", "Security audits", "Compliance certification", "Public registry"]
+  },
+  {
+    id: "shield",
+    title: "Guardian Shield",
+    description: "24/7 continuous security monitoring for enterprise applications. Real-time threat detection and response.",
+    icon: Shield,
+    href: "https://trustshield.tech",
+    external: true,
+    gradient: "from-violet-500 to-purple-600",
+    features: ["Continuous monitoring", "Threat detection", "Enterprise security", "Real-time alerts"]
+  },
+  {
     id: "hub",
     title: "Trust Layer Hub",
     description: "Blockchain-verified widget marketplace with 12+ embeddable components for analytics, booking, lead capture, and more.",
@@ -34,15 +54,6 @@ const developerProducts = [
     href: "/hub",
     gradient: "from-cyan-500 to-blue-600",
     features: ["Live widget previews", "Full source code access", "One-click embed", "API documentation"]
-  },
-  {
-    id: "guardian",
-    title: "Guardian AI",
-    description: "AI agent certification platform. Verify autonomous agents meet security, transparency, and reliability standards.",
-    icon: Shield,
-    href: "/guardian-ai",
-    gradient: "from-red-500 to-orange-500",
-    features: ["Trust score ratings", "Security audits", "Compliance certification", "Public registry"]
   },
   {
     id: "studio",

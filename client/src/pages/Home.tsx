@@ -344,14 +344,28 @@ export default function Home() {
                 >
                   Trust Layer Hub
                 </Link>
-                <Link 
-                  href="/guardian-ai" 
+                <a 
+                  href="https://dwsc.io/guardian-ai" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3 flex items-center gap-2"
                   data-testid="nav-guardian-mobile"
                 >
                   Guardian AI
-                </Link>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <a 
+                  href="https://trustshield.tech" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3 flex items-center gap-2"
+                  data-testid="nav-shield-mobile"
+                >
+                  Guardian Shield
+                  <ExternalLink className="w-3 h-3" />
+                </a>
                 <a 
                   href="https://dwtl.io/studio" 
                   target="_blank"
@@ -429,7 +443,7 @@ export default function Home() {
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
               <Link href="/developers" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-developers">Developers</Link>
               <a href="https://dwsc.io/ai-agents" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-ai-agents">AI Agents</a>
-              <Link href="/guardian-ai" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</Link>
+              <a href="https://dwsc.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</a>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
                 href="https://dwtl.io/studio" 
@@ -1060,7 +1074,9 @@ export default function Home() {
                     AI Agents <ExternalLink className="w-3 h-3" />
                   </a>
                   <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
-                  <Link href="/guardian-ai" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-guardian">Guardian AI</Link>
+                  <a href="https://dwsc.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
+                  <a href="https://dwsc.io/guardian-ai-registry" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-registry">Agent Registry <ExternalLink className="w-3 h-3" /></a>
+                  <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-shield">Guardian Shield <ExternalLink className="w-3 h-3" /></a>
                   <a 
                     href="https://dwtl.io/studio" 
                     target="_blank"
