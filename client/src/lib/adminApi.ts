@@ -1,4 +1,4 @@
-const ADMIN_API_KEY = "darkwave-admin-2024";
+const ADMIN_API_KEY = "0424";
 
 export async function adminRequest(
   method: string,

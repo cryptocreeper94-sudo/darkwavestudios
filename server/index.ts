@@ -6,6 +6,7 @@ import { runMigrations } from 'stripe-replit-sync';
 import { getStripeSync } from './stripeClient';
 import { WebhookHandlers } from './webhookHandlers';
 import { seedSnippets } from './seedSnippets';
+import { seedBlog } from './seedBlog';
 
 const app = express();
 const httpServer = createServer(app);
@@ -142,6 +143,9 @@ app.use((req, res, next) => {
   
   // Seed snippets if database is empty
   await seedSnippets();
+  
+  // Seed blog with AI-generated SEO content
+  await seedBlog();
   
   await registerRoutes(httpServer, app);
 

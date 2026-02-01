@@ -317,7 +317,14 @@ export default function Home() {
                   Compare
                 </Link>
                 
-                <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Developers</div>
+                <Link 
+                  href="/developers" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-xs text-muted-foreground hover:text-primary uppercase tracking-wider py-2 mt-2 block"
+                  data-testid="nav-developers-mobile"
+                >
+                  Developers
+                </Link>
                 <Link 
                   href="/hub" 
                   onClick={() => setMobileMenuOpen(false)}
@@ -409,7 +416,7 @@ export default function Home() {
               <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-projects">Portfolio</Link>
               <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
-              <Link href="/hub" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-hub">Developers</Link>
+              <Link href="/developers" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-developers">Developers</Link>
               <Link href="/guardian-ai" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
@@ -1027,8 +1034,12 @@ export default function Home() {
               </div>
               
               <div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Resources</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">
+                  <Link href="/developers" className="hover:text-primary transition-colors">Developers</Link>
+                </div>
                 <div className="flex flex-col gap-2">
+                  <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
+                  <Link href="/guardian-ai" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-guardian">Guardian AI</Link>
                   <a 
                     href="https://dwtl.io/studio" 
                     target="_blank"
@@ -1038,10 +1049,7 @@ export default function Home() {
                   >
                     Studio IDE <ExternalLink className="w-3 h-3" />
                   </a>
-                  <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
-                  <Link href="/guardian-ai" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-guardian">Guardian AI</Link>
                   <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
-                  <Link href="/admin" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-developers">Developers</Link>
                 </div>
               </div>
             </div>

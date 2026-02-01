@@ -10,7 +10,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import widgetRoutes from "./widgets/widget-routes";
 
-const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "darkwave-admin-2024";
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "0424";
 
 const requireAdminAuth = (req: Request, res: Response, next: NextFunction) => {
   const apiKey = req.headers["x-admin-key"] || req.query.adminKey;

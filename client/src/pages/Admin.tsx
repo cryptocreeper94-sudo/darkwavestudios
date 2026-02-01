@@ -187,7 +187,7 @@ export default function Admin() {
             <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
               DarkWave
             </Link>
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">Admin</span>
+            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">Dashboard</span>
           </div>
           <button 
             onClick={fetchData}
