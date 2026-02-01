@@ -83,6 +83,13 @@ The platform includes a blockchain-verified code marketplace:
 - **Full Code View**: Modal displaying complete widget source code
 - **Categories**: Components, utilities, hooks, API, auth
 
+### AI Agent Marketplace
+External platform for creating, deploying, and discovering AI agents:
+- **URL**: https://dwsc.io/ai-agents
+- **Agent Types**: Trading bots, DeFi agents, NFT agents, social agents, analytics agents
+- **Features**: Agent builder, smart contract integration, Trust Layer recording, revenue sharing
+- **Integration**: Cross-links to Guardian AI for agent certification
+
 ### Guardian AI
 AI agent certification platform for the crypto ecosystem:
 - **Certification Tiers**: Basic ($999), Professional ($4,999), Enterprise ($14,999)

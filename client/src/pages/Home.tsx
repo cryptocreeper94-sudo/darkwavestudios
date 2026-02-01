@@ -325,6 +325,17 @@ export default function Home() {
                 >
                   Developers
                 </Link>
+                <a 
+                  href="https://dwsc.io/ai-agents" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3 flex items-center gap-2"
+                  data-testid="nav-ai-agents-mobile"
+                >
+                  AI Agents
+                  <ExternalLink className="w-3 h-3" />
+                </a>
                 <Link 
                   href="/hub" 
                   onClick={() => setMobileMenuOpen(false)}
@@ -417,6 +428,7 @@ export default function Home() {
               <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-services">Services</Link>
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
               <Link href="/developers" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-developers">Developers</Link>
+              <a href="https://dwsc.io/ai-agents" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-ai-agents">AI Agents</a>
               <Link href="/guardian-ai" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
@@ -1038,6 +1050,15 @@ export default function Home() {
                   <Link href="/developers" className="hover:text-primary transition-colors">Developers</Link>
                 </div>
                 <div className="flex flex-col gap-2">
+                  <a 
+                    href="https://dwsc.io/ai-agents" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" 
+                    data-testid="footer-link-ai-agents"
+                  >
+                    AI Agents <ExternalLink className="w-3 h-3" />
+                  </a>
                   <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
                   <Link href="/guardian-ai" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-guardian">Guardian AI</Link>
                   <a 

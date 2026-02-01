@@ -17,6 +17,16 @@ import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 const developerProducts = [
   {
+    id: "agents",
+    title: "AI Agent Marketplace",
+    description: "Create, deploy, and discover autonomous AI agents. Build trading bots, DeFi agents, NFT snipers, and more.",
+    icon: Bot,
+    href: "https://dwsc.io/ai-agents",
+    external: true,
+    gradient: "from-emerald-500 to-teal-500",
+    features: ["Agent builder", "Smart contract integration", "Revenue sharing", "Guardian AI certified"]
+  },
+  {
     id: "hub",
     title: "Trust Layer Hub",
     description: "Blockchain-verified widget marketplace with 12+ embeddable components for analytics, booking, lead capture, and more.",
