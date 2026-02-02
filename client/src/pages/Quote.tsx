@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Calculator, Zap, Check, Loader2, ChevronDown, ChevronUp, Sparkles, Clock, Shield, Code } from "lucide-react";
+import Footer from "@/components/Footer";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 import landingImg from "@assets/generated_images/landing_page_laptop_mockup.png";
@@ -120,7 +121,7 @@ export default function Quote() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave
@@ -199,31 +200,31 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "type" && (
-                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
                     {projectTypes.map((type) => (
                       <button
                         key={type.id}
                         onClick={() => setSelectedType(type.id)}
-                        className={`relative overflow-hidden rounded-lg lg:rounded-xl border-2 transition-all text-left h-20 lg:h-40 group ${
+                        className={`relative overflow-hidden rounded-xl border-2 transition-all text-left h-28 lg:h-40 group ${
                           selectedType === type.id 
-                            ? "border-primary" 
+                            ? "border-primary bg-primary/10" 
                             : "border-white/10 hover:border-white/20"
                         }`}
                         data-testid={`button-type-${type.id}`}
                       >
                         <div 
-                          className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
+                          className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-50 transition-opacity"
                           style={{ backgroundImage: `url(${type.image})` }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-                        <div className="relative z-10 h-full flex flex-col justify-end p-4">
-                          <div className="text-2xl mb-1">{type.icon}</div>
-                          <div className="font-semibold text-sm text-white">{type.name}</div>
-                          <div className="text-xs text-primary">From ${type.base.toLocaleString()}</div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/60" />
+                        <div className="relative z-10 h-full flex flex-col justify-end p-3 lg:p-4">
+                          <div className="text-xl lg:text-2xl mb-1">{type.icon}</div>
+                          <div className="font-semibold text-xs lg:text-sm text-white leading-tight line-clamp-2">{type.name}</div>
+                          <div className="text-[10px] lg:text-xs text-primary font-medium mt-0.5">From ${type.base.toLocaleString()}</div>
                         </div>
                         {selectedType === type.id && (
-                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
+                          <div className="absolute top-2 right-2 w-5 h-5 lg:w-6 lg:h-6 rounded-full bg-primary flex items-center justify-center">
+                            <Check className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
                           </div>
                         )}
                       </button>
@@ -254,28 +255,28 @@ export default function Quote() {
                 </button>
                 
                 {expandedSection === "features" && (
-                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
+                  <div className="px-3 lg:px-6 pb-4 lg:pb-6 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
                     {features.map((feature) => (
                       <button
                         key={feature.id}
                         onClick={() => toggleFeature(feature.id)}
-                        className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border-2 transition-all text-left relative ${
+                        className={`p-3 lg:p-4 rounded-xl border-2 transition-all text-left relative min-h-[70px] lg:min-h-[90px] ${
                           selectedFeatures.includes(feature.id) 
                             ? "border-primary bg-primary/10" 
                             : "border-white/10 bg-white/5 hover:border-white/20"
                         }`}
                         data-testid={`button-feature-${feature.id}`}
                       >
-                        <div className={`absolute top-1 right-1 lg:top-2 lg:right-2 w-4 h-4 lg:w-5 lg:h-5 rounded-md border-2 flex items-center justify-center ${
+                        <div className={`absolute top-2 right-2 w-5 h-5 rounded-md border-2 flex items-center justify-center ${
                           selectedFeatures.includes(feature.id) ? "border-primary bg-primary" : "border-white/30"
                         }`}>
-                          {selectedFeatures.includes(feature.id) && <Check className="w-2 h-2 lg:w-3 lg:h-3 text-white" />}
+                          {selectedFeatures.includes(feature.id) && <Check className="w-3 h-3 text-white" />}
                         </div>
-                        <div className="font-semibold text-[10px] lg:text-sm pr-5">{feature.name}</div>
-                        <div className="text-[9px] lg:text-xs text-primary mt-0.5">
+                        <div className="font-semibold text-xs lg:text-sm pr-6 leading-tight">{feature.name}</div>
+                        <div className="text-xs lg:text-sm text-primary font-medium mt-1">
                           {feature.price === 0 ? "FREE" : `+$${feature.price}`}
                         </div>
-                        <div className="text-[8px] lg:text-xs text-muted-foreground mt-0.5 hidden lg:block">{feature.desc}</div>
+                        <div className="text-[10px] lg:text-xs text-muted-foreground mt-1 hidden lg:block line-clamp-2">{feature.desc}</div>
                       </button>
                     ))}
                   </div>
@@ -513,12 +514,7 @@ export default function Quote() {
         )}
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
-          <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

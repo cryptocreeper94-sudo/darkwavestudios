@@ -260,7 +260,7 @@ export default function Developers() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)] -z-10" />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
