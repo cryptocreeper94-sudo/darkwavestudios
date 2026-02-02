@@ -806,6 +806,54 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
     }
   });
 
+  app.post("/api/ai/chat", async (req, res) => {
+    try {
+      const { message, context } = req.body;
+
+      if (!message || typeof message !== "string" || message.trim().length === 0) {
+        return res.status(400).json({ success: false, error: "Message is required" });
+      }
+
+      if (message.length > 1000) {
+        return res.status(400).json({ success: false, error: "Message too long (max 1000 characters)" });
+      }
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are the DarkWave AI Assistant, a helpful and knowledgeable assistant for DarkWave Studios and the Trust Layer Hub marketplace. 
+
+Key information about DarkWave:
+- Premium web development agency offering custom websites, apps, and AI solutions
+- Trust Layer Hub is a blockchain-verified widget marketplace with 14+ embeddable widgets
+- Guardian AI provides AI agent certification services
+- DarkWave Pulse is a premium predictive AI system for market analysis
+- 60%+ savings compared to traditional agencies
+
+Be helpful, concise, and friendly. Answer questions about services, widgets, pricing, or technical capabilities.
+Context: ${context || 'General inquiry'}`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message }
+        ],
+        max_tokens: 500,
+      });
+
+      res.json({ 
+        success: true, 
+        response: response.choices[0].message.content 
+      });
+    } catch (error: any) {
+      console.error("AI chat error:", error);
+      res.status(500).json({ success: false, error: "Failed to process chat message" });
+    }
+  });
+
   app.post("/api/blog", requireAdminAuth, async (req, res) => {
     try {
       const data = insertBlogPostSchema.parse(req.body);

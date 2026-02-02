@@ -38,7 +38,9 @@ import {
   Plus,
   Minus,
   Trash2,
-  Package
+  Package,
+  Send,
+  Bot
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -350,6 +352,41 @@ export default function TrustLayerHub() {
   });
   const [pulseSubmitting, setPulseSubmitting] = useState(false);
   const [pulseSubmitted, setPulseSubmitted] = useState(false);
+  const [aiChatOpen, setAiChatOpen] = useState(false);
+  const [aiMessages, setAiMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([
+    { role: "assistant", content: "Hello! I'm your DarkWave AI assistant. I can help you explore our widgets, answer questions about the Trust Layer Hub, or assist with your development needs. How can I help you today?" }
+  ]);
+  const [aiInput, setAiInput] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleAiSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!aiInput.trim() || aiLoading) return;
+    
+    const userMessage = aiInput.trim();
+    setAiMessages(prev => [...prev, { role: "user", content: userMessage }]);
+    setAiInput("");
+    setAiLoading(true);
+    
+    try {
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage, context: "Trust Layer Hub assistant" })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAiMessages(prev => [...prev, { role: "assistant", content: data.response }]);
+      } else {
+        setAiMessages(prev => [...prev, { role: "assistant", content: "I apologize, but I'm having trouble connecting right now. Please try again or contact our team directly." }]);
+      }
+    } catch (error) {
+      setAiMessages(prev => [...prev, { role: "assistant", content: "I'm experiencing some technical difficulties. Our team is here to help - reach out via the contact page!" }]);
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const isPulseProduct = (id: string) => id.startsWith("pulse");
 
@@ -552,7 +589,7 @@ export default function TrustLayerHub() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,200,255,0.1),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-home">
@@ -943,10 +980,10 @@ export default function TrustLayerHub() {
             {/* Widget Preview Container */}
             <div className="order-1 lg:order-2 relative">
               {/* Theme Toggle */}
-              <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/30 backdrop-blur-md rounded-full p-1 border border-white/10">
+              <div className="absolute top-2 right-2 z-20 flex items-center gap-1 bg-black/80 backdrop-blur-md rounded-full p-1 border border-white/20">
                 <button
-                  onClick={() => setWidgetTheme("trustlayer")}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("trustlayer"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                     widgetTheme === "trustlayer" 
                       ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/30" 
                       : "text-white/60 hover:text-white"
@@ -956,8 +993,8 @@ export default function TrustLayerHub() {
                   Aurora
                 </button>
                 <button
-                  onClick={() => setWidgetTheme("dark")}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("dark"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                     widgetTheme === "dark" 
                       ? "bg-slate-800 text-cyan-400 shadow" 
                       : "text-white/60 hover:text-white"
@@ -967,8 +1004,8 @@ export default function TrustLayerHub() {
                   Dark
                 </button>
                 <button
-                  onClick={() => setWidgetTheme("light")}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("light"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                     widgetTheme === "light" 
                       ? "bg-white text-gray-800 shadow" 
                       : "text-white/60 hover:text-white"
@@ -1858,6 +1895,104 @@ export default function TrustLayerHub() {
           <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by DarkWave Trust Layer Blockchain</div>
         </div>
       </footer>
+
+      {/* AI Chat Side Tab */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50" data-testid="ai-chat-container">
+        {/* Side Tab Button */}
+        <button
+          onClick={() => setAiChatOpen(!aiChatOpen)}
+          className={`flex items-center justify-center w-10 h-24 bg-gradient-to-b from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white shadow-xl shadow-purple-500/30 transition-all rounded-l-xl border border-purple-400/30 ${
+            aiChatOpen ? "translate-x-full opacity-0 pointer-events-none" : "translate-x-0 opacity-100"
+          }`}
+          data-testid="ai-chat-tab"
+          aria-label="Open AI Assistant"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <Shield className="w-5 h-5" />
+            <span className="text-[10px] font-bold" style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>AI</span>
+          </div>
+        </button>
+
+        {/* Full Chat Panel */}
+        <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-slate-950 via-purple-950/90 to-slate-950 border-l border-purple-500/30 shadow-2xl shadow-purple-500/20 transition-transform duration-300 flex flex-col ${
+          aiChatOpen ? "translate-x-0" : "translate-x-full"
+        }`} data-testid="ai-chat-panel">
+          {/* Chat Header */}
+          <div className="p-4 border-b border-purple-500/20 bg-black/40 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-white">DarkWave AI</h3>
+                <p className="text-xs text-purple-300">Powered by Trust Layer</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setAiChatOpen(false)}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
+              data-testid="ai-chat-close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Messages Area */}
+          <div className="flex-1 overflow-auto p-4 space-y-4">
+            {aiMessages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                  msg.role === "user"
+                    ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-br-sm"
+                    : "bg-white/10 backdrop-blur-sm text-gray-100 rounded-bl-sm border border-purple-500/20"
+                }`}>
+                  {msg.role === "assistant" && (
+                    <div className="flex items-center gap-2 mb-2 text-purple-300">
+                      <Bot className="w-4 h-4" />
+                      <span className="text-xs font-semibold">AI Assistant</span>
+                    </div>
+                  )}
+                  <p className="text-sm leading-relaxed">{msg.content}</p>
+                </div>
+              </div>
+            ))}
+            {aiLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-3 border border-purple-500/20">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input Area */}
+          <form onSubmit={handleAiSubmit} className="p-4 border-t border-purple-500/20 bg-black/40">
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                value={aiInput}
+                onChange={(e) => setAiInput(e.target.value)}
+                placeholder="Ask me anything..."
+                className="flex-1 bg-white/5 border border-purple-500/30 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/50 text-sm"
+                data-testid="ai-chat-input"
+              />
+              <button
+                type="submit"
+                disabled={!aiInput.trim() || aiLoading}
+                className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 text-white flex items-center justify-center hover:from-purple-500 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30"
+                data-testid="ai-chat-send"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-[10px] text-purple-300/60 mt-2 text-center">Powered by 11 Labs Voice AI</p>
+          </form>
+        </div>
+      </div>
 
       {/* Floating Cart Button */}
       {cart.length > 0 && (
