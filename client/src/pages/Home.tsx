@@ -71,7 +71,7 @@ const projects = [
     title: "DarkWave Studios",
     description: "Full-service web development agency and blockchain-verified development ecosystem",
     tech: ["Web Dev", "AI", "Blockchain"],
-    image: projectDarkwaveImg,
+    image: "/ecosystem/darkwave-studios.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://darkwavestudios.io"
   },
@@ -80,7 +80,7 @@ const projects = [
     title: "Trust Layer",
     description: "Layer 1 blockchain providing verified identity and AI agent certification",
     tech: ["Blockchain", "Identity", "AI"],
-    image: projectTrustLayerImg,
+    image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-pink-600/20",
     url: "https://dwsc.io"
   },
@@ -89,7 +89,7 @@ const projects = [
     title: "TrustShield",
     description: "24/7 continuous security monitoring for enterprise blockchain operations",
     tech: ["Security", "Monitoring", "Enterprise"],
-    image: projectTrustShieldImg,
+    image: "/ecosystem/trust-shield.png",
     gradient: "from-emerald-500/20 to-teal-600/20",
     url: "https://trustshield.tech"
   },
@@ -98,7 +98,7 @@ const projects = [
     title: "Pulse",
     description: "AI-driven cryptocurrency trading and analytics with predictive signals",
     tech: ["AI", "Trading", "Analytics"],
-    image: projectPulseImg,
+    image: "/ecosystem/pulse.png",
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://dwsc.io/pulse"
   },
@@ -107,7 +107,7 @@ const projects = [
     title: "Strike Agent",
     description: "Autonomous AI-powered token discovery and trading system",
     tech: ["AI", "Trading", "Multi-chain"],
-    image: projectStrikeImg,
+    image: "/ecosystem/strikeagent.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://strikeagent.io"
   },
@@ -116,7 +116,7 @@ const projects = [
     title: "ORBIT Staffing",
     description: "Automated staffing platform with GPS tracking and payroll processing",
     tech: ["HR Tech", "Payroll", "GPS"],
-    image: projectOrbitImg,
+    image: "/ecosystem/orbit-staffing.png",
     gradient: "from-orange-500/20 to-red-600/20",
     url: "https://orbitstaffing.io"
   },
@@ -125,7 +125,7 @@ const projects = [
     title: "Orby Commander",
     description: "Venue operations PWA with emergency command center and team comms",
     tech: ["Operations", "PWA", "Venues"],
-    image: projectOrbyImg,
+    image: "/ecosystem/orby-commander.png",
     gradient: "from-amber-500/20 to-orange-600/20",
     url: "https://orbycommander.com"
   },
@@ -134,7 +134,7 @@ const projects = [
     title: "Lot Ops Pro",
     description: "Driver performance and workflow management for auto auctions",
     tech: ["Automotive", "Workflow", "GPS"],
-    image: projectLotOpsImg,
+    image: "/ecosystem/lot-ops-pro.png",
     gradient: "from-blue-500/20 to-indigo-600/20",
     url: "https://lotopspro.com"
   },
@@ -143,7 +143,7 @@ const projects = [
     title: "Brew & Board",
     description: "Nashville's premium B2B coffee and catering concierge platform",
     tech: ["Delivery", "B2B", "Catering"],
-    image: projectCoffeeImg,
+    image: "/ecosystem/brew-board.png",
     gradient: "from-lime-500/20 to-green-600/20",
     url: "https://brewandboardcoffee.replit.app"
   },
@@ -152,7 +152,7 @@ const projects = [
     title: "TradeWorks AI",
     description: "Field toolkit for 8 trade industries with AI estimation and scheduling",
     tech: ["AI", "Trades", "Estimation"],
-    image: projectTradeWorksImg,
+    image: "/ecosystem/tradeworks-ai.png",
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://tradeworksai.io"
   },
@@ -161,7 +161,7 @@ const projects = [
     title: "PaintPros.io",
     description: "Lead generation hub connecting contractors to Trust Layer ecosystem",
     tech: ["SaaS", "Leads", "Marketing"],
-    image: projectPaintImg,
+    image: "/ecosystem/paint-pros.png",
     gradient: "from-rose-500/20 to-pink-600/20",
     url: "https://paintpros.io"
   },
@@ -170,7 +170,7 @@ const projects = [
     title: "Nashville Paint Pros",
     description: "Live demo for TradeWorks AI with instant estimates and booking",
     tech: ["Painting", "Estimates", "Booking"],
-    image: projectPaintImg,
+    image: "/ecosystem/nash-paint-pros.png",
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://nashpaintpros.io"
   },
@@ -179,7 +179,7 @@ const projects = [
     title: "Lume Paint Co",
     description: "Premium tier luxury interior painting with elevated design aesthetic",
     tech: ["Luxury", "Design", "Premium"],
-    image: projectLumeImg,
+    image: "/ecosystem/lume-paint.png",
     gradient: "from-amber-500/20 to-yellow-600/20",
     url: "https://lumepaint.co"
   },
@@ -188,7 +188,7 @@ const projects = [
     title: "GarageBot",
     description: "Auto parts aggregator with VIN decoding and AI repair assistant",
     tech: ["AI", "Automotive", "E-commerce"],
-    image: projectGarageImg,
+    image: "/ecosystem/garagebot.png",
     gradient: "from-red-500/20 to-orange-600/20",
     url: "https://garagebot.io"
   },
@@ -197,7 +197,7 @@ const projects = [
     title: "Happy Eats",
     description: "White-label food truck and delivery platform with franchise support",
     tech: ["Delivery", "Food", "SaaS"],
-    image: projectHappyEatsImg,
+    image: "/ecosystem/happy-eats.png",
     gradient: "from-green-500/20 to-emerald-600/20",
     url: "https://happyeats.app"
   },
@@ -206,7 +206,7 @@ const projects = [
     title: "VedaSolus",
     description: "Holistic wellness platform bridging Eastern and Western healing",
     tech: ["Health", "AI", "Wellness"],
-    image: projectVedaSolusImg,
+    image: "/ecosystem/vedasolus.png",
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://vedasolus.io"
   }
