@@ -27,6 +27,7 @@ import TrustLayerHub from "@/pages/TrustLayerHub";
 import GuardianAI from "@/pages/GuardianAI";
 import GuardianAIRegistry from "@/pages/GuardianAIRegistry";
 import Developers from "@/pages/Developers";
+import Ecosystem from "@/pages/Ecosystem";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -56,6 +57,7 @@ function Router() {
       <Route path="/guardian-ai" component={GuardianAI}/>
       <Route path="/guardian-ai-registry" component={GuardianAIRegistry}/>
       <Route path="/developers" component={Developers}/>
+      <Route path="/ecosystem" component={Ecosystem}/>
       <Route component={NotFound} />
     </Switch>
   );
