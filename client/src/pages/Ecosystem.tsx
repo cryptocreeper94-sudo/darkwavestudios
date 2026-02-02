@@ -177,46 +177,48 @@ const categories = [
 
 function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryName: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCount = 3;
   
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % Math.max(1, apps.length - visibleCount + 1));
+    setCurrentIndex((prev) => (prev + 1) % apps.length);
   };
   
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + Math.max(1, apps.length - visibleCount + 1)) % Math.max(1, apps.length - visibleCount + 1));
+    setCurrentIndex((prev) => (prev - 1 + apps.length) % apps.length);
   };
 
   if (apps.length === 0) return null;
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg lg:text-xl font-display font-bold">{categoryName}</h3>
-        {apps.length > visibleCount && (
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-6 bg-gradient-to-b from-primary to-accent rounded-full" />
+          <h3 className="text-xl lg:text-2xl font-display font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">{categoryName}</h3>
+        </div>
+        {apps.length > 1 && (
           <div className="flex gap-2">
             <button 
               onClick={prev}
-              className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
               data-testid={`carousel-prev-${categoryName.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             <button 
               onClick={next}
-              className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
               data-testid={`carousel-next-${categoryName.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         )}
       </div>
       
-      <div className="overflow-hidden">
+      <div className="overflow-hidden rounded-2xl">
         <div 
-          className="flex gap-4 transition-transform duration-300 ease-out"
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleCount + 1.5)}%)` }}
+          className="flex gap-4 lg:gap-5 transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {apps.map((app) => (
             <a
@@ -224,31 +226,54 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
               href={app.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 w-[calc(33.333%-1rem)] min-w-[280px] glass rounded-xl overflow-hidden group hover:bg-white/10 transition-all duration-300"
+              className="flex-shrink-0 w-full lg:w-[calc(33.333%-1rem)] rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
               data-testid={`app-card-${app.id}`}
             >
-              <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
-                <img 
-                  src={app.image} 
-                  alt={app.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h4 className="font-display font-bold text-sm lg:text-base">{app.name}</h4>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="aspect-video relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
+                  <img 
+                    src={app.image} 
+                    alt={app.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute top-3 right-3 z-20">
+                    <div className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:bg-primary/80 group-hover:border-primary transition-all duration-300">
+                      <ExternalLink className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-primary mb-2 italic">"{app.tagline}"</p>
-                <p className="text-xs text-muted-foreground line-clamp-2">{app.description}</p>
+                <div className="p-5 lg:p-5 relative">
+                  <h4 className="font-display font-bold text-lg lg:text-base mb-1 group-hover:text-primary transition-colors duration-300">{app.name}</h4>
+                  <p className="text-sm text-primary/80 mb-3 italic font-medium">"{app.tagline}"</p>
+                  <p className="text-sm lg:text-xs text-muted-foreground line-clamp-3 lg:line-clamp-2 leading-relaxed">{app.description}</p>
+                  <div className="mt-4 flex items-center gap-2 text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span>Explore</span>
+                    <ChevronRight className="w-3 h-3" />
+                  </div>
+                </div>
               </div>
             </a>
           ))}
         </div>
       </div>
+      
+      {apps.length > 1 && (
+        <div className="flex justify-center gap-2 mt-6 lg:hidden">
+          {apps.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? 'w-8 bg-gradient-to-r from-primary to-accent' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+              data-testid={`carousel-dot-${index}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -268,42 +293,58 @@ export default function Ecosystem() {
         ]}
       />
 
-      <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
+      <div className="fixed inset-0 bg-background -z-20" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.1),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.5))] -z-10" />
 
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 lg:gap-4">
-            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-5 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-primary" />
-              <span className="font-display text-lg lg:text-xl font-bold">Ecosystem</span>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/25">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <span className="font-display text-xl lg:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Ecosystem</span>
             </div>
           </div>
           <Link 
             href="/developers"
-            className="btn-glow bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+            className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
             data-testid="button-developer-tools"
           >
-            Developer Tools
+            <span className="relative z-10">Developer Tools</span>
           </Link>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
-        <section className="text-center mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-6">
+        <section className="text-center mb-16 lg:mb-24">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Sparkles className="w-4 h-4" />
             16+ Connected Applications
           </div>
-          <h1 className="text-3xl lg:text-5xl font-display font-bold mb-4">
-            The DarkWave <span className="gradient-text">Ecosystem</span>
+          <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
+            The DarkWave{" "}
+            <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">Ecosystem</span>
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm lg:text-base">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
             A complete suite of interconnected applications spanning trading, business operations, 
             trade services, and enterprise solutions. All powered by Trust Layer blockchain verification.
           </p>
+          <div className="flex justify-center gap-3 mt-8">
+            <div className="flex -space-x-2">
+              {["/ecosystem/pulse.png", "/ecosystem/orbit-staffing.png", "/ecosystem/strikeagent.png", "/ecosystem/trust-layer-icon.png"].map((img, i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-white/10">
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+            <span className="text-sm text-muted-foreground self-center">+12 more apps</span>
+          </div>
         </section>
 
         <div className="space-y-12 lg:space-y-16">
@@ -322,41 +363,52 @@ export default function Ecosystem() {
           })}
         </div>
 
-        <section className="mt-16 lg:mt-24 text-center">
-          <div className="glass rounded-2xl p-8 lg:p-12">
-            <h2 className="text-xl lg:text-2xl font-display font-bold mb-4">
-              Build With the Ecosystem
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto text-sm">
-              Access our developer tools, APIs, and Trust Layer widgets to build your own 
-              applications within the DarkWave ecosystem.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/developers"
-                className="btn-glow bg-primary text-white px-6 py-3 rounded-lg font-semibold"
-                data-testid="button-explore-dev-tools"
-              >
-                Explore Developer Tools
-              </Link>
-              <a 
-                href="https://dwsc.io/guardian-ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass hover:bg-white/10 px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                data-testid="button-certify-agent"
-              >
-                Certify Your AI Agent
-                <ExternalLink className="w-4 h-4" />
-              </a>
+        <section className="mt-20 lg:mt-32 text-center">
+          <div className="relative rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20" />
+            <div className="absolute inset-0 backdrop-blur-3xl" />
+            <div className="absolute inset-[1px] rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02]" />
+            <div className="relative p-10 lg:p-16">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
+                <Sparkles className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-display font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                Build With the Ecosystem
+              </h2>
+              <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
+                Access our developer tools, APIs, and Trust Layer widgets to build your own 
+                applications within the DarkWave ecosystem.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="/developers"
+                  className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+                  data-testid="button-explore-dev-tools"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Explore Developer Tools
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </Link>
+                <a 
+                  href="https://dwsc.io/guardian-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
+                  data-testid="button-certify-agent"
+                >
+                  Certify Your AI Agent
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center text-xs text-muted-foreground">
-          <p>DarkWave Studios, LLC. All ecosystem applications are connected via Trust Layer.</p>
+      <footer className="border-t border-white/5 py-10 backdrop-blur-xl bg-background/30">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
+          <p className="text-sm text-muted-foreground">DarkWave Studios, LLC. All ecosystem applications are connected via Trust Layer.</p>
         </div>
       </footer>
     </div>
