@@ -91,7 +91,10 @@ const widgetsList = [
     fullDescription: "Give your customers instant, accurate project estimates. This AI-powered calculator handles square footage, materials, labor rates, and profit margins automatically. Perfect for painters, roofers, landscapers, and contractors.",
     features: ["Square footage calculator", "Material cost estimation", "Labor hour calculation", "Profit margin controls", "Lead capture integration", "PDF estimate generation", "CRM webhook sync"],
     requirements: ["React 18+ or vanilla JS", "Works with any website", "No backend required"],
-    includes: ["Full source code", "Step-by-step setup guide", "Customization documentation", "30-day email support", "Lifetime updates"]
+    includes: ["Full source code", "Step-by-step setup guide", "Customization documentation", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Zod validation"],
+    linesOfCode: "~850 lines",
+    complexity: "Intermediate"
   },
   { 
     id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", 
@@ -99,7 +102,10 @@ const widgetsList = [
     fullDescription: "Turn website visitors into qualified leads with smart forms that adapt to user behavior. Multi-step forms, conditional logic, and instant notifications help you never miss an opportunity.",
     features: ["Multi-step form wizard", "Conditional field logic", "Email & SMS notifications", "CRM integration ready", "Spam protection built-in", "Mobile-optimized design", "A/B testing support"],
     requirements: ["Any website or React app", "Optional: Email service for notifications"],
-    includes: ["Full source code", "Setup documentation", "Integration examples", "30-day email support", "Lifetime updates"]
+    includes: ["Full source code", "Setup documentation", "Integration examples", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "React Hook Form", "Tailwind CSS"],
+    linesOfCode: "~620 lines",
+    complexity: "Beginner-friendly"
   },
   { 
     id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", 
@@ -107,7 +113,10 @@ const widgetsList = [
     fullDescription: "Build trust instantly by showcasing your best customer reviews. Pulls from Google, Yelp, and Facebook or use your own testimonials. Beautiful carousel and grid layouts included.",
     features: ["Google/Yelp/Facebook sync", "Star rating display", "Photo testimonials", "Carousel & grid layouts", "Schema markup for SEO", "Filter by rating", "Moderation dashboard"],
     requirements: ["Any website", "Optional: API keys for review platforms"],
-    includes: ["Full source code", "Platform integration guide", "Styling customization docs", "30-day email support", "Lifetime updates"]
+    includes: ["Full source code", "Platform integration guide", "Styling customization docs", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Embla Carousel", "Tailwind CSS", "JSON-LD Schema"],
+    linesOfCode: "~540 lines",
+    complexity: "Beginner-friendly"
   },
   { 
     id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", 
@@ -115,7 +124,10 @@ const widgetsList = [
     fullDescription: "Let customers book appointments 24/7 without the back-and-forth. Syncs with Google Calendar, handles time zones, sends reminders, and prevents double-bookings automatically.",
     features: ["Real-time availability", "Google Calendar sync", "Automatic reminders", "Time zone detection", "Buffer time between appointments", "Service duration settings", "Deposit collection ready"],
     requirements: ["React or vanilla JS", "Optional: Google Calendar API", "Optional: Stripe for deposits"],
-    includes: ["Full source code", "Calendar integration guide", "Reminder setup docs", "30-day email support", "Lifetime updates"]
+    includes: ["Full source code", "Calendar integration guide", "Reminder setup docs", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "date-fns", "Tailwind CSS", "Google Calendar API"],
+    linesOfCode: "~1,200 lines",
+    complexity: "Intermediate"
   },
   { 
     id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", 
@@ -123,7 +135,10 @@ const widgetsList = [
     fullDescription: "Privacy-focused analytics that gives you the insights you need without compromising visitor privacy. Real-time dashboards, conversion tracking, and heatmaps - no cookies required.",
     features: ["Real-time visitor tracking", "Page view analytics", "Click heatmaps", "Conversion funnels", "Custom event tracking", "GDPR/CCPA compliant", "No cookies required"],
     requirements: ["Any website", "Node.js backend for data storage"],
-    includes: ["Frontend widget code", "Backend API code", "Database schema", "Dashboard UI", "30-day email support", "Lifetime updates"]
+    includes: ["Frontend widget code", "Backend API code", "Database schema", "Dashboard UI", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~2,400 lines (full stack)",
+    complexity: "Advanced"
   },
   { 
     id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", 
@@ -131,7 +146,10 @@ const widgetsList = [
     fullDescription: "Engage visitors in real-time with a beautiful chat widget. AI-powered auto-responses handle common questions while you're away. Full conversation history and team inbox included.",
     features: ["Real-time messaging", "AI auto-responses", "Offline message capture", "File sharing", "Typing indicators", "Team inbox", "Mobile app notifications"],
     requirements: ["React or vanilla JS", "WebSocket-capable backend", "Optional: OpenAI for AI responses"],
-    includes: ["Chat widget code", "Backend server code", "Admin dashboard UI", "AI integration guide", "30-day email support", "Lifetime updates"]
+    includes: ["Chat widget code", "Backend server code", "Admin dashboard UI", "AI integration guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Socket.io", "Node.js", "Express", "OpenAI API", "PostgreSQL"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
   },
   { 
     id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", 
@@ -139,7 +157,10 @@ const widgetsList = [
     fullDescription: "Visual sales pipeline built for service businesses. Drag-and-drop deal management, automated follow-ups, and revenue forecasting. Stop losing leads and start closing more deals.",
     features: ["Kanban pipeline view", "Drag-and-drop deals", "Automated stage transitions", "Follow-up reminders", "Email integration", "Calendar sync", "Revenue forecasting", "Win/loss analytics"],
     requirements: ["React frontend", "Node.js/Express backend", "PostgreSQL database"],
-    includes: ["Complete CRM frontend", "Backend API", "Database migrations", "Email templates", "Setup walkthrough", "30-day email support", "Lifetime updates"]
+    includes: ["Complete CRM frontend", "Backend API", "Database migrations", "Email templates", "Setup walkthrough", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "TanStack Query", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~3,200 lines (full stack)",
+    complexity: "Advanced"
   },
   { 
     id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", 
@@ -147,7 +168,10 @@ const widgetsList = [
     fullDescription: "Know where your team is and track hours accurately with GPS-verified time tracking. Geofencing ensures clock-ins only happen on job sites. Export timesheets directly to payroll.",
     features: ["GPS clock-in/out", "Photo verification", "Geofencing by job site", "Real-time location", "Break reminders", "Overtime calculations", "Timesheet export", "Payroll integration"],
     requirements: ["React Native or web app", "Node.js backend", "Mobile device with GPS"],
-    includes: ["Web dashboard code", "Mobile-ready components", "Backend API", "Payroll export templates", "30-day email support", "Lifetime updates"]
+    includes: ["Web dashboard code", "Mobile-ready components", "Backend API", "Payroll export templates", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Geolocation API", "Leaflet Maps", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,100 lines (full stack)",
+    complexity: "Advanced"
   },
   { 
     id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", 
@@ -155,7 +179,10 @@ const widgetsList = [
     fullDescription: "Create stunning proposals in minutes, not hours. Customizable templates, dynamic pricing tables, e-signature capture, and Stripe integration for instant deposits.",
     features: ["Customizable templates", "Dynamic pricing tables", "E-signature capture", "Stripe payment integration", "Deposit collection", "Expiration tracking", "Client portal", "Automated follow-ups"],
     requirements: ["React frontend", "Node.js backend", "Stripe account for payments"],
-    includes: ["Proposal builder UI", "Template system", "E-signature integration", "Backend API", "30-day email support", "Lifetime updates"]
+    includes: ["Proposal builder UI", "Template system", "E-signature integration", "Backend API", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "PDF generation", "Stripe API", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,600 lines (full stack)",
+    complexity: "Advanced"
   },
   { 
     id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", 
@@ -163,7 +190,10 @@ const widgetsList = [
     fullDescription: "Audit your website's SEO health and get actionable recommendations. Track keyword rankings, monitor competitors, and generate schema markup automatically.",
     features: ["On-page SEO audit", "Keyword rank tracking", "Competitor monitoring", "Schema markup generator", "Meta tag optimizer", "Core Web Vitals check", "Weekly email reports"],
     requirements: ["Any website", "Node.js for backend features", "Optional: Google Search Console API"],
-    includes: ["Audit tool code", "Tracking dashboard", "Schema generators", "Report templates", "30-day email support", "Lifetime updates"]
+    includes: ["Audit tool code", "Tracking dashboard", "Schema generators", "Report templates", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Cheerio", "Puppeteer", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,900 lines (full stack)",
+    complexity: "Intermediate"
   },
   { 
     id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", 
@@ -171,7 +201,10 @@ const widgetsList = [
     fullDescription: "Never get caught in the rain again. Automatically checks weather forecasts and alerts you to reschedule outdoor jobs. Integrates with your calendar and notifies affected customers.",
     features: ["7-day weather forecasts", "Automatic delay alerts", "Customer notifications", "Calendar integration", "Weather threshold settings", "Job site locations", "Reschedule suggestions"],
     requirements: ["Any website or app", "Weather API key (free tier available)"],
-    includes: ["Weather widget code", "Notification system", "Calendar integration", "Setup guide", "30-day email support", "Lifetime updates"]
+    includes: ["Weather widget code", "Notification system", "Calendar integration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenWeatherMap API", "Tailwind CSS"],
+    linesOfCode: "~680 lines",
+    complexity: "Beginner-friendly"
   },
   { 
     id: "pulse", name: "Pulse", icon: Activity, containerId: "demo-pulse", color: "#ef4444", 
@@ -179,7 +212,10 @@ const widgetsList = [
     fullDescription: "Pulse is our flagship AI predictive system with a verified 65-70% win rate across 100,000+ predictions. Harness institutional-grade quant intelligence for trading, forecasting, and data-driven decision making. Every prediction is hashed to DarkWave Smart Chain for immutable verification.",
     features: ["65-70% verified win rate", "100,000+ prediction track record", "Real-time market signals", "Multi-asset analysis", "Blockchain-verified predictions", "1-day & 7-day forecasts", "Confidence scoring", "API access included", "Historical backtesting"],
     requirements: ["API integration capability", "Secure server environment recommended"],
-    includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"]
+    includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"],
+    techStack: ["Python", "TensorFlow", "FastAPI", "React 18", "TypeScript", "PostgreSQL", "Redis", "DarkWave Smart Chain"],
+    linesOfCode: "~12,000+ lines (ML pipeline)",
+    complexity: "Enterprise-grade"
   },
   { 
     id: "pulse-pro", name: "Pulse Pro API", icon: Zap, containerId: "demo-pulse-pro", color: "#f59e0b", 
@@ -187,7 +223,10 @@ const widgetsList = [
     fullDescription: "Full programmatic access to DarkWave Pulse with unlimited API calls. Build your own applications, trading bots, or analytics dashboards powered by our 65%+ accurate predictive engine. Includes backtesting suite and custom model training.",
     features: ["Unlimited API calls", "All Pulse Basic features", "Custom prediction parameters", "Backtesting suite", "Bulk historical data export", "Custom webhooks", "Rate limit: 1000/min", "Multi-exchange support", "Advanced analytics dashboard"],
     requirements: ["Developer knowledge", "Server for API integration", "API authentication handling"],
-    includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"]
+    includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"],
+    techStack: ["Python SDK", "JavaScript SDK", "REST API", "WebSocket streams", "OAuth 2.0", "Rate limiting"],
+    linesOfCode: "SDK: ~3,500 lines",
+    complexity: "Developer-focused"
   },
   { 
     id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
@@ -195,7 +234,10 @@ const widgetsList = [
     fullDescription: "Deploy DarkWave Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
     features: ["All Pulse Pro features", "White-label rights", "Custom branding", "Dedicated infrastructure", "Custom model training", "99.9% SLA uptime", "Priority 24/7 support", "Compliance documentation", "On-premise deployment option"],
     requirements: ["Enterprise infrastructure", "Legal entity for licensing", "Technical integration team"],
-    includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"]
+    includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"],
+    techStack: ["Full source code", "Docker/Kubernetes", "Custom ML models", "Private infrastructure", "SOC 2 compliant"],
+    linesOfCode: "Complete platform",
+    complexity: "Enterprise-grade"
   },
 ];
 
@@ -219,6 +261,9 @@ interface WidgetInfo {
   features: string[];
   requirements: string[];
   includes: string[];
+  techStack: string[];
+  linesOfCode: string;
+  complexity: string;
 }
 
 // Widget name mapping for full code lookup
@@ -777,22 +822,6 @@ export default function TrustLayerHub() {
               <h3 className="font-display font-bold text-sm lg:text-xl" data-testid="text-live-preview-title">Widget Storefront</h3>
               <span className="hidden lg:inline px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">{widgetsList.length} LIVE WIDGETS</span>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setSelectedWidget((prev) => (prev - 1 + widgetsList.length) % widgetsList.length)}
-                className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all"
-                data-testid="widget-prev"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={() => setSelectedWidget((prev) => (prev + 1) % widgetsList.length)}
-                className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all"
-                data-testid="widget-next"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
           
           {/* Widget Selector Tabs - Horizontal Scroll */}
@@ -1181,18 +1210,44 @@ export default function TrustLayerHub() {
             </div>
           </div>
           
-          {/* Widget Pagination Dots (Mobile) */}
-          <div className="flex justify-center gap-1.5 mt-4 lg:hidden">
-            {widgetsList.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedWidget(index)}
-                className={`h-1.5 rounded-full transition-all ${
-                  index === selectedWidget ? 'w-6 bg-primary' : 'w-1.5 bg-white/20'
-                }`}
-                data-testid={`widget-dot-${index}`}
-              />
-            ))}
+          {/* Navigation Controls - Arrows with Cyan Dot Indicator */}
+          <div className="flex items-center justify-center gap-4 mt-6 mb-2">
+            <button 
+              onClick={() => setSelectedWidget((prev) => (prev - 1 + widgetsList.length) % widgetsList.length)}
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-cyan-500/30 flex items-center justify-center hover:bg-cyan-500/10 hover:border-cyan-400 transition-all group"
+              data-testid="widget-prev"
+            >
+              <ChevronLeft className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
+            </button>
+            
+            {/* Cyan Dot Indicator */}
+            <div className="flex items-center gap-1.5 px-4">
+              {widgetsList.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedWidget(index)}
+                  className={`rounded-full transition-all duration-300 ${
+                    index === selectedWidget 
+                      ? 'w-8 h-2.5 bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/50' 
+                      : 'w-2.5 h-2.5 bg-white/20 hover:bg-cyan-400/40'
+                  }`}
+                  data-testid={`widget-dot-${index}`}
+                />
+              ))}
+            </div>
+            
+            <button 
+              onClick={() => setSelectedWidget((prev) => (prev + 1) % widgetsList.length)}
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-cyan-500/30 flex items-center justify-center hover:bg-cyan-500/10 hover:border-cyan-400 transition-all group"
+              data-testid="widget-next"
+            >
+              <ChevronRight className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
+            </button>
+          </div>
+          
+          {/* Current Widget Label */}
+          <div className="text-center text-xs text-muted-foreground">
+            <span className="text-cyan-400 font-medium">{selectedWidget + 1}</span> of <span className="text-cyan-400 font-medium">{widgetsList.length}</span> widgets
           </div>
 
           {/* Detailed Widget Info Panel */}
@@ -1219,6 +1274,38 @@ export default function TrustLayerHub() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {widgetsList[selectedWidget].fullDescription}
               </p>
+            </div>
+
+            {/* Tech Stack & Complexity */}
+            <div className="mb-4 p-4 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 rounded-xl">
+              <div className="flex flex-wrap items-center gap-4 mb-3">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-semibold text-white">Tech Stack</span>
+                </div>
+                <div className="flex items-center gap-2 px-2 py-1 rounded-md bg-cyan-500/20 text-cyan-400 text-xs font-medium">
+                  <Code2 className="w-3 h-3" />
+                  {widgetsList[selectedWidget].linesOfCode}
+                </div>
+                <div className={`px-2 py-1 rounded-md text-xs font-medium ${
+                  widgetsList[selectedWidget].complexity === "Beginner-friendly" 
+                    ? "bg-green-500/20 text-green-400" 
+                    : widgetsList[selectedWidget].complexity === "Intermediate"
+                    ? "bg-amber-500/20 text-amber-400"
+                    : widgetsList[selectedWidget].complexity === "Advanced"
+                    ? "bg-orange-500/20 text-orange-400"
+                    : "bg-purple-500/20 text-purple-400"
+                }`}>
+                  {widgetsList[selectedWidget].complexity}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {widgetsList[selectedWidget].techStack.map((tech, i) => (
+                  <span key={i} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono">
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Features, Requirements, Includes Grid */}
