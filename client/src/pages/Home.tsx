@@ -52,6 +52,10 @@ import projectChainImg from "@/assets/images/project-chain.png";
 import projectLegacyImg from "@/assets/images/project-legacy.png";
 import projectGarageImg from "@/assets/images/project-garage.png";
 import projectCoffeeImg from "@/assets/images/project-coffee.png";
+import cardStudioIdeImg from "@/assets/images/card-studio-ide.png";
+import cardDevelopersHubImg from "@/assets/images/card-developers-hub.png";
+import cardAuditToolImg from "@/assets/images/card-audit-tool.png";
+import cardResourcesImg from "@/assets/images/card-resources.png";
 
 const projects = [
   {
@@ -546,11 +550,16 @@ export default function Home() {
                 href="https://dwtl.io/studio" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-8 relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
                 data-testid="studio-ide-card"
               >
-                <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8">
-                  <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
+                  style={{ backgroundImage: `url(${cardStudioIdeImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent" />
+                <div className="relative z-10 p-4 lg:p-8 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8">
+                  <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-primary/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                     <Terminal className="w-7 h-7 lg:w-8 lg:h-8 text-primary" />
                   </div>
                   <div className="flex-1">
@@ -576,16 +585,21 @@ export default function Home() {
             <AnimatedElement delay={150} className="col-span-3 lg:col-span-4">
               <Link 
                 href="/hub" 
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
                 data-testid="trust-layer-card"
               >
-                <div className="h-full flex flex-col justify-between">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
+                  style={{ backgroundImage: `url(${cardDevelopersHubImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/70 to-background/40" />
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between">
                   <div>
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-3">
                       <Shield className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-base lg:text-lg font-bold font-display mb-1">
-                      Trust Layer Hub
+                      Trust Layer Developers Hub
                     </h3>
                     <p className="text-muted-foreground text-[10px] lg:text-sm">
                       Developer ecosystem & verified code.
@@ -604,10 +618,15 @@ export default function Home() {
             <AnimatedElement delay={100} className="col-span-1 lg:col-span-6">
               <Link 
                 href="/audit" 
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-primary/20 bg-gradient-to-br from-primary/10 to-transparent"
+                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-primary/20"
                 data-testid="free-audit-card"
               >
-                <div className="h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-35 group-hover:opacity-55 transition-opacity"
+                  style={{ backgroundImage: `url(${cardAuditToolImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/70 to-background/40" />
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
                   <div>
                     <div className="inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/20 rounded-full px-2 py-0.5 mb-2">
                       <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
@@ -630,10 +649,15 @@ export default function Home() {
             <AnimatedElement delay={150} className="col-span-1 lg:col-span-6">
               <Link 
                 href="/resources" 
-                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
                 data-testid="resources-card"
               >
-                <div className="h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-35 group-hover:opacity-55 transition-opacity"
+                  style={{ backgroundImage: `url(${cardResourcesImg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/70 to-background/40" />
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
                   <div>
                     <div className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-2 py-0.5 mb-2">
                       <span className="text-[9px] lg:text-xs font-medium text-primary">Downloads</span>
