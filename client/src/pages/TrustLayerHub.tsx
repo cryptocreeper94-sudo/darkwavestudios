@@ -13,6 +13,7 @@ import {
   Copy,
   Check,
   ChevronRight,
+  ChevronLeft,
   Layers,
   Box,
   Terminal,
@@ -21,7 +22,18 @@ import {
   Activity,
   Menu,
   X,
-  Eye
+  Eye,
+  Calculator,
+  UserPlus,
+  Star,
+  Calendar,
+  BarChart3,
+  MessageCircle,
+  Users,
+  MapPin,
+  FileText,
+  TrendingUp,
+  Cloud
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -67,6 +79,20 @@ const categories = [
   { id: "auth", name: "Auth", icon: Lock },
 ];
 
+const widgetsList = [
+  { id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", description: "Instant project pricing calculator for trades" },
+  { id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", description: "Convert visitors into qualified leads" },
+  { id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", description: "Showcase customer testimonials" },
+  { id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", description: "Schedule appointments seamlessly" },
+  { id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", description: "Track website performance metrics" },
+  { id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", description: "Real-time customer support widget" },
+  { id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", description: "Manage customer relationships" },
+  { id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", description: "GPS clock-in for field teams" },
+  { id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", description: "Create professional proposals" },
+  { id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", description: "Optimize search visibility" },
+  { id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", description: "Weather-aware job scheduling" },
+];
+
 // Widget name mapping for full code lookup
 const WIDGET_MAP: Record<string, string> = {
   "TrustLayer Analytics Widget": "tl-analytics",
@@ -98,6 +124,7 @@ export default function TrustLayerHub() {
     lines: 0,
     loading: false
   });
+  const [selectedWidget, setSelectedWidget] = useState(0);
 
   const openFullCode = async (snippetTitle: string) => {
     const widgetName = WIDGET_MAP[snippetTitle];
@@ -523,135 +550,102 @@ export default function TrustLayerHub() {
           )}
         </section>
 
-        {/* BENTO GRID SECTION 5: Live Widget Previews - Full Storefront */}
-        <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
-          <div className="col-span-3 lg:col-span-12">
-            <div className="flex items-center gap-2 mb-3 lg:mb-4">
+        {/* WIDGET STOREFRONT - Compact Tab/Carousel Interface */}
+        <section className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border mb-4 lg:mb-8">
+          <div className="flex items-center justify-between mb-4 lg:mb-6">
+            <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
-              <h3 className="font-display font-bold text-sm lg:text-lg" data-testid="text-live-preview-title">Live Widget Storefront</h3>
-              <span className="text-[10px] lg:text-xs text-muted-foreground">(All 11 widgets - Interactive demos)</span>
+              <h3 className="font-display font-bold text-sm lg:text-xl" data-testid="text-live-preview-title">Widget Storefront</h3>
+              <span className="hidden lg:inline px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">11 LIVE WIDGETS</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setSelectedWidget((prev) => (prev - 1 + widgetsList.length) % widgetsList.length)}
+                className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all"
+                data-testid="widget-prev"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => setSelectedWidget((prev) => (prev + 1) % widgetsList.length)}
+                className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all"
+                data-testid="widget-next"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
           
-          {/* Estimator Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-estimator">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Trade Estimator</h4>
+          {/* Widget Selector Tabs - Horizontal Scroll */}
+          <div className="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar-hide">
+            {widgetsList.map((widget, index) => {
+              const Icon = widget.icon;
+              return (
+                <button
+                  key={widget.id}
+                  onClick={() => setSelectedWidget(index)}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-xl text-xs lg:text-sm font-medium whitespace-nowrap transition-all ${
+                    selectedWidget === index
+                      ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg"
+                      : "bg-white/5 border border-white/10 hover:bg-white/10"
+                  }`}
+                  data-testid={`widget-tab-${widget.id}`}
+                >
+                  <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                  <span className="hidden sm:inline">{widget.name}</span>
+                </button>
+              );
+            })}
+          </div>
+          
+          {/* Selected Widget Preview */}
+          <div className="grid lg:grid-cols-2 gap-4 lg:gap-6">
+            {/* Widget Info */}
+            <div className="order-2 lg:order-1 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-3">
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: `${widgetsList[selectedWidget].color}20` }}
+                >
+                  {(() => {
+                    const Icon = widgetsList[selectedWidget].icon;
+                    return <Icon className="w-6 h-6" style={{ color: widgetsList[selectedWidget].color }} />;
+                  })()}
+                </div>
+                <div>
+                  <h4 className="font-bold font-display text-lg lg:text-xl">{widgetsList[selectedWidget].name}</h4>
+                  <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] font-semibold">LIVE DEMO</span>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">{widgetsList[selectedWidget].description}</p>
+              <div className="flex flex-wrap gap-2">
+                <button className="btn-glow inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                  <Copy className="w-4 h-4" /> Get Embed Code
+                </button>
+                <button className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-all">
+                  <Code2 className="w-4 h-4" /> View Source
+                </button>
+              </div>
             </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
-              <div id="demo-estimator" />
+            
+            {/* Widget Preview Container */}
+            <div className="order-1 lg:order-2 bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
+              <div id={widgetsList[selectedWidget].containerId} className="w-full h-full" />
             </div>
           </div>
           
-          {/* Lead Capture Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-lead-capture">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Lead Capture Form</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
-              <div id="demo-lead-capture" />
-            </div>
-          </div>
-          
-          {/* Reviews Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-reviews">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Review Display</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
-              <div id="demo-reviews" />
-            </div>
-          </div>
-          
-          {/* Booking Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-booking">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Booking Calendar</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
-              <div id="demo-booking" />
-            </div>
-          </div>
-          
-          {/* Analytics Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-analytics">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Analytics Dashboard</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
-              <div id="demo-analytics" />
-            </div>
-          </div>
-          
-          {/* Chat Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-chat">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Live Chat</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '400px' }}>
-              <div id="demo-chat" />
-            </div>
-          </div>
-          
-          {/* CRM Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-crm">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">CRM Pipeline</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
-              <div id="demo-crm" />
-            </div>
-          </div>
-          
-          {/* Crew Tracker Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-crew-tracker">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Crew Tracker / GPS Clock-In</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '380px' }}>
-              <div id="demo-crew-tracker" />
-            </div>
-          </div>
-          
-          {/* Proposal Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-proposal">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Proposal Builder</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '400px' }}>
-              <div id="demo-proposal" />
-            </div>
-          </div>
-          
-          {/* SEO Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-seo">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">SEO Manager</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
-              <div id="demo-seo" />
-            </div>
-          </div>
-          
-          {/* Weather Widget */}
-          <div className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border" data-testid="preview-weather">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] lg:text-xs font-semibold">LIVE</span>
-              <h4 className="font-bold text-sm lg:text-base">Weather-Based Scheduling</h4>
-            </div>
-            <div className="bg-white rounded-xl overflow-hidden" style={{ minHeight: '350px' }}>
-              <div id="demo-weather" />
-            </div>
+          {/* Widget Pagination Dots (Mobile) */}
+          <div className="flex justify-center gap-1.5 mt-4 lg:hidden">
+            {widgetsList.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedWidget(index)}
+                className={`h-1.5 rounded-full transition-all ${
+                  index === selectedWidget ? 'w-6 bg-primary' : 'w-1.5 bg-white/20'
+                }`}
+                data-testid={`widget-dot-${index}`}
+              />
+            ))}
           </div>
         </section>
 
