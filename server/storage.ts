@@ -1,5 +1,5 @@
 import { 
-  users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, bookings, payments,
+  users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, pulseRequests, bookings, payments,
   pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
   ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs,
   type User, type InsertUser,
@@ -9,6 +9,7 @@ import {
   type Testimonial, type InsertTestimonial,
   type CaseStudy, type InsertCaseStudy,
   type QuoteRequest, type InsertQuoteRequest,
+  type PulseRequest, type InsertPulseRequest,
   type Booking, type InsertBooking,
   type Payment, type InsertPayment,
   type PageView, type InsertPageView,
@@ -64,6 +65,11 @@ export interface IStorage {
   getQuoteRequests(): Promise<QuoteRequest[]>;
   createQuoteRequest(quote: InsertQuoteRequest): Promise<QuoteRequest>;
   updateQuoteStatus(id: string, status: string): Promise<QuoteRequest | undefined>;
+
+  // Pulse Access Requests
+  getPulseRequests(): Promise<PulseRequest[]>;
+  createPulseRequest(request: InsertPulseRequest): Promise<PulseRequest>;
+  updatePulseRequestStatus(id: string, status: string): Promise<PulseRequest | undefined>;
 
   // Bookings
   getBookings(): Promise<Booking[]>;
@@ -244,6 +250,21 @@ export class DatabaseStorage implements IStorage {
 
   async updateQuoteStatus(id: string, status: string): Promise<QuoteRequest | undefined> {
     const [updated] = await db.update(quoteRequests).set({ status }).where(eq(quoteRequests.id, id)).returning();
+    return updated || undefined;
+  }
+
+  // Pulse Access Requests
+  async getPulseRequests(): Promise<PulseRequest[]> {
+    return db.select().from(pulseRequests).orderBy(desc(pulseRequests.createdAt));
+  }
+
+  async createPulseRequest(request: InsertPulseRequest): Promise<PulseRequest> {
+    const [newRequest] = await db.insert(pulseRequests).values(request).returning();
+    return newRequest;
+  }
+
+  async updatePulseRequestStatus(id: string, status: string): Promise<PulseRequest | undefined> {
+    const [updated] = await db.update(pulseRequests).set({ status }).where(eq(pulseRequests.id, id)).returning();
     return updated || undefined;
   }
 

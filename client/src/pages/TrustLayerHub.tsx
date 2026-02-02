@@ -256,6 +256,54 @@ export default function TrustLayerHub() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [pulseModalOpen, setPulseModalOpen] = useState(false);
+  const [pulseFormData, setPulseFormData] = useState({
+    companyName: "",
+    contactName: "",
+    email: "",
+    phone: "",
+    tier: "",
+    useCase: "",
+    expectedVolume: "",
+    integrationNeeds: "",
+    currentTools: "",
+    timeline: "",
+    budgetRange: "",
+    additionalNotes: ""
+  });
+  const [pulseSubmitting, setPulseSubmitting] = useState(false);
+  const [pulseSubmitted, setPulseSubmitted] = useState(false);
+
+  const isPulseProduct = (id: string) => id.startsWith("pulse");
+
+  const openPulseModal = (widgetId: string) => {
+    const tierMap: Record<string, string> = {
+      "pulse": "basic",
+      "pulse-pro": "pro",
+      "pulse-enterprise": "enterprise"
+    };
+    setPulseFormData(prev => ({ ...prev, tier: tierMap[widgetId] || "basic" }));
+    setPulseModalOpen(true);
+  };
+
+  const handlePulseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPulseSubmitting(true);
+    try {
+      const response = await fetch("/api/pulse-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pulseFormData)
+      });
+      if (response.ok) {
+        setPulseSubmitted(true);
+      }
+    } catch (error) {
+      console.error("Error submitting Pulse request:", error);
+    } finally {
+      setPulseSubmitting(false);
+    }
+  };
 
   const addToCart = (item: CartItem) => {
     if (!cart.find(c => c.id === item.id)) {
@@ -793,29 +841,41 @@ export default function TrustLayerHub() {
               </div>
               <p className="text-sm text-muted-foreground mb-4">{widgetsList[selectedWidget].description}</p>
               <div className="flex flex-wrap gap-2">
-                <button 
-                  onClick={() => addToCart({ 
-                    id: widgetsList[selectedWidget].id, 
-                    name: widgetsList[selectedWidget].name, 
-                    price: widgetsList[selectedWidget].price,
-                    type: "widget"
-                  })}
-                  className={`btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                    cart.find(c => c.id === widgetsList[selectedWidget].id)
-                      ? "bg-green-600 text-white"
-                      : "bg-primary text-white"
-                  }`}
-                  data-testid={`add-to-cart-${widgetsList[selectedWidget].id}`}
-                >
-                  {cart.find(c => c.id === widgetsList[selectedWidget].id) ? (
-                    <><Check className="w-4 h-4" /> Added to Cart</>
-                  ) : (
-                    <><ShoppingCart className="w-4 h-4" /> Add to Cart - ${widgetsList[selectedWidget].price}</>
-                  )}
-                </button>
-                <button className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-all">
-                  <Code2 className="w-4 h-4" /> View Source
-                </button>
+                {isPulseProduct(widgetsList[selectedWidget].id) ? (
+                  <button 
+                    onClick={() => openPulseModal(widgetsList[selectedWidget].id)}
+                    className="btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600"
+                    data-testid={`request-access-${widgetsList[selectedWidget].id}`}
+                  >
+                    <Zap className="w-4 h-4" /> Request Access - Starting at ${widgetsList[selectedWidget].price}
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => addToCart({ 
+                      id: widgetsList[selectedWidget].id, 
+                      name: widgetsList[selectedWidget].name, 
+                      price: widgetsList[selectedWidget].price,
+                      type: "widget"
+                    })}
+                    className={`btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                      cart.find(c => c.id === widgetsList[selectedWidget].id)
+                        ? "bg-green-600 text-white"
+                        : "bg-primary text-white"
+                    }`}
+                    data-testid={`add-to-cart-${widgetsList[selectedWidget].id}`}
+                  >
+                    {cart.find(c => c.id === widgetsList[selectedWidget].id) ? (
+                      <><Check className="w-4 h-4" /> Added to Cart</>
+                    ) : (
+                      <><ShoppingCart className="w-4 h-4" /> Add to Cart - ${widgetsList[selectedWidget].price}</>
+                    )}
+                  </button>
+                )}
+                {!isPulseProduct(widgetsList[selectedWidget].id) && (
+                  <button className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-all">
+                    <Code2 className="w-4 h-4" /> View Source
+                  </button>
+                )}
               </div>
             </div>
             
@@ -1356,6 +1416,226 @@ export default function TrustLayerHub() {
               <p className="text-[10px] text-muted-foreground text-center">
                 Secure checkout powered by Stripe & Coinbase Commerce
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pulse Request Modal */}
+      {pulseModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="modal-pulse-request">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+          />
+          <div className="relative w-full max-w-2xl max-h-[90vh] glass-card rounded-2xl overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div>
+                <h3 className="font-bold font-display text-lg flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-red-500" />
+                  Request Pulse Access
+                </h3>
+                <p className="text-sm text-muted-foreground">Tell us about your needs for a custom solution</p>
+              </div>
+              <button
+                onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                data-testid="close-pulse-modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              {pulseSubmitted ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-8 h-8 text-green-500" />
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Request Submitted!</h4>
+                  <p className="text-muted-foreground mb-6">We'll review your requirements and contact you within 24-48 hours with a custom proposal.</p>
+                  <button
+                    onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+                    className="btn-glow bg-primary text-white px-6 py-2 rounded-lg font-semibold"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handlePulseSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Company Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={pulseFormData.companyName}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="Your company"
+                        data-testid="input-company-name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Contact Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={pulseFormData.contactName}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, contactName: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="Your name"
+                        data-testid="input-contact-name"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={pulseFormData.email}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, email: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="email@company.com"
+                        data-testid="input-email"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Phone</label>
+                      <input
+                        type="tel"
+                        value={pulseFormData.phone}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, phone: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="(555) 123-4567"
+                        data-testid="input-phone"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Primary Use Case *</label>
+                    <select
+                      required
+                      value={pulseFormData.useCase}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, useCase: e.target.value }))}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                      data-testid="select-use-case"
+                    >
+                      <option value="">Select use case...</option>
+                      <option value="trading">Trading / Investment Decisions</option>
+                      <option value="analytics">Market Analytics & Insights</option>
+                      <option value="forecasting">Business Forecasting</option>
+                      <option value="risk">Risk Assessment</option>
+                      <option value="research">Research & Backtesting</option>
+                      <option value="platform">Platform Integration</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Expected Volume</label>
+                      <select
+                        value={pulseFormData.expectedVolume}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, expectedVolume: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-volume"
+                      >
+                        <option value="">Select volume...</option>
+                        <option value="low">Low ({"<"}100 predictions/day)</option>
+                        <option value="medium">Medium (100-1000/day)</option>
+                        <option value="high">High (1000-10000/day)</option>
+                        <option value="enterprise">Enterprise (10000+/day)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Timeline</label>
+                      <select
+                        value={pulseFormData.timeline}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, timeline: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-timeline"
+                      >
+                        <option value="">Select timeline...</option>
+                        <option value="asap">ASAP</option>
+                        <option value="1-2weeks">1-2 weeks</option>
+                        <option value="1month">Within 1 month</option>
+                        <option value="exploring">Just exploring</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Integration Needs</label>
+                      <input
+                        type="text"
+                        value={pulseFormData.integrationNeeds}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, integrationNeeds: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="API, Webhook, White-label..."
+                        data-testid="input-integration"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Budget Range</label>
+                      <select
+                        value={pulseFormData.budgetRange}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, budgetRange: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-budget"
+                      >
+                        <option value="">Select budget...</option>
+                        <option value="under-500">Under $500</option>
+                        <option value="500-1500">$500 - $1,500</option>
+                        <option value="1500-4000">$1,500 - $4,000</option>
+                        <option value="4000-10000">$4,000 - $10,000</option>
+                        <option value="10000+">$10,000+</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Current Tools / Systems</label>
+                    <input
+                      type="text"
+                      value={pulseFormData.currentTools}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, currentTools: e.target.value }))}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                      placeholder="What tools/platforms do you currently use?"
+                      data-testid="input-current-tools"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Additional Notes</label>
+                    <textarea
+                      value={pulseFormData.additionalNotes}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, additionalNotes: e.target.value }))}
+                      rows={3}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none resize-none"
+                      placeholder="Tell us more about your specific requirements..."
+                      data-testid="input-notes"
+                    />
+                  </div>
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                    <p className="text-xs text-red-300">
+                      <strong>Selected Tier:</strong> {pulseFormData.tier === "basic" ? "Pulse Basic" : pulseFormData.tier === "pro" ? "Pulse Pro API" : "Pulse Enterprise"} - Starting at ${
+                        pulseFormData.tier === "basic" ? "499" : 
+                        pulseFormData.tier === "pro" ? "1,499" : "3,999"
+                      }
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Pricing is customized based on your specific requirements and volume.
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={pulseSubmitting}
+                    className="w-full btn-glow bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                    data-testid="submit-pulse-request"
+                  >
+                    {pulseSubmitting ? "Submitting..." : <><Zap className="w-4 h-4" /> Submit Request</>}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

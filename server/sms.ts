@@ -45,3 +45,8 @@ export function notifyNewBooking(name: string, date: string, timeSlot: string): 
   const message = `📅 New Booking!\n\nName: ${name}\nDate: ${date}\nTime: ${timeSlot}\n\nCheck your admin dashboard!`;
   return sendSMS(message);
 }
+
+export function notifyNewPulseRequest(companyName: string, tier: string, useCase: string): Promise<boolean> {
+  const message = `🎯 PULSE ACCESS REQUEST!\n\nCompany: ${companyName}\nTier: ${tier.toUpperCase()}\nUse Case: ${useCase}\n\nHigh-value lead! Check admin dashboard!`;
+  return sendSMS(message);
+}

@@ -1,9 +1,9 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema } from "@shared/schema";
 import crypto from "crypto";
-import { notifyNewLead, notifyNewQuote, notifyNewBooking } from "./sms";
+import { notifyNewLead, notifyNewQuote, notifyNewBooking, notifyNewPulseRequest } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { getOrbitClient, syncPaymentToOrbit } from "./orbitClient";
 import { z } from "zod";
@@ -146,6 +146,42 @@ export async function registerRoutes(
         return res.status(404).json({ success: false, error: "Quote not found" });
       }
       res.json({ success: true, quote });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ PULSE ACCESS REQUESTS ============
+  app.post("/api/pulse-requests", async (req, res) => {
+    try {
+      const data = insertPulseRequestSchema.parse(req.body);
+      const request = await storage.createPulseRequest(data);
+      
+      notifyNewPulseRequest(data.companyName, data.tier, data.useCase);
+      
+      res.status(201).json({ success: true, request });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/pulse-requests", async (req, res) => {
+    try {
+      const requests = await storage.getPulseRequests();
+      res.json({ success: true, requests });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/pulse-requests/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const request = await storage.updatePulseRequestStatus(req.params.id, status);
+      if (!request) {
+        return res.status(404).json({ success: false, error: "Request not found" });
+      }
+      res.json({ success: true, request });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
     }

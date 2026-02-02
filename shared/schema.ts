@@ -159,6 +159,33 @@ export const insertQuoteRequestSchema = createInsertSchema(quoteRequests).omit({
 export type InsertQuoteRequest = z.infer<typeof insertQuoteRequestSchema>;
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 
+// Pulse API Access Requests
+export const pulseRequests = pgTable("pulse_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  companyName: text("company_name").notNull(),
+  contactName: text("contact_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  tier: text("tier").notNull(), // basic, pro, enterprise
+  useCase: text("use_case").notNull(), // trading, analytics, forecasting, etc.
+  expectedVolume: text("expected_volume"), // predictions per day/month
+  integrationNeeds: text("integration_needs"), // API, webhook, white-label, etc.
+  currentTools: text("current_tools"), // what they currently use
+  timeline: text("timeline"), // when they need it
+  budgetRange: text("budget_range"),
+  additionalNotes: text("additional_notes"),
+  status: text("status").default("new"), // new, contacted, qualified, closed
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertPulseRequestSchema = createInsertSchema(pulseRequests).omit({
+  id: true,
+  status: true,
+  createdAt: true,
+});
+export type InsertPulseRequest = z.infer<typeof insertPulseRequestSchema>;
+export type PulseRequest = typeof pulseRequests.$inferSelect;
+
 // Calendar Bookings
 export const bookings = pgTable("bookings", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
