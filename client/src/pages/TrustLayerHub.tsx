@@ -264,7 +264,7 @@ export default function TrustLayerHub() {
         </div>
         
         {mobileMenuOpen && (
-          <div className="lg:hidden glass-strong border-t border-white/5 px-4 py-4">
+          <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-white/10 px-4 py-4">
             <nav className="flex flex-col gap-3">
               <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-projects-mobile">Portfolio</Link>
               <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-services-mobile">Services</Link>

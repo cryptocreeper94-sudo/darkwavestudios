@@ -258,7 +258,7 @@ export default function Home() {
           {/* Mobile Header */}
           <div className="lg:hidden max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="font-display text-base font-semibold gradient-text" data-testid="logo-mobile">
-              DarkWave
+              DarkWave Studios
             </div>
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -271,7 +271,7 @@ export default function Home() {
           
           {/* Mobile Menu Dropdown */}
           {mobileMenuOpen && (
-            <div className="lg:hidden glass-strong border-t border-white/5">
+            <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-white/10">
               <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
                 <div className="text-xs text-muted-foreground uppercase tracking-wider py-2">Work</div>
                 <Link 
