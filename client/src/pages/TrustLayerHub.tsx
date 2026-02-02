@@ -215,7 +215,15 @@ const widgetsList = [
     includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"],
     techStack: ["Python", "TensorFlow", "FastAPI", "React 18", "TypeScript", "PostgreSQL", "Redis", "DarkWave Smart Chain"],
     linesOfCode: "~12,000+ lines (ML pipeline)",
-    complexity: "Enterprise-grade"
+    complexity: "Enterprise-grade",
+    customizations: [
+      "Asset selection - Configure which cryptocurrencies, stocks, or commodities to track",
+      "Prediction timeframes - Set up 1-hour, 4-hour, 1-day, or 7-day forecasts",
+      "Alert thresholds - Custom notification triggers based on confidence scores",
+      "Dashboard branding - Your logo and color scheme on the widget",
+      "Data refresh rate - Adjust update frequency (1min to 1hr intervals)",
+      "Risk tolerance settings - Conservative, moderate, or aggressive prediction modes"
+    ]
   },
   { 
     id: "pulse-pro", name: "Pulse Pro API", icon: Zap, containerId: "demo-pulse-pro", color: "#f59e0b", 
@@ -226,7 +234,17 @@ const widgetsList = [
     includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"],
     techStack: ["Python SDK", "JavaScript SDK", "REST API", "WebSocket streams", "OAuth 2.0", "Rate limiting"],
     linesOfCode: "SDK: ~3,500 lines",
-    complexity: "Developer-focused"
+    complexity: "Developer-focused",
+    customizations: [
+      "All Basic customizations included",
+      "Custom prediction models - Train on your specific use case data",
+      "Multi-exchange integration - Connect to Binance, Coinbase, Kraken, etc.",
+      "Webhook endpoints - Push predictions to your own servers in real-time",
+      "Historical data access - Backtest against years of prediction data",
+      "Custom confidence thresholds - Set your own signal strength requirements",
+      "Batch processing - Request predictions for multiple assets simultaneously",
+      "Rate limit customization - Adjust API limits based on your volume needs"
+    ]
   },
   { 
     id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
@@ -237,7 +255,19 @@ const widgetsList = [
     includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"],
     techStack: ["Full source code", "Docker/Kubernetes", "Custom ML models", "Private infrastructure", "SOC 2 compliant"],
     linesOfCode: "Complete platform",
-    complexity: "Enterprise-grade"
+    complexity: "Enterprise-grade",
+    customizations: [
+      "All Pro customizations included",
+      "Full white-label branding - Your company name, logo, and identity throughout",
+      "Dedicated infrastructure - Isolated servers for your exclusive use",
+      "Custom ML model training - Models trained specifically on your data",
+      "On-premise deployment - Install on your own infrastructure",
+      "Custom API domains - Your own branded API endpoints",
+      "Compliance packages - SOC 2, GDPR, financial regulations documentation",
+      "Multi-tenant support - Serve your own customers with sub-accounts",
+      "Priority 24/7 support - Dedicated account manager and technical team",
+      "Custom integrations - Direct connections to your existing systems"
+    ]
   },
 ];
 
@@ -264,6 +294,7 @@ interface WidgetInfo {
   techStack: string[];
   linesOfCode: string;
   complexity: string;
+  customizations?: string[];
 }
 
 // Widget name mapping for full code lookup
@@ -298,6 +329,7 @@ export default function TrustLayerHub() {
     loading: false
   });
   const [selectedWidget, setSelectedWidget] = useState(0);
+  const [widgetTheme, setWidgetTheme] = useState<"light" | "dark">("light");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -909,24 +941,55 @@ export default function TrustLayerHub() {
             </div>
             
             {/* Widget Preview Container */}
-            <div className="order-1 lg:order-2 bg-white rounded-xl overflow-hidden text-gray-800" style={{ minHeight: '320px' }}>
+            <div className="order-1 lg:order-2 relative">
+              {/* Theme Toggle */}
+              <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/20 backdrop-blur-sm rounded-lg p-1">
+                <button
+                  onClick={() => setWidgetTheme("light")}
+                  className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+                    widgetTheme === "light" 
+                      ? "bg-white text-gray-800 shadow" 
+                      : "text-white/70 hover:text-white"
+                  }`}
+                  data-testid="theme-light"
+                >
+                  Light
+                </button>
+                <button
+                  onClick={() => setWidgetTheme("dark")}
+                  className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+                    widgetTheme === "dark" 
+                      ? "bg-slate-800 text-cyan-400 shadow" 
+                      : "text-white/70 hover:text-white"
+                  }`}
+                  data-testid="theme-dark"
+                >
+                  Dark
+                </button>
+              </div>
+
+              <div className={`rounded-xl overflow-hidden transition-all ${
+                widgetTheme === "dark" 
+                  ? "bg-slate-900 text-gray-100" 
+                  : "bg-white text-gray-800"
+              }`} style={{ minHeight: '320px' }}>
               {/* Trade Estimator Demo */}
               {widgetsList[selectedWidget].id === "estimator" && (
                 <div className="p-4 h-full flex flex-col">
                   <div className="text-center mb-4">
-                    <div className="text-lg font-bold text-gray-900">Project Estimator</div>
-                    <div className="text-xs text-gray-500">Get instant pricing</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Project Estimator</div>
+                    <div className={`text-xs ${widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Get instant pricing</div>
                   </div>
                   <div className="space-y-3 flex-1">
-                    <div className="flex justify-between text-sm"><span>Project Type</span><select className="border rounded px-2 py-1 text-xs"><option>Interior Painting</option></select></div>
-                    <div className="flex justify-between text-sm"><span>Square Feet</span><input type="number" className="border rounded px-2 py-1 w-20 text-xs" value="1500" readOnly /></div>
-                    <div className="flex justify-between text-sm"><span>Rooms</span><input type="number" className="border rounded px-2 py-1 w-20 text-xs" value="4" readOnly /></div>
-                    <div className="bg-blue-50 rounded-lg p-3 mt-4">
-                      <div className="text-xs text-blue-600 mb-1">Estimated Total</div>
-                      <div className="text-2xl font-bold text-blue-700">$2,450</div>
+                    <div className="flex justify-between text-sm"><span>Project Type</span><select className={`rounded px-2 py-1 text-xs ${widgetTheme === "dark" ? "bg-slate-800 border-slate-700 text-white" : "border bg-white"}`}><option>Interior Painting</option></select></div>
+                    <div className="flex justify-between text-sm"><span>Square Feet</span><input type="number" className={`rounded px-2 py-1 w-20 text-xs ${widgetTheme === "dark" ? "bg-slate-800 border-slate-700 text-white" : "border bg-white"}`} value="1500" readOnly /></div>
+                    <div className="flex justify-between text-sm"><span>Rooms</span><input type="number" className={`rounded px-2 py-1 w-20 text-xs ${widgetTheme === "dark" ? "bg-slate-800 border-slate-700 text-white" : "border bg-white"}`} value="4" readOnly /></div>
+                    <div className={`rounded-lg p-3 mt-4 ${widgetTheme === "dark" ? "bg-blue-900/50" : "bg-blue-50"}`}>
+                      <div className={`text-xs mb-1 ${widgetTheme === "dark" ? "text-blue-400" : "text-blue-600"}`}>Estimated Total</div>
+                      <div className={`text-2xl font-bold ${widgetTheme === "dark" ? "text-blue-300" : "text-blue-700"}`}>$2,450</div>
                     </div>
                   </div>
-                  <button className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold mt-3">Get Full Quote</button>
+                  <button className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold mt-3 hover:bg-blue-700">Get Full Quote</button>
                 </div>
               )}
               {/* Lead Capture Demo */}
@@ -1207,6 +1270,7 @@ export default function TrustLayerHub() {
                   </div>
                 </div>
               )}
+              </div>
             </div>
           </div>
           
@@ -1358,6 +1422,32 @@ export default function TrustLayerHub() {
                 </ul>
               </div>
             </div>
+
+            {/* Customization Options - Only for Pulse products */}
+            {widgetsList[selectedWidget].customizations && (
+              <div className="mt-4 p-4 bg-gradient-to-r from-red-500/5 to-orange-500/5 border border-red-500/20 rounded-xl">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-red-400" />
+                  <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">What We Can Customize For You</span>
+                </h5>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Unlike off-the-shelf solutions, Pulse is tailored specifically to your needs. Here's what we can configure:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {widgetsList[selectedWidget].customizations.map((custom, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs">
+                      <Zap className="w-3 h-3 text-orange-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">{custom}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-3 border-t border-red-500/20">
+                  <p className="text-xs text-red-300/70 italic">
+                    Have a specific requirement not listed here? Tell us in your request form - our engineers can build custom solutions for your exact use case.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Trust & Security Footer */}
             <div className="mt-4 pt-4 border-t border-white/10">
