@@ -124,7 +124,7 @@ export default function Quote() {
       <header className="sticky top-0 z-50 bg-black border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
-            DarkWave
+            DarkWave Studios
           </Link>
           <nav className="hidden lg:flex items-center gap-8">
             <Link href="/services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Services</Link>

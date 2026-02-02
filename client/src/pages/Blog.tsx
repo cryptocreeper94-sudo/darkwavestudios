@@ -51,7 +51,7 @@ export default function Blog() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
             <span className="text-2xl font-bold font-display text-foreground cursor-pointer" data-testid="link-logo">
-              DarkWave
+              DarkWave Studios
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-6">

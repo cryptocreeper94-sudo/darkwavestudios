@@ -31,7 +31,7 @@ export default function Terms() {
       <div className="relative z-10">
         <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
           <div className="lg:hidden max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <Link href="/" className="font-display text-base font-semibold gradient-text">DarkWave</Link>
+            <Link href="/" className="font-display text-base font-semibold gradient-text">DarkWave Studios</Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors" data-testid="mobile-menu-toggle">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

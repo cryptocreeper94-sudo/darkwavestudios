@@ -185,7 +185,7 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
-              DarkWave
+              DarkWave Studios
             </Link>
             <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">Dashboard</span>
           </div>
