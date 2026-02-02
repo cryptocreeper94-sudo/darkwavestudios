@@ -52,6 +52,14 @@ import projectChainImg from "@/assets/images/project-chain.png";
 import projectLegacyImg from "@/assets/images/project-legacy.png";
 import projectGarageImg from "@/assets/images/project-garage.png";
 import projectCoffeeImg from "@/assets/images/project-coffee.png";
+import projectDarkwaveImg from "@/assets/images/project-darkwave-studios.png";
+import projectTrustLayerImg from "@/assets/images/project-trust-layer.png";
+import projectTrustShieldImg from "@/assets/images/project-trustshield.png";
+import projectLotOpsImg from "@/assets/images/project-lotops.png";
+import projectTradeWorksImg from "@/assets/images/project-tradeworks.png";
+import projectLumeImg from "@/assets/images/project-lume.png";
+import projectHappyEatsImg from "@/assets/images/project-happyeats.png";
+import projectVedaSolusImg from "@/assets/images/project-vedasolus.png";
 import cardStudioIdeImg from "@/assets/images/card-studio-ide.png";
 import cardDevelopersHubImg from "@/assets/images/card-developers-hub.png";
 import cardAuditToolImg from "@/assets/images/card-audit-tool.png";
@@ -60,93 +68,147 @@ import cardResourcesImg from "@/assets/images/card-resources.png";
 const projects = [
   {
     id: 1,
+    title: "DarkWave Studios",
+    description: "Full-service web development agency and blockchain-verified development ecosystem",
+    tech: ["Web Dev", "AI", "Blockchain"],
+    image: projectDarkwaveImg,
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://darkwavestudios.io"
+  },
+  {
+    id: 2,
+    title: "Trust Layer",
+    description: "Layer 1 blockchain providing verified identity and AI agent certification",
+    tech: ["Blockchain", "Identity", "AI"],
+    image: projectTrustLayerImg,
+    gradient: "from-purple-500/20 to-pink-600/20",
+    url: "https://dwsc.io"
+  },
+  {
+    id: 3,
+    title: "TrustShield",
+    description: "24/7 continuous security monitoring for enterprise blockchain operations",
+    tech: ["Security", "Monitoring", "Enterprise"],
+    image: projectTrustShieldImg,
+    gradient: "from-emerald-500/20 to-teal-600/20",
+    url: "https://trustshield.tech"
+  },
+  {
+    id: 4,
+    title: "Pulse",
+    description: "AI-driven cryptocurrency trading and analytics with predictive signals",
+    tech: ["AI", "Trading", "Analytics"],
+    image: projectPulseImg,
+    gradient: "from-violet-500/20 to-purple-600/20",
+    url: "https://dwsc.io/pulse"
+  },
+  {
+    id: 5,
     title: "Strike Agent",
-    description: "AI-powered crypto trading signals with 61% win rate and real-time alerts",
-    tech: ["AI", "Trading", "Real-time"],
+    description: "Autonomous AI-powered token discovery and trading system",
+    tech: ["AI", "Trading", "Multi-chain"],
     image: projectStrikeImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://strikeagent.io"
   },
   {
-    id: 2,
-    title: "DarkWave Pulse",
-    description: "Predictive market intelligence powered by AI analytics systems",
-    tech: ["AI", "Analytics", "Markets"],
-    image: projectPulseImg,
-    gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://darkwavepulse.com"
-  },
-  {
-    id: 3,
-    title: "Orbit Staffing",
-    description: "Full-cycle staffing platform with GPS clock-in, payroll automation, and AI matching",
-    tech: ["HR Tech", "Payroll", "AI"],
+    id: 6,
+    title: "ORBIT Staffing",
+    description: "Automated staffing platform with GPS tracking and payroll processing",
+    tech: ["HR Tech", "Payroll", "GPS"],
     image: projectOrbitImg,
-    gradient: "from-emerald-500/20 to-teal-600/20",
+    gradient: "from-orange-500/20 to-red-600/20",
     url: "https://orbitstaffing.io"
   },
   {
-    id: 4,
-    title: "Orby",
-    description: "Venue operations command suite with geofencing and facial recognition clock-in",
-    tech: ["Operations", "Geofencing", "Security"],
+    id: 7,
+    title: "Orby Commander",
+    description: "Venue operations PWA with emergency command center and team comms",
+    tech: ["Operations", "PWA", "Venues"],
     image: projectOrbyImg,
-    gradient: "from-orange-500/20 to-red-600/20",
-    url: "https://getorby.io"
+    gradient: "from-amber-500/20 to-orange-600/20",
+    url: "https://orbycommander.com"
   },
   {
-    id: 5,
-    title: "Nash Paint Pros",
-    description: "Nashville's #1 painters with AI room visualizer and instant estimates",
-    tech: ["AI Estimates", "Booking", "Visualizer"],
+    id: 8,
+    title: "Lot Ops Pro",
+    description: "Driver performance and workflow management for auto auctions",
+    tech: ["Automotive", "Workflow", "GPS"],
+    image: projectLotOpsImg,
+    gradient: "from-blue-500/20 to-indigo-600/20",
+    url: "https://lotopspro.com"
+  },
+  {
+    id: 9,
+    title: "Brew & Board",
+    description: "Nashville's premium B2B coffee and catering concierge platform",
+    tech: ["Delivery", "B2B", "Catering"],
+    image: projectCoffeeImg,
+    gradient: "from-lime-500/20 to-green-600/20",
+    url: "https://brewandboardcoffee.replit.app"
+  },
+  {
+    id: 10,
+    title: "TradeWorks AI",
+    description: "Field toolkit for 8 trade industries with AI estimation and scheduling",
+    tech: ["AI", "Trades", "Estimation"],
+    image: projectTradeWorksImg,
+    gradient: "from-teal-500/20 to-cyan-600/20",
+    url: "https://tradeworksai.io"
+  },
+  {
+    id: 11,
+    title: "PaintPros.io",
+    description: "Lead generation hub connecting contractors to Trust Layer ecosystem",
+    tech: ["SaaS", "Leads", "Marketing"],
+    image: projectPaintImg,
+    gradient: "from-rose-500/20 to-pink-600/20",
+    url: "https://paintpros.io"
+  },
+  {
+    id: 12,
+    title: "Nashville Paint Pros",
+    description: "Live demo for TradeWorks AI with instant estimates and booking",
+    tech: ["Painting", "Estimates", "Booking"],
     image: projectPaintImg,
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://nashpaintpros.io"
   },
   {
-    id: 6,
-    title: "Paint Pros",
-    description: "White-label SaaS for painting contractors with blockchain verification",
-    tech: ["SaaS", "Blockchain", "White-label"],
-    image: projectPaintImg,
-    gradient: "from-blue-500/20 to-indigo-600/20",
-    url: "https://paintpros.io"
+    id: 13,
+    title: "Lume Paint Co",
+    description: "Premium tier luxury interior painting with elevated design aesthetic",
+    tech: ["Luxury", "Design", "Premium"],
+    image: projectLumeImg,
+    gradient: "from-amber-500/20 to-yellow-600/20",
+    url: "https://lumepaint.co"
   },
   {
-    id: 7,
-    title: "DWSC",
-    description: "Layer 1 blockchain with 200K+ TPS, DeFi suite, NFTs, and Chronicles game",
-    tech: ["Blockchain", "DeFi", "Gaming"],
-    image: projectChainImg,
-    gradient: "from-amber-500/20 to-orange-600/20",
-    url: "https://dwsc.io"
-  },
-  {
-    id: 8,
-    title: "Your Legacy",
-    description: "Parallel life simulation spanning 70+ historical eras on DarkWave Chain",
-    tech: ["Gaming", "Blockchain", "Simulation"],
-    image: projectLegacyImg,
-    gradient: "from-teal-500/20 to-cyan-600/20",
-    url: "https://yourlegacy.io"
-  },
-  {
-    id: 9,
-    title: "Garage Bot",
-    description: "Search 15M+ auto parts across 40+ retailers with AI DIY repair guides",
-    tech: ["AI", "E-commerce", "Automotive"],
+    id: 14,
+    title: "GarageBot",
+    description: "Auto parts aggregator with VIN decoding and AI repair assistant",
+    tech: ["AI", "Automotive", "E-commerce"],
     image: projectGarageImg,
-    gradient: "from-rose-500/20 to-pink-600/20",
+    gradient: "from-red-500/20 to-orange-600/20",
     url: "https://garagebot.io"
   },
   {
-    id: 10,
-    title: "Brew & Board",
-    description: "Nashville coffee and catering delivery with white-glove service for meetings",
-    tech: ["Delivery", "Catering", "Nashville"],
-    image: projectCoffeeImg,
-    gradient: "from-lime-500/20 to-green-600/20",
-    url: "https://brewandboard.coffee"
+    id: 15,
+    title: "Happy Eats",
+    description: "White-label food truck and delivery platform with franchise support",
+    tech: ["Delivery", "Food", "SaaS"],
+    image: projectHappyEatsImg,
+    gradient: "from-green-500/20 to-emerald-600/20",
+    url: "https://happyeats.app"
+  },
+  {
+    id: 16,
+    title: "VedaSolus",
+    description: "Holistic wellness platform bridging Eastern and Western healing",
+    tech: ["Health", "AI", "Wellness"],
+    image: projectVedaSolusImg,
+    gradient: "from-teal-500/20 to-cyan-600/20",
+    url: "https://vedasolus.io"
   }
 ];
 
