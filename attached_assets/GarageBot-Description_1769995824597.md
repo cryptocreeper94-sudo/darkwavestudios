@@ -1,0 +1,62 @@
+## **GarageBot-Description**
+
+
+
+
+
+
+
+"Right Part. First Time. Every Engine."
+
+
+
+GarageBot is a comprehensive auto parts aggregator platform that unifies inventory from 40+ retailers into a single, intelligent searchable interface. We serve ALL vehicle types - cars, trucks, motorcycles, boats, RVs, ATVs, tractors, and more.
+
+
+
+What We Offer:
+
+For Everyday Drivers:
+
+
+
+Unified Parts Search - Search 40+ retailers at once (AutoZone, O'Reilly, RockAuto, Amazon, eBay Motors, Advance Auto, NAPA, and more)
+
+Vehicle Garage - Store your vehicles with VIN decoding for guaranteed fitment
+
+Buddy AI Assistant - GPT-4 powered chat for part recommendations, repair advice, and DIY guidance
+
+DIY Repair Guides - Step-by-step tutorials with video links for common repairs
+
+Insurance Comparison - Compare quotes from top carriers through Insurify
+
+Vehicle Passport - Blockchain-verified ownership and maintenance history
+
+For Mechanics \& Shops:
+
+
+
+Mechanics Garage Portal - Full shop management system
+
+Parts Ordering - Search and order from affiliate vendors with one click
+
+Repair Orders \& Estimates - Create, track, and invoice jobs
+
+Team Management - Assign techs, track hours
+
+Partner API - B2B integration with secure API keys
+
+ORBIT Integration - Sync with ORBIT Staffing for billing/bookkeeping
+
+Premium Features:
+
+
+
+Genesis Hallmark NFTs - Early adopter rewards on Solana blockchain
+
+Pro Subscription - Enhanced features and Founders Circle access
+
+Member Referrals - Earn points for inviting friends
+
+
+
