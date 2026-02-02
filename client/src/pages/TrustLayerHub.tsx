@@ -33,7 +33,11 @@ import {
   MapPin,
   FileText,
   TrendingUp,
-  Cloud
+  Cloud,
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -80,18 +84,25 @@ const categories = [
 ];
 
 const widgetsList = [
-  { id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", description: "Instant project pricing calculator for trades" },
-  { id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", description: "Convert visitors into qualified leads" },
-  { id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", description: "Showcase customer testimonials" },
-  { id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", description: "Schedule appointments seamlessly" },
-  { id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", description: "Track website performance metrics" },
-  { id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", description: "Real-time customer support widget" },
-  { id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", description: "Manage customer relationships" },
-  { id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", description: "GPS clock-in for field teams" },
-  { id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", description: "Create professional proposals" },
-  { id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", description: "Optimize search visibility" },
-  { id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", description: "Weather-aware job scheduling" },
+  { id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", description: "Instant project pricing calculator for trades", price: 149, priceId: "price_widget_estimator" },
+  { id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", description: "Convert visitors into qualified leads", price: 99, priceId: "price_widget_lead_capture" },
+  { id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", description: "Showcase customer testimonials", price: 79, priceId: "price_widget_reviews" },
+  { id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", description: "Schedule appointments seamlessly", price: 129, priceId: "price_widget_booking" },
+  { id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", description: "Track website performance metrics", price: 199, priceId: "price_widget_analytics" },
+  { id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", description: "Real-time customer support widget", price: 149, priceId: "price_widget_chat" },
+  { id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", description: "Manage customer relationships", price: 249, priceId: "price_widget_crm" },
+  { id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", description: "GPS clock-in for field teams", price: 179, priceId: "price_widget_crew_tracker" },
+  { id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", description: "Create professional proposals", price: 199, priceId: "price_widget_proposal" },
+  { id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", description: "Optimize search visibility", price: 149, priceId: "price_widget_seo" },
+  { id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", description: "Weather-aware job scheduling", price: 99, priceId: "price_widget_weather" },
 ];
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  type: "widget" | "snippet";
+}
 
 // Widget name mapping for full code lookup
 const WIDGET_MAP: Record<string, string> = {
@@ -125,6 +136,49 @@ export default function TrustLayerHub() {
     loading: false
   });
   const [selectedWidget, setSelectedWidget] = useState(0);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const addToCart = (item: CartItem) => {
+    if (!cart.find(c => c.id === item.id)) {
+      setCart(prev => [...prev, item]);
+    }
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(prev => prev.filter(c => c.id !== id));
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+  const handleCheckout = async (method: "stripe" | "coinbase") => {
+    if (cart.length === 0) return;
+    setCheckoutLoading(true);
+    
+    try {
+      const endpoint = method === "stripe" 
+        ? "/api/payments/stripe/cart-checkout"
+        : "/api/payments/coinbase/cart-checkout";
+        
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: cart }),
+      });
+      
+      const data = await response.json();
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || "Checkout failed");
+      }
+    } catch (err) {
+      alert("Checkout failed. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
 
   const openFullCode = async (snippetTitle: string) => {
     const widgetName = WIDGET_MAP[snippetTitle];
@@ -612,15 +666,35 @@ export default function TrustLayerHub() {
                     return <Icon className="w-6 h-6" style={{ color: widgetsList[selectedWidget].color }} />;
                   })()}
                 </div>
-                <div>
-                  <h4 className="font-bold font-display text-lg lg:text-xl">{widgetsList[selectedWidget].name}</h4>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold font-display text-lg lg:text-xl">{widgetsList[selectedWidget].name}</h4>
+                    <div className="text-xl lg:text-2xl font-bold text-primary">${widgetsList[selectedWidget].price}</div>
+                  </div>
                   <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] font-semibold">LIVE DEMO</span>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mb-4">{widgetsList[selectedWidget].description}</p>
               <div className="flex flex-wrap gap-2">
-                <button className="btn-glow inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold">
-                  <Copy className="w-4 h-4" /> Get Embed Code
+                <button 
+                  onClick={() => addToCart({ 
+                    id: widgetsList[selectedWidget].id, 
+                    name: widgetsList[selectedWidget].name, 
+                    price: widgetsList[selectedWidget].price,
+                    type: "widget"
+                  })}
+                  className={`btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    cart.find(c => c.id === widgetsList[selectedWidget].id)
+                      ? "bg-green-600 text-white"
+                      : "bg-primary text-white"
+                  }`}
+                  data-testid={`add-to-cart-${widgetsList[selectedWidget].id}`}
+                >
+                  {cart.find(c => c.id === widgetsList[selectedWidget].id) ? (
+                    <><Check className="w-4 h-4" /> Added to Cart</>
+                  ) : (
+                    <><ShoppingCart className="w-4 h-4" /> Add to Cart - ${widgetsList[selectedWidget].price}</>
+                  )}
                 </button>
                 <button className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-all">
                   <Code2 className="w-4 h-4" /> View Source
@@ -692,6 +766,90 @@ export default function TrustLayerHub() {
           <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by DarkWave Trust Layer Blockchain</div>
         </div>
       </footer>
+
+      {/* Floating Cart Button */}
+      {cart.length > 0 && (
+        <button
+          onClick={() => setCartOpen(true)}
+          className="fixed bottom-6 right-6 z-40 w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-2xl shadow-primary/30 flex items-center justify-center hover:scale-110 transition-transform"
+          data-testid="floating-cart-button"
+        >
+          <ShoppingCart className="w-6 h-6" />
+          <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">
+            {cart.length}
+          </span>
+        </button>
+      )}
+
+      {/* Cart Drawer */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50" data-testid="cart-drawer">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setCartOpen(false)} />
+          <div className="absolute right-0 top-0 bottom-0 w-full max-w-md bg-background border-l border-white/10 flex flex-col">
+            <div className="p-4 lg:p-6 border-b border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <ShoppingCart className="w-5 h-5 text-primary" />
+                <h3 className="font-display font-bold text-lg">Your Cart</h3>
+                <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-sm font-semibold">{cart.length} items</span>
+              </div>
+              <button onClick={() => setCartOpen(false)} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-auto p-4 lg:p-6 space-y-3">
+              {cart.map((item) => (
+                <div key={item.id} className="glass rounded-xl p-4 flex items-center justify-between" data-testid={`cart-item-${item.id}`}>
+                  <div>
+                    <h4 className="font-semibold text-sm">{item.name}</h4>
+                    <span className="text-xs text-muted-foreground capitalize">{item.type}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-primary">${item.price}</span>
+                    <button 
+                      onClick={() => removeFromCart(item.id)}
+                      className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                      data-testid={`remove-item-${item.id}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="p-4 lg:p-6 border-t border-white/10 space-y-4">
+              <div className="flex items-center justify-between text-lg font-bold">
+                <span>Total</span>
+                <span className="text-primary">${cartTotal}</span>
+              </div>
+              
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleCheckout("stripe")}
+                  disabled={checkoutLoading}
+                  className="w-full btn-glow bg-primary text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                  data-testid="checkout-stripe"
+                >
+                  {checkoutLoading ? "Processing..." : <><Zap className="w-4 h-4" /> Pay with Card</>}
+                </button>
+                <button
+                  onClick={() => handleCheckout("coinbase")}
+                  disabled={checkoutLoading}
+                  className="w-full bg-[#0052FF] hover:bg-[#0052FF]/90 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
+                  data-testid="checkout-coinbase"
+                >
+                  {checkoutLoading ? "Processing..." : <><Shield className="w-4 h-4" /> Pay with Crypto</>}
+                </button>
+              </div>
+              
+              <p className="text-[10px] text-muted-foreground text-center">
+                Secure checkout powered by Stripe & Coinbase Commerce
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Full Code Modal */}
       {codeModal.open && (

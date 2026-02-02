@@ -493,6 +493,106 @@ export async function registerRoutes(
     }
   });
 
+  // Cart checkout with Stripe (multiple items)
+  app.post("/api/payments/stripe/cart-checkout", async (req, res) => {
+    try {
+      const { items } = req.body;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ success: false, error: "Cart is empty" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      
+      const lineItems = items.map((item: { id: string; name: string; price: number; type: string }) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.name,
+            description: `DarkWave ${item.type === "widget" ? "Widget" : "Snippet"} - One-time purchase`,
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: lineItems,
+        mode: "payment",
+        success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}/hub`,
+        metadata: {
+          items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+        },
+      });
+
+      res.json({ success: true, url: session.url });
+    } catch (error: any) {
+      console.error("Stripe cart checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Cart checkout with Coinbase Commerce (multiple items)
+  app.post("/api/payments/coinbase/cart-checkout", async (req, res) => {
+    try {
+      const { items } = req.body;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ success: false, error: "Cart is empty" });
+      }
+
+      const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+      if (!coinbaseApiKey) {
+        return res.status(500).json({ success: false, error: "Coinbase Commerce not configured" });
+      }
+
+      const total = items.reduce((sum: number, item: { price: number }) => sum + item.price, 0);
+      const itemNames = items.map((i: { name: string }) => i.name).join(", ");
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+      const response = await fetch("https://api.commerce.coinbase.com/charges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CC-Api-Key": coinbaseApiKey,
+          "X-CC-Version": "2018-03-22",
+        },
+        body: JSON.stringify({
+          name: "DarkWave Hub Purchase",
+          description: `Widgets & Snippets: ${itemNames}`,
+          pricing_type: "fixed_price",
+          local_price: {
+            amount: total.toString(),
+            currency: "USD",
+          },
+          metadata: {
+            items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+          },
+          redirect_url: `${baseUrl}/payment-success`,
+          cancel_url: `${baseUrl}/hub`,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.data?.hosted_url) {
+        res.json({ success: true, url: data.data.hosted_url });
+      } else {
+        res.status(500).json({ success: false, error: "Failed to create Coinbase charge" });
+      }
+    } catch (error: any) {
+      console.error("Coinbase cart checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // Get payments list (for admin)
   app.get("/api/payments", async (req, res) => {
     try {
