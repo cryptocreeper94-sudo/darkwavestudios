@@ -173,6 +173,30 @@ const widgetsList = [
     requirements: ["Any website or app", "Weather API key (free tier available)"],
     includes: ["Weather widget code", "Notification system", "Calendar integration", "Setup guide", "30-day email support", "Lifetime updates"]
   },
+  { 
+    id: "pulse", name: "Pulse", icon: Activity, containerId: "demo-pulse", color: "#ef4444", 
+    description: "AI predictive quant system with 65%+ accuracy", price: 499, priceId: "price_1SwJOePCLBtdVWVNUZOlCId8",
+    fullDescription: "Pulse is our flagship AI predictive system with a verified 65-70% win rate across 100,000+ predictions. Harness institutional-grade quant intelligence for trading, forecasting, and data-driven decision making. Every prediction is hashed to DarkWave Smart Chain for immutable verification.",
+    features: ["65-70% verified win rate", "100,000+ prediction track record", "Real-time market signals", "Multi-asset analysis", "Blockchain-verified predictions", "1-day & 7-day forecasts", "Confidence scoring", "API access included", "Historical backtesting"],
+    requirements: ["API integration capability", "Secure server environment recommended"],
+    includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"]
+  },
+  { 
+    id: "pulse-pro", name: "Pulse Pro API", icon: Zap, containerId: "demo-pulse-pro", color: "#f59e0b", 
+    description: "Unlimited API access to Pulse predictions", price: 1499, priceId: "price_1SwJOfPCLBtdVWVNJICDoloi",
+    fullDescription: "Full programmatic access to DarkWave Pulse with unlimited API calls. Build your own applications, trading bots, or analytics dashboards powered by our 65%+ accurate predictive engine. Includes backtesting suite and custom model training.",
+    features: ["Unlimited API calls", "All Pulse Basic features", "Custom prediction parameters", "Backtesting suite", "Bulk historical data export", "Custom webhooks", "Rate limit: 1000/min", "Multi-exchange support", "Advanced analytics dashboard"],
+    requirements: ["Developer knowledge", "Server for API integration", "API authentication handling"],
+    includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"]
+  },
+  { 
+    id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
+    description: "White-label quant system for institutions", price: 3999, priceId: "price_1SwJOfPCLBtdVWVNEGp2zZUu",
+    fullDescription: "Deploy DarkWave Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
+    features: ["All Pulse Pro features", "White-label rights", "Custom branding", "Dedicated infrastructure", "Custom model training", "99.9% SLA uptime", "Priority 24/7 support", "Compliance documentation", "On-premise deployment option"],
+    requirements: ["Enterprise infrastructure", "Legal entity for licensing", "Technical integration team"],
+    includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"]
+  },
 ];
 
 interface CartItem {
@@ -703,7 +727,7 @@ export default function TrustLayerHub() {
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
               <h3 className="font-display font-bold text-sm lg:text-xl" data-testid="text-live-preview-title">Widget Storefront</h3>
-              <span className="hidden lg:inline px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">11 LIVE WIDGETS</span>
+              <span className="hidden lg:inline px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">{widgetsList.length} LIVE WIDGETS</span>
             </div>
             <div className="flex items-center gap-2">
               <button 
@@ -989,6 +1013,109 @@ export default function TrustLayerHub() {
                     ))}
                   </div>
                   <div className="mt-3 p-2 bg-sky-50 rounded-lg text-xs text-sky-700">Wednesday rain expected - consider rescheduling outdoor work.</div>
+                </div>
+              )}
+              {/* Pulse Demo */}
+              {widgetsList[selectedWidget].id === "pulse" && (
+                <div className="p-4 h-full bg-gradient-to-br from-red-50 to-orange-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-bold text-gray-900">Pulse</div>
+                    <div className="flex items-center gap-1 px-2 py-1 bg-green-100 rounded-full">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-[10px] text-green-700 font-semibold">LIVE</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className="bg-white rounded-lg p-2 text-center shadow-sm">
+                      <div className="text-xl font-bold text-green-600">67.3%</div>
+                      <div className="text-[10px] text-gray-500">Win Rate</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 text-center shadow-sm">
+                      <div className="text-xl font-bold text-blue-600">103.2K</div>
+                      <div className="text-[10px] text-gray-500">Predictions</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 text-center shadow-sm">
+                      <div className="text-xl font-bold text-purple-600">94.1%</div>
+                      <div className="text-[10px] text-gray-500">Confidence</div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {[{asset:"BTC/USD",signal:"LONG",conf:89,time:"2m ago"},{asset:"ETH/USD",signal:"SHORT",conf:76,time:"8m ago"},{asset:"SOL/USD",signal:"LONG",conf:92,time:"12m ago"}].map((s,i)=>(
+                      <div key={i} className="flex items-center justify-between bg-white rounded-lg p-2 shadow-sm">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-sm">{s.asset}</span>
+                          <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${s.signal==="LONG"?"bg-green-100 text-green-700":"bg-red-100 text-red-700"}`}>{s.signal}</span>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-gray-700">{s.conf}%</div>
+                          <div className="text-[9px] text-gray-400">{s.time}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 flex items-center gap-2 text-[10px] text-gray-500">
+                    <div className="w-3 h-3 bg-red-500 rounded flex items-center justify-center text-white text-[8px]">⛓</div>
+                    <span>Predictions verified on DarkWave Smart Chain</span>
+                  </div>
+                </div>
+              )}
+              {/* Pulse Pro API Demo */}
+              {widgetsList[selectedWidget].id === "pulse-pro" && (
+                <div className="p-4 h-full bg-gradient-to-br from-amber-50 to-yellow-50 font-mono text-xs">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-sm font-bold text-gray-900">Pulse API Console</div>
+                    <span className="px-2 py-0.5 bg-amber-200 text-amber-800 rounded text-[10px] font-semibold">PRO</span>
+                  </div>
+                  <div className="bg-gray-900 rounded-lg p-3 text-green-400 overflow-x-auto">
+                    <div className="text-[10px] mb-1 text-gray-500"># GET /api/v1/pulse/predict</div>
+                    <div className="text-[10px]">{"{"}</div>
+                    <div className="text-[10px] pl-3">"asset": "BTC/USD",</div>
+                    <div className="text-[10px] pl-3">"signal": "LONG",</div>
+                    <div className="text-[10px] pl-3">"confidence": 0.89,</div>
+                    <div className="text-[10px] pl-3">"timestamp": "2026-02-02T09:15:00Z",</div>
+                    <div className="text-[10px] pl-3">"hash": "0x7f3a9c..."</div>
+                    <div className="text-[10px]">{"}"}</div>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <div className="bg-white rounded-lg p-2 shadow-sm">
+                      <div className="text-lg font-bold text-amber-600">∞</div>
+                      <div className="text-[10px] text-gray-500">API Calls</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 shadow-sm">
+                      <div className="text-lg font-bold text-amber-600">1000/m</div>
+                      <div className="text-[10px] text-gray-500">Rate Limit</div>
+                    </div>
+                  </div>
+                  <div className="mt-3 text-[10px] text-gray-600">SDK available: JavaScript, Python, Go</div>
+                </div>
+              )}
+              {/* Pulse Enterprise Demo */}
+              {widgetsList[selectedWidget].id === "pulse-enterprise" && (
+                <div className="p-4 h-full bg-gradient-to-br from-purple-50 to-indigo-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-bold text-gray-900">Enterprise Suite</div>
+                    <span className="px-2 py-0.5 bg-purple-200 text-purple-800 rounded text-[10px] font-semibold">WHITE-LABEL</span>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-sm mb-3">
+                    <div className="text-xs text-gray-500 mb-1">Your Brand Here</div>
+                    <div className="h-8 bg-gradient-to-r from-purple-500 to-indigo-500 rounded flex items-center justify-center text-white text-sm font-bold">ACME PREDICTIONS™</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    <div className="bg-white rounded-lg p-2 shadow-sm text-center">
+                      <div className="text-green-600 font-bold">99.9%</div>
+                      <div className="text-[10px] text-gray-500">SLA Uptime</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 shadow-sm text-center">
+                      <div className="text-purple-600 font-bold">24/7</div>
+                      <div className="text-[10px] text-gray-500">Priority Support</div>
+                    </div>
+                  </div>
+                  <div className="space-y-1 text-[10px] text-gray-600">
+                    <div className="flex items-center gap-1"><span className="text-green-500">✓</span> Custom model training</div>
+                    <div className="flex items-center gap-1"><span className="text-green-500">✓</span> Dedicated infrastructure</div>
+                    <div className="flex items-center gap-1"><span className="text-green-500">✓</span> Compliance documentation</div>
+                    <div className="flex items-center gap-1"><span className="text-green-500">✓</span> On-premise deployment</div>
+                  </div>
                 </div>
               )}
             </div>
