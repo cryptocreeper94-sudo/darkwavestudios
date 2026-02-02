@@ -37,7 +37,8 @@ import {
   ShoppingCart,
   Plus,
   Minus,
-  Trash2
+  Trash2,
+  Package
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -84,17 +85,94 @@ const categories = [
 ];
 
 const widgetsList = [
-  { id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", description: "Instant project pricing calculator for trades", price: 149, priceId: "price_widget_estimator" },
-  { id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", description: "Convert visitors into qualified leads", price: 99, priceId: "price_widget_lead_capture" },
-  { id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", description: "Showcase customer testimonials", price: 79, priceId: "price_widget_reviews" },
-  { id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", description: "Schedule appointments seamlessly", price: 129, priceId: "price_widget_booking" },
-  { id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", description: "Track website performance metrics", price: 199, priceId: "price_widget_analytics" },
-  { id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", description: "Real-time customer support widget", price: 149, priceId: "price_widget_chat" },
-  { id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", description: "Manage customer relationships", price: 249, priceId: "price_widget_crm" },
-  { id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", description: "GPS clock-in for field teams", price: 179, priceId: "price_widget_crew_tracker" },
-  { id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", description: "Create professional proposals", price: 199, priceId: "price_widget_proposal" },
-  { id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", description: "Optimize search visibility", price: 149, priceId: "price_widget_seo" },
-  { id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", description: "Weather-aware job scheduling", price: 99, priceId: "price_widget_weather" },
+  { 
+    id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", 
+    description: "Instant project pricing calculator for trades", price: 149, priceId: "price_widget_estimator",
+    fullDescription: "Give your customers instant, accurate project estimates. This AI-powered calculator handles square footage, materials, labor rates, and profit margins automatically. Perfect for painters, roofers, landscapers, and contractors.",
+    features: ["Square footage calculator", "Material cost estimation", "Labor hour calculation", "Profit margin controls", "Lead capture integration", "PDF estimate generation", "CRM webhook sync"],
+    requirements: ["React 18+ or vanilla JS", "Works with any website", "No backend required"],
+    includes: ["Full source code", "Step-by-step setup guide", "Customization documentation", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", 
+    description: "Convert visitors into qualified leads", price: 99, priceId: "price_widget_lead_capture",
+    fullDescription: "Turn website visitors into qualified leads with smart forms that adapt to user behavior. Multi-step forms, conditional logic, and instant notifications help you never miss an opportunity.",
+    features: ["Multi-step form wizard", "Conditional field logic", "Email & SMS notifications", "CRM integration ready", "Spam protection built-in", "Mobile-optimized design", "A/B testing support"],
+    requirements: ["Any website or React app", "Optional: Email service for notifications"],
+    includes: ["Full source code", "Setup documentation", "Integration examples", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", 
+    description: "Showcase customer testimonials", price: 79, priceId: "price_widget_reviews",
+    fullDescription: "Build trust instantly by showcasing your best customer reviews. Pulls from Google, Yelp, and Facebook or use your own testimonials. Beautiful carousel and grid layouts included.",
+    features: ["Google/Yelp/Facebook sync", "Star rating display", "Photo testimonials", "Carousel & grid layouts", "Schema markup for SEO", "Filter by rating", "Moderation dashboard"],
+    requirements: ["Any website", "Optional: API keys for review platforms"],
+    includes: ["Full source code", "Platform integration guide", "Styling customization docs", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", 
+    description: "Schedule appointments seamlessly", price: 129, priceId: "price_widget_booking",
+    fullDescription: "Let customers book appointments 24/7 without the back-and-forth. Syncs with Google Calendar, handles time zones, sends reminders, and prevents double-bookings automatically.",
+    features: ["Real-time availability", "Google Calendar sync", "Automatic reminders", "Time zone detection", "Buffer time between appointments", "Service duration settings", "Deposit collection ready"],
+    requirements: ["React or vanilla JS", "Optional: Google Calendar API", "Optional: Stripe for deposits"],
+    includes: ["Full source code", "Calendar integration guide", "Reminder setup docs", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", 
+    description: "Track website performance metrics", price: 199, priceId: "price_widget_analytics",
+    fullDescription: "Privacy-focused analytics that gives you the insights you need without compromising visitor privacy. Real-time dashboards, conversion tracking, and heatmaps - no cookies required.",
+    features: ["Real-time visitor tracking", "Page view analytics", "Click heatmaps", "Conversion funnels", "Custom event tracking", "GDPR/CCPA compliant", "No cookies required"],
+    requirements: ["Any website", "Node.js backend for data storage"],
+    includes: ["Frontend widget code", "Backend API code", "Database schema", "Dashboard UI", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", 
+    description: "Real-time customer support widget", price: 149, priceId: "price_widget_chat",
+    fullDescription: "Engage visitors in real-time with a beautiful chat widget. AI-powered auto-responses handle common questions while you're away. Full conversation history and team inbox included.",
+    features: ["Real-time messaging", "AI auto-responses", "Offline message capture", "File sharing", "Typing indicators", "Team inbox", "Mobile app notifications"],
+    requirements: ["React or vanilla JS", "WebSocket-capable backend", "Optional: OpenAI for AI responses"],
+    includes: ["Chat widget code", "Backend server code", "Admin dashboard UI", "AI integration guide", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", 
+    description: "Manage customer relationships", price: 249, priceId: "price_widget_crm",
+    fullDescription: "Visual sales pipeline built for service businesses. Drag-and-drop deal management, automated follow-ups, and revenue forecasting. Stop losing leads and start closing more deals.",
+    features: ["Kanban pipeline view", "Drag-and-drop deals", "Automated stage transitions", "Follow-up reminders", "Email integration", "Calendar sync", "Revenue forecasting", "Win/loss analytics"],
+    requirements: ["React frontend", "Node.js/Express backend", "PostgreSQL database"],
+    includes: ["Complete CRM frontend", "Backend API", "Database migrations", "Email templates", "Setup walkthrough", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", 
+    description: "GPS clock-in for field teams", price: 179, priceId: "price_widget_crew_tracker",
+    fullDescription: "Know where your team is and track hours accurately with GPS-verified time tracking. Geofencing ensures clock-ins only happen on job sites. Export timesheets directly to payroll.",
+    features: ["GPS clock-in/out", "Photo verification", "Geofencing by job site", "Real-time location", "Break reminders", "Overtime calculations", "Timesheet export", "Payroll integration"],
+    requirements: ["React Native or web app", "Node.js backend", "Mobile device with GPS"],
+    includes: ["Web dashboard code", "Mobile-ready components", "Backend API", "Payroll export templates", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", 
+    description: "Create professional proposals", price: 199, priceId: "price_widget_proposal",
+    fullDescription: "Create stunning proposals in minutes, not hours. Customizable templates, dynamic pricing tables, e-signature capture, and Stripe integration for instant deposits.",
+    features: ["Customizable templates", "Dynamic pricing tables", "E-signature capture", "Stripe payment integration", "Deposit collection", "Expiration tracking", "Client portal", "Automated follow-ups"],
+    requirements: ["React frontend", "Node.js backend", "Stripe account for payments"],
+    includes: ["Proposal builder UI", "Template system", "E-signature integration", "Backend API", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", 
+    description: "Optimize search visibility", price: 149, priceId: "price_widget_seo",
+    fullDescription: "Audit your website's SEO health and get actionable recommendations. Track keyword rankings, monitor competitors, and generate schema markup automatically.",
+    features: ["On-page SEO audit", "Keyword rank tracking", "Competitor monitoring", "Schema markup generator", "Meta tag optimizer", "Core Web Vitals check", "Weekly email reports"],
+    requirements: ["Any website", "Node.js for backend features", "Optional: Google Search Console API"],
+    includes: ["Audit tool code", "Tracking dashboard", "Schema generators", "Report templates", "30-day email support", "Lifetime updates"]
+  },
+  { 
+    id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", 
+    description: "Weather-aware job scheduling", price: 99, priceId: "price_widget_weather",
+    fullDescription: "Never get caught in the rain again. Automatically checks weather forecasts and alerts you to reschedule outdoor jobs. Integrates with your calendar and notifies affected customers.",
+    features: ["7-day weather forecasts", "Automatic delay alerts", "Customer notifications", "Calendar integration", "Weather threshold settings", "Job site locations", "Reschedule suggestions"],
+    requirements: ["Any website or app", "Weather API key (free tier available)"],
+    includes: ["Weather widget code", "Notification system", "Calendar integration", "Setup guide", "30-day email support", "Lifetime updates"]
+  },
 ];
 
 interface CartItem {
@@ -102,6 +180,21 @@ interface CartItem {
   name: string;
   price: number;
   type: "widget" | "snippet";
+}
+
+interface WidgetInfo {
+  id: string;
+  name: string;
+  icon: React.ComponentType<{ className?: string }>;
+  containerId: string;
+  color: string;
+  description: string;
+  price: number;
+  priceId: string;
+  fullDescription: string;
+  features: string[];
+  requirements: string[];
+  includes: string[];
 }
 
 // Widget name mapping for full code lookup
@@ -913,6 +1006,103 @@ export default function TrustLayerHub() {
                 data-testid={`widget-dot-${index}`}
               />
             ))}
+          </div>
+
+          {/* Detailed Widget Info Panel */}
+          <div className="mt-6 glass-card rounded-2xl p-4 lg:p-6 gradient-border" data-testid="widget-info-panel">
+            {/* Trust Badge Header */}
+            <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-white/10" data-testid="trust-badges">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold" data-testid="badge-trust-shield">
+                <Shield className="w-3.5 h-3.5" />
+                <span>Verified by Trust Shield</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 text-primary text-xs font-semibold" data-testid="badge-guardian-shield">
+                <Lock className="w-3.5 h-3.5" />
+                <span>Protected by Guardian Shield</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 text-accent text-xs font-semibold" data-testid="badge-blockchain">
+                <FileText className="w-3.5 h-3.5" />
+                <span>Blockchain Registered</span>
+              </div>
+            </div>
+
+            {/* Full Description */}
+            <div className="mb-4">
+              <h4 className="font-bold text-sm text-primary mb-2">About This Widget</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {widgetsList[selectedWidget].fullDescription}
+              </p>
+            </div>
+
+            {/* Features, Requirements, Includes Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Features */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  Features
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <Check className="w-3 h-3 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Requirements */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Code2 className="w-4 h-4 text-blue-400" />
+                  Requirements
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].requirements.map((req, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                      <span>{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* What's Included */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Package className="w-4 h-4 text-purple-400" />
+                  What's Included
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].includes.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <Check className="w-3 h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Trust & Security Footer */}
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <Shield className="w-8 h-8 text-primary flex-shrink-0" />
+                  <div>
+                    <div className="text-xs font-semibold text-primary">DarkWave Smart Chain Verified</div>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                      Every purchase is hashed to the DarkWave blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at trustshield.tech
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span className="px-2 py-1 rounded bg-white/5 font-mono">SHA-256 Secured</span>
+                  <span className="px-2 py-1 rounded bg-white/5 font-mono">Immutable Record</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
