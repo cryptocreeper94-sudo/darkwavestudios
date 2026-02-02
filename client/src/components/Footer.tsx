@@ -25,8 +25,10 @@ export default function Footer() {
           </div>
           
           <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Pricing</div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Free Tools</div>
             <div className="flex flex-col gap-2">
+              <Link href="/audit" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-audit">Website Audit</Link>
+              <Link href="/resources" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-resources">Free Resources</Link>
               <Link href="/quote" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-quote">Get a Quote</Link>
               <Link href="/payment" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-pricing">Plans & Pricing</Link>
             </div>

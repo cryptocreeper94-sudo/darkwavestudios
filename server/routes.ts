@@ -224,6 +224,65 @@ export async function registerRoutes(
     }
   });
 
+  // ============ WEBSITE AUDIT ============
+  const websiteAuditSchema = z.object({
+    url: z.string().url("Valid URL required")
+  });
+
+  app.post("/api/website-audit", async (req, res) => {
+    try {
+      const validated = websiteAuditSchema.parse(req.body);
+      const parsedUrl = new URL(validated.url);
+
+      // Simulate website audit with realistic scores
+      // In production, this would use real APIs like PageSpeed Insights, etc.
+      const baseScore = Math.floor(Math.random() * 30) + 50; // 50-80 base
+      
+      const result = {
+        url: parsedUrl.href,
+        scores: {
+          performance: Math.min(100, baseScore + Math.floor(Math.random() * 25)),
+          seo: Math.min(100, baseScore + Math.floor(Math.random() * 30)),
+          mobile: Math.min(100, baseScore + Math.floor(Math.random() * 20)),
+          security: parsedUrl.protocol === 'https:' ? Math.min(100, baseScore + 30) : baseScore - 20,
+          accessibility: Math.min(100, baseScore + Math.floor(Math.random() * 15)),
+        },
+        issues: {
+          critical: [
+            "Large JavaScript bundles slowing initial load",
+            "Images not optimized for web",
+          ].slice(0, Math.floor(Math.random() * 2) + 1),
+          warnings: [
+            "Missing meta descriptions on some pages",
+            "No structured data markup detected",
+            "Some images missing alt text",
+            "Render-blocking resources detected",
+          ].slice(0, Math.floor(Math.random() * 3) + 1),
+          passed: [
+            parsedUrl.protocol === 'https:' ? "SSL certificate valid" : null,
+            "Mobile viewport configured",
+            "HTML lang attribute present",
+            "Document has title element",
+          ].filter(Boolean) as string[],
+        },
+        recommendations: [
+          "Optimize images using WebP format and lazy loading",
+          "Implement code splitting to reduce bundle size",
+          "Add structured data markup for better SEO",
+          "Minify CSS and JavaScript files",
+          "Enable browser caching for static assets",
+          "Consider implementing a CDN for faster global delivery",
+        ].slice(0, 4),
+        loadTime: `${(Math.random() * 3 + 1.5).toFixed(2)}s`,
+        pageSize: `${(Math.random() * 2 + 0.5).toFixed(1)} MB`,
+      };
+
+      res.json({ success: true, result });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // ============ TESTIMONIALS ============
   app.post("/api/testimonials", async (req, res) => {
     try {

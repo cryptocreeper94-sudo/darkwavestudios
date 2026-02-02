@@ -29,6 +29,8 @@ import GuardianAIRegistry from "@/pages/GuardianAIRegistry";
 import Developers from "@/pages/Developers";
 import Ecosystem from "@/pages/Ecosystem";
 import NotFound from "@/pages/not-found";
+import WebsiteAudit from "@/pages/WebsiteAudit";
+import Resources from "@/pages/Resources";
 
 function Router() {
   return (
@@ -58,6 +60,8 @@ function Router() {
       <Route path="/guardian-ai-registry" component={GuardianAIRegistry}/>
       <Route path="/developers" component={Developers}/>
       <Route path="/ecosystem" component={Ecosystem}/>
+      <Route path="/audit" component={WebsiteAudit}/>
+      <Route path="/resources" component={Resources}/>
       <Route component={NotFound} />
     </Switch>
   );

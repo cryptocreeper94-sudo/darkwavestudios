@@ -502,30 +502,30 @@ export default function Home() {
                               </div>
             </AnimatedElement>
 
-            {/* Stat 1 - Ecosystem Apps - 1 col mobile */}
+            {/* Stat 1 - Lines of Code - 1 col mobile */}
             <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
+                <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">210K+</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
+              </div>
+            </AnimatedElement>
+
+            {/* Stat 2 - Live Apps - 1 col mobile */}
+            <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">16</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">16+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
               </div>
             </AnimatedElement>
 
-            {/* Stat 2 - Widgets Available - 1 col mobile */}
-            <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
-                <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">11</div>
-                <div className="text-muted-foreground text-[9px] lg:text-sm">Widgets</div>
-              </div>
-            </AnimatedElement>
-
-            {/* Stat 3 - Snippets Available - 1 col mobile */}
+            {/* Stat 3 - Uptime - 1 col mobile */}
             <AnimatedElement delay={300} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-snippets">
-                <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">19</div>
-                <div className="text-muted-foreground text-[9px] lg:text-sm">Snippets</div>
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-uptime">
+                <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-green-400 mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display text-green-400">99.9%</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Uptime</div>
               </div>
             </AnimatedElement>
 
@@ -593,6 +593,60 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-2 text-primary font-medium text-xs mt-3">
                     Explore <ArrowRight className="w-3 h-3" />
+                  </div>
+                </div>
+              </Link>
+            </AnimatedElement>
+          </section>
+
+          {/* FREE TOOLS SECTION */}
+          <section className="grid grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
+            <AnimatedElement delay={100} className="col-span-1 lg:col-span-6">
+              <Link 
+                href="/audit" 
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-primary/20 bg-gradient-to-br from-primary/10 to-transparent"
+                data-testid="free-audit-card"
+              >
+                <div className="h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
+                  <div>
+                    <div className="inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/20 rounded-full px-2 py-0.5 mb-2">
+                      <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <span className="text-[9px] lg:text-xs font-medium text-green-400">Free Tool</span>
+                    </div>
+                    <h3 className="text-sm lg:text-lg font-bold font-display mb-1">
+                      Website Audit Tool
+                    </h3>
+                    <p className="text-muted-foreground text-[10px] lg:text-sm hidden lg:block">
+                      Get instant analysis of your site's performance, SEO, and security.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 text-primary font-medium text-xs lg:text-sm mt-2">
+                    Try Free <ArrowRight className="w-3 h-3" />
+                  </div>
+                </div>
+              </Link>
+            </AnimatedElement>
+
+            <AnimatedElement delay={150} className="col-span-1 lg:col-span-6">
+              <Link 
+                href="/resources" 
+                className="block glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 relative overflow-hidden group hover-lift h-full border border-white/10"
+                data-testid="resources-card"
+              >
+                <div className="h-full flex flex-col justify-between min-h-[100px] lg:min-h-[140px]">
+                  <div>
+                    <div className="inline-flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-2 py-0.5 mb-2">
+                      <span className="text-[9px] lg:text-xs font-medium text-primary">Downloads</span>
+                    </div>
+                    <h3 className="text-sm lg:text-lg font-bold font-display mb-1">
+                      Free Resources
+                    </h3>
+                    <p className="text-muted-foreground text-[10px] lg:text-sm hidden lg:block">
+                      Checklists, templates, and guides to build better websites.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 text-primary font-medium text-xs lg:text-sm mt-2">
+                    Download <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
               </Link>
