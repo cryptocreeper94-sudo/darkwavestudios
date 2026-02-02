@@ -336,16 +336,16 @@ export default function TrustLayerHub() {
           {/* Stats Cards - 3-col mobile / 4-col desktop */}
           <div className="col-span-3 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-4">
             <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
-              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-apps">{stats.totalApps}</div>
-              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-apps">Connected Apps</div>
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-apps">16</div>
+              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-apps">Live Apps</div>
             </div>
             <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
-              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-snippets">{stats.totalSnippets}</div>
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-snippets">19</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-snippets">Snippets</div>
             </div>
             <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
-              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-downloads">{stats.totalDownloads}</div>
-              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-downloads">Downloads</div>
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">11</div>
+              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-widgets">Widgets</div>
             </div>
           </div>
         </section>

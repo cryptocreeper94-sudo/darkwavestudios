@@ -501,30 +501,30 @@ export default function Home() {
                               </div>
             </AnimatedElement>
 
-            {/* Stat 1 - Live Projects - 1 col mobile */}
+            {/* Stat 1 - Ecosystem Apps - 1 col mobile */}
             <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">10+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">16</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
               </div>
             </AnimatedElement>
 
-            {/* Stat 2 - AI Powered - 1 col mobile */}
+            {/* Stat 2 - Widgets Available - 1 col mobile */}
             <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-ai">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">AI</div>
-                <div className="text-muted-foreground text-[9px] lg:text-sm">Powered</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">11</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Widgets</div>
               </div>
             </AnimatedElement>
 
-            {/* Stat 3 - Cost Savings - 1 col mobile */}
+            {/* Stat 3 - Snippets Available - 1 col mobile */}
             <AnimatedElement delay={300} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-savings">
-                <DollarSign className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">60%</div>
-                <div className="text-muted-foreground text-[9px] lg:text-sm">Less Cost</div>
+              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-snippets">
+                <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">19</div>
+                <div className="text-muted-foreground text-[9px] lg:text-sm">Snippets</div>
               </div>
             </AnimatedElement>
 
