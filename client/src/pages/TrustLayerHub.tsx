@@ -996,7 +996,7 @@ export default function TrustLayerHub() {
               )}
               {/* Trade Estimator Demo */}
               {widgetsList[selectedWidget].id === "estimator" && (
-                <div className="p-4 h-full flex flex-col relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-4">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Project Estimator</div>
                     <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Get instant pricing</div>
@@ -1052,7 +1052,7 @@ export default function TrustLayerHub() {
               )}
               {/* Lead Capture Demo */}
               {widgetsList[selectedWidget].id === "lead-capture" && (
-                <div className="p-4 h-full flex flex-col relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-4">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Get a Free Consultation</div>
                     <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>We'll get back to you within 24 hours</div>
@@ -1096,7 +1096,7 @@ export default function TrustLayerHub() {
               )}
               {/* Reviews Demo */}
               {widgetsList[selectedWidget].id === "reviews" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className="text-center mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-yellow-300 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Customer Reviews</div>
                     <div className="flex items-center justify-center gap-1">
@@ -1125,7 +1125,7 @@ export default function TrustLayerHub() {
               )}
               {/* Booking Demo */}
               {widgetsList[selectedWidget].id === "booking" && (
-                <div className="p-4 h-full flex flex-col relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-300 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Book an Appointment</div>
                     <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-amber-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Select a date and time</div>
@@ -1166,7 +1166,7 @@ export default function TrustLayerHub() {
               )}
               {/* Analytics Demo */}
               {widgetsList[selectedWidget].id === "analytics" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className="flex items-center justify-between mb-4">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Analytics</div>
                     <select className={`text-xs px-3 py-1.5 transition-all ${
@@ -1215,7 +1215,7 @@ export default function TrustLayerHub() {
               )}
               {/* Chat Demo */}
               {widgetsList[selectedWidget].id === "chat" && (
-                <div className="p-4 h-full flex flex-col relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className={`flex items-center gap-2 mb-3 pb-2 border-b ${widgetTheme === "trustlayer" ? "border-pink-500/30" : widgetTheme === "dark" ? "border-slate-700" : ""}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
                       widgetTheme === "trustlayer" 
@@ -1266,7 +1266,7 @@ export default function TrustLayerHub() {
               )}
               {/* CRM Demo */}
               {widgetsList[selectedWidget].id === "crm" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Sales Pipeline</div>
                   <div className="flex gap-2 overflow-x-auto pb-2">
                     {[
@@ -1298,7 +1298,7 @@ export default function TrustLayerHub() {
               )}
               {/* Crew Tracker Demo */}
               {widgetsList[selectedWidget].id === "crew-tracker" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className="flex items-center justify-between mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Crew Status</div>
                     <span className={`text-xs px-3 py-1 rounded-full font-medium ${
@@ -1346,7 +1346,7 @@ export default function TrustLayerHub() {
               )}
               {/* Proposal Demo */}
               {widgetsList[selectedWidget].id === "proposal" && (
-                <div className="p-4 h-full flex flex-col relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Proposal Builder</div>
                   <div className={`rounded-xl p-4 mb-3 flex-1 ${
                     widgetTheme === "trustlayer" 
@@ -1378,7 +1378,7 @@ export default function TrustLayerHub() {
               )}
               {/* SEO Demo */}
               {widgetsList[selectedWidget].id === "seo" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className="flex items-center justify-between mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-green-300 to-emerald-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>SEO Score</div>
                     <div className={`text-2xl font-bold ${widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>85<span className={`text-sm ${widgetTheme === "trustlayer" ? "text-green-300/50" : "text-gray-400"}`}>/100</span></div>
@@ -1402,7 +1402,7 @@ export default function TrustLayerHub() {
               )}
               {/* Weather Demo */}
               {widgetsList[selectedWidget].id === "weather" && (
-                <div className="p-4 h-full relative z-10">
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Weather Schedule</div>
                   <div className="flex gap-2 overflow-x-auto pb-2">
                     {[{day:"Mon",icon:"☀️",temp:"72°",status:"Good"},{day:"Tue",icon:"🌤",temp:"68°",status:"Good"},{day:"Wed",icon:"🌧",temp:"55°",status:"Delay"},{day:"Thu",icon:"☀️",temp:"70°",status:"Good"},{day:"Fri",icon:"☀️",temp:"74°",status:"Good"}].map((d,i)=>(
@@ -1435,7 +1435,7 @@ export default function TrustLayerHub() {
               )}
               {/* Pulse Demo */}
               {widgetsList[selectedWidget].id === "pulse" && (
-                <div className={`p-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-red-50 to-orange-50" : ""}`}>
+                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-red-50 to-orange-50" : ""}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(239,68,68,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Pulse</div>
                     <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full ${
@@ -1511,7 +1511,7 @@ export default function TrustLayerHub() {
               )}
               {/* Pulse Pro API Demo */}
               {widgetsList[selectedWidget].id === "pulse-pro" && (
-                <div className={`p-4 h-full font-mono text-xs relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-amber-50 to-yellow-50" : ""}`}>
+                <div className={`p-4 pt-10 lg:pt-4 h-full font-mono text-xs relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-amber-50 to-yellow-50" : ""}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-300 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Pulse API Console</div>
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold ${
@@ -1557,7 +1557,7 @@ export default function TrustLayerHub() {
               )}
               {/* Pulse Enterprise Demo */}
               {widgetsList[selectedWidget].id === "pulse-enterprise" && (
-                <div className={`p-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-purple-50 to-indigo-50" : ""}`}>
+                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-purple-50 to-indigo-50" : ""}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Enterprise Suite</div>
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold ${
