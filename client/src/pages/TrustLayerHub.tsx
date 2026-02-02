@@ -703,8 +703,201 @@ export default function TrustLayerHub() {
             </div>
             
             {/* Widget Preview Container */}
-            <div className="order-1 lg:order-2 bg-white rounded-xl overflow-hidden" style={{ minHeight: '320px' }}>
-              <div id={widgetsList[selectedWidget].containerId} className="w-full h-full" />
+            <div className="order-1 lg:order-2 bg-white rounded-xl overflow-hidden text-gray-800" style={{ minHeight: '320px' }}>
+              {/* Trade Estimator Demo */}
+              {widgetsList[selectedWidget].id === "estimator" && (
+                <div className="p-4 h-full flex flex-col">
+                  <div className="text-center mb-4">
+                    <div className="text-lg font-bold text-gray-900">Project Estimator</div>
+                    <div className="text-xs text-gray-500">Get instant pricing</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className="flex justify-between text-sm"><span>Project Type</span><select className="border rounded px-2 py-1 text-xs"><option>Interior Painting</option></select></div>
+                    <div className="flex justify-between text-sm"><span>Square Feet</span><input type="number" className="border rounded px-2 py-1 w-20 text-xs" value="1500" readOnly /></div>
+                    <div className="flex justify-between text-sm"><span>Rooms</span><input type="number" className="border rounded px-2 py-1 w-20 text-xs" value="4" readOnly /></div>
+                    <div className="bg-blue-50 rounded-lg p-3 mt-4">
+                      <div className="text-xs text-blue-600 mb-1">Estimated Total</div>
+                      <div className="text-2xl font-bold text-blue-700">$2,450</div>
+                    </div>
+                  </div>
+                  <button className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold mt-3">Get Full Quote</button>
+                </div>
+              )}
+              {/* Lead Capture Demo */}
+              {widgetsList[selectedWidget].id === "lead-capture" && (
+                <div className="p-4 h-full flex flex-col">
+                  <div className="text-center mb-4">
+                    <div className="text-lg font-bold text-gray-900">Get a Free Consultation</div>
+                    <div className="text-xs text-gray-500">We'll get back to you within 24 hours</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <input className="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Your Name" defaultValue="John Smith" />
+                    <input className="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Email Address" defaultValue="john@email.com" />
+                    <input className="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Phone Number" defaultValue="(555) 123-4567" />
+                    <textarea className="w-full border rounded-lg px-3 py-2 text-sm resize-none" rows={2} placeholder="Tell us about your project"></textarea>
+                  </div>
+                  <button className="w-full bg-purple-600 text-white py-2 rounded-lg text-sm font-semibold mt-3">Submit Request</button>
+                </div>
+              )}
+              {/* Reviews Demo */}
+              {widgetsList[selectedWidget].id === "reviews" && (
+                <div className="p-4 h-full">
+                  <div className="text-center mb-3">
+                    <div className="text-lg font-bold text-gray-900">Customer Reviews</div>
+                    <div className="flex items-center justify-center gap-1 text-yellow-500">{"★★★★★".split("").map((s,i)=><span key={i}>{s}</span>)} <span className="text-gray-500 text-sm ml-1">4.9 (127 reviews)</span></div>
+                  </div>
+                  <div className="space-y-3">
+                    {[{name:"Sarah M.", text:"Excellent work! Transformed our kitchen.", rating:5},{name:"Mike R.", text:"Professional team, on time and on budget.", rating:5},{name:"Lisa T.", text:"Highly recommend for any painting project.", rating:5}].map((r,i)=>(
+                      <div key={i} className="bg-gray-50 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-semibold text-sm">{r.name}</span>
+                          <span className="text-yellow-500 text-xs">{"★".repeat(r.rating)}</span>
+                        </div>
+                        <p className="text-xs text-gray-600">{r.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Booking Demo */}
+              {widgetsList[selectedWidget].id === "booking" && (
+                <div className="p-4 h-full flex flex-col">
+                  <div className="text-center mb-3">
+                    <div className="text-lg font-bold text-gray-900">Book an Appointment</div>
+                    <div className="text-xs text-gray-500">Select a date and time</div>
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 text-center text-xs mb-3">
+                    {["S","M","T","W","T","F","S"].map((d,i)=><div key={i} className="text-gray-400">{d}</div>)}
+                    {[...Array(31)].map((_,i)=><div key={i} className={`p-1 rounded ${i===14?"bg-amber-500 text-white":i>14&&i<18?"bg-amber-100":"hover:bg-gray-100"}`}>{i+1}</div>)}
+                  </div>
+                  <div className="flex gap-2 flex-wrap mb-3">
+                    {["9:00 AM","10:30 AM","2:00 PM","4:30 PM"].map((t,i)=><button key={i} className={`px-3 py-1 rounded text-xs ${i===1?"bg-amber-500 text-white":"border hover:bg-gray-50"}`}>{t}</button>)}
+                  </div>
+                  <button className="w-full bg-amber-500 text-white py-2 rounded-lg text-sm font-semibold mt-auto">Confirm Booking</button>
+                </div>
+              )}
+              {/* Analytics Demo */}
+              {widgetsList[selectedWidget].id === "analytics" && (
+                <div className="p-4 h-full">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="text-lg font-bold text-gray-900">Analytics</div>
+                    <select className="text-xs border rounded px-2 py-1"><option>Last 7 days</option></select>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className="bg-indigo-50 rounded-lg p-2 text-center"><div className="text-lg font-bold text-indigo-600">2,847</div><div className="text-[10px] text-gray-500">Visitors</div></div>
+                    <div className="bg-green-50 rounded-lg p-2 text-center"><div className="text-lg font-bold text-green-600">4.2%</div><div className="text-[10px] text-gray-500">Conv Rate</div></div>
+                    <div className="bg-purple-50 rounded-lg p-2 text-center"><div className="text-lg font-bold text-purple-600">$12.4k</div><div className="text-[10px] text-gray-500">Revenue</div></div>
+                  </div>
+                  <div className="h-24 flex items-end gap-1">
+                    {[40,65,45,80,60,90,75].map((h,i)=><div key={i} className="flex-1 bg-indigo-500 rounded-t" style={{height:`${h}%`}}></div>)}
+                  </div>
+                  <div className="flex justify-between text-[10px] text-gray-400 mt-1">{["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=><span key={d}>{d}</span>)}</div>
+                </div>
+              )}
+              {/* Chat Demo */}
+              {widgetsList[selectedWidget].id === "chat" && (
+                <div className="p-4 h-full flex flex-col">
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b">
+                    <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white text-sm">AI</div>
+                    <div><div className="font-semibold text-sm">Support Chat</div><div className="text-[10px] text-green-500">● Online</div></div>
+                  </div>
+                  <div className="flex-1 space-y-2 overflow-auto">
+                    <div className="flex gap-2"><div className="bg-gray-100 rounded-lg p-2 text-xs max-w-[80%]">Hi! How can I help you today?</div></div>
+                    <div className="flex gap-2 justify-end"><div className="bg-pink-500 text-white rounded-lg p-2 text-xs max-w-[80%]">I need a quote for my project</div></div>
+                    <div className="flex gap-2"><div className="bg-gray-100 rounded-lg p-2 text-xs max-w-[80%]">I'd be happy to help! What type of project are you looking for?</div></div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <input className="flex-1 border rounded-full px-3 py-2 text-xs" placeholder="Type a message..." />
+                    <button className="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm">→</button>
+                  </div>
+                </div>
+              )}
+              {/* CRM Demo */}
+              {widgetsList[selectedWidget].id === "crm" && (
+                <div className="p-4 h-full">
+                  <div className="text-lg font-bold text-gray-900 mb-3">Sales Pipeline</div>
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {[{stage:"Lead",color:"bg-gray-200",items:["ABC Corp","XYZ Inc"]},{stage:"Quoted",color:"bg-amber-100",items:["Smith Home"]},{stage:"Won",color:"bg-green-100",items:["Johnson Proj"]}].map((s,i)=>(
+                      <div key={i} className="min-w-[100px] flex-shrink-0">
+                        <div className={`${s.color} rounded-t-lg px-2 py-1 text-xs font-semibold`}>{s.stage}</div>
+                        <div className="border border-t-0 rounded-b-lg p-1 space-y-1 min-h-[100px]">
+                          {s.items.map((item,j)=><div key={j} className="bg-white border rounded p-1.5 text-[10px] shadow-sm">{item}</div>)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Crew Tracker Demo */}
+              {widgetsList[selectedWidget].id === "crew-tracker" && (
+                <div className="p-4 h-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-bold text-gray-900">Crew Status</div>
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">3 Active</span>
+                  </div>
+                  <div className="space-y-2">
+                    {[{name:"Mike Johnson",status:"On Site",location:"123 Main St",time:"8:32 AM"},{name:"Sarah Williams",status:"In Transit",location:"456 Oak Ave",time:"9:15 AM"},{name:"Tom Brown",status:"On Break",location:"789 Pine Rd",time:"10:00 AM"}].map((c,i)=>(
+                      <div key={i} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
+                        <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs">{c.name.split(" ").map(n=>n[0]).join("")}</div>
+                        <div className="flex-1"><div className="text-sm font-semibold">{c.name}</div><div className="text-[10px] text-gray-500">{c.location}</div></div>
+                        <div className="text-right"><div className={`text-[10px] px-2 py-0.5 rounded-full ${c.status==="On Site"?"bg-green-100 text-green-700":c.status==="In Transit"?"bg-blue-100 text-blue-700":"bg-gray-200 text-gray-600"}`}>{c.status}</div><div className="text-[10px] text-gray-400 mt-0.5">{c.time}</div></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Proposal Demo */}
+              {widgetsList[selectedWidget].id === "proposal" && (
+                <div className="p-4 h-full flex flex-col">
+                  <div className="text-lg font-bold text-gray-900 mb-3">Proposal Builder</div>
+                  <div className="border rounded-lg p-3 mb-3 flex-1">
+                    <div className="flex justify-between text-sm mb-2"><span className="font-semibold">Kitchen Renovation</span><span className="text-purple-600 font-bold">$8,500</span></div>
+                    <div className="space-y-1 text-xs text-gray-600">
+                      <div className="flex justify-between"><span>Cabinet Painting</span><span>$2,500</span></div>
+                      <div className="flex justify-between"><span>Wall Painting</span><span>$1,800</span></div>
+                      <div className="flex justify-between"><span>Ceiling Work</span><span>$1,200</span></div>
+                      <div className="flex justify-between"><span>Materials</span><span>$3,000</span></div>
+                    </div>
+                    <div className="border-t mt-2 pt-2 flex justify-between text-sm font-semibold"><span>Total</span><span>$8,500</span></div>
+                  </div>
+                  <button className="w-full bg-purple-600 text-white py-2 rounded-lg text-sm font-semibold">Send Proposal</button>
+                </div>
+              )}
+              {/* SEO Demo */}
+              {widgetsList[selectedWidget].id === "seo" && (
+                <div className="p-4 h-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-bold text-gray-900">SEO Score</div>
+                    <div className="text-2xl font-bold text-green-600">85<span className="text-sm text-gray-400">/100</span></div>
+                  </div>
+                  <div className="space-y-2">
+                    {[{label:"Meta Tags",score:95,color:"bg-green-500"},{label:"Page Speed",score:78,color:"bg-amber-500"},{label:"Mobile",score:92,color:"bg-green-500"},{label:"Keywords",score:75,color:"bg-amber-500"}].map((s,i)=>(
+                      <div key={i}>
+                        <div className="flex justify-between text-xs mb-1"><span>{s.label}</span><span>{s.score}%</span></div>
+                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className={`h-full ${s.color}`} style={{width:`${s.score}%`}}></div></div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-2 bg-amber-50 rounded-lg text-xs text-amber-700">3 issues found. <span className="underline cursor-pointer">View details</span></div>
+                </div>
+              )}
+              {/* Weather Demo */}
+              {widgetsList[selectedWidget].id === "weather" && (
+                <div className="p-4 h-full">
+                  <div className="text-lg font-bold text-gray-900 mb-3">Weather Schedule</div>
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {[{day:"Mon",icon:"☀️",temp:"72°",status:"Good"},{day:"Tue",icon:"🌤",temp:"68°",status:"Good"},{day:"Wed",icon:"🌧",temp:"55°",status:"Delay"},{day:"Thu",icon:"☀️",temp:"70°",status:"Good"},{day:"Fri",icon:"☀️",temp:"74°",status:"Good"}].map((d,i)=>(
+                      <div key={i} className={`min-w-[60px] text-center p-2 rounded-lg ${d.status==="Delay"?"bg-red-50 border-red-200":"bg-sky-50"} border`}>
+                        <div className="text-xs font-semibold">{d.day}</div>
+                        <div className="text-2xl my-1">{d.icon}</div>
+                        <div className="text-sm font-bold">{d.temp}</div>
+                        <div className={`text-[10px] mt-1 ${d.status==="Delay"?"text-red-600":"text-green-600"}`}>{d.status}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 p-2 bg-sky-50 rounded-lg text-xs text-sky-700">Wednesday rain expected - consider rescheduling outdoor work.</div>
+                </div>
+              )}
             </div>
           </div>
           
