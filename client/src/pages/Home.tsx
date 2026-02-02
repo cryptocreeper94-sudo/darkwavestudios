@@ -40,26 +40,6 @@ import domainImg from "@assets/generated_images/domain_hosting_servers.png";
 import designImg from "@assets/generated_images/design_branding_workspace.png";
 import appDevImg from "@assets/generated_images/app_development_devices.png";
 import maintenanceImg from "@assets/generated_images/maintenance_gears_circuits.png";
-import studioIdeImg from "@/assets/images/studio-ide.png";
-import heroWorkspaceImg from "@/assets/images/hero-workspace.png";
-import trustLayerImg from "@/assets/images/trust-layer.png";
-import projectStrikeImg from "@/assets/images/project-strike.png";
-import projectPulseImg from "@/assets/images/project-pulse.png";
-import projectOrbitImg from "@/assets/images/project-orbit.png";
-import projectOrbyImg from "@/assets/images/project-orby.png";
-import projectPaintImg from "@/assets/images/project-paint.png";
-import projectChainImg from "@/assets/images/project-chain.png";
-import projectLegacyImg from "@/assets/images/project-legacy.png";
-import projectGarageImg from "@/assets/images/project-garage.png";
-import projectCoffeeImg from "@/assets/images/project-coffee.png";
-import projectDarkwaveImg from "@/assets/images/project-darkwave-studios.png";
-import projectTrustLayerImg from "@/assets/images/project-trust-layer.png";
-import projectTrustShieldImg from "@/assets/images/project-trustshield.png";
-import projectLotOpsImg from "@/assets/images/project-lotops.png";
-import projectTradeWorksImg from "@/assets/images/project-tradeworks.png";
-import projectLumeImg from "@/assets/images/project-lume.png";
-import projectHappyEatsImg from "@/assets/images/project-happyeats.png";
-import projectVedaSolusImg from "@/assets/images/project-vedasolus.png";
 import cardStudioIdeImg from "@/assets/images/card-studio-ide.png";
 import cardDevelopersHubImg from "@/assets/images/card-developers-hub.png";
 import cardAuditToolImg from "@/assets/images/card-audit-tool.png";
@@ -1036,7 +1016,7 @@ export default function Home() {
             <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-20"
-                style={{ backgroundImage: `url(${studioIdeImg})` }}
+                style={{ backgroundImage: `url(${cardStudioIdeImg})` }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
               <div className="relative z-10 grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
