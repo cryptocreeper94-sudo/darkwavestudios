@@ -1433,9 +1433,9 @@ export default function TrustLayerHub() {
               <div>
                 <h3 className="font-bold font-display text-lg flex items-center gap-2">
                   <Activity className="w-5 h-5 text-red-500" />
-                  Request Pulse Access
+                  Request Your Bespoke Solution
                 </h3>
-                <p className="text-sm text-muted-foreground">Tell us about your needs for a custom solution</p>
+                <p className="text-sm text-muted-foreground">Handcrafted precision, tailored exclusively to your needs</p>
               </div>
               <button
                 onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
@@ -1448,20 +1448,64 @@ export default function TrustLayerHub() {
             <div className="flex-1 overflow-auto p-4">
               {pulseSubmitted ? (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="w-8 h-8 text-green-500" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/30">
+                    <Check className="w-8 h-8 text-white" />
                   </div>
-                  <h4 className="text-xl font-bold mb-2">Request Submitted!</h4>
-                  <p className="text-muted-foreground mb-6">We'll review your requirements and contact you within 24-48 hours with a custom proposal.</p>
+                  <h4 className="text-2xl font-bold mb-3 bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Your Request Has Been Received</h4>
+                  <div className="max-w-md mx-auto space-y-4">
+                    <p className="text-muted-foreground">
+                      Thank you for choosing a premium, tailor-made solution. Unlike one-size-fits-all products, 
+                      <span className="text-amber-400 font-medium"> every Pulse implementation is handcrafted specifically for you</span>.
+                    </p>
+                    <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-4 text-left">
+                      <h5 className="font-semibold text-amber-400 mb-2 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" /> What Happens Next
+                      </h5>
+                      <ul className="text-sm space-y-2 text-muted-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">1.</span>
+                          <span>Our specialists will <strong className="text-white">carefully analyze your requirements</strong> within 24-48 hours</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">2.</span>
+                          <span>We'll craft a <strong className="text-white">custom proposal and pricing</strong> based on your specific use case</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">3.</span>
+                          <span>Your solution will be <strong className="text-white">built and configured exclusively for your purposes</strong></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="text-xs text-muted-foreground italic">
+                      Like a master luthier crafting a fine acoustic guitar from premium mahogany and rosewood, 
+                      we take the time to build something exceptional - not mass-produced.
+                    </p>
+                  </div>
                   <button
                     onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
-                    className="btn-glow bg-primary text-white px-6 py-2 rounded-lg font-semibold"
+                    className="mt-6 btn-glow bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-lg font-semibold"
                   >
                     Close
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handlePulseSubmit} className="space-y-4">
+                  <div className="bg-gradient-to-r from-amber-500/5 to-orange-500/5 border border-amber-500/20 rounded-xl p-4 mb-2">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-amber-400 mb-1">Why We Do It This Way</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          Pulse is not a cookie-cutter, one-size-fits-all product. Each implementation is 
+                          <strong className="text-white"> precision-crafted for your specific requirements</strong> - 
+                          like a master craftsman building a fine instrument from premium materials. 
+                          Tell us about your needs, and we'll design a solution as unique as your business.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-1">Company Name *</label>
