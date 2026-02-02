@@ -21,7 +21,8 @@ import {
   Menu,
   X,
   Terminal,
-  ExternalLink
+  ExternalLink,
+  Shield
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import {
