@@ -467,10 +467,19 @@ export default function Quote() {
                   <div className="text-xs text-green-400 mt-1">Save ${(traditionalPrice() - calculateTotal()).toLocaleString()} + get ongoing support!</div>
                 </div>
 
+                {(!formData.name || !formData.email) && (
+                  <div className="mb-3 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm text-center">
+                    Please fill in your Name and Email above to get your quote
+                  </div>
+                )}
                 <button
                   onClick={handleSubmit}
                   disabled={!selectedType || !formData.name || !formData.email || loading}
-                  className="btn-glow w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-4 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold transition-all ${
+                    (!formData.name || !formData.email || !selectedType) 
+                      ? "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+                      : "btn-glow bg-primary text-primary-foreground"
+                  }`}
                   data-testid="button-submit-quote"
                 >
                   {loading ? (
