@@ -1,7 +1,10 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema } from "@shared/schema";
+import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
+import { eq, asc, sql } from "drizzle-orm";
+import { db } from "./db";
 import crypto from "crypto";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking, notifyNewPulseRequest } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
@@ -1288,6 +1291,125 @@ Context: ${context || 'General inquiry'}`;
       const limit = parseInt(req.query.limit as string) || 100;
       const logs = await storage.getEcosystemLogs(limit);
       res.json({ success: true, logs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ MARKETING HUB ============
+
+  app.get("/api/marketing/posts", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const posts = await db.select().from(marketingPosts)
+        .where(eq(marketingPosts.tenantId, tenantId));
+      res.json({ success: true, posts });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/marketing/posts", requireAdminAuth, async (req, res) => {
+    try {
+      const validated = insertMarketingPostSchema.parse(req.body);
+      const [post] = await db.insert(marketingPosts)
+        .values(validated)
+        .returning();
+      res.json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/marketing/posts/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await db.delete(marketingPosts).where(eq(marketingPosts.id, req.params.id));
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/images", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const images = await db.select().from(marketingImages)
+        .where(eq(marketingImages.tenantId, tenantId));
+      res.json({ success: true, images });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/integration", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const [integration] = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      res.json(integration || { 
+        facebookConnected: false, 
+        instagramConnected: false, 
+        twitterConnected: false 
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/scheduled", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const posts = await db.select().from(scheduledPosts)
+        .where(eq(scheduledPosts.tenantId, tenantId));
+      res.json({ success: true, posts });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/marketing/post-now", requireAdminAuth, async (req, res) => {
+    try {
+      const { content, platform, imageUrl, tenantId = 'darkwave' } = req.body;
+      const [integration] = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      if (!integration) {
+        return res.json({ success: false, error: 'No social accounts connected' });
+      }
+
+      let result: { success: boolean; externalId?: string; error?: string } = { success: false, error: 'Platform not configured' };
+
+      if (platform === 'facebook' || platform === 'all') {
+        if (integration.facebookConnected && integration.facebookPageId) {
+          result = await postToFacebook(
+            integration.facebookPageId,
+            integration.facebookPageAccessToken!,
+            content,
+            imageUrl
+          );
+        }
+      }
+
+      if (platform === 'x' || platform === 'all') {
+        const twitter = new TwitterConnector();
+        if (twitter.isConfigured()) {
+          const tweetContent = content.length > 280 ? content.substring(0, 277) + '...' : content;
+          result = await twitter.post(tweetContent);
+        }
+      }
+
+      if (platform === 'instagram' || platform === 'all') {
+        if (integration.instagramConnected && integration.instagramAccountId && imageUrl) {
+          result = await postToInstagram(
+            integration.instagramAccountId,
+            integration.facebookPageAccessToken!,
+            content,
+            imageUrl
+          );
+        }
+      }
+
+      res.json(result);
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }

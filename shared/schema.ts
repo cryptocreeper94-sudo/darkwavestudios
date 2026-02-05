@@ -455,3 +455,104 @@ export const insertEcosystemLogSchema = createInsertSchema(ecosystemLogs).omit({
 });
 export type InsertEcosystemLog = z.infer<typeof insertEcosystemLogSchema>;
 export type EcosystemLog = typeof ecosystemLogs.$inferSelect;
+
+// ============ MARKETING HUB ============
+
+// Marketing Posts for content library
+export const marketingPosts = pgTable("marketing_posts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull().default('darkwave'),
+  content: text("content").notNull(),
+  platform: varchar("platform", { length: 20 }).notNull(),
+  hashtags: text("hashtags").array(),
+  imageFilename: varchar("image_filename", { length: 255 }),
+  isActive: boolean("is_active").default(true),
+  usageCount: integer("usage_count").default(0),
+  lastUsedAt: timestamp("last_used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertMarketingPostSchema = createInsertSchema(marketingPosts).omit({
+  id: true,
+  usageCount: true,
+  lastUsedAt: true,
+  createdAt: true,
+});
+export type InsertMarketingPost = z.infer<typeof insertMarketingPostSchema>;
+export type MarketingPost = typeof marketingPosts.$inferSelect;
+
+// Marketing Images library
+export const marketingImages = pgTable("marketing_images", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull().default('darkwave'),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  filePath: varchar("file_path", { length: 500 }).notNull(),
+  category: varchar("category", { length: 50 }),
+  isActive: boolean("is_active").default(true),
+  usageCount: integer("usage_count").default(0),
+  lastUsedAt: timestamp("last_used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertMarketingImageSchema = createInsertSchema(marketingImages).omit({
+  id: true,
+  usageCount: true,
+  lastUsedAt: true,
+  createdAt: true,
+});
+export type InsertMarketingImage = z.infer<typeof insertMarketingImageSchema>;
+export type MarketingImage = typeof marketingImages.$inferSelect;
+
+// Meta (Facebook/Instagram) Integration
+export const metaIntegrations = pgTable("meta_integrations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull().unique(),
+  facebookPageId: varchar("facebook_page_id", { length: 100 }),
+  facebookPageName: varchar("facebook_page_name", { length: 255 }),
+  facebookPageAccessToken: text("facebook_page_access_token"),
+  facebookConnected: boolean("facebook_connected").default(false),
+  instagramAccountId: varchar("instagram_account_id", { length: 100 }),
+  instagramUsername: varchar("instagram_username", { length: 100 }),
+  instagramConnected: boolean("instagram_connected").default(false),
+  twitterApiKey: varchar("twitter_api_key", { length: 255 }),
+  twitterApiSecret: varchar("twitter_api_secret", { length: 255 }),
+  twitterAccessToken: varchar("twitter_access_token", { length: 255 }),
+  twitterAccessTokenSecret: varchar("twitter_access_token_secret", { length: 255 }),
+  twitterUsername: varchar("twitter_username", { length: 100 }),
+  twitterConnected: boolean("twitter_connected").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertMetaIntegrationSchema = createInsertSchema(metaIntegrations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertMetaIntegration = z.infer<typeof insertMetaIntegrationSchema>;
+export type MetaIntegration = typeof metaIntegrations.$inferSelect;
+
+// Scheduled Posts tracking
+export const scheduledPosts = pgTable("scheduled_posts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull(),
+  platform: varchar("platform", { length: 20 }).notNull(),
+  content: text("content").notNull(),
+  imageUrl: varchar("image_url", { length: 500 }),
+  scheduledFor: timestamp("scheduled_for").notNull(),
+  postedAt: timestamp("posted_at"),
+  externalPostId: varchar("external_post_id", { length: 100 }),
+  status: varchar("status", { length: 20 }).default('pending'),
+  error: text("error"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertScheduledPostSchema = createInsertSchema(scheduledPosts).omit({
+  id: true,
+  postedAt: true,
+  externalPostId: true,
+  error: true,
+  createdAt: true,
+});
+export type InsertScheduledPost = z.infer<typeof insertScheduledPostSchema>;
+export type ScheduledPost = typeof scheduledPosts.$inferSelect;

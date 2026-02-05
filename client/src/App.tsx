@@ -31,6 +31,7 @@ import Ecosystem from "@/pages/Ecosystem";
 import NotFound from "@/pages/not-found";
 import WebsiteAudit from "@/pages/WebsiteAudit";
 import Resources from "@/pages/Resources";
+import MarketingHub from "@/pages/MarketingHub";
 
 function Router() {
   return (
@@ -62,6 +63,7 @@ function Router() {
       <Route path="/ecosystem" component={Ecosystem}/>
       <Route path="/audit" component={WebsiteAudit}/>
       <Route path="/resources" component={Resources}/>
+      <Route path="/marketing" component={MarketingHub}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -163,6 +163,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/vedasolus.png",
     url: "https://vedasolus.io",
     category: "health"
+  },
+  {
+    id: "tlid-io",
+    name: "TLId.io",
+    tagline: "Automated Marketing That Works While You Work",
+    description: "TrustLayer Marketing automation platform with Meta Business Suite integration. 17 daily organic posts, smart ad boosting, multi-tenant support.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "/marketing",
+    category: "business"
   }
 ];
 
