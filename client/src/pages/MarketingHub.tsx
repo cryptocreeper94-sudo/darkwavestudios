@@ -355,18 +355,75 @@ export default function MarketingHub() {
               <Megaphone className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h3 className="text-xl font-bold font-display mb-2">Powered by TLId.io</h3>
+              <h3 className="text-xl font-bold font-display mb-2">TLId.io Marketing Suite</h3>
               <p className="text-muted-foreground mb-4">
-                TrustLayer Marketing automates social media posting through Meta Business Suite integration.
-                Hourly organic posts from 6am-10pm CST, smart ad boosting, and real-time analytics.
+                Automated social media posting for your business. Meta Business Suite integration,
+                hourly organic posts from 6am-10pm CST, smart ad boosting, and real-time analytics.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="outline">Meta Integration</Badge>
                 <Badge variant="outline">17 Posts/Day</Badge>
                 <Badge variant="outline">Multi-Tenant</Badge>
-                <Badge variant="outline">Blockchain Verified</Badge>
+                <Badge variant="outline">White-Label Ready</Badge>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold font-display mb-6 text-center">
+            Get TLId.io for <span className="gradient-text">Your Business</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="glass-card border-white/10" data-testid="card-pricing-starter">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-lg font-semibold mb-2">Starter</h3>
+                <p className="text-3xl font-bold mb-1">$99<span className="text-sm text-muted-foreground">/mo</span></p>
+                <p className="text-sm text-muted-foreground mb-4">Perfect for small businesses</p>
+                <ul className="text-sm text-left space-y-2 mb-6">
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> 7 posts per day</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Facebook + Instagram</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Content library</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Basic analytics</li>
+                </ul>
+                <Button variant="outline" className="w-full" data-testid="button-pricing-starter">Get Started</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="glass-card border-primary relative" data-testid="card-pricing-pro">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
+              </div>
+              <CardContent className="p-6 text-center">
+                <h3 className="text-lg font-semibold mb-2">Professional</h3>
+                <p className="text-3xl font-bold mb-1">$249<span className="text-sm text-muted-foreground">/mo</span></p>
+                <p className="text-sm text-muted-foreground mb-4">For growing agencies</p>
+                <ul className="text-sm text-left space-y-2 mb-6">
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> 17 posts per day</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> All platforms</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> AI content generation</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Smart ad boosting</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Priority support</li>
+                </ul>
+                <Button className="w-full" data-testid="button-pricing-pro">Get Started</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="glass-card border-white/10" data-testid="card-pricing-enterprise">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-lg font-semibold mb-2">Enterprise</h3>
+                <p className="text-3xl font-bold mb-1">Custom</p>
+                <p className="text-sm text-muted-foreground mb-4">White-label solution</p>
+                <ul className="text-sm text-left space-y-2 mb-6">
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Unlimited posts</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Your branding</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Multi-tenant for clients</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> API access</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Dedicated support</li>
+                </ul>
+                <Button variant="outline" className="w-full" data-testid="button-pricing-enterprise">Contact Sales</Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
