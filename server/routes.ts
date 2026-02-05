@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
-import { eq, asc, sql } from "drizzle-orm";
+import { eq, asc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
 import crypto from "crypto";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking, notifyNewPulseRequest } from "./sms";
@@ -1359,9 +1359,35 @@ Context: ${context || 'General inquiry'}`;
   app.get("/api/marketing/scheduled", requireAdminAuth, async (req, res) => {
     try {
       const tenantId = (req.query.tenantId as string) || 'darkwave';
-      const posts = await db.select().from(scheduledPosts)
+      const fromDate = req.query.from ? new Date(req.query.from as string) : null;
+      const toDate = req.query.to ? new Date(req.query.to as string) : null;
+      
+      let query = db.select().from(scheduledPosts)
         .where(eq(scheduledPosts.tenantId, tenantId));
-      res.json({ success: true, posts });
+      
+      if (fromDate && toDate) {
+        const posts = await db.select().from(scheduledPosts)
+          .where(and(
+            eq(scheduledPosts.tenantId, tenantId),
+            gte(scheduledPosts.scheduledFor, fromDate),
+            lte(scheduledPosts.scheduledFor, toDate)
+          ));
+        res.json({ success: true, posts });
+      } else if (fromDate) {
+        const endDate = new Date(fromDate);
+        endDate.setDate(endDate.getDate() + 7);
+        const posts = await db.select().from(scheduledPosts)
+          .where(and(
+            eq(scheduledPosts.tenantId, tenantId),
+            gte(scheduledPosts.scheduledFor, fromDate),
+            lte(scheduledPosts.scheduledFor, endDate)
+          ));
+        res.json({ success: true, posts });
+      } else {
+        const posts = await db.select().from(scheduledPosts)
+          .where(eq(scheduledPosts.tenantId, tenantId));
+        res.json({ success: true, posts });
+      }
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }

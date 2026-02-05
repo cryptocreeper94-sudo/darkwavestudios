@@ -59,7 +59,18 @@ interface IntegrationStatus {
   twitterUsername?: string;
 }
 
+interface ScheduledPost {
+  id: string;
+  platform: string;
+  content: string;
+  imageUrl: string | null;
+  scheduledFor: string;
+  status: string;
+  postedAt: string | null;
+}
+
 export default function MarketingHub() {
+  const [activeTab, setActiveTab] = useState<"library" | "calendar" | "analytics">("library");
   const [showNewPost, setShowNewPost] = useState(false);
   const [showAIGenerator, setShowAIGenerator] = useState(false);
   const [showSubscribe, setShowSubscribe] = useState(false);
@@ -72,6 +83,7 @@ export default function MarketingHub() {
   const [subscribeEmail, setSubscribeEmail] = useState("");
   const [subscribeCompany, setSubscribeCompany] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
+  const [calendarWeekOffset, setCalendarWeekOffset] = useState(0);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -202,8 +214,49 @@ export default function MarketingHub() {
     }
   });
 
+  const { data: scheduledData } = useQuery({
+    queryKey: ["/api/marketing/scheduled", calendarWeekOffset],
+    queryFn: async () => {
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() + (calendarWeekOffset * 7));
+      startDate.setHours(0, 0, 0, 0);
+      const res = await fetch(`/api/marketing/scheduled?from=${startDate.toISOString()}`, {
+        headers: { "X-Admin-Key": ADMIN_KEY }
+      });
+      return res.json();
+    }
+  });
+
   const posts: MarketingPost[] = postsData?.posts || [];
+  const scheduledPosts: ScheduledPost[] = scheduledData?.posts || [];
   const analytics = analyticsData?.totals || { impressions: 0, reach: 0, likes: 0, comments: 0, shares: 0, clicks: 0 };
+
+  const getWeekDays = () => {
+    const days: Date[] = [];
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + (calendarWeekOffset * 7));
+    const dayOfWeek = startDate.getDay();
+    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    startDate.setDate(startDate.getDate() + mondayOffset);
+    
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startDate);
+      day.setDate(startDate.getDate() + i);
+      days.push(day);
+    }
+    return days;
+  };
+
+  const getPostsForDay = (day: Date) => {
+    return scheduledPosts.filter(p => {
+      const postDate = new Date(p.scheduledFor);
+      return postDate.toDateString() === day.toDateString();
+    });
+  };
+
+  const formatTime = (dateStr: string) => {
+    return new Date(dateStr).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  };
 
   const handleCreatePost = () => {
     if (!newContent.trim()) return;
@@ -403,6 +456,103 @@ export default function MarketingHub() {
           </Card>
         </div>
 
+        <div className="flex gap-2 mb-6 border-b border-white/10 pb-4">
+          <Button 
+            variant={activeTab === "library" ? "default" : "ghost"}
+            onClick={() => setActiveTab("library")}
+            className="gap-2"
+            data-testid="tab-library"
+          >
+            <MessageSquare className="w-4 h-4" />
+            Content Library
+          </Button>
+          <Button 
+            variant={activeTab === "calendar" ? "default" : "ghost"}
+            onClick={() => setActiveTab("calendar")}
+            className="gap-2"
+            data-testid="tab-calendar"
+          >
+            <Calendar className="w-4 h-4" />
+            Content Calendar
+          </Button>
+          <Button 
+            variant={activeTab === "analytics" ? "default" : "ghost"}
+            onClick={() => setActiveTab("analytics")}
+            className="gap-2"
+            data-testid="tab-analytics"
+          >
+            <BarChart3 className="w-4 h-4" />
+            Analytics
+          </Button>
+        </div>
+
+        {activeTab === "calendar" && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCalendarWeekOffset(prev => prev - 1)}
+                  data-testid="button-prev-week"
+                >
+                  Previous Week
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCalendarWeekOffset(0)}
+                  data-testid="button-current-week"
+                >
+                  This Week
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCalendarWeekOffset(prev => prev + 1)}
+                  data-testid="button-next-week"
+                >
+                  Next Week
+                </Button>
+              </div>
+              <Badge variant="outline">{scheduledPosts.length} posts scheduled</Badge>
+            </div>
+            
+            <div className="grid grid-cols-7 gap-2">
+              {getWeekDays().map((day, i) => (
+                <div key={i} className="min-h-[200px]">
+                  <div className={`text-center py-2 mb-2 rounded-t-lg ${day.toDateString() === new Date().toDateString() ? 'bg-primary/20 border border-primary/50' : 'bg-white/5'}`}>
+                    <p className="text-xs text-muted-foreground">{day.toLocaleDateString('en-US', { weekday: 'short' })}</p>
+                    <p className="text-lg font-bold">{day.getDate()}</p>
+                  </div>
+                  <div className="space-y-1">
+                    {getPostsForDay(day).map((post, j) => (
+                      <div 
+                        key={post.id} 
+                        className={`p-2 rounded text-xs ${
+                          post.status === 'posted' ? 'bg-green-500/20 border-l-2 border-green-500' :
+                          post.status === 'failed' ? 'bg-red-500/20 border-l-2 border-red-500' :
+                          'bg-white/5 border-l-2 border-primary'
+                        }`}
+                        data-testid={`scheduled-post-${post.id}`}
+                      >
+                        <div className="flex items-center gap-1 mb-1">
+                          {post.platform === 'facebook' && <Facebook className="w-3 h-3" />}
+                          {post.platform === 'instagram' && <Instagram className="w-3 h-3" />}
+                          {post.platform === 'x' && <span className="text-xs font-bold">𝕏</span>}
+                          <span className="text-muted-foreground">{formatTime(post.scheduledFor)}</span>
+                        </div>
+                        <p className="line-clamp-2">{post.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "library" && (
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold font-display flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-primary" />
@@ -419,68 +569,159 @@ export default function MarketingHub() {
             </Button>
           </div>
         </div>
+        )}
 
-        {postsLoading ? (
-          <div className="text-center py-12 text-muted-foreground" data-testid="text-loading">Loading...</div>
-        ) : posts.length === 0 ? (
-          <Card className="glass-card border-white/10">
-            <CardContent className="py-12 text-center">
-              <MessageSquare className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2" data-testid="text-empty-state">No content yet</h3>
-              <p className="text-muted-foreground mb-4">Add your first marketing post to get started</p>
-              <Button onClick={() => setShowNewPost(true)} className="gap-2" data-testid="button-add-first-content">
-                <Plus className="w-4 h-4" />
-                Add Content
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {posts.map((post) => (
-              <Card key={post.id} className="glass-card border-white/10" data-testid={`card-post-${post.id}`}>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <Badge variant="outline" className="text-xs">
-                      {post.platform === "all" ? "All Platforms" : post.platform}
-                    </Badge>
-                    <div className="flex gap-1">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => postNowMutation.mutate({ content: post.content, platform: post.platform })}
-                        disabled={postNowMutation.isPending}
-                        data-testid={`post-now-${post.id}`}
-                      >
-                        <Send className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-red-400 hover:text-red-300"
-                        onClick={() => deletePostMutation.mutate(post.id)}
-                        data-testid={`delete-post-${post.id}`}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  <p className="text-sm mb-3 line-clamp-4" data-testid={`text-post-content-${post.id}`}>{post.content}</p>
-                  {post.hashtags && post.hashtags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {post.hashtags.map((tag, i) => (
-                        <span key={i} className="text-xs text-primary">#{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>Used {post.usageCount}x</span>
-                    {post.lastUsedAt && (
-                      <span>Last: {new Date(post.lastUsedAt).toLocaleDateString()}</span>
-                    )}
-                  </div>
+        {activeTab === "library" && (
+          <>
+            {postsLoading ? (
+              <div className="text-center py-12 text-muted-foreground" data-testid="text-loading">Loading...</div>
+            ) : posts.length === 0 ? (
+              <Card className="glass-card border-white/10">
+                <CardContent className="py-12 text-center">
+                  <MessageSquare className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2" data-testid="text-empty-state">No content yet</h3>
+                  <p className="text-muted-foreground mb-4">Add your first marketing post to get started</p>
+                  <Button onClick={() => setShowNewPost(true)} className="gap-2" data-testid="button-add-first-content">
+                    <Plus className="w-4 h-4" />
+                    Add Content
+                  </Button>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {posts.map((post) => (
+                  <Card key={post.id} className="glass-card border-white/10" data-testid={`card-post-${post.id}`}>
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <Badge variant="outline" className="text-xs">
+                          {post.platform === "all" ? "All Platforms" : post.platform}
+                        </Badge>
+                        <div className="flex gap-1">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => postNowMutation.mutate({ content: post.content, platform: post.platform })}
+                            disabled={postNowMutation.isPending}
+                            data-testid={`post-now-${post.id}`}
+                          >
+                            <Send className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-red-400 hover:text-red-300"
+                            onClick={() => deletePostMutation.mutate(post.id)}
+                            data-testid={`delete-post-${post.id}`}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                      <p className="text-sm mb-3 line-clamp-4" data-testid={`text-post-content-${post.id}`}>{post.content}</p>
+                      {post.hashtags && post.hashtags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {post.hashtags.map((tag, i) => (
+                            <span key={i} className="text-xs text-primary">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>Used {post.usageCount}x</span>
+                        {post.lastUsedAt && (
+                          <span>Last: {new Date(post.lastUsedAt).toLocaleDateString()}</span>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab === "analytics" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-impressions">
+                <CardContent className="p-4 text-center">
+                  <Eye className="w-8 h-8 mx-auto text-blue-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.impressions.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Impressions</p>
+                </CardContent>
+              </Card>
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-reach">
+                <CardContent className="p-4 text-center">
+                  <TrendingUp className="w-8 h-8 mx-auto text-green-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.reach.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Reach</p>
+                </CardContent>
+              </Card>
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-likes">
+                <CardContent className="p-4 text-center">
+                  <Heart className="w-8 h-8 mx-auto text-red-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.likes.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Likes</p>
+                </CardContent>
+              </Card>
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-comments">
+                <CardContent className="p-4 text-center">
+                  <MessageSquare className="w-8 h-8 mx-auto text-yellow-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.comments.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Comments</p>
+                </CardContent>
+              </Card>
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-shares">
+                <CardContent className="p-4 text-center">
+                  <Share2 className="w-8 h-8 mx-auto text-purple-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.shares.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Shares</p>
+                </CardContent>
+              </Card>
+              <Card className="glass-card border-white/10" data-testid="card-analytics-full-clicks">
+                <CardContent className="p-4 text-center">
+                  <MousePointer className="w-8 h-8 mx-auto text-cyan-400 mb-2" />
+                  <p className="text-3xl font-bold">{analytics.clicks.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Total Clicks</p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="glass-card border-white/10">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  Performance Summary
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Engagement Rate</span>
+                    <span className="font-bold text-green-400">
+                      {analytics.impressions > 0 
+                        ? ((analytics.likes + analytics.comments + analytics.shares) / analytics.impressions * 100).toFixed(2)
+                        : 0}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Click-Through Rate</span>
+                    <span className="font-bold text-blue-400">
+                      {analytics.impressions > 0 
+                        ? (analytics.clicks / analytics.impressions * 100).toFixed(2)
+                        : 0}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Content Library Size</span>
+                    <span className="font-bold">{posts.length} posts</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Scheduled This Week</span>
+                    <span className="font-bold">{scheduledPosts.length} posts</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
