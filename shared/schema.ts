@@ -556,3 +556,60 @@ export const insertScheduledPostSchema = createInsertSchema(scheduledPosts).omit
 });
 export type InsertScheduledPost = z.infer<typeof insertScheduledPostSchema>;
 export type ScheduledPost = typeof scheduledPosts.$inferSelect;
+
+// Marketing Suite Subscriptions
+export const marketingSubscriptions = pgTable("marketing_subscriptions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull().unique(),
+  email: varchar("email", { length: 255 }).notNull(),
+  companyName: varchar("company_name", { length: 255 }),
+  plan: varchar("plan", { length: 20 }).notNull(), // starter, professional, enterprise
+  status: varchar("status", { length: 20 }).default('active'), // active, cancelled, past_due
+  stripeCustomerId: varchar("stripe_customer_id", { length: 100 }),
+  stripeSubscriptionId: varchar("stripe_subscription_id", { length: 100 }),
+  postsPerDay: integer("posts_per_day").default(7),
+  platforms: text("platforms").array().default(sql`ARRAY['facebook', 'instagram']`),
+  aiContentEnabled: boolean("ai_content_enabled").default(false),
+  adBoostingEnabled: boolean("ad_boosting_enabled").default(false),
+  currentPeriodStart: timestamp("current_period_start"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertMarketingSubscriptionSchema = createInsertSchema(marketingSubscriptions).omit({
+  id: true,
+  status: true,
+  stripeCustomerId: true,
+  stripeSubscriptionId: true,
+  currentPeriodStart: true,
+  currentPeriodEnd: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertMarketingSubscription = z.infer<typeof insertMarketingSubscriptionSchema>;
+export type MarketingSubscription = typeof marketingSubscriptions.$inferSelect;
+
+// Post Analytics
+export const postAnalytics = pgTable("post_analytics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tenantId: varchar("tenant_id", { length: 50 }).notNull(),
+  postId: varchar("post_id", { length: 100 }),
+  platform: varchar("platform", { length: 20 }).notNull(),
+  externalPostId: varchar("external_post_id", { length: 100 }),
+  impressions: integer("impressions").default(0),
+  reach: integer("reach").default(0),
+  likes: integer("likes").default(0),
+  comments: integer("comments").default(0),
+  shares: integer("shares").default(0),
+  clicks: integer("clicks").default(0),
+  engagementRate: decimal("engagement_rate", { precision: 5, scale: 2 }),
+  recordedAt: timestamp("recorded_at").defaultNow(),
+});
+
+export const insertPostAnalyticsSchema = createInsertSchema(postAnalytics).omit({
+  id: true,
+  recordedAt: true,
+});
+export type InsertPostAnalytics = z.infer<typeof insertPostAnalyticsSchema>;
+export type PostAnalytics = typeof postAnalytics.$inferSelect;

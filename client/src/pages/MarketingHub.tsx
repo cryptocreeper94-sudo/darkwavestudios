@@ -17,7 +17,13 @@ import {
   Image as ImageIcon,
   MessageSquare,
   Settings,
-  Zap
+  Zap,
+  Sparkles,
+  TrendingUp,
+  Eye,
+  Heart,
+  Share2,
+  MousePointer
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,9 +61,17 @@ interface IntegrationStatus {
 
 export default function MarketingHub() {
   const [showNewPost, setShowNewPost] = useState(false);
+  const [showAIGenerator, setShowAIGenerator] = useState(false);
+  const [showSubscribe, setShowSubscribe] = useState(false);
   const [newContent, setNewContent] = useState("");
   const [newPlatform, setNewPlatform] = useState("all");
   const [newHashtags, setNewHashtags] = useState("");
+  const [aiTopic, setAiTopic] = useState("");
+  const [aiTone, setAiTone] = useState("professional");
+  const [generatedPosts, setGeneratedPosts] = useState<Array<{ content: string; hashtags: string[] }>>([]);
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [subscribeCompany, setSubscribeCompany] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -138,12 +152,82 @@ export default function MarketingHub() {
     }
   });
 
+  const generateAIMutation = useMutation({
+    mutationFn: async (data: { topic: string; tone: string }) => {
+      const res = await fetch("/api/marketing/generate-content", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "X-Admin-Key": ADMIN_KEY 
+        },
+        body: JSON.stringify({ ...data, count: 3 })
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.success && data.posts) {
+        setGeneratedPosts(data.posts);
+        toast({ title: "Content generated!", description: `${data.posts.length} posts created` });
+      } else {
+        toast({ title: "Generation failed", description: data.error, variant: "destructive" });
+      }
+    }
+  });
+
+  const subscribeMutation = useMutation({
+    mutationFn: async (data: { plan: string; email: string; companyName: string }) => {
+      const res = await fetch("/api/marketing/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        toast({ title: "Checkout failed", description: data.error, variant: "destructive" });
+      }
+    }
+  });
+
+  const { data: analyticsData } = useQuery({
+    queryKey: ["/api/marketing/analytics"],
+    queryFn: async () => {
+      const res = await fetch("/api/marketing/analytics", {
+        headers: { "X-Admin-Key": ADMIN_KEY }
+      });
+      return res.json();
+    }
+  });
+
   const posts: MarketingPost[] = postsData?.posts || [];
+  const analytics = analyticsData?.totals || { impressions: 0, reach: 0, likes: 0, comments: 0, shares: 0, clicks: 0 };
 
   const handleCreatePost = () => {
     if (!newContent.trim()) return;
     const hashtags = newHashtags.split(",").map(t => t.trim()).filter(Boolean);
     createPostMutation.mutate({ content: newContent, platform: newPlatform, hashtags });
+  };
+
+  const handleGenerateAI = () => {
+    if (!aiTopic.trim()) return;
+    generateAIMutation.mutate({ topic: aiTopic, tone: aiTone });
+  };
+
+  const handleAddGeneratedPost = (post: { content: string; hashtags: string[] }) => {
+    createPostMutation.mutate({ content: post.content, platform: "all", hashtags: post.hashtags });
+  };
+
+  const handleSubscribe = (plan: string) => {
+    setSelectedPlan(plan);
+    setShowSubscribe(true);
+  };
+
+  const handleCheckout = () => {
+    if (!subscribeEmail.trim()) return;
+    subscribeMutation.mutate({ plan: selectedPlan, email: subscribeEmail, companyName: subscribeCompany });
   };
 
   return (
@@ -274,15 +358,66 @@ export default function MarketingHub() {
           </Card>
         </div>
 
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+          <Card className="glass-card border-white/10" data-testid="card-analytics-impressions">
+            <CardContent className="p-4 text-center">
+              <Eye className="w-6 h-6 mx-auto text-blue-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.impressions.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Impressions</p>
+            </CardContent>
+          </Card>
+          <Card className="glass-card border-white/10" data-testid="card-analytics-reach">
+            <CardContent className="p-4 text-center">
+              <TrendingUp className="w-6 h-6 mx-auto text-green-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.reach.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Reach</p>
+            </CardContent>
+          </Card>
+          <Card className="glass-card border-white/10" data-testid="card-analytics-likes">
+            <CardContent className="p-4 text-center">
+              <Heart className="w-6 h-6 mx-auto text-red-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.likes.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Likes</p>
+            </CardContent>
+          </Card>
+          <Card className="glass-card border-white/10" data-testid="card-analytics-comments">
+            <CardContent className="p-4 text-center">
+              <MessageSquare className="w-6 h-6 mx-auto text-yellow-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.comments.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Comments</p>
+            </CardContent>
+          </Card>
+          <Card className="glass-card border-white/10" data-testid="card-analytics-shares">
+            <CardContent className="p-4 text-center">
+              <Share2 className="w-6 h-6 mx-auto text-purple-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.shares.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Shares</p>
+            </CardContent>
+          </Card>
+          <Card className="glass-card border-white/10" data-testid="card-analytics-clicks">
+            <CardContent className="p-4 text-center">
+              <MousePointer className="w-6 h-6 mx-auto text-cyan-400 mb-2" />
+              <p className="text-2xl font-bold">{analytics.clicks.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Clicks</p>
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold font-display flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-primary" />
             Content Library
           </h2>
-          <Button onClick={() => setShowNewPost(true)} className="gap-2" data-testid="button-add-content">
-            <Plus className="w-4 h-4" />
-            Add Content
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={() => setShowAIGenerator(true)} variant="outline" className="gap-2" data-testid="button-ai-generate">
+              <Sparkles className="w-4 h-4" />
+              AI Generate
+            </Button>
+            <Button onClick={() => setShowNewPost(true)} className="gap-2" data-testid="button-add-content">
+              <Plus className="w-4 h-4" />
+              Add Content
+            </Button>
+          </div>
         </div>
 
         {postsLoading ? (
@@ -386,7 +521,7 @@ export default function MarketingHub() {
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Content library</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Basic analytics</li>
                 </ul>
-                <Button variant="outline" className="w-full" data-testid="button-pricing-starter">Get Started</Button>
+                <Button variant="outline" className="w-full" onClick={() => handleSubscribe("starter")} data-testid="button-pricing-starter">Get Started</Button>
               </CardContent>
             </Card>
 
@@ -405,23 +540,23 @@ export default function MarketingHub() {
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Smart ad boosting</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Priority support</li>
                 </ul>
-                <Button className="w-full" data-testid="button-pricing-pro">Get Started</Button>
+                <Button className="w-full" onClick={() => handleSubscribe("professional")} data-testid="button-pricing-pro">Get Started</Button>
               </CardContent>
             </Card>
 
             <Card className="glass-card border-white/10" data-testid="card-pricing-enterprise">
               <CardContent className="p-6 text-center">
                 <h3 className="text-lg font-semibold mb-2">Enterprise</h3>
-                <p className="text-3xl font-bold mb-1">Custom</p>
+                <p className="text-3xl font-bold mb-1">$499<span className="text-sm text-muted-foreground">/mo</span></p>
                 <p className="text-sm text-muted-foreground mb-4">White-label solution</p>
                 <ul className="text-sm text-left space-y-2 mb-6">
-                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Unlimited posts</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> 50 posts per day</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Your branding</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Multi-tenant for clients</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> API access</li>
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Dedicated support</li>
                 </ul>
-                <Button variant="outline" className="w-full" data-testid="button-pricing-enterprise">Contact Sales</Button>
+                <Button variant="outline" className="w-full" onClick={() => handleSubscribe("enterprise")} data-testid="button-pricing-enterprise">Get Started</Button>
               </CardContent>
             </Card>
           </div>
@@ -476,6 +611,121 @@ export default function MarketingHub() {
               data-testid="button-create-post"
             >
               Add to Library
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showAIGenerator} onOpenChange={setShowAIGenerator}>
+        <DialogContent className="glass-card border-white/10 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-primary" />
+              AI Content Generator
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Topic / Theme</label>
+              <Input 
+                value={aiTopic}
+                onChange={(e) => setAiTopic(e.target.value)}
+                placeholder="e.g., web development services, custom software, digital transformation"
+                data-testid="input-ai-topic"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Tone</label>
+              <Select value={aiTone} onValueChange={setAiTone}>
+                <SelectTrigger data-testid="select-ai-tone">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="professional">Professional</SelectItem>
+                  <SelectItem value="conversational">Conversational</SelectItem>
+                  <SelectItem value="technical">Technical</SelectItem>
+                  <SelectItem value="persuasive">Persuasive</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button 
+              onClick={handleGenerateAI} 
+              disabled={!aiTopic.trim() || generateAIMutation.isPending}
+              className="w-full gap-2"
+              data-testid="button-generate-ai"
+            >
+              <Sparkles className="w-4 h-4" />
+              {generateAIMutation.isPending ? "Generating..." : "Generate 3 Posts"}
+            </Button>
+            
+            {generatedPosts.length > 0 && (
+              <div className="space-y-3 mt-4">
+                <h4 className="text-sm font-medium">Generated Posts</h4>
+                {generatedPosts.map((post, i) => (
+                  <Card key={i} className="glass-card border-white/10">
+                    <CardContent className="p-3">
+                      <p className="text-sm mb-2">{post.content}</p>
+                      {post.hashtags?.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {post.hashtags.map((tag, j) => (
+                            <span key={j} className="text-xs text-primary">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleAddGeneratedPost(post)}
+                        data-testid={`button-add-generated-${i}`}
+                      >
+                        <Plus className="w-3 h-3 mr-1" /> Add to Library
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setShowAIGenerator(false); setGeneratedPosts([]); }}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showSubscribe} onOpenChange={setShowSubscribe}>
+        <DialogContent className="glass-card border-white/10">
+          <DialogHeader>
+            <DialogTitle>Subscribe to TLId.io {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Email</label>
+              <Input 
+                type="email"
+                value={subscribeEmail}
+                onChange={(e) => setSubscribeEmail(e.target.value)}
+                placeholder="your@email.com"
+                data-testid="input-subscribe-email"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Company Name (Optional)</label>
+              <Input 
+                value={subscribeCompany}
+                onChange={(e) => setSubscribeCompany(e.target.value)}
+                placeholder="Your Company"
+                data-testid="input-subscribe-company"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowSubscribe(false)}>Cancel</Button>
+            <Button 
+              onClick={handleCheckout} 
+              disabled={!subscribeEmail.trim() || subscribeMutation.isPending}
+              data-testid="button-checkout"
+            >
+              {subscribeMutation.isPending ? "Loading..." : "Continue to Payment"}
             </Button>
           </DialogFooter>
         </DialogContent>

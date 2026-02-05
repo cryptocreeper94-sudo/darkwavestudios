@@ -7,6 +7,7 @@ import { getStripeSync } from './stripeClient';
 import { WebhookHandlers } from './webhookHandlers';
 import { seedSnippets } from './seedSnippets';
 import { seedBlog } from './seedBlog';
+import { startMarketingScheduler } from './marketing-scheduler';
 
 const app = express();
 const httpServer = createServer(app);
@@ -180,6 +181,7 @@ app.use((req, res, next) => {
     },
     () => {
       log(`serving on port ${port}`);
+      startMarketingScheduler();
     },
   );
 })();

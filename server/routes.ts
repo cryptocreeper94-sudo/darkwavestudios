@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
 import { eq, asc, sql } from "drizzle-orm";
 import { db } from "./db";
@@ -1410,6 +1410,137 @@ Context: ${context || 'General inquiry'}`;
       }
 
       res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Marketing Suite Subscription Checkout
+  app.post("/api/marketing/subscribe", async (req, res) => {
+    try {
+      const { plan, email, companyName } = req.body;
+      
+      if (!plan || !email) {
+        return res.status(400).json({ success: false, error: "Plan and email required" });
+      }
+
+      const priceMap: Record<string, { amount: number; postsPerDay: number; aiEnabled: boolean; adBoost: boolean }> = {
+        starter: { amount: 9900, postsPerDay: 7, aiEnabled: false, adBoost: false },
+        professional: { amount: 24900, postsPerDay: 17, aiEnabled: true, adBoost: true },
+        enterprise: { amount: 49900, postsPerDay: 50, aiEnabled: true, adBoost: true }
+      };
+
+      const planConfig = priceMap[plan];
+      if (!planConfig) {
+        return res.status(400).json({ success: false, error: "Invalid plan" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system unavailable" });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "subscription",
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            recurring: { interval: "month" },
+            product_data: {
+              name: `TLId.io Marketing Suite - ${plan.charAt(0).toUpperCase() + plan.slice(1)}`,
+              description: `${planConfig.postsPerDay} posts/day, ${planConfig.aiEnabled ? 'AI content, ' : ''}${planConfig.adBoost ? 'ad boosting' : 'basic features'}`
+            },
+            unit_amount: planConfig.amount
+          },
+          quantity: 1
+        }],
+        customer_email: email,
+        metadata: { plan, companyName: companyName || '', productType: 'marketing_suite' },
+        success_url: `${req.headers.origin}/marketing?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/marketing?cancelled=true`
+      });
+
+      res.json({ success: true, sessionId: session.id, url: session.url });
+    } catch (error: any) {
+      console.error("Marketing subscription error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get subscription status
+  app.get("/api/marketing/subscription", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const [subscription] = await db.select().from(marketingSubscriptions)
+        .where(eq(marketingSubscriptions.tenantId, tenantId));
+      res.json(subscription || null);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // AI Content Generation
+  app.post("/api/marketing/generate-content", requireAdminAuth, async (req, res) => {
+    try {
+      const { topic, tone = 'professional', platform = 'all', count = 3 } = req.body;
+      
+      if (!topic) {
+        return res.status(400).json({ success: false, error: "Topic required" });
+      }
+
+      const OpenAI = (await import("openai")).default;
+      const openai = new OpenAI();
+
+      const platformGuidelines = {
+        facebook: "2,200 chars max, engaging, can be longer form",
+        instagram: "2,200 chars max, visual-focused, use emojis sparingly, hashtag-friendly",
+        x: "280 chars max, punchy and concise, trending hashtags",
+        all: "Universal post, 280 chars to work on all platforms"
+      };
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are a social media marketing expert. Generate engaging posts for businesses. 
+            Tone: ${tone}. Platform: ${platform}. Guidelines: ${platformGuidelines[platform as keyof typeof platformGuidelines] || platformGuidelines.all}
+            Return JSON array of posts with fields: content, hashtags (array), platform`
+          },
+          {
+            role: "user",
+            content: `Generate ${count} unique marketing posts about: ${topic}`
+          }
+        ],
+        response_format: { type: "json_object" }
+      });
+
+      const generated = JSON.parse(response.choices[0].message.content || '{"posts":[]}');
+      res.json({ success: true, posts: generated.posts || [] });
+    } catch (error: any) {
+      console.error("AI content generation error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Post Analytics
+  app.get("/api/marketing/analytics", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const analytics = await db.select().from(postAnalytics)
+        .where(eq(postAnalytics.tenantId, tenantId));
+      
+      const totals = analytics.reduce((acc, a) => ({
+        impressions: acc.impressions + (a.impressions || 0),
+        reach: acc.reach + (a.reach || 0),
+        likes: acc.likes + (a.likes || 0),
+        comments: acc.comments + (a.comments || 0),
+        shares: acc.shares + (a.shares || 0),
+        clicks: acc.clicks + (a.clicks || 0)
+      }), { impressions: 0, reach: 0, likes: 0, comments: 0, shares: 0, clicks: 0 });
+
+      res.json({ success: true, analytics, totals, postCount: analytics.length });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }
