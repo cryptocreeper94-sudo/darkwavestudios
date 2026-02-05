@@ -6,12 +6,44 @@ import { TwitterConnector, postToFacebook, postToInstagram } from "./social-conn
 import { eq, asc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
 import crypto from "crypto";
+import path from "path";
+import fs from "fs";
 import { notifyNewLead, notifyNewQuote, notifyNewBooking, notifyNewPulseRequest } from "./sms";
 import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
 import { getOrbitClient, syncPaymentToOrbit } from "./orbitClient";
 import { z } from "zod";
 import OpenAI from "openai";
+import multer from "multer";
 import widgetRoutes from "./widgets/widget-routes";
+
+const uploadDir = "uploads/marketing";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+  }
+});
+
+const imageUpload = multer({
+  storage: imageStorage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.'));
+    }
+  }
+});
 
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "0424";
 
@@ -1341,6 +1373,43 @@ Context: ${context || 'General inquiry'}`;
     }
   });
 
+  app.post("/api/marketing/images", requireAdminAuth, imageUpload.single('image'), async (req: Request, res: Response) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ success: false, error: 'No image uploaded' });
+      }
+      const tenantId = req.body.tenantId || 'darkwave';
+      const category = req.body.category || 'general';
+      
+      const [image] = await db.insert(marketingImages).values({
+        tenantId,
+        filename: req.file.originalname,
+        filePath: `/uploads/marketing/${req.file.filename}`,
+        category,
+      }).returning();
+      
+      res.json({ success: true, image });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/marketing/images/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const [image] = await db.select().from(marketingImages).where(eq(marketingImages.id, req.params.id));
+      if (image && image.filePath) {
+        const fullPath = path.join(process.cwd(), image.filePath.substring(1));
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+      await db.delete(marketingImages).where(eq(marketingImages.id, req.params.id));
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   app.get("/api/marketing/integration", requireAdminAuth, async (req, res) => {
     try {
       const tenantId = (req.query.tenantId as string) || 'darkwave';
@@ -1351,6 +1420,168 @@ Context: ${context || 'General inquiry'}`;
         instagramConnected: false, 
         twitterConnected: false 
       });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  const oauthStateStore = new Map<string, { tenantId: string; createdAt: number }>();
+
+  app.get("/api/marketing/meta/auth", requireAdminAuth, (req, res) => {
+    const clientId = process.env.META_APP_ID;
+    const redirectUri = `${req.protocol}://${req.get('host')}/api/marketing/meta/callback`;
+    const tenantId = (req.query.tenantId as string) || 'darkwave';
+    
+    const nonce = crypto.randomBytes(16).toString('hex');
+    oauthStateStore.set(nonce, { tenantId, createdAt: Date.now() });
+    
+    setTimeout(() => oauthStateStore.delete(nonce), 10 * 60 * 1000);
+    
+    if (!clientId) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Meta App ID not configured. Please add META_APP_ID and META_APP_SECRET to your environment variables.' 
+      });
+    }
+    
+    const scopes = [
+      'pages_show_list',
+      'pages_read_engagement',
+      'pages_manage_posts',
+      'instagram_basic',
+      'instagram_content_publish'
+    ].join(',');
+    
+    const authUrl = `https://www.facebook.com/v21.0/dialog/oauth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&state=${nonce}&response_type=code`;
+    
+    res.json({ success: true, authUrl });
+  });
+
+  app.get("/api/marketing/meta/callback", async (req, res) => {
+    try {
+      const { code, state, error, error_description } = req.query as any;
+      
+      if (error) {
+        return res.redirect(`/marketing?error=${encodeURIComponent(error_description || error)}`);
+      }
+      
+      const storedState = oauthStateStore.get(state);
+      if (!storedState) {
+        return res.redirect('/marketing?error=Invalid+or+expired+OAuth+state');
+      }
+      oauthStateStore.delete(state);
+      
+      const tenantId = storedState.tenantId;
+      
+      const clientId = process.env.META_APP_ID;
+      const clientSecret = process.env.META_APP_SECRET;
+      const redirectUri = `${req.protocol}://${req.get('host')}/api/marketing/meta/callback`;
+      
+      if (!clientId || !clientSecret) {
+        return res.redirect('/marketing?error=Meta+credentials+not+configured');
+      }
+      
+      const tokenResponse = await fetch(
+        `https://graph.facebook.com/v21.0/oauth/access_token?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&client_secret=${clientSecret}&code=${code}`
+      );
+      const tokenData = await tokenResponse.json() as any;
+      
+      if (tokenData.error) {
+        return res.redirect(`/marketing?error=${encodeURIComponent(tokenData.error.message)}`);
+      }
+      
+      const userAccessToken = tokenData.access_token;
+      
+      const pagesResponse = await fetch(
+        `https://graph.facebook.com/v21.0/me/accounts?access_token=${userAccessToken}`
+      );
+      const pagesData = await pagesResponse.json() as any;
+      
+      if (!pagesData.data || pagesData.data.length === 0) {
+        return res.redirect('/marketing?error=No+Facebook+pages+found');
+      }
+      
+      const page = pagesData.data[0];
+      const pageId = page.id;
+      const pageName = page.name;
+      const pageAccessToken = page.access_token;
+      
+      let instagramAccountId = null;
+      let instagramUsername = null;
+      
+      try {
+        const igResponse = await fetch(
+          `https://graph.facebook.com/v21.0/${pageId}?fields=instagram_business_account&access_token=${pageAccessToken}`
+        );
+        const igData = await igResponse.json() as any;
+        
+        if (igData.instagram_business_account) {
+          instagramAccountId = igData.instagram_business_account.id;
+          
+          const igProfileResponse = await fetch(
+            `https://graph.facebook.com/v21.0/${instagramAccountId}?fields=username&access_token=${pageAccessToken}`
+          );
+          const igProfileData = await igProfileResponse.json() as any;
+          instagramUsername = igProfileData.username;
+        }
+      } catch (e) {
+        console.log('[Meta OAuth] Instagram account lookup failed:', e);
+      }
+      
+      const existing = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      if (existing.length > 0) {
+        await db.update(metaIntegrations)
+          .set({
+            facebookPageId: pageId,
+            facebookPageName: pageName,
+            facebookPageAccessToken: pageAccessToken,
+            facebookConnected: true,
+            instagramAccountId,
+            instagramUsername,
+            instagramConnected: !!instagramAccountId,
+            updatedAt: new Date()
+          })
+          .where(eq(metaIntegrations.tenantId, tenantId));
+      } else {
+        await db.insert(metaIntegrations).values({
+          tenantId,
+          facebookPageId: pageId,
+          facebookPageName: pageName,
+          facebookPageAccessToken: pageAccessToken,
+          facebookConnected: true,
+          instagramAccountId,
+          instagramUsername,
+          instagramConnected: !!instagramAccountId
+        });
+      }
+      
+      res.redirect('/marketing?success=Meta+accounts+connected');
+    } catch (error: any) {
+      console.error('[Meta OAuth] Callback error:', error);
+      res.redirect(`/marketing?error=${encodeURIComponent(error.message)}`);
+    }
+  });
+
+  app.post("/api/marketing/meta/disconnect", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = req.body.tenantId || 'darkwave';
+      
+      await db.update(metaIntegrations)
+        .set({
+          facebookPageId: null,
+          facebookPageName: null,
+          facebookPageAccessToken: null,
+          facebookConnected: false,
+          instagramAccountId: null,
+          instagramUsername: null,
+          instagramConnected: false,
+          updatedAt: new Date()
+        })
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      res.json({ success: true });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }

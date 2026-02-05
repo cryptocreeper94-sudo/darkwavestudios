@@ -69,11 +69,23 @@ interface ScheduledPost {
   postedAt: string | null;
 }
 
+interface MarketingImage {
+  id: string;
+  tenantId: string;
+  filename: string;
+  filePath: string;
+  category: string | null;
+  isActive: boolean;
+  usageCount: number;
+  createdAt: string;
+}
+
 export default function MarketingHub() {
-  const [activeTab, setActiveTab] = useState<"library" | "calendar" | "analytics">("library");
+  const [activeTab, setActiveTab] = useState<"library" | "calendar" | "analytics" | "images">("library");
   const [showNewPost, setShowNewPost] = useState(false);
   const [showAIGenerator, setShowAIGenerator] = useState(false);
   const [showSubscribe, setShowSubscribe] = useState(false);
+  const [showUploadImage, setShowUploadImage] = useState(false);
   const [newContent, setNewContent] = useState("");
   const [newPlatform, setNewPlatform] = useState("all");
   const [newHashtags, setNewHashtags] = useState("");
@@ -84,6 +96,7 @@ export default function MarketingHub() {
   const [subscribeCompany, setSubscribeCompany] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
   const [calendarWeekOffset, setCalendarWeekOffset] = useState(0);
+  const [uploadCategory, setUploadCategory] = useState("general");
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -227,8 +240,53 @@ export default function MarketingHub() {
     }
   });
 
+  const { data: imagesData } = useQuery({
+    queryKey: ["/api/marketing/images"],
+    queryFn: async () => {
+      const res = await fetch("/api/marketing/images", {
+        headers: { "X-Admin-Key": ADMIN_KEY }
+      });
+      return res.json();
+    }
+  });
+
+  const uploadImageMutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const res = await fetch("/api/marketing/images", {
+        method: "POST",
+        headers: { "X-Admin-Key": ADMIN_KEY },
+        body: formData
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        queryClient.invalidateQueries({ queryKey: ["/api/marketing/images"] });
+        setShowUploadImage(false);
+        toast({ title: "Image uploaded", description: "Image added to library" });
+      } else {
+        toast({ title: "Upload failed", description: data.error, variant: "destructive" });
+      }
+    }
+  });
+
+  const deleteImageMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/marketing/images/${id}`, {
+        method: "DELETE",
+        headers: { "X-Admin-Key": ADMIN_KEY }
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/marketing/images"] });
+      toast({ title: "Image deleted" });
+    }
+  });
+
   const posts: MarketingPost[] = postsData?.posts || [];
   const scheduledPosts: ScheduledPost[] = scheduledData?.posts || [];
+  const marketingImages: MarketingImage[] = imagesData?.images || [];
   const analytics = analyticsData?.totals || { impressions: 0, reach: 0, likes: 0, comments: 0, shares: 0, clicks: 0 };
 
   const getWeekDays = () => {
@@ -257,6 +315,40 @@ export default function MarketingHub() {
   const formatTime = (dateStr: string) => {
     return new Date(dateStr).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   };
+
+  const connectMetaMutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch("/api/marketing/meta/auth", {
+        headers: { "X-Admin-Key": ADMIN_KEY }
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.success && data.authUrl) {
+        window.location.href = data.authUrl;
+      } else {
+        toast({ title: "Connection failed", description: data.error, variant: "destructive" });
+      }
+    }
+  });
+
+  const disconnectMetaMutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch("/api/marketing/meta/disconnect", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "X-Admin-Key": ADMIN_KEY 
+        },
+        body: JSON.stringify({ tenantId: "darkwave" })
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/marketing/integration"] });
+      toast({ title: "Disconnected", description: "Meta accounts disconnected" });
+    }
+  });
 
   const handleCreatePost = () => {
     if (!newContent.trim()) return;
@@ -323,7 +415,7 @@ export default function MarketingHub() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-2">
                 {integration?.facebookConnected ? (
                   <>
                     <CheckCircle className="w-5 h-5 text-green-400" />
@@ -337,7 +429,29 @@ export default function MarketingHub() {
                 )}
               </div>
               {integration?.facebookPageName && (
-                <p className="text-xs text-muted-foreground mt-1">{integration.facebookPageName}</p>
+                <p className="text-xs text-muted-foreground mb-2">{integration.facebookPageName}</p>
+              )}
+              {integration?.facebookConnected ? (
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="w-full text-xs"
+                  onClick={() => disconnectMetaMutation.mutate()}
+                  disabled={disconnectMetaMutation.isPending}
+                  data-testid="button-disconnect-meta"
+                >
+                  Disconnect
+                </Button>
+              ) : (
+                <Button 
+                  size="sm" 
+                  className="w-full text-xs"
+                  onClick={() => connectMetaMutation.mutate()}
+                  disabled={connectMetaMutation.isPending}
+                  data-testid="button-connect-meta"
+                >
+                  Connect Meta
+                </Button>
               )}
             </CardContent>
           </Card>
@@ -350,7 +464,7 @@ export default function MarketingHub() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-2">
                 {integration?.instagramConnected ? (
                   <>
                     <CheckCircle className="w-5 h-5 text-green-400" />
@@ -364,7 +478,10 @@ export default function MarketingHub() {
                 )}
               </div>
               {integration?.instagramUsername && (
-                <p className="text-xs text-muted-foreground mt-1">@{integration.instagramUsername}</p>
+                <p className="text-xs text-muted-foreground mb-2">@{integration.instagramUsername}</p>
+              )}
+              {!integration?.instagramConnected && (
+                <p className="text-xs text-muted-foreground italic">Connect via Meta</p>
               )}
             </CardContent>
           </Card>
@@ -483,6 +600,15 @@ export default function MarketingHub() {
           >
             <BarChart3 className="w-4 h-4" />
             Analytics
+          </Button>
+          <Button 
+            variant={activeTab === "images" ? "default" : "ghost"}
+            onClick={() => setActiveTab("images")}
+            className="gap-2"
+            data-testid="tab-images"
+          >
+            <ImageIcon className="w-4 h-4" />
+            Image Library
           </Button>
         </div>
 
@@ -722,6 +848,67 @@ export default function MarketingHub() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {activeTab === "images" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display flex items-center gap-2">
+                <ImageIcon className="w-5 h-5 text-primary" />
+                Image Library
+              </h2>
+              <Button onClick={() => setShowUploadImage(true)} className="gap-2" data-testid="button-upload-image">
+                <Plus className="w-4 h-4" />
+                Upload Image
+              </Button>
+            </div>
+            
+            {marketingImages.length === 0 ? (
+              <Card className="glass-card border-white/10">
+                <CardContent className="py-12 text-center">
+                  <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2" data-testid="text-empty-images">No images yet</h3>
+                  <p className="text-muted-foreground mb-4">Upload images to use in your social media posts</p>
+                  <Button onClick={() => setShowUploadImage(true)} className="gap-2" data-testid="button-upload-first-image">
+                    <Plus className="w-4 h-4" />
+                    Upload Image
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {marketingImages.map((image) => (
+                  <Card key={image.id} className="glass-card border-white/10 overflow-hidden" data-testid={`card-image-${image.id}`}>
+                    <div className="aspect-square relative">
+                      <img 
+                        src={image.filePath} 
+                        alt={image.filename}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end justify-between p-3">
+                        <span className="text-white text-xs truncate flex-1">{image.filename}</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-red-400 hover:text-red-300 h-7 w-7 p-0"
+                          onClick={() => deleteImageMutation.mutate(image.id)}
+                          data-testid={`delete-image-${image.id}`}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    <CardContent className="p-3">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <Badge variant="outline" className="text-xs">{image.category || 'general'}</Badge>
+                        <span>Used {image.usageCount}x</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -969,6 +1156,63 @@ export default function MarketingHub() {
               {subscribeMutation.isPending ? "Loading..." : "Continue to Payment"}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showUploadImage} onOpenChange={setShowUploadImage}>
+        <DialogContent className="glass-card border-white/10">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ImageIcon className="w-5 h-5 text-primary" />
+              Upload Image
+            </DialogTitle>
+          </DialogHeader>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            formData.append('tenantId', 'darkwave');
+            formData.append('category', uploadCategory);
+            uploadImageMutation.mutate(formData);
+          }}>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">Select Image</label>
+                <Input 
+                  type="file"
+                  name="image"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                  required
+                  data-testid="input-upload-file"
+                />
+                <p className="text-xs text-muted-foreground mt-1">Max 5MB. JPEG, PNG, GIF, WebP allowed.</p>
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">Category</label>
+                <Select value={uploadCategory} onValueChange={setUploadCategory}>
+                  <SelectTrigger data-testid="select-upload-category">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="general">General</SelectItem>
+                    <SelectItem value="product">Product</SelectItem>
+                    <SelectItem value="team">Team</SelectItem>
+                    <SelectItem value="event">Event</SelectItem>
+                    <SelectItem value="promotion">Promotion</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <DialogFooter className="mt-4">
+              <Button type="button" variant="outline" onClick={() => setShowUploadImage(false)} data-testid="button-cancel-upload">Cancel</Button>
+              <Button 
+                type="submit"
+                disabled={uploadImageMutation.isPending}
+                data-testid="button-submit-upload"
+              >
+                {uploadImageMutation.isPending ? "Uploading..." : "Upload"}
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
 
