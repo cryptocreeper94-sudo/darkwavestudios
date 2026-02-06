@@ -642,6 +642,10 @@ export const chatUsers = pgTable("chat_users", {
   trustLayerId: text("trust_layer_id").unique(),
   isOnline: boolean("is_online").default(false),
   lastSeen: timestamp("last_seen").defaultNow(),
+  adFreeSubscription: boolean("ad_free_subscription").default(false),
+  adFreeExpiresAt: timestamp("ad_free_expires_at"),
+  stripeCustomerId: text("stripe_customer_id"),
+  stripeSubscriptionId: text("stripe_subscription_id"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -651,6 +655,10 @@ export const insertChatUserSchema = createInsertSchema(chatUsers).omit({
   lastSeen: true,
   createdAt: true,
   trustLayerId: true,
+  adFreeSubscription: true,
+  adFreeExpiresAt: true,
+  stripeCustomerId: true,
+  stripeSubscriptionId: true,
 });
 export type InsertChatUser = z.infer<typeof insertChatUserSchema>;
 export type ChatUser = typeof chatUsers.$inferSelect;

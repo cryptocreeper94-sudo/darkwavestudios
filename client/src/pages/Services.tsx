@@ -11,6 +11,8 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
+import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
 import supportImg from "@assets/generated_images/support_headset_desk.png";
 import domainImg from "@assets/generated_images/domain_hosting_servers.png";
@@ -106,6 +108,7 @@ const services = [
 ];
 
 export default function Services() {
+  const { isAdFree, loading: adLoading, startCheckout } = useAdFreeStatus();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
@@ -202,6 +205,10 @@ export default function Services() {
           ))}
         </div>
 
+        <div className="mt-12">
+          <AdUnit slot="4567890123" format="horizontal" isAdFree={isAdFree} loading={adLoading} />
+        </div>
+
         <div className="mt-16 text-center">
           <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border max-w-3xl mx-auto">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
@@ -220,6 +227,10 @@ export default function Services() {
           </div>
         </div>
       </main>
+
+      <div className="max-w-4xl mx-auto px-4 mb-8">
+        <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
+      </div>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">

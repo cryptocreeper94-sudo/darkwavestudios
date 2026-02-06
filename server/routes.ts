@@ -2367,5 +2367,124 @@ Context: ${context || 'General inquiry'}`;
     }
   });
 
+  // =====================================================
+  // Ad-Free Subscription ($5/month)
+  // =====================================================
+
+  app.post("/api/subscription/ad-free/checkout", async (req, res) => {
+    try {
+      const { email, successUrl, cancelUrl } = req.body;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user) {
+        return res.status(404).json({ success: false, error: "No account found with that email. Please create a Trust Layer account first." });
+      }
+
+      if (user.adFreeSubscription && user.adFreeExpiresAt && user.adFreeExpiresAt > new Date()) {
+        return res.status(400).json({ success: false, error: "You already have an active ad-free subscription" });
+      }
+
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "subscription",
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            recurring: { interval: "month" },
+            product_data: {
+              name: "DarkWave Ecosystem - Ad-Free Experience",
+              description: "Remove ads across all DarkWave ecosystem applications. One subscription, ad-free everywhere."
+            },
+            unit_amount: 500
+          },
+          quantity: 1
+        }],
+        customer_email: email,
+        metadata: {
+          type: "ad_free_subscription",
+          userId: user.id,
+          trustLayerId: user.trustLayerId || "",
+          email: email
+        },
+        success_url: successUrl || `${baseUrl}/chat?subscription=success`,
+        cancel_url: cancelUrl || `${baseUrl}/chat?subscription=cancelled`
+      });
+
+      res.json({ success: true, url: session.url, sessionId: session.id });
+    } catch (error: any) {
+      console.error("Ad-free checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/subscription/status", async (req, res) => {
+    try {
+      const email = req.query.email as string;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user) {
+        return res.json({ success: true, adFree: false, reason: "no_account" });
+      }
+
+      const isActive = user.adFreeSubscription && user.adFreeExpiresAt && user.adFreeExpiresAt > new Date();
+
+      res.json({
+        success: true,
+        adFree: !!isActive,
+        expiresAt: user.adFreeExpiresAt || null,
+        trustLayerId: user.trustLayerId || null
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/subscription/cancel", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user || !user.stripeSubscriptionId) {
+        return res.status(404).json({ success: false, error: "No active subscription found" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      await stripe.subscriptions.update(user.stripeSubscriptionId, {
+        cancel_at_period_end: true
+      });
+
+      res.json({ success: true, message: "Subscription will cancel at end of billing period" });
+    } catch (error: any) {
+      console.error("Cancel subscription error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   return httpServer;
 }

@@ -5,6 +5,8 @@ import { Calendar, User, ArrowRight, Tag, Clock, Menu, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
+import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
 
 interface BlogPost {
   id: string;
@@ -25,6 +27,7 @@ export default function Blog() {
   const { data, isLoading } = useQuery<{ posts: BlogPost[] }>({
     queryKey: ["/api/blog?published=true"],
   });
+  const { isAdFree, loading: adLoading, startCheckout } = useAdFreeStatus();
 
   const posts = data?.posts || [];
 
@@ -176,6 +179,10 @@ export default function Blog() {
                 </Card>
               </div>
 
+              <div className="col-span-3 md:col-span-12">
+                <AdUnit slot="3456789012" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-2" />
+              </div>
+
               {recentPosts.map((post, index) => (
                 <Card 
                   key={post.id}
@@ -228,6 +235,10 @@ export default function Blog() {
           )}
         </div>
       </main>
+
+      <div className="max-w-4xl mx-auto px-4 mb-8">
+        <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
+      </div>
 
       <footer className="relative z-10 border-t border-white/10 py-8">
         <div className="container mx-auto px-4 text-center">

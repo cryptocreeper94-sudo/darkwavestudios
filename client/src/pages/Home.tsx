@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
+import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -278,6 +280,7 @@ function AnimatedElement({ children, className, delay = 0 }: { children: React.R
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAdFree, loading: adLoading, startCheckout } = useAdFreeStatus();
 
   const nextProject = () => {
     setCurrentProject((prev) => (prev + 1) % projects.length);
@@ -585,6 +588,8 @@ export default function Home() {
             </AnimatedElement>
           </section>
 
+          <AdUnit slot="1234567890" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-4 lg:my-8" />
+
           {/* STUDIO IDE FEATURED SECTION */}
           <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8">
@@ -818,6 +823,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <AdUnit slot="2345678901" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-4 lg:my-8" />
 
           {/* BENTO GRID SECTION 3: Services + Pricing */}
           <section id="services" className="mb-6 lg:mb-10 scroll-mt-24">
@@ -1135,6 +1142,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
         </main>
 
         <Footer />
