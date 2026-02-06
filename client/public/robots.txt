@@ -23,15 +23,34 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
+User-agent: Yandex
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
 # Disallow admin and private areas
 Disallow: /admin
 Disallow: /analytics
 Disallow: /blog/admin
 Disallow: /documents
+Disallow: /owner
 Disallow: /api/
+
+# Disallow payment result pages
+Disallow: /payment/success
+Disallow: /payment/cancel
 
 # Allow important resources
 Allow: /favicon.png
+Allow: /og-image.png
+Allow: /sitemap.xml
 Allow: /*.js
 Allow: /*.css
 Allow: /*.png

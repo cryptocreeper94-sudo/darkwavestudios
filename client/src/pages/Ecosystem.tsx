@@ -302,7 +302,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 16+ connected applications spanning trading, business operations, trade services, and more."
+        description="Explore the complete DarkWave ecosystem. 18 connected applications across 11 production builds spanning trading, business operations, trade services, gaming, and more. Nearly 2 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff, Shield, Eye, EyeOff, Check, X, LogOut, Mail, User, Lock } from "lucide-react";
 import { Link } from "wouter";
+import { SEOHead } from "@/components/SEOHead";
 
 interface ChatChannel {
   id: string;
@@ -499,6 +500,11 @@ export default function SignalChat() {
 
   return (
     <div className="h-screen bg-[#0a0a1a] flex flex-col">
+      <SEOHead
+        title="Signal Chat - Real-Time Ecosystem Communication"
+        description="Join Signal Chat, the real-time communication platform for the DarkWave ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
+        keywords="Signal Chat, real-time chat, ecosystem communication, Trust Layer SSO, WebSocket messaging, cross-app identity"
+      />
       <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/10">
         <button
           data-testid="button-toggle-sidebar"
