@@ -520,8 +520,9 @@ export async function registerRoutes(
         return res.status(500).json({ success: false, error: "Crypto payments not configured" });
       }
 
-      const { planType, customerName, customerEmail } = validationResult.data;
+      const { planType, customerName, customerEmail, successUrl, cancelUrl } = validationResult.data;
       const plan = SERVICE_PLANS[planType];
+      const baseUrl = successUrl ? new URL(successUrl).origin : `${req.protocol}://${req.get("host")}`;
 
       // Create Coinbase Commerce charge
       const response = await fetch("https://api.commerce.coinbase.com/charges", {
@@ -544,8 +545,8 @@ export async function registerRoutes(
             customer_email: customerEmail,
             plan_type: planType,
           },
-          redirect_url: `${req.headers.origin}/payment/success`,
-          cancel_url: `${req.headers.origin}/payment/cancel`,
+          redirect_url: successUrl || `${baseUrl}/payment/success`,
+          cancel_url: cancelUrl || `${baseUrl}/payment/cancel`,
         }),
       });
 
