@@ -225,7 +225,9 @@ export async function registerRoutes(
   // ============ BOOKINGS ============
   app.post("/api/bookings", async (req, res) => {
     try {
-      const data = insertBookingSchema.parse(req.body);
+      const body = { ...req.body };
+      if (typeof body.date === "string") body.date = new Date(body.date);
+      const data = insertBookingSchema.parse(body);
       const booking = await storage.createBooking(data);
       
       const dateStr = new Date(data.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
