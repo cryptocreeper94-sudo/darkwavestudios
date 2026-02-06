@@ -17,40 +17,56 @@ interface AdUnitProps {
 export function AdUnit({ slot, format = "auto", isAdFree = false, loading = false, className = "" }: AdUnitProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const pushed = useRef(false);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const [adFilled, setAdFilled] = useState(false);
 
   useEffect(() => {
     if (isAdFree || loading || pushed.current) return;
-    if (typeof window.adsbygoogle === 'undefined') return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushed.current = true;
-      setAdLoaded(true);
     } catch (e) {
-      console.log("AdSense not loaded");
+      // AdSense script not loaded yet
     }
   }, [isAdFree, loading]);
 
   useEffect(() => {
-    if (!adRef.current || adLoaded) return;
-    const observer = new MutationObserver(() => {
+    if (!adRef.current) return;
+    const checkFilled = () => {
       const ins = adRef.current?.querySelector('ins');
-      if (ins && ins.getAttribute('data-ad-status') === 'filled') {
-        setAdLoaded(true);
+      if (ins) {
+        const status = ins.getAttribute('data-ad-status');
+        if (status === 'filled') {
+          setAdFilled(true);
+        } else if (status === 'unfilled') {
+          setAdFilled(false);
+        }
+        const height = ins.offsetHeight;
+        if (height > 0) {
+          setAdFilled(true);
+        }
       }
-    });
-    observer.observe(adRef.current, { attributes: true, childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, [adLoaded]);
+    };
+    const observer = new MutationObserver(checkFilled);
+    observer.observe(adRef.current, { attributes: true, childList: true, subtree: true, attributeFilter: ['data-ad-status', 'style'] });
+    const timer = setTimeout(checkFilled, 2000);
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
 
   if (isAdFree || loading) return null;
 
   return (
     <div
-      className={`ad-unit-wrapper overflow-hidden transition-all duration-300 ${className}`}
+      className={`ad-unit-wrapper overflow-hidden ${adFilled ? className : ''}`}
       ref={adRef}
       data-testid="ad-unit"
-      style={{ maxHeight: adLoaded ? '400px' : '0px', opacity: adLoaded ? 1 : 0 }}
+      style={{ 
+        maxHeight: adFilled ? '400px' : '0px', 
+        opacity: adFilled ? 1 : 0,
+        transition: 'max-height 0.3s ease, opacity 0.3s ease',
+      }}
     >
       <ins
         className="adsbygoogle"

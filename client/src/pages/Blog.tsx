@@ -179,9 +179,7 @@ export default function Blog() {
                 </Card>
               </div>
 
-              <div className="col-span-3 md:col-span-12">
-                <AdUnit slot="3456789012" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-2" />
-              </div>
+              <AdUnit slot="3456789012" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="col-span-3 md:col-span-12 my-2" />
 
               {recentPosts.map((post, index) => (
                 <Card 
