@@ -55,16 +55,16 @@ export function AdFreeBanner({ isAdFree = false, loading = false, onUpgrade }: A
 
   return (
     <div
-      className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20"
+      className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 px-4 py-3 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20"
       data-testid="ad-free-banner"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 text-center sm:text-left">
         <span className="text-sm text-muted-foreground">Enjoying DarkWave?</span>
         <span className="text-sm font-semibold text-white">Go Ad-Free for $5/mo</span>
       </div>
       <button
         onClick={onUpgrade}
-        className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-white text-xs font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+        className="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-white text-xs font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
         data-testid="button-go-ad-free"
       >
         Upgrade
