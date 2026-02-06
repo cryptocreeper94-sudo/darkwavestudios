@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff } from "lucide-react";
+import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff, Shield, Eye, EyeOff, Check, X, LogOut, Mail, User, Lock } from "lucide-react";
 import { Link } from "wouter";
 
 interface ChatChannel {
@@ -27,14 +27,48 @@ interface ChatUser {
   id: string;
   username: string;
   displayName: string;
+  email: string;
   avatarColor: string;
   role: string;
+  trustLayerId: string | null;
+}
+
+function PasswordRequirements({ password }: { password: string }) {
+  const hasMinLength = password.length >= 8;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+  if (!password) return null;
+
+  return (
+    <div className="mt-2 space-y-1">
+      <div className="flex items-center gap-2 text-xs" data-testid="password-req-length">
+        {hasMinLength ? <Check className="w-3 h-3 text-green-400" /> : <X className="w-3 h-3 text-red-400" />}
+        <span className={hasMinLength ? "text-green-400" : "text-red-400"}>Minimum 8 characters</span>
+      </div>
+      <div className="flex items-center gap-2 text-xs" data-testid="password-req-uppercase">
+        {hasUppercase ? <Check className="w-3 h-3 text-green-400" /> : <X className="w-3 h-3 text-red-400" />}
+        <span className={hasUppercase ? "text-green-400" : "text-red-400"}>At least 1 capital letter</span>
+      </div>
+      <div className="flex items-center gap-2 text-xs" data-testid="password-req-special">
+        {hasSpecial ? <Check className="w-3 h-3 text-green-400" /> : <X className="w-3 h-3 text-red-400" />}
+        <span className={hasSpecial ? "text-green-400" : "text-red-400"}>At least 1 special character</span>
+      </div>
+    </div>
+  );
 }
 
 export default function SignalChat() {
   const [currentUser, setCurrentUser] = useState<ChatUser | null>(null);
+  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const [usernameInput, setUsernameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
   const [displayNameInput, setDisplayNameInput] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
   const [activeChannel, setActiveChannel] = useState<ChatChannel | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [messageInput, setMessageInput] = useState("");
@@ -45,6 +79,25 @@ export default function SignalChat() {
   const wsRef = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem("tl-sso-token");
+    if (savedToken) {
+      fetch("/api/chat/auth/me", {
+        headers: { Authorization: `Bearer ${savedToken}` },
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.success) {
+            setCurrentUser(data.user);
+            setAuthToken(savedToken);
+          } else {
+            localStorage.removeItem("tl-sso-token");
+          }
+        })
+        .catch(() => localStorage.removeItem("tl-sso-token"));
+    }
+  }, []);
 
   const { data: channelsData } = useQuery<{ success: boolean; channels: ChatChannel[] }>({
     queryKey: ["/api/chat/channels"],
@@ -75,9 +128,10 @@ export default function SignalChat() {
 
     ws.onopen = () => {
       setConnected(true);
+      const token = localStorage.getItem("tl-sso-token");
       ws.send(JSON.stringify({
         type: "join",
-        userId: currentUser.id,
+        token,
         channelId: activeChannel.id,
       }));
     };
@@ -169,24 +223,92 @@ export default function SignalChat() {
     typingTimeoutRef.current = setTimeout(() => {}, 3000);
   };
 
-  const handleLogin = async () => {
-    if (!usernameInput.trim() || !displayNameInput.trim()) return;
+  const isPasswordValid = () => {
+    return passwordInput.length >= 8 && /[A-Z]/.test(passwordInput) && /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordInput);
+  };
+
+  const handleRegister = async () => {
+    if (!usernameInput.trim() || !emailInput.trim() || !passwordInput || !displayNameInput.trim()) return;
+    if (!isPasswordValid()) {
+      setAuthError("Password does not meet requirements");
+      return;
+    }
+
+    setAuthLoading(true);
+    setAuthError("");
     try {
-      const res = await fetch("/api/chat/users", {
+      const res = await fetch("/api/chat/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: usernameInput.trim().toLowerCase().replace(/\s+/g, "-"),
+          email: emailInput.trim().toLowerCase(),
+          password: passwordInput,
           displayName: displayNameInput.trim(),
         }),
       });
       const data = await res.json();
       if (data.success) {
+        localStorage.setItem("tl-sso-token", data.token);
+        setAuthToken(data.token);
         setCurrentUser(data.user);
+      } else {
+        setAuthError(data.error || "Registration failed");
       }
     } catch (e) {
-      console.error("Login failed:", e);
+      setAuthError("Connection error. Please try again.");
+    } finally {
+      setAuthLoading(false);
     }
+  };
+
+  const handleLogin = async () => {
+    if (!usernameInput.trim() || !passwordInput) return;
+
+    setAuthLoading(true);
+    setAuthError("");
+    try {
+      const res = await fetch("/api/chat/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: usernameInput.trim().toLowerCase().replace(/\s+/g, "-"),
+          password: passwordInput,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("tl-sso-token", data.token);
+        setAuthToken(data.token);
+        setCurrentUser(data.user);
+      } else {
+        setAuthError(data.error || "Login failed");
+      }
+    } catch (e) {
+      setAuthError("Connection error. Please try again.");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("tl-sso-token");
+    setCurrentUser(null);
+    setAuthToken(null);
+    setMessages([]);
+    setActiveChannel(null);
+    setUsernameInput("");
+    setPasswordInput("");
+    setEmailInput("");
+    setDisplayNameInput("");
+    if (wsRef.current) {
+      wsRef.current.close();
+    }
+  };
+
+  const handleAuthSubmit = () => {
+    if (authMode === "login") handleLogin();
+    else handleRegister();
   };
 
   const formatTime = (ts: string) => {
@@ -210,7 +332,7 @@ export default function SignalChat() {
         </div>
         <div className="relative w-full max-w-md">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-2">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
                 <Radio className="w-6 h-6 text-white" />
               </div>
@@ -219,40 +341,152 @@ export default function SignalChat() {
                 <p className="text-xs text-cyan-400/70">Trust Layer Ecosystem</p>
               </div>
             </div>
-            <p className="text-sm text-gray-400 mb-6">Join the ecosystem chat. Choose a display name to get started.</p>
+
+            <div className="flex items-center gap-2 mb-6 px-1">
+              <Shield className="w-3.5 h-3.5 text-cyan-500" />
+              <span className="text-[11px] text-cyan-400/80">Secured by Trust Layer SSO</span>
+            </div>
+
+            <div className="flex bg-white/5 rounded-lg p-1 mb-6">
+              <button
+                data-testid="button-auth-login"
+                onClick={() => { setAuthMode("login"); setAuthError(""); }}
+                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                  authMode === "login"
+                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                    : "text-gray-500 hover:text-gray-300"
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                data-testid="button-auth-register"
+                onClick={() => { setAuthMode("register"); setAuthError(""); }}
+                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                  authMode === "register"
+                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                    : "text-gray-500 hover:text-gray-300"
+                }`}
+              >
+                Create Account
+              </button>
+            </div>
+
+            {authError && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400" data-testid="text-auth-error">
+                {authError}
+              </div>
+            )}
+
             <div className="space-y-4">
               <div>
                 <label className="text-xs text-gray-400 mb-1 block">Username</label>
-                <input
-                  data-testid="input-chat-username"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                  placeholder="e.g. sarah-k"
-                  value={usernameInput}
-                  onChange={(e) => setUsernameInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-                />
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    data-testid="input-chat-username"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                    placeholder="e.g. sarah-k"
+                    value={usernameInput}
+                    onChange={(e) => setUsernameInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                  />
+                </div>
               </div>
+
+              {authMode === "register" && (
+                <>
+                  <div>
+                    <label className="text-xs text-gray-400 mb-1 block">Email</label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <input
+                        data-testid="input-chat-email"
+                        type="email"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                        placeholder="e.g. sarah@example.com"
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-400 mb-1 block">Display Name</label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <input
+                        data-testid="input-chat-displayname"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                        placeholder="e.g. Sarah K."
+                        value={displayNameInput}
+                        onChange={(e) => setDisplayNameInput(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
               <div>
-                <label className="text-xs text-gray-400 mb-1 block">Display Name</label>
-                <input
-                  data-testid="input-chat-displayname"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                  placeholder="e.g. Sarah K."
-                  value={displayNameInput}
-                  onChange={(e) => setDisplayNameInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-                />
+                <label className="text-xs text-gray-400 mb-1 block">Password</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    data-testid="input-chat-password"
+                    type={showPassword ? "text" : "password"}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-12 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                    placeholder="Enter your password"
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                  />
+                  <button
+                    data-testid="button-toggle-password"
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+                {authMode === "register" && <PasswordRequirements password={passwordInput} />}
               </div>
+
               <button
                 data-testid="button-chat-join"
-                onClick={handleLogin}
-                disabled={!usernameInput.trim() || !displayNameInput.trim()}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                onClick={handleAuthSubmit}
+                disabled={
+                  authLoading ||
+                  !usernameInput.trim() ||
+                  !passwordInput ||
+                  (authMode === "register" && (!emailInput.trim() || !displayNameInput.trim() || !isPasswordValid()))
+                }
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Join Chat
+                {authLoading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <Shield className="w-4 h-4" />
+                    {authMode === "login" ? "Sign In with Trust Layer" : "Create Trust Layer Account"}
+                  </>
+                )}
               </button>
             </div>
-            <div className="mt-6 text-center">
+
+            <div className="mt-6 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-[10px] text-gray-500">Cross-App SSO</span>
+                </div>
+                <span className="text-gray-700">|</span>
+                <span className="text-[10px] text-gray-500">One identity, all apps</span>
+              </div>
+            </div>
+
+            <div className="mt-4 text-center">
               <Link href="/" className="text-xs text-gray-500 hover:text-cyan-400 transition-colors" data-testid="link-back-home">
                 Back to DarkWave Studios
               </Link>
@@ -265,7 +499,6 @@ export default function SignalChat() {
 
   return (
     <div className="h-screen bg-[#0a0a1a] flex flex-col">
-      {/* Top Bar */}
       <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/10">
         <button
           data-testid="button-toggle-sidebar"
@@ -280,7 +513,7 @@ export default function SignalChat() {
         <div className="flex-1">
           <h1 className="text-sm font-bold text-white" data-testid="text-header-title">Signal Chat</h1>
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-cyan-400/70">Trust Layer Ecosystem</span>
+            <span className="text-cyan-400/70">Trust Layer SSO</span>
             <span className="text-gray-600">|</span>
             <span className="flex items-center gap-1">
               {connected ? (
@@ -302,11 +535,18 @@ export default function SignalChat() {
             </div>
             <span className="text-xs text-gray-300" data-testid="text-current-user">{currentUser.displayName}</span>
           </div>
+          <button
+            data-testid="button-logout"
+            onClick={handleLogout}
+            className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-red-400 hover:border-red-500/30 transition-colors"
+            title="Sign Out"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
       <div className="flex flex-1 min-h-0">
-        {/* Sidebar */}
         <div className={`${sidebarOpen ? "w-56" : "w-0 overflow-hidden"} lg:w-56 flex-shrink-0 transition-all duration-300 bg-[#0d0d24] border-r border-white/10 flex flex-col`}>
           <div className="flex-1 overflow-y-auto p-3 space-y-1">
             {ecosystemChannels.length > 0 && (
@@ -350,7 +590,13 @@ export default function SignalChat() {
               </>
             )}
           </div>
-          <div className="p-3 border-t border-white/10">
+          <div className="p-3 border-t border-white/10 space-y-2">
+            {currentUser.trustLayerId && (
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-cyan-500/5 border border-cyan-500/10">
+                <Shield className="w-3 h-3 text-cyan-500" />
+                <span className="text-[10px] text-cyan-400/70 truncate" data-testid="text-trust-layer-id">TL: {currentUser.trustLayerId}</span>
+              </div>
+            )}
             <Link href="/" className="flex items-center gap-2 text-xs text-gray-500 hover:text-cyan-400 transition-colors" data-testid="link-back-home-sidebar">
               <ChevronLeft className="w-3 h-3" />
               Back to DarkWave Studios
@@ -358,9 +604,7 @@ export default function SignalChat() {
           </div>
         </div>
 
-        {/* Main Chat Area */}
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Channel Header */}
           {activeChannel && (
             <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0f0f2a]/50 border-b border-white/10">
               <Hash className="w-4 h-4 text-cyan-400" />
@@ -374,7 +618,6 @@ export default function SignalChat() {
             </div>
           )}
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-1" data-testid="container-messages">
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center">
@@ -394,7 +637,7 @@ export default function SignalChat() {
                         className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs text-white font-bold shadow-md"
                         style={{ background: msg.avatarColor }}
                       >
-                        {msg.role === "bot" ? "🤖" : getInitials(msg.username)}
+                        {msg.role === "bot" ? "B" : getInitials(msg.username)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
@@ -433,7 +676,6 @@ export default function SignalChat() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
           <div className="px-4 py-3 border-t border-white/10 bg-[#0d0d24]/50">
             <div className="flex gap-2">
               <input

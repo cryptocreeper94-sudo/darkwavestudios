@@ -64,6 +64,18 @@ The platform includes a comprehensive analytics system:
 - **Tone Selection**: Professional, conversational, technical, or persuasive
 - **Draft System**: Save as draft or publish immediately
 
+### Trust Layer SSO Authentication
+Signal Chat uses a Trust Layer SSO system for cross-app identity:
+- **Registration**: Username, email, display name, password with strict validation
+- **Password Policy**: Minimum 8 characters, at least 1 capital letter, 1 special character
+- **Password Hashing**: bcrypt with 12 salt rounds
+- **Session Management**: JWT tokens (7-day expiry) stored in localStorage
+- **Trust Layer ID**: Unique ecosystem identity (tl-{timestamp}-{random}) assigned at registration
+- **WebSocket Auth**: JWT verified on WebSocket join to prevent impersonation
+- **SSO Module**: `server/trustlayer-sso.ts` handles all auth logic
+- **Endpoints**: POST /api/chat/auth/register, POST /api/chat/auth/login, GET /api/chat/auth/me
+- **JWT_SECRET**: Set via environment variable for token persistence across restarts
+
 ### Admin Authentication
 Admin routes are protected with X-Admin-Key header middleware. Protected routes include:
 - Analytics viewing (stats, pageviews, events)

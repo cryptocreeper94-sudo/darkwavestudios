@@ -2262,29 +2262,61 @@ Context: ${context || 'General inquiry'}`;
     }
   });
 
-  app.post("/api/chat/users", async (req, res) => {
+  app.post("/api/chat/auth/register", async (req, res) => {
     try {
-      const { username, displayName } = req.body;
-      if (!username || !displayName) {
-        return res.status(400).json({ success: false, error: "username and displayName required" });
+      const { username, email, password, displayName } = req.body;
+      if (!username || !email || !password || !displayName) {
+        return res.status(400).json({ success: false, error: "All fields are required" });
       }
 
-      const colors = ["#ec4899", "#3b82f6", "#8b5cf6", "#f59e0b", "#06b6d4", "#ef4444", "#10b981", "#f97316"];
-      const avatarColor = colors[Math.floor(Math.random() * colors.length)];
+      const { registerUser } = await import("./trustlayer-sso");
+      const result = await registerUser(username, email, password, displayName);
 
-      const existing = await db.select().from(chatUsersTable).where(eq(chatUsersTable.username, username));
-      if (existing.length > 0) {
-        await db.update(chatUsersTable).set({ isOnline: true, lastSeen: new Date() }).where(eq(chatUsersTable.id, existing[0].id));
-        return res.json({ success: true, user: existing[0] });
+      if (!result.success) {
+        return res.status(400).json({ success: false, error: result.error });
       }
 
-      const [user] = await db.insert(chatUsersTable).values({
-        username,
-        displayName,
-        avatarColor,
-      }).returning();
+      res.status(201).json(result);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
 
-      res.status(201).json({ success: true, user });
+  app.post("/api/chat/auth/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      if (!username || !password) {
+        return res.status(400).json({ success: false, error: "Username and password are required" });
+      }
+
+      const { loginUser } = await import("./trustlayer-sso");
+      const result = await loginUser(username, password);
+
+      if (!result.success) {
+        return res.status(401).json({ success: false, error: result.error });
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/auth/me", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ success: false, error: "No token provided" });
+      }
+
+      const { authenticateToken } = await import("./trustlayer-sso");
+      const user = await authenticateToken(authHeader.slice(7));
+
+      if (!user) {
+        return res.status(401).json({ success: false, error: "Invalid or expired token" });
+      }
+
+      res.json({ success: true, user });
     } catch (error: any) {
       res.status(400).json({ success: false, error: error.message });
     }

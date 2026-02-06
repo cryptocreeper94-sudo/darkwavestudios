@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { db } from "./db";
 import { chatMessages, chatUsers, chatChannels } from "@shared/schema";
 import { eq, desc, sql } from "drizzle-orm";
+import { verifyToken } from "./trustlayer-sso";
 
 const MAX_MESSAGE_LENGTH = 2000;
 
@@ -88,13 +89,19 @@ export function setupChatWebSocket(httpServer: Server) {
 async function handleMessage(ws: WebSocket, msg: any, wss: WebSocketServer) {
   switch (msg.type) {
     case "join": {
-      const { userId, channelId } = msg;
-      if (!userId || !channelId) {
-        ws.send(JSON.stringify({ type: "error", message: "userId and channelId required" }));
+      const { token, channelId } = msg;
+      if (!token || !channelId) {
+        ws.send(JSON.stringify({ type: "error", message: "token and channelId required" }));
         return;
       }
 
-      const [user] = await db.select().from(chatUsers).where(eq(chatUsers.id, userId));
+      const decoded = verifyToken(token);
+      if (!decoded) {
+        ws.send(JSON.stringify({ type: "error", message: "Invalid or expired token" }));
+        return;
+      }
+
+      const [user] = await db.select().from(chatUsers).where(eq(chatUsers.id, decoded.userId));
       if (!user) {
         ws.send(JSON.stringify({ type: "error", message: "User not found" }));
         return;
@@ -105,6 +112,8 @@ async function handleMessage(ws: WebSocket, msg: any, wss: WebSocketServer) {
         ws.send(JSON.stringify({ type: "error", message: "Channel not found" }));
         return;
       }
+
+      const userId = user.id;
 
       await db.update(chatUsers)
         .set({ isOnline: true, lastSeen: new Date() })

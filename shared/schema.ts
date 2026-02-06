@@ -634,9 +634,12 @@ export type ChatChannel = typeof chatChannels.$inferSelect;
 export const chatUsers = pgTable("chat_users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
   displayName: text("display_name").notNull(),
   avatarColor: text("avatar_color").notNull().default("#06b6d4"),
   role: text("role").notNull().default("member"),
+  trustLayerId: text("trust_layer_id").unique(),
   isOnline: boolean("is_online").default(false),
   lastSeen: timestamp("last_seen").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
@@ -647,9 +650,13 @@ export const insertChatUserSchema = createInsertSchema(chatUsers).omit({
   isOnline: true,
   lastSeen: true,
   createdAt: true,
+  trustLayerId: true,
 });
 export type InsertChatUser = z.infer<typeof insertChatUserSchema>;
 export type ChatUser = typeof chatUsers.$inferSelect;
+
+export const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+export const PASSWORD_REQUIREMENTS = "Minimum 8 characters, at least 1 capital letter and 1 special character";
 
 export const chatMessages = pgTable("chat_messages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
