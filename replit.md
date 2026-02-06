@@ -143,3 +143,9 @@ The application uses a storage abstraction layer (`server/storage.ts`) that impl
 - JetBrains Mono (code)
 
 Loaded via Google Fonts CDN.
+
+## Recent Changes (Feb 2026)
+- Fixed booking form date serialization (ISO string to Date coercion before Zod validation)
+- Fixed Coinbase Commerce redirect URL (uses successUrl/cancelUrl from request body instead of undefined req.headers.origin)
+- Updated all 3 business documents (Business Plan, Executive Summary, Roadmap) to reflect current ecosystem features
+- Full platform audit completed: all 25 pages return 200, all form endpoints verified, Stripe/Coinbase payments confirmed working, admin portal tested, analytics tracking verified, AI endpoints operational, ecosystem images confirmed
