@@ -107,6 +107,8 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <Link href="/terms" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-terms">Terms</Link>
               <Link href="/privacy" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">Privacy</Link>
+              <Link href="/affiliate-disclosure" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-affiliates">Affiliates</Link>
+              <Link href="/support" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-support">Support</Link>
               <span className="text-[10px] lg:text-xs text-muted-foreground">Nashville, TN</span>
             </div>
           </div>

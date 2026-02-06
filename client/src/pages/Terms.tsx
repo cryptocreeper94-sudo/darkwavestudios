@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, FileText, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import Footer from "@/components/Footer";
 
 export default function Terms() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -157,14 +158,7 @@ export default function Terms() {
           </div>
         </main>
 
-        <footer className="relative z-10 glass-strong mt-12">
-          <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted-foreground text-sm">© 2025 DarkWave Studios</p>
-            <div className="flex gap-6">
-              <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-privacy">Privacy Policy</Link>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

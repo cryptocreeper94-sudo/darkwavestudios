@@ -42,8 +42,10 @@ Disallow: /blog/admin
 Disallow: /documents
 Disallow: /owner
 Disallow: /api/
+Disallow: /ws/
+Disallow: /marketing
 
-# Disallow payment result pages
+# Disallow payment and checkout flows
 Disallow: /payment/success
 Disallow: /payment/cancel
 

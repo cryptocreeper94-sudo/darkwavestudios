@@ -34,6 +34,8 @@ import Resources from "@/pages/Resources";
 import MarketingHub from "@/pages/MarketingHub";
 import SignalChat from "@/pages/SignalChat";
 import EcosystemMetrics from "@/pages/EcosystemMetrics";
+import AffiliateDisclosure from "@/pages/AffiliateDisclosure";
+import Support from "@/pages/Support";
 
 function Router() {
   return (
@@ -68,6 +70,8 @@ function Router() {
       <Route path="/marketing" component={MarketingHub}/>
       <Route path="/chat" component={SignalChat}/>
       <Route path="/metrics" component={EcosystemMetrics}/>
+      <Route path="/affiliate-disclosure" component={AffiliateDisclosure}/>
+      <Route path="/support" component={Support}/>
       <Route component={NotFound} />
     </Switch>
   );

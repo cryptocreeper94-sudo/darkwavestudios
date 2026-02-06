@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, Shield, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import Footer from "@/components/Footer";
 
 export default function Privacy() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -100,19 +101,57 @@ export default function Privacy() {
 
               <section>
                 <h2 className="text-xl font-bold mb-3">4. Cookies & Tracking</h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground mb-3">
                   We use cookies and similar technologies to enhance your browsing experience, analyze website 
                   traffic, and understand visitor behavior. You can control cookie preferences through your 
                   browser settings.
+                </p>
+                <p className="text-muted-foreground mb-3">
+                  <strong className="text-foreground">Google AdSense:</strong> This website uses Google AdSense, 
+                  a third-party advertising service provided by Google LLC. Google AdSense uses cookies to serve 
+                  ads based on your prior visits to this website and other websites on the internet. Google's use 
+                  of advertising cookies enables it and its partners to serve ads based on your browsing history.
+                </p>
+                <p className="text-muted-foreground">
+                  You may opt out of personalized advertising by visiting{" "}
+                  <a 
+                    href="https://www.google.com/settings/ads" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Google Ad Settings
+                  </a>{" "}
+                  or by visiting{" "}
+                  <a 
+                    href="https://www.aboutads.info/choices/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    www.aboutads.info/choices
+                  </a>. 
+                  We also offer an ad-free subscription ($5/month) that removes all advertisements from our platform.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-xl font-bold mb-3">5. Third-Party Services</h2>
-                <p className="text-muted-foreground">
-                  We may use third-party services for analytics, payment processing, and email communication. 
-                  These services have their own privacy policies governing data use. We only share necessary 
-                  information required for these services to function.
+                <p className="text-muted-foreground mb-3">
+                  We use third-party services for various purposes. These services have their own privacy policies 
+                  governing data use. We only share necessary information required for these services to function:
+                </p>
+                <ul className="list-disc list-inside text-muted-foreground space-y-1 pl-2">
+                  <li><strong className="text-foreground">Google AdSense</strong> — Advertising (uses cookies for personalized ads)</li>
+                  <li><strong className="text-foreground">Stripe</strong> — Payment processing</li>
+                  <li><strong className="text-foreground">Coinbase Commerce</strong> — Cryptocurrency payments</li>
+                  <li><strong className="text-foreground">OpenAI</strong> — AI-powered features and content generation</li>
+                </ul>
+                <p className="text-muted-foreground mt-3">
+                  Some pages may contain affiliate links. For details, see our{" "}
+                  <Link href="/affiliate-disclosure" className="text-primary hover:underline">
+                    Affiliate Disclosure
+                  </Link>.
                 </p>
               </section>
 
@@ -163,14 +202,7 @@ export default function Privacy() {
           </div>
         </main>
 
-        <footer className="relative z-10 glass-strong mt-12">
-          <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted-foreground text-sm">© 2025 DarkWave Studios</p>
-            <div className="flex gap-6">
-              <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-terms">Terms of Service</Link>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
