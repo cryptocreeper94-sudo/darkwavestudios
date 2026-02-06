@@ -145,6 +145,14 @@ The application uses a storage abstraction layer (`server/storage.ts`) that impl
 Loaded via Google Fonts CDN.
 
 ## Recent Changes (Feb 2026)
+- Added Affiliate Disclosure page (/affiliate-disclosure) with FTC compliance — linked from footer
+- Added Support & FAQ page (/support) with searchable FAQ, category filters, expandable answers
+- Added PWA manifest (manifest.json) and service worker (sw.js) for offline support
+- Updated Privacy Policy to explicitly mention Google AdSense cookies, opt-out links, third-party services list
+- Updated Footer to include Affiliates and Support links in legal row
+- Updated Terms, Privacy, and Affiliate Disclosure pages to use shared Footer component
+- Updated sitemap.xml with new pages, robots.txt with /ws/ and /marketing disallows
+- Added manifest.json link and service worker registration to index.html
 - Fixed booking form date serialization (ISO string to Date coercion before Zod validation)
 - Fixed Coinbase Commerce redirect URL (uses successUrl/cancelUrl from request body instead of undefined req.headers.origin)
 - Updated all 3 business documents (Business Plan, Executive Summary, Roadmap) to reflect current ecosystem features
