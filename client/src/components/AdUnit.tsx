@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -17,21 +17,41 @@ interface AdUnitProps {
 export function AdUnit({ slot, format = "auto", isAdFree = false, loading = false, className = "" }: AdUnitProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const pushed = useRef(false);
+  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
     if (isAdFree || loading || pushed.current) return;
+    if (typeof window.adsbygoogle === 'undefined') return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushed.current = true;
+      setAdLoaded(true);
     } catch (e) {
       console.log("AdSense not loaded");
     }
   }, [isAdFree, loading]);
 
+  useEffect(() => {
+    if (!adRef.current || adLoaded) return;
+    const observer = new MutationObserver(() => {
+      const ins = adRef.current?.querySelector('ins');
+      if (ins && ins.getAttribute('data-ad-status') === 'filled') {
+        setAdLoaded(true);
+      }
+    });
+    observer.observe(adRef.current, { attributes: true, childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [adLoaded]);
+
   if (isAdFree || loading) return null;
 
   return (
-    <div className={`ad-unit-wrapper ${className}`} ref={adRef} data-testid="ad-unit">
+    <div
+      className={`ad-unit-wrapper overflow-hidden transition-all duration-300 ${className}`}
+      ref={adRef}
+      data-testid="ad-unit"
+      style={{ maxHeight: adLoaded ? '400px' : '0px', opacity: adLoaded ? 1 : 0 }}
+    >
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
