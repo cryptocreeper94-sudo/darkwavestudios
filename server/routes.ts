@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
-import { eq, asc, sql, and, gte, lte } from "drizzle-orm";
+import { eq, asc, desc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
 import crypto from "crypto";
 import path from "path";
@@ -2249,6 +2249,88 @@ Context: ${context || 'General inquiry'}`;
 
   // ============ TRUST LAYER WIDGET API ============
   app.use("/api/widgets", widgetRoutes);
+
+  // ============ SIGNAL CHAT API ============
+  const { chatChannels: chatChannelsTable, chatUsers: chatUsersTable, chatMessages: chatMessagesTable, insertChatUserSchema: insertChatUserSchemaVal, insertChatChannelSchema: insertChatChannelSchemaVal } = await import("@shared/schema");
+
+  app.get("/api/chat/channels", async (req, res) => {
+    try {
+      const channels = await db.select().from(chatChannelsTable).orderBy(chatChannelsTable.category, chatChannelsTable.name);
+      res.json({ success: true, channels });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/chat/users", async (req, res) => {
+    try {
+      const { username, displayName } = req.body;
+      if (!username || !displayName) {
+        return res.status(400).json({ success: false, error: "username and displayName required" });
+      }
+
+      const colors = ["#ec4899", "#3b82f6", "#8b5cf6", "#f59e0b", "#06b6d4", "#ef4444", "#10b981", "#f97316"];
+      const avatarColor = colors[Math.floor(Math.random() * colors.length)];
+
+      const existing = await db.select().from(chatUsersTable).where(eq(chatUsersTable.username, username));
+      if (existing.length > 0) {
+        await db.update(chatUsersTable).set({ isOnline: true, lastSeen: new Date() }).where(eq(chatUsersTable.id, existing[0].id));
+        return res.json({ success: true, user: existing[0] });
+      }
+
+      const [user] = await db.insert(chatUsersTable).values({
+        username,
+        displayName,
+        avatarColor,
+      }).returning();
+
+      res.status(201).json({ success: true, user });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/users/online", async (req, res) => {
+    try {
+      const online = await db.select().from(chatUsersTable).where(eq(chatUsersTable.isOnline, true));
+      res.json({ success: true, users: online, count: online.length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/messages/:channelId", async (req, res) => {
+    try {
+      const rows = await db
+        .select({
+          id: chatMessagesTable.id,
+          channelId: chatMessagesTable.channelId,
+          userId: chatMessagesTable.userId,
+          content: chatMessagesTable.content,
+          replyToId: chatMessagesTable.replyToId,
+          createdAt: chatMessagesTable.createdAt,
+          username: chatUsersTable.displayName,
+          avatarColor: chatUsersTable.avatarColor,
+          role: chatUsersTable.role,
+        })
+        .from(chatMessagesTable)
+        .leftJoin(chatUsersTable, eq(chatMessagesTable.userId, chatUsersTable.id))
+        .where(eq(chatMessagesTable.channelId, req.params.channelId))
+        .orderBy(desc(chatMessagesTable.createdAt))
+        .limit(50);
+
+      const messages = rows.reverse().map(r => ({
+        ...r,
+        username: r.username || "Unknown",
+        avatarColor: r.avatarColor || "#06b6d4",
+        role: r.role || "member",
+      }));
+
+      res.json({ success: true, messages });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
 
   return httpServer;
 }

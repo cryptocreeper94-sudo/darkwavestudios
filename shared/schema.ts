@@ -613,3 +613,56 @@ export const insertPostAnalyticsSchema = createInsertSchema(postAnalytics).omit(
 });
 export type InsertPostAnalytics = z.infer<typeof insertPostAnalyticsSchema>;
 export type PostAnalytics = typeof postAnalytics.$inferSelect;
+
+// Signal Chat - Ecosystem Communication
+export const chatChannels = pgTable("chat_channels", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull().unique(),
+  description: text("description"),
+  category: text("category").notNull().default("ecosystem"),
+  isDefault: boolean("is_default").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertChatChannelSchema = createInsertSchema(chatChannels).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertChatChannel = z.infer<typeof insertChatChannelSchema>;
+export type ChatChannel = typeof chatChannels.$inferSelect;
+
+export const chatUsers = pgTable("chat_users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  displayName: text("display_name").notNull(),
+  avatarColor: text("avatar_color").notNull().default("#06b6d4"),
+  role: text("role").notNull().default("member"),
+  isOnline: boolean("is_online").default(false),
+  lastSeen: timestamp("last_seen").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertChatUserSchema = createInsertSchema(chatUsers).omit({
+  id: true,
+  isOnline: true,
+  lastSeen: true,
+  createdAt: true,
+});
+export type InsertChatUser = z.infer<typeof insertChatUserSchema>;
+export type ChatUser = typeof chatUsers.$inferSelect;
+
+export const chatMessages = pgTable("chat_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  channelId: varchar("channel_id").notNull(),
+  userId: varchar("user_id").notNull(),
+  content: text("content").notNull(),
+  replyToId: varchar("reply_to_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+export type ChatMessage = typeof chatMessages.$inferSelect;

@@ -18,7 +18,7 @@ Preferred communication style: Simple, everyday language.
 - **UI Components**: Shadcn/ui component library (New York style variant)
 - **Build Tool**: Vite with custom plugins for Replit integration
 
-The frontend follows a page-based architecture with shared components. Pages include Home, Services, Projects, About, Contact, Compare, Quote, Book, Admin, Blog, Analytics, BlogAdmin, Mission, Investors, Terms, Privacy, and Documents. The design uses a dark theme with gradient accents and glass-morphism effects.
+The frontend follows a page-based architecture with shared components. Pages include Home, Services, Projects, About, Contact, Compare, Quote, Book, Admin, Blog, Analytics, BlogAdmin, Mission, Investors, Terms, Privacy, Documents, and SignalChat. The design uses a dark theme with gradient accents and glass-morphism effects.
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express
@@ -47,6 +47,9 @@ Database tables include:
 - `pageViews` - Analytics page view tracking
 - `analyticsEvents` - Custom event tracking
 - `seoKeywords` - SEO keyword position monitoring
+- `chatChannels` - Signal Chat channels (ecosystem + app-support)
+- `chatUsers` - Signal Chat user identities
+- `chatMessages` - Signal Chat real-time messages
 
 ### Analytics System
 The platform includes a comprehensive analytics system:

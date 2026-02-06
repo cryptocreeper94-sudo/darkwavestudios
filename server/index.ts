@@ -8,6 +8,8 @@ import { WebhookHandlers } from './webhookHandlers';
 import { seedSnippets } from './seedSnippets';
 import { seedBlog } from './seedBlog';
 import { startMarketingScheduler } from './marketing-scheduler';
+import { setupChatWebSocket } from './chat-ws';
+import { seedChatChannels } from './seedChat';
 
 const app = express();
 const httpServer = createServer(app);
@@ -150,6 +152,12 @@ app.use((req, res, next) => {
   
   // Seed blog with AI-generated SEO content
   await seedBlog();
+  
+  // Seed Signal Chat channels
+  await seedChatChannels();
+  
+  // Setup WebSocket for Signal Chat
+  setupChatWebSocket(httpServer);
   
   await registerRoutes(httpServer, app);
 
