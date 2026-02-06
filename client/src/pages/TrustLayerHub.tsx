@@ -22,6 +22,7 @@ import {
   Activity,
   Menu,
   X,
+  Radio,
   Eye,
   Calculator,
   UserPlus,
@@ -271,6 +272,27 @@ const widgetsList = [
       "Custom integrations - Direct connections to your existing systems"
     ]
   },
+  { 
+    id: "signal-chat", name: "Signal Chat", icon: Radio, containerId: "demo-signal-chat", color: "#06b6d4", 
+    description: "White-label community chat with real-time messaging & bots", price: 349, priceId: "price_widget_signal_chat",
+    fullDescription: "Full-featured community chat platform built for scale. Real-time WebSocket messaging, communities with channels, threaded conversations, direct messages, polls, file sharing, and an extensible bot framework. White-label ready with Trust Layer SSO integration. Essentially Discord for your ecosystem — deploy under your own brand.",
+    features: ["Real-time WebSocket messaging", "Communities & channels (text, voice, announcements)", "Threaded conversations & replies", "Direct messages", "Reactions & emoji support", "File uploads with drag & drop", "Polls with multi-vote", "Scheduled messages", "Role-based permissions (owner, admin, mod, member)", "Extensible bot framework with slash commands", "Typing indicators & presence (online/idle/DND)", "Message pinning, search, & forwarding", "Invite system with expiry & max uses", "Custom emojis per community", "Notification settings (all, mentions, muted)", "PWA-installable", "Trust Layer SSO cross-app auth"],
+    requirements: ["React 18+ frontend", "Node.js/Express backend", "PostgreSQL database", "WebSocket support"],
+    includes: ["Full source code (frontend + backend)", "17 database table schemas", "WebSocket server with auto-reconnect", "Bot framework with sample bots", "18 React components", "Presence system", "PWA manifest", "White-label customization guide", "Widget embedding guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "TanStack Query", "WebSocket", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~6,500+ lines (full stack)",
+    complexity: "Advanced",
+    customizations: [
+      "White-label branding - Your logo, colors, and brand identity throughout",
+      "Custom channel types - Add voice, video, or custom channel categories",
+      "Bot framework - Build custom bots with slash commands and webhooks",
+      "SSO integration - Connect to Trust Layer or your own auth system",
+      "Custom roles & permissions - Define granular access controls",
+      "Notification preferences - Per-channel and per-community settings",
+      "Custom emoji packs - Upload branded emoji sets for communities",
+      "Embedded widget mode - Drop chat into any existing app or page"
+    ]
+  },
 ];
 
 interface CartItem {
@@ -312,6 +334,7 @@ const WIDGET_MAP: Record<string, string> = {
   "Crew Tracker / GPS Clock-In": "tl-crew-tracker",
   "CRM Pipeline Manager": "tl-crm",
   "Weather-Based Scheduling": "tl-weather",
+  "Signal Chat Widget": "tl-signal-chat",
 };
 
 export default function TrustLayerHub() {
@@ -1638,6 +1661,113 @@ export default function TrustLayerHub() {
                     <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> Dedicated infrastructure</div>
                     <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> Compliance documentation</div>
                     <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> On-premise deployment</div>
+                  </div>
+                </div>
+              )}
+              {/* Signal Chat Demo */}
+              {widgetsList[selectedWidget].id === "signal-chat" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-2 flex-1">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/40"
+                          : "bg-cyan-500 text-white"
+                      }`}>⚡</div>
+                      <div>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-100" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>DarkWave HQ</div>
+                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : "text-green-500"}`}>● 24 online</div>
+                      </div>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                        : widgetTheme === "dark" ? "bg-cyan-900/40 text-cyan-400 border border-cyan-500/30"
+                        : "bg-cyan-100 text-cyan-700"
+                    }`}>LIVE</span>
+                  </div>
+                  <div className="flex gap-2 flex-1 min-h-0">
+                    <div className={`w-16 rounded-lg p-1.5 space-y-2 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 border border-cyan-500/20"
+                        : widgetTheme === "dark" ? "bg-slate-800/50" : "bg-gray-50"
+                    }`}>
+                      <div className={`text-[9px] mb-1 ${widgetTheme === "trustlayer" ? "text-cyan-300/50" : widgetTheme === "dark" ? "text-slate-400" : "text-gray-400"}`}>Channels</div>
+                      {["# general", "# support", "# dev", "# random"].map((ch, i) => (
+                        <div key={i} className={`text-[9px] px-1.5 py-1 rounded cursor-pointer transition-all ${
+                          i === 0
+                            ? widgetTheme === "trustlayer"
+                              ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                              : widgetTheme === "dark" ? "bg-cyan-500/20 text-cyan-400"
+                              : "bg-cyan-100 text-cyan-700"
+                            : widgetTheme === "trustlayer"
+                              ? "text-gray-400 hover:text-cyan-300 hover:bg-white/5"
+                              : widgetTheme === "dark" ? "text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50"
+                              : "text-gray-500 hover:bg-gray-100"
+                        }`}>{ch}</div>
+                      ))}
+                      <div className={`mt-2 text-[9px] mb-1 ${widgetTheme === "trustlayer" ? "text-purple-300/50" : widgetTheme === "dark" ? "text-slate-400" : "text-gray-400"}`}>DMs</div>
+                      <div className={`text-[9px] px-1.5 py-1 rounded flex items-center gap-1 ${
+                        widgetTheme === "trustlayer" ? "text-gray-400 hover:text-cyan-300" : widgetTheme === "dark" ? "text-slate-400 hover:text-cyan-400" : "text-gray-500"
+                      }`}><span className="w-1.5 h-1.5 rounded-full bg-green-400"></span> Alex</div>
+                    </div>
+                    <div className="flex-1 flex flex-col min-h-0">
+                      <div className={`flex-1 space-y-2 overflow-auto p-2 rounded-lg mb-2 ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-white/5 border border-white/10"
+                          : widgetTheme === "dark" ? "bg-slate-800/30" : "bg-white border"
+                      }`}>
+                        {[
+                          { user: "Sarah", msg: "The new widget just shipped! 🚀", time: "2:31 PM", color: "from-pink-500 to-purple-500" },
+                          { user: "🤖 Bot", msg: "Build #847 passed all tests ✅", time: "2:33 PM", color: "from-green-500 to-emerald-500", isBot: true },
+                          { user: "Alex", msg: "Love the new dark mode theme", time: "2:35 PM", color: "from-blue-500 to-cyan-500" },
+                        ].map((m, i) => (
+                          <div key={i} className="flex gap-2 items-start">
+                            <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] text-white font-bold ${
+                              widgetTheme === "trustlayer"
+                                ? `bg-gradient-to-r ${m.color} shadow-md`
+                                : "bg-cyan-500"
+                            }`}>{m.user[0] === '🤖' ? '🤖' : m.user[0]}</div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <span className={`text-[10px] font-semibold ${
+                                  m.isBot
+                                    ? widgetTheme === "trustlayer" ? "text-green-400" : "text-green-500"
+                                    : widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"
+                                }`}>{m.user}</span>
+                                <span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-slate-500" : "text-gray-400"}`}>{m.time}</span>
+                              </div>
+                              <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{m.msg}</div>
+                              {i === 0 && (
+                                <div className="flex gap-1 mt-1">
+                                  {["🎉 3", "👍 5", "🚀 2"].map((r, ri) => (
+                                    <span key={ri} className={`text-[8px] px-1.5 py-0.5 rounded-full ${
+                                      widgetTheme === "trustlayer"
+                                        ? "bg-white/10 border border-white/10"
+                                        : widgetTheme === "dark" ? "bg-slate-700 border border-slate-600"
+                                        : "bg-gray-100"
+                                    }`}>{r}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        <div className={`text-[9px] animate-pulse ${widgetTheme === "trustlayer" ? "text-cyan-400/60" : widgetTheme === "dark" ? "text-cyan-400/50" : "text-gray-400"}`}>Mike is typing...</div>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <input className={`flex-1 rounded-lg px-3 py-1.5 text-[10px] ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/10 border border-cyan-500/30 text-cyan-100 placeholder-cyan-300/40"
+                            : widgetTheme === "dark" ? "bg-slate-800 border border-slate-700 text-white" : "border"
+                        }`} placeholder="Message #general..." />
+                        <button className={`rounded-lg w-7 h-7 flex items-center justify-center text-[10px] ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
+                            : "bg-cyan-500 text-white"
+                        }`}>↑</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

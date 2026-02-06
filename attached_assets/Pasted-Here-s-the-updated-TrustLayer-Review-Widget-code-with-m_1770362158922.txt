@@ -1,0 +1,174 @@
+Here's the updated TrustLayer Review Widget code with multi-source support:
+
+/**
+ * TrustLayer Review Widget
+ * Version: 1.1.0
+ * Supports: Google, Facebook, Trustpilot
+ */
+(function() {
+  'use strict';
+  var scripts = document.getElementsByTagName('script');
+  var currentScript = scripts[scripts.length - 1];
+  var siteId = currentScript.getAttribute('data-site-id');
+  var apiKey = currentScript.getAttribute('data-api-key');
+  var primaryColor = currentScript.getAttribute('data-primary-color') || '#3b82f6';
+  var containerId = currentScript.getAttribute('data-container') || 'tl-reviews';
+  var layout = currentScript.getAttribute('data-layout') || 'carousel';
+  var maxReviews = parseInt(currentScript.getAttribute('data-max')) || 5;
+  var container = document.getElementById(containerId);
+  if (!container) {
+    console.warn('[TL Reviews] Container not found:', containerId);
+    return;
+  }
+  
+  var css = '\
+    .tl-rev-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }\
+    .tl-rev-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }\
+    .tl-rev-score { font-size: 48px; font-weight: 700; color: #1f2937; }\
+    .tl-rev-meta { display: flex; flex-direction: column; }\
+    .tl-rev-stars { color: #fbbf24; font-size: 24px; letter-spacing: 2px; }\
+    .tl-rev-count { font-size: 14px; color: #6b7280; }\
+    .tl-rev-sources { display: flex; gap: 12px; margin-top: 8px; }\
+    .tl-rev-source-badge { display: flex; align-items: center; gap: 4px; font-size: 12px; padding: 4px 8px; border-radius: 12px; background: #f3f4f6; }\
+    .tl-rev-carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 8px 0; }\
+    .tl-rev-carousel::-webkit-scrollbar { display: none; }\
+    .tl-rev-card { flex: 0 0 300px; scroll-snap-align: start; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }\
+    .tl-rev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }\
+    .tl-rev-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }\
+    .tl-rev-avatar { width: 40px; height: 40px; border-radius: 50%; background: ' + primaryColor + '; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; }\
+    .tl-rev-name { font-weight: 600; color: #1f2937; }\
+    .tl-rev-date { font-size: 12px; color: #9ca3af; }\
+    .tl-rev-rating { color: #fbbf24; margin-bottom: 8px; }\
+    .tl-rev-text { font-size: 14px; color: #4b5563; line-height: 1.5; }\
+    .tl-rev-source { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #9ca3af; margin-top: 12px; }\
+    .tl-rev-google { color: #4285f4; font-weight: bold; }\
+    .tl-rev-facebook { color: #1877f2; font-weight: bold; }\
+    .tl-rev-trustpilot { color: #00b67a; font-weight: bold; }\
+    .tl-rev-powered { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 16px; }\
+    .tl-rev-powered a { color: ' + primaryColor + '; text-decoration: none; }\
+  ';
+  
+  // Sample reviews - replace with API fetch in production
+  var SAMPLE_REVIEWS = [
+    { name: 'John Smith', rating: 5, text: 'Absolutely fantastic work! The team was professional and the results exceeded expectations.', date: '2 weeks ago', source: 'google' },
+    { name: 'Sarah Johnson', rating: 5, text: 'Best experience ever. Communication was excellent throughout the entire project.', date: '1 month ago', source: 'facebook' },
+    { name: 'Mike Davis', rating: 5, text: 'Quality work at a fair price. They treated our home with respect.', date: '1 month ago', source: 'trustpilot' },
+    { name: 'Emily Wilson', rating: 4, text: 'Great job overall. The team was friendly and skilled.', date: '2 months ago', source: 'google' },
+    { name: 'Robert Brown', rating: 5, text: 'Incredible attention to detail. Will definitely use again!', date: '2 months ago', source: 'facebook' }
+  ];
+  
+  function injectStyles() {
+    if (document.getElementById('tl-rev-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'tl-rev-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+  
+  function renderStars(rating) {
+    var full = Math.floor(rating);
+    var html = '';
+    for (var i = 0; i < 5; i++) {
+      html += i < full ? '★' : '☆';
+    }
+    return html;
+  }
+  
+  function getInitials(name) {
+    return name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase();
+  }
+  
+  function getSourceLabel(source) {
+    switch(source) {
+      case 'google': return '<span class="tl-rev-google">G</span> Google';
+      case 'facebook': return '<span class="tl-rev-facebook">f</span> Facebook';
+      case 'trustpilot': return '<span class="tl-rev-trustpilot">★</span> Trustpilot';
+      default: return source;
+    }
+  }
+  
+  function countSources(reviews) {
+    var counts = { google: 0, facebook: 0, trustpilot: 0 };
+    reviews.forEach(function(r) {
+      if (counts[r.source] !== undefined) counts[r.source]++;
+    });
+    return counts;
+  }
+  
+  function renderSourceBadges(counts) {
+    var html = '';
+    if (counts.google > 0) html += '<div class="tl-rev-source-badge"><span class="tl-rev-google">G</span> ' + counts.google + '</div>';
+    if (counts.facebook > 0) html += '<div class="tl-rev-source-badge"><span class="tl-rev-facebook">f</span> ' + counts.facebook + '</div>';
+    if (counts.trustpilot > 0) html += '<div class="tl-rev-source-badge"><span class="tl-rev-trustpilot">★</span> ' + counts.trustpilot + '</div>';
+    return html;
+  }
+  
+  function renderReviewCard(review) {
+    return '\
+      <div class="tl-rev-card">\
+        <div class="tl-rev-card-header">\
+          <div class="tl-rev-avatar">' + getInitials(review.name) + '</div>\
+          <div>\
+            <div class="tl-rev-name">' + review.name + '</div>\
+            <div class="tl-rev-date">' + review.date + '</div>\
+          </div>\
+        </div>\
+        <div class="tl-rev-rating">' + renderStars(review.rating) + '</div>\
+        <div class="tl-rev-text">' + review.text + '</div>\
+        <div class="tl-rev-source">' + getSourceLabel(review.source) + '</div>\
+      </div>\
+    ';
+  }
+  
+  function render() {
+    injectStyles();
+    
+    var reviews = SAMPLE_REVIEWS.slice(0, maxReviews);
+    var avgRating = reviews.reduce(function(sum, r) { return sum + r.rating; }, 0) / reviews.length;
+    var sourceCounts = countSources(reviews);
+    
+    var reviewsHtml = reviews.map(renderReviewCard).join('');
+    var layoutClass = layout === 'grid' ? 'tl-rev-grid' : 'tl-rev-carousel';
+    
+    container.innerHTML = '\
+      <div class="tl-rev-container">\
+        <div class="tl-rev-header">\
+          <div class="tl-rev-score">' + avgRating.toFixed(1) + '</div>\
+          <div class="tl-rev-meta">\
+            <div class="tl-rev-stars">' + renderStars(Math.round(avgRating)) + '</div>\
+            <div class="tl-rev-count">Based on ' + reviews.length + ' reviews</div>\
+            <div class="tl-rev-sources">' + renderSourceBadges(sourceCounts) + '</div>\
+          </div>\
+        </div>\
+        <div class="' + layoutClass + '">' + reviewsHtml + '</div>\
+        <div class="tl-rev-powered">Powered by <a href="https://tlid.io" target="_blank">TrustLayer</a></div>\
+      </div>\
+    ';
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+  
+  window.TLReviews = { refresh: render };
+  console.log('[TL Reviews] v1.1.0 loaded for site:', siteId);
+})();
+What's New in v1.1.0:
+
+Multi-source support: google, facebook, trustpilot
+Source badges in header showing count per platform
+Color-coded source labels on each review card
+getSourceLabel() function for easy extension to new sources
+Usage unchanged:
+
+<div id="tl-reviews"></div>
+<script src="https://tlid.io/widgets/tl-reviews.js" 
+  data-site-id="your-site-id"
+  data-api-key="your-api-key"
+  data-primary-color="#00d4ff"
+  data-layout="carousel"
+  data-max="6">
+</script>
+Hand that off and the other agent can update the TrustLayer codebase. Want me to keep working on the rewards/gamification system here?
