@@ -425,6 +425,32 @@ export default function Home() {
                   <ExternalLink className="w-3 h-3" />
                 </a>
                 
+                <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Resources</div>
+                <Link 
+                  href="/blog" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-blog-mobile"
+                >
+                  Blog
+                </Link>
+                <Link 
+                  href="/resources" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-resources-mobile"
+                >
+                  Free Resources
+                </Link>
+                <Link 
+                  href="/chat" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
+                  data-testid="nav-chat-mobile"
+                >
+                  Signal Chat
+                </Link>
+
                 <div className="text-xs text-muted-foreground uppercase tracking-wider py-2 mt-2">Company</div>
                 <Link 
                   href="/about" 
