@@ -33,6 +33,7 @@ import WebsiteAudit from "@/pages/WebsiteAudit";
 import Resources from "@/pages/Resources";
 import MarketingHub from "@/pages/MarketingHub";
 import SignalChat from "@/pages/SignalChat";
+import EcosystemMetrics from "@/pages/EcosystemMetrics";
 
 function Router() {
   return (
@@ -66,6 +67,7 @@ function Router() {
       <Route path="/resources" component={Resources}/>
       <Route path="/marketing" component={MarketingHub}/>
       <Route path="/chat" component={SignalChat}/>
+      <Route path="/metrics" component={EcosystemMetrics}/>
       <Route component={NotFound} />
     </Switch>
   );

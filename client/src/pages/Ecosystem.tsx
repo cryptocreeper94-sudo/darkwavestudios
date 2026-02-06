@@ -172,6 +172,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "/marketing",
     category: "business"
+  },
+  {
+    id: "chronicles",
+    name: "Chronicles",
+    tagline: "Your Legacy. Your Story. Your Game.",
+    description: "Immersive gaming experience powered by the Trust Layer ecosystem. Build your legacy in a dynamic world of strategy and adventure.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://yourlegacy.io",
+    category: "gaming"
   }
 ];
 
@@ -181,7 +190,8 @@ const categories = [
   { id: "business", name: "Business Operations", description: "Enterprise workflow and staffing solutions" },
   { id: "trades", name: "Trade Services", description: "Field service platforms for contractors" },
   { id: "auto", name: "Auto & Delivery", description: "Vehicle and food service platforms" },
-  { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" }
+  { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" },
+  { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" }
 ];
 
 function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryName: string }) {
@@ -320,13 +330,22 @@ export default function Ecosystem() {
               <span className="font-display text-xl lg:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Ecosystem</span>
             </div>
           </div>
-          <Link 
-            href="/developers"
-            className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
-            data-testid="button-developer-tools"
-          >
-            <span className="relative z-10">Developer Tools</span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/metrics"
+              className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300"
+              data-testid="button-ecosystem-metrics"
+            >
+              Metrics
+            </Link>
+            <Link 
+              href="/developers"
+              className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+              data-testid="button-developer-tools"
+            >
+              <span className="relative z-10">Developer Tools</span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -334,7 +353,7 @@ export default function Ecosystem() {
         <section className="text-center mb-16 lg:mb-24">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Sparkles className="w-4 h-4" />
-            16+ Connected Applications
+            18 Connected Applications
           </div>
           <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
             The DarkWave{" "}
@@ -352,7 +371,7 @@ export default function Ecosystem() {
                 </div>
               ))}
             </div>
-            <span className="text-sm text-muted-foreground self-center">+12 more apps</span>
+            <span className="text-sm text-muted-foreground self-center">+14 more apps</span>
           </div>
         </section>
 
