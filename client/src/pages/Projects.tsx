@@ -3,22 +3,22 @@ import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 
-import strikeAgentImg from "@assets/ecosystem/strikeagent.png";
-import pulseImg from "@assets/ecosystem/pulse.png";
-import orbitImg from "@assets/ecosystem/orbitstaffing.png";
-import orbyImg from "@assets/ecosystem/getorby.png";
-import garageBotImg from "@assets/ecosystem/garagebot.png";
-import brewBoardImg from "@assets/ecosystem/brewandboard.png";
-import lotOpsImg from "@assets/ecosystem/lotopspro.png";
-import nashPaintImg from "@assets/ecosystem/nashpaintpros.png";
-import paintProsImg from "@assets/ecosystem/paintpros.png";
-import lumePaintImg from "@assets/ecosystem/lumepaintco.png";
-import tradeWorksImg from "@assets/ecosystem/tradeworksai.png";
-import trustLayerImg from "@assets/ecosystem/trustlayer.jpg";
-import trustShieldImg from "@assets/ecosystem/trustshield.png";
-import vedaSolusImg from "@assets/ecosystem/vedasolus.png";
-import happyEatsImg from "@assets/ecosystem/happyeats.png";
-import darkWaveImg from "@assets/ecosystem/darkwavestudios.png";
+import strikeAgentImg from "@/assets/ecosystem/strikeagent.png";
+import pulseImg from "@/assets/ecosystem/pulse.png";
+import orbitImg from "@/assets/ecosystem/orbitstaffing.png";
+import orbyImg from "@/assets/ecosystem/getorby.png";
+import garageBotImg from "@/assets/ecosystem/garagebot.png";
+import brewBoardImg from "@/assets/ecosystem/brewandboard.png";
+import lotOpsImg from "@/assets/ecosystem/lotopspro.png";
+import nashPaintImg from "@/assets/ecosystem/nashpaintpros.png";
+import paintProsImg from "@/assets/ecosystem/paintpros.png";
+import lumePaintImg from "@/assets/ecosystem/lumepaintco.png";
+import tradeWorksImg from "@/assets/ecosystem/tradeworksai.png";
+import trustLayerImg from "@/assets/ecosystem/trustlayer.jpg";
+import trustShieldImg from "@/assets/ecosystem/trustshield.png";
+import vedaSolusImg from "@/assets/ecosystem/vedasolus.png";
+import happyEatsImg from "@/assets/ecosystem/happyeats.png";
+import darkWaveImg from "@/assets/ecosystem/darkwavestudios.png";
 
 const projects = [
   {
