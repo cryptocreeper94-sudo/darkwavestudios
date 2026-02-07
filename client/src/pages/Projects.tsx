@@ -168,7 +168,7 @@ const projects = [
     tech: ["Food Delivery", "Ordering", "Tracking", "Loyalty"],
     image: happyEatsImg,
     gradient: "from-yellow-500/20 to-amber-600/20",
-    url: "#",
+    url: "https://happyeats.replit.app",
     category: "Food Tech"
   },
   {
@@ -213,20 +213,20 @@ export default function Projects() {
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
+          <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text" data-testid="link-home">
             DarkWave Studios
           </Link>
           <nav className="hidden lg:flex items-center gap-8">
-            <Link href="/services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Services</Link>
-            <Link href="/projects" className="text-sm font-medium text-primary">Projects</Link>
-            <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">About</Link>
-            <Link href="/compare" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Compare</Link>
-            <Link href="/contact" className="btn-glow bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold">
+            <Link href="/services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" data-testid="link-services">Services</Link>
+            <Link href="/projects" className="text-sm font-medium text-primary" data-testid="link-projects">Projects</Link>
+            <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" data-testid="link-about">About</Link>
+            <Link href="/compare" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" data-testid="link-compare">Compare</Link>
+            <Link href="/contact" className="btn-glow bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold" data-testid="link-get-quote">
               Get Quote
             </Link>
           </nav>
-          <Link href="/" className="lg:hidden text-muted-foreground hover:text-primary">
-            <ArrowLeft className="w-5 h-5" />
+          <Link href="/" className="lg:hidden text-muted-foreground hover:text-primary" data-testid="link-back" aria-label="Back to home">
+            <ArrowLeft className="w-5 h-5" aria-hidden="true" />
           </Link>
         </div>
       </header>
@@ -250,25 +250,26 @@ export default function Projects() {
               rel="noopener noreferrer"
               className="glass-card rounded-xl md:rounded-2xl p-3 md:p-6 gradient-border hover-lift group cursor-pointer"
               data-testid={`project-card-${project.id}`}
+              aria-label={`${project.title} - ${project.category}`}
             >
               <div className={`w-full h-24 md:h-36 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover" data-testid={`img-project-${project.id}`} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-lg" />
+                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-lg" aria-hidden="true" />
                 </div>
               </div>
               
               <div className="flex items-center justify-between mb-1 md:mb-2">
-                <span className="text-[8px] md:text-[10px] uppercase tracking-wider text-primary font-semibold">{project.category}</span>
-                <ExternalLink className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                <span className="text-[8px] md:text-[10px] uppercase tracking-wider text-primary font-semibold" data-testid={`text-project-category-${project.id}`}>{project.category}</span>
+                <ExternalLink className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
               </div>
               
               <h3 className="text-sm md:text-xl font-bold font-display mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-1" data-testid={`text-project-title-${project.id}`}>{project.title}</h3>
-              <p className="text-muted-foreground text-[10px] md:text-sm mb-2 md:mb-4 line-clamp-2 md:line-clamp-3">{project.description}</p>
+              <p className="text-muted-foreground text-[10px] md:text-sm mb-2 md:mb-4 line-clamp-2 md:line-clamp-3" data-testid={`text-project-desc-${project.id}`}>{project.description}</p>
               
               <div className="flex flex-wrap gap-1 md:gap-2">
                 {project.tech.slice(0, 3).map((tech, i) => (
-                  <span key={i} className="px-1.5 md:px-2 py-0.5 md:py-1 text-[8px] md:text-[10px] rounded-full bg-primary/10 text-primary">
+                  <span key={i} className="px-1.5 md:px-2 py-0.5 md:py-1 text-[8px] md:text-[10px] rounded-full bg-primary/10 text-primary" data-testid={`text-project-tech-${project.id}-${i}`}>
                     {tech}
                   </span>
                 ))}
@@ -282,7 +283,7 @@ export default function Projects() {
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4" data-testid="text-cta-heading">
               Want Something <span className="gradient-text">Like This?</span>
             </h2>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-muted-foreground mb-6" data-testid="text-cta-description">
               Every project is custom-built from scratch. Tell us about your vision and we'll bring it to life.
             </p>
             <Link 
