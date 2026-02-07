@@ -1,7 +1,7 @@
 import { 
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, pulseRequests, bookings, payments,
   pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
-  ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs,
+  ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs, guardianScans,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -21,7 +21,8 @@ import {
   type EcosystemApp, type InsertEcosystemApp,
   type CodeSnippet, type InsertCodeSnippet,
   type SnippetCategory, type InsertSnippetCategory,
-  type EcosystemLog, type InsertEcosystemLog
+  type EcosystemLog, type InsertEcosystemLog,
+  type GuardianScan, type InsertGuardianScan
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, sql, count } from "drizzle-orm";
@@ -117,6 +118,12 @@ export interface IStorage {
   createDocument(doc: InsertDocument): Promise<Document>;
   updateDocument(id: string, doc: Partial<InsertDocument>): Promise<Document | undefined>;
   deleteDocument(id: string): Promise<void>;
+
+  // Guardian AI Scans
+  getGuardianScans(): Promise<GuardianScan[]>;
+  getGuardianScan(id: string): Promise<GuardianScan | undefined>;
+  createGuardianScan(scan: InsertGuardianScan): Promise<GuardianScan>;
+  updateGuardianScan(id: string, data: Partial<InsertGuardianScan>): Promise<GuardianScan | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -563,6 +570,25 @@ export class DatabaseStorage implements IStorage {
       totalSnippets: snippetCount?.count || 0,
       totalDownloads: Number(downloadSum?.sum) || 0
     };
+  }
+
+  async getGuardianScans(): Promise<GuardianScan[]> {
+    return db.select().from(guardianScans).orderBy(desc(guardianScans.createdAt));
+  }
+
+  async getGuardianScan(id: string): Promise<GuardianScan | undefined> {
+    const [scan] = await db.select().from(guardianScans).where(eq(guardianScans.id, id));
+    return scan || undefined;
+  }
+
+  async createGuardianScan(scan: InsertGuardianScan): Promise<GuardianScan> {
+    const [created] = await db.insert(guardianScans).values(scan).returning();
+    return created;
+  }
+
+  async updateGuardianScan(id: string, data: Partial<InsertGuardianScan>): Promise<GuardianScan | undefined> {
+    const [updated] = await db.update(guardianScans).set(data).where(eq(guardianScans.id, id)).returning();
+    return updated || undefined;
   }
 }
 

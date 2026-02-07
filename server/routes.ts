@@ -951,6 +951,129 @@ Context: ${context || 'General inquiry'}`;
     }
   });
 
+  app.post("/api/guardian/scan", async (req, res) => {
+    try {
+      const scanRequestSchema = z.object({
+        agentName: z.string().min(1, "Agent name is required").max(200),
+        agentUrl: z.string().min(1, "URL or contract address is required").max(500),
+        contactEmail: z.string().email().optional().nullable(),
+      });
+
+      const parsed = scanRequestSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ success: false, error: parsed.error.errors[0]?.message || "Invalid input" });
+      }
+
+      const { agentName, agentUrl, contactEmail } = parsed.data;
+
+      const scan = await storage.createGuardianScan({
+        agentName,
+        agentUrl,
+        contactEmail: contactEmail || null,
+        scanType: "quick",
+        status: "scanning",
+      });
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are Guardian AI, an advanced security analysis system for AI agents and bots in the crypto ecosystem. You perform comprehensive security assessments.
+
+Given an AI agent's name and URL/contract address, perform a thorough security analysis and return a JSON object with these exact fields:
+- securityScore (0-100): Code integrity, vulnerabilities, access control, wallet safety
+- transparencyScore (0-100): Open source status, documentation quality, audit history  
+- reliabilityScore (0-100): Uptime metrics, error handling, edge case coverage
+- complianceScore (0-100): Regulatory alignment, data handling, consent mechanisms
+- overallScore (0-100): Weighted average of all scores
+- grade (A/B/C/D/F): A=80-100, B=60-79, C=40-59, D=20-39, F=0-19
+- riskLevel (Low/Moderate/Elevated/High/Critical): Based on overall score
+- findings (array of strings): 5-8 specific security findings, both positive and negative
+- recommendations (array of strings): 3-5 actionable security recommendations
+- summary (string): 2-3 sentence executive summary of the assessment
+
+Be realistic and thorough. Analyze the URL pattern, domain reputation implications, naming conventions, and potential attack vectors. For contract addresses, analyze the address format and chain. Provide genuinely useful security insights.
+
+IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Analyze this AI agent:\nName: ${agentName}\nURL/Contract: ${agentUrl}` }
+        ],
+        max_tokens: 1500,
+        temperature: 0.7,
+      });
+
+      const content = response.choices[0].message.content || "{}";
+      let analysis;
+      try {
+        const cleaned = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        analysis = JSON.parse(cleaned);
+      } catch {
+        analysis = {
+          securityScore: 65,
+          transparencyScore: 55,
+          reliabilityScore: 60,
+          complianceScore: 50,
+          overallScore: 58,
+          grade: "C",
+          riskLevel: "Elevated",
+          findings: ["Unable to fully parse analysis results", "Manual review recommended"],
+          recommendations: ["Submit for full certification review", "Provide source code access for deeper analysis"],
+          summary: "Preliminary scan completed with limited data. A full certification review is recommended for comprehensive security assessment."
+        };
+      }
+
+      const updated = await storage.updateGuardianScan(scan.id, {
+        status: "completed",
+        securityScore: analysis.securityScore,
+        transparencyScore: analysis.transparencyScore,
+        reliabilityScore: analysis.reliabilityScore,
+        complianceScore: analysis.complianceScore,
+        overallScore: analysis.overallScore,
+        grade: analysis.grade,
+        riskLevel: analysis.riskLevel,
+        findings: JSON.stringify(analysis.findings),
+        recommendations: JSON.stringify(analysis.recommendations),
+      });
+
+      res.json({
+        success: true,
+        scan: {
+          ...updated,
+          findings: analysis.findings,
+          recommendations: analysis.recommendations,
+          summary: analysis.summary,
+        }
+      });
+    } catch (error: any) {
+      console.error("Guardian scan error:", error);
+      res.status(500).json({ success: false, error: "Security scan failed. Please try again." });
+    }
+  });
+
+  app.get("/api/guardian/scans", async (_req, res) => {
+    try {
+      const scans = await storage.getGuardianScans();
+      res.json({ success: true, scans });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: "Failed to fetch scans" });
+    }
+  });
+
+  app.get("/api/guardian/scan/:id", async (req, res) => {
+    try {
+      const scan = await storage.getGuardianScan(req.params.id);
+      if (!scan) return res.status(404).json({ success: false, error: "Scan not found" });
+      res.json({ success: true, scan });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: "Failed to fetch scan" });
+    }
+  });
+
   app.post("/api/blog", requireAdminAuth, async (req, res) => {
     try {
       const data = insertBlogPostSchema.parse(req.body);

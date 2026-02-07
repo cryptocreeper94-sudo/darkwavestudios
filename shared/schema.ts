@@ -681,3 +681,30 @@ export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
 });
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
 export type ChatMessage = typeof chatMessages.$inferSelect;
+
+// Guardian AI Scans
+export const guardianScans = pgTable("guardian_scans", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  agentName: text("agent_name").notNull(),
+  agentUrl: text("agent_url").notNull(),
+  contactEmail: text("contact_email"),
+  scanType: text("scan_type").default("quick"),
+  status: text("status").default("pending"),
+  securityScore: integer("security_score"),
+  transparencyScore: integer("transparency_score"),
+  reliabilityScore: integer("reliability_score"),
+  complianceScore: integer("compliance_score"),
+  overallScore: integer("overall_score"),
+  grade: text("grade"),
+  findings: text("findings"),
+  recommendations: text("recommendations"),
+  riskLevel: text("risk_level"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertGuardianScanSchema = createInsertSchema(guardianScans).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertGuardianScan = z.infer<typeof insertGuardianScanSchema>;
+export type GuardianScan = typeof guardianScans.$inferSelect;

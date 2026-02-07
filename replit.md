@@ -50,6 +50,7 @@ Database tables include:
 - `chatChannels` - Signal Chat channels (ecosystem + app-support)
 - `chatUsers` - Signal Chat user identities
 - `chatMessages` - Signal Chat real-time messages
+- `guardianScans` - Guardian AI security scan results and trust scores
 
 ### Analytics System
 The platform includes a comprehensive analytics system:
@@ -106,8 +107,11 @@ External platform for creating, deploying, and discovering AI agents:
 - **Integration**: Cross-links to Guardian AI for agent certification
 
 ### Guardian AI
-AI agent certification platform for the crypto ecosystem:
-- **Certification Tiers**: Basic ($999), Professional ($4,999), Enterprise ($14,999)
+AI agent security scanner and certification platform for the crypto ecosystem:
+- **AI Bot Scanner**: Free real-time security scan using OpenAI to detect scams, honeypots, rug pulls, and fraud
+- **Scan API**: POST /api/guardian/scan analyzes agents and returns trust scores with Zod validation
+- **Scan Persistence**: Results stored in guardian_scans table with full score breakdown
+- **Certification Tiers**: Basic ($999), Advanced ($4,999), Enterprise ($14,999)
 - **Trust Score System**: 4 dimensions (Security, Transparency, Reliability, Compliance)
 - **Certified Agent Registry**: Searchable database of verified AI agents
 - **Certification Request Form**: Lead capture for certification inquiries
