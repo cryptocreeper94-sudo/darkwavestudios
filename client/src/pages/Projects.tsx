@@ -1,109 +1,195 @@
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
-import strikeAgentImg from "@assets/generated_images/ai_sniper_trading_bot.png";
+import Footer from "@/components/Footer";
+
+import strikeAgentImg from "@assets/ecosystem/strikeagent.png";
+import pulseImg from "@assets/ecosystem/pulse.png";
+import orbitImg from "@assets/ecosystem/orbitstaffing.png";
+import orbyImg from "@assets/ecosystem/getorby.png";
+import garageBotImg from "@assets/ecosystem/garagebot.png";
+import brewBoardImg from "@assets/ecosystem/brewandboard.png";
+import lotOpsImg from "@assets/ecosystem/lotopspro.png";
+import nashPaintImg from "@assets/ecosystem/nashpaintpros.png";
+import paintProsImg from "@assets/ecosystem/paintpros.png";
+import lumePaintImg from "@assets/ecosystem/lumepaintco.png";
+import tradeWorksImg from "@assets/ecosystem/tradeworksai.png";
+import trustLayerImg from "@assets/ecosystem/trustlayer.jpg";
+import trustShieldImg from "@assets/ecosystem/trustshield.png";
+import vedaSolusImg from "@assets/ecosystem/vedasolus.png";
+import happyEatsImg from "@assets/ecosystem/happyeats.png";
+import darkWaveImg from "@assets/ecosystem/darkwavestudios.png";
 
 const projects = [
   {
     id: 1,
-    title: "Strike Agent",
-    description: "AI-powered crypto trading signals platform with 61% win rate. Real-time alerts, backtested strategies, and comprehensive analytics dashboard for serious traders.",
-    tech: ["AI/ML", "Real-time", "Analytics", "Crypto"],
-    image: strikeAgentImg,
-    gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://strikeagent.io",
-    category: "FinTech",
-    isImage: true
+    title: "Pulse",
+    description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent token discovery, DarkWave-V2 AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
+    tech: ["AI/ML", "Crypto", "Analytics", "Trading"],
+    image: pulseImg,
+    gradient: "from-purple-500/20 to-indigo-600/20",
+    url: "https://dwsc.io",
+    category: "FinTech"
   },
   {
     id: 2,
-    title: "DarkWave Pulse",
-    description: "Predictive market intelligence platform powered by advanced AI analytics. Monitors market sentiment, identifies trends, and provides actionable insights.",
-    tech: ["AI", "Analytics", "Markets", "Predictions"],
-    image: "📡",
-    gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://darkwavepulse.com",
+    title: "StrikeAgent",
+    description: "Autonomous AI-powered token discovery and trading system. 24/7 multi-chain scanning across 23+ blockchains, honeypot detection, safety scoring, smart auto-trade with configurable risk management and limit orders.",
+    tech: ["AI Trading", "Multi-Chain", "Safety Engine", "Automation"],
+    image: strikeAgentImg,
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://strikeagent.io",
     category: "FinTech"
   },
   {
     id: 3,
-    title: "Orbit Staffing",
-    description: "Complete staffing platform with GPS clock-in, automated payroll processing, AI-powered candidate matching, and comprehensive HR management tools.",
-    tech: ["HR Tech", "Payroll", "AI Matching", "GPS"],
-    image: "🚀",
+    title: "ORBIT Staffing OS",
+    description: "Automated white-label staffing platform with worker onboarding, GPS-verified time tracking, payroll processing for W-2 and 1099 workers, automated invoicing, compliance engine, and franchise-ready multi-tenant architecture.",
+    tech: ["HR Tech", "Payroll", "Compliance", "White-Label"],
+    image: orbitImg,
     gradient: "from-emerald-500/20 to-teal-600/20",
     url: "https://orbitstaffing.io",
     category: "HR/Staffing"
   },
   {
     id: 4,
-    title: "Orby",
-    description: "Venue operations command suite featuring geofencing technology, facial recognition clock-in, and real-time staff management for large-scale events.",
-    tech: ["Operations", "Geofencing", "Biometrics", "Real-time"],
-    image: "🔮",
+    title: "Orby Commander",
+    description: "Venue operations command center for stadiums and arenas. Emergency response dashboard, delivery lifecycle tracking, 3-phase inventory counting, alcohol compliance monitoring, GPS-guided navigation, and 12+ specialized role dashboards.",
+    tech: ["Operations", "GPS", "Compliance", "Real-time"],
+    image: orbyImg,
     gradient: "from-orange-500/20 to-red-600/20",
     url: "https://getorby.io",
     category: "Operations"
   },
   {
     id: 5,
-    title: "Nashville Painting Pros",
-    description: "Professional painting contractor website with instant quote calculator, project galleries, and integrated booking system for residential and commercial services.",
-    tech: ["Quote System", "Booking", "CMS", "Local SEO"],
-    image: "🎨",
-    gradient: "from-yellow-500/20 to-orange-600/20",
-    url: "https://nashpaintpros.io",
-    category: "Local Business"
-  },
-  {
-    id: 6,
-    title: "Paint Pros",
-    description: "Lead generation and CRM platform for painting contractors. Features job scheduling, customer management, and automated follow-up sequences.",
-    tech: ["CRM", "Lead Gen", "Scheduling", "Automation"],
-    image: "🖌️",
-    gradient: "from-rose-500/20 to-pink-600/20",
-    url: "https://paintpros.io",
-    category: "SaaS"
-  },
-  {
-    id: 7,
-    title: "DWSC",
-    description: "DarkWave Sports Console - comprehensive sports analytics and data visualization platform for teams, coaches, and analysts.",
-    tech: ["Sports", "Analytics", "Data Viz", "Real-time"],
-    image: "⚡",
-    gradient: "from-indigo-500/20 to-purple-600/20",
-    url: "https://dwsc.io",
-    category: "Sports Tech"
-  },
-  {
-    id: 8,
-    title: "Your Legacy",
-    description: "Digital estate planning and legacy preservation platform. Secure document storage, video messages, and scheduled delivery for future generations.",
-    tech: ["Security", "Scheduling", "Storage", "Privacy"],
-    image: "📜",
-    gradient: "from-amber-500/20 to-yellow-600/20",
-    url: "https://yourlegacy.io",
-    category: "LegalTech"
-  },
-  {
-    id: 9,
-    title: "Garage Bot",
-    description: "AI-powered automotive diagnostics and maintenance scheduling. Connects to OBD-II systems for real-time vehicle health monitoring and predictive maintenance.",
-    tech: ["IoT", "AI", "Automotive", "Predictive"],
-    image: "🤖",
+    title: "GarageBot",
+    description: "Auto parts aggregator unifying inventory from 40+ retailers into one searchable interface. VIN-decoded vehicle garage, Buddy AI assistant for repair advice, DIY repair guides, insurance comparison, and blockchain-verified vehicle passport.",
+    tech: ["Automotive", "AI Assistant", "Aggregation", "Blockchain"],
+    image: garageBotImg,
     gradient: "from-slate-500/20 to-gray-600/20",
     url: "https://garagebot.io",
     category: "Automotive"
   },
   {
-    id: 10,
-    title: "Brew & Board",
-    description: "Coffee shop and board game cafe management system. Handles reservations, game library tracking, loyalty programs, and POS integration.",
-    tech: ["POS", "Reservations", "Loyalty", "Inventory"],
-    image: "☕",
-    gradient: "from-amber-600/20 to-brown-600/20",
-    url: "https://brewandboard.coffee",
+    id: 6,
+    title: "Lot Ops Pro",
+    description: "Mobile-first driver performance and workflow management for auto auctions and dealerships. Real-time GPS routing, moves-per-hour tracking, OCR camera scanning, AI assistant, shift management, and blockchain-verified performance records.",
+    tech: ["GPS", "OCR", "AI", "Mobile PWA"],
+    image: lotOpsImg,
+    gradient: "from-blue-500/20 to-sky-600/20",
+    url: "https://lotopspro.com",
+    category: "Logistics"
+  },
+  {
+    id: 7,
+    title: "Brew & Board Coffee",
+    description: "B2B corporate coffee concierge platform for Nashville. Calendar-based ordering, vendor discovery, real-time delivery tracking with driver GPS, virtual host for meetings, team management, and loyalty rewards program.",
+    tech: ["B2B", "Delivery", "Ordering", "Loyalty"],
+    image: brewBoardImg,
+    gradient: "from-amber-600/20 to-orange-600/20",
+    url: "https://brewandboardcoffee.replit.app",
     category: "Hospitality"
+  },
+  {
+    id: 8,
+    title: "TradeWorks AI",
+    description: "Comprehensive field toolkit for 8 trade industries. AI-powered estimation, GPS crew tracking, weather-aware scheduling, automated invoicing, subcontractor management, and white-label franchise architecture.",
+    tech: ["AI Estimation", "8 Trades", "GPS", "White-Label"],
+    image: tradeWorksImg,
+    gradient: "from-green-500/20 to-emerald-600/20",
+    url: "https://tradeworksai.io",
+    category: "SaaS"
+  },
+  {
+    id: 9,
+    title: "Nashville Painting Pros",
+    description: "Live demo for TradeWorks AI painting vertical. Fully functional business site with instant online estimates, interactive room visualizer for color selection, 5-step booking wizard, and before/after portfolio galleries.",
+    tech: ["Estimation", "Room Visualizer", "Booking", "SEO"],
+    image: nashPaintImg,
+    gradient: "from-yellow-500/20 to-orange-600/20",
+    url: "https://nashpaintpros.io",
+    category: "Local Business"
+  },
+  {
+    id: 10,
+    title: "Lume Paint Co",
+    description: "Premium tier demo for TradeWorks AI painting vertical. Luxury 'Sparkle and Shine' design with glassmorphism effects, 3D hover animations, AI room visualizer with Benjamin Moore and Sherwin-Williams colors.",
+    tech: ["Premium Design", "AI Visualizer", "Luxury", "3D Effects"],
+    image: lumePaintImg,
+    gradient: "from-rose-500/20 to-pink-600/20",
+    url: "https://lumepaint.co",
+    category: "Local Business"
+  },
+  {
+    id: 11,
+    title: "PaintPros",
+    description: "Lead generation and marketing hub for the trade services ecosystem. Gateway connecting contractors to TradeWorks AI, TrustLayer Marketing, blockchain verification, and AI certification through live vertical demos.",
+    tech: ["Lead Gen", "Marketing", "Gateway", "Ecosystem"],
+    image: paintProsImg,
+    gradient: "from-red-500/20 to-rose-600/20",
+    url: "https://paintpros.io",
+    category: "Marketing"
+  },
+  {
+    id: 12,
+    title: "DarkWave Trust Layer",
+    description: "Layer 1 Proof-of-Authority blockchain providing verified identity, AI agent certification, and audit trails. 200K+ TPS, Guardian AI certification, Guardian Shield security, cross-chain bridge, DeFi suite, and Signal Chat.",
+    tech: ["Blockchain", "Identity", "DeFi", "Security"],
+    image: trustLayerImg,
+    gradient: "from-indigo-500/20 to-purple-600/20",
+    url: "https://dwsc.io",
+    category: "Blockchain"
+  },
+  {
+    id: 13,
+    title: "TrustShield",
+    description: "24/7 continuous security monitoring and AI agent certification platform. Smart contract audits, penetration testing, vulnerability assessment, and Guardian Shield enterprise protection for blockchain operations.",
+    tech: ["Security", "Monitoring", "Auditing", "Enterprise"],
+    image: trustShieldImg,
+    gradient: "from-teal-500/20 to-cyan-600/20",
+    url: "https://trustshield.tech",
+    category: "Security"
+  },
+  {
+    id: 14,
+    title: "VedaSolus",
+    description: "Holistic health platform bridging Ayurveda and Traditional Chinese Medicine with Western science. Dosha analysis, AI wellness coach, health tracking, practitioner hub, daily rituals, and community tribes.",
+    tech: ["Health", "AI Coach", "Ayurveda", "Analytics"],
+    image: vedaSolusImg,
+    gradient: "from-emerald-500/20 to-green-600/20",
+    url: "https://vedasolus.io",
+    category: "Health"
+  },
+  {
+    id: 15,
+    title: "Happy Eats",
+    description: "Food delivery and restaurant discovery platform connecting diners with local restaurants. Online ordering, real-time delivery tracking, restaurant management dashboard, and customer loyalty system.",
+    tech: ["Food Delivery", "Ordering", "Tracking", "Loyalty"],
+    image: happyEatsImg,
+    gradient: "from-yellow-500/20 to-amber-600/20",
+    url: "#",
+    category: "Food Tech"
+  },
+  {
+    id: 16,
+    title: "TrustLayer Marketing",
+    description: "Self-service automated digital marketing with Meta Business Suite integration. Hourly organic posting, smart ad boosting, content rotation across 15+ ecosystem businesses, and blockchain-verified marketing records.",
+    tech: ["Marketing", "Meta API", "Automation", "Analytics"],
+    image: darkWaveImg,
+    gradient: "from-violet-500/20 to-purple-600/20",
+    url: "https://tlid.io",
+    category: "Marketing"
+  },
+  {
+    id: 17,
+    title: "DarkWave Studios",
+    description: "Full-service web development agency and blockchain-verified development ecosystem. Custom web development, AI-powered features, Trust Layer Hub widget marketplace, Guardian AI certification, and developer tools.",
+    tech: ["Agency", "AI", "Blockchain", "Marketplace"],
+    image: darkWaveImg,
+    gradient: "from-primary/20 to-accent/20",
+    url: "https://darkwavestudios.io",
+    category: "Agency"
   }
 ];
 
@@ -111,8 +197,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - Live Web Applications & Case Studies"
-        description="Explore 12+ live web applications built by DarkWave Studios. From AI trading platforms to staffing systems, e-commerce to blockchain - see our work in action."
+        title="Portfolio - 17+ Live Web Applications & Ecosystem"
+        description="Explore 17+ live web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -147,11 +233,11 @@ export default function Projects() {
 
       <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
         <div className="text-center mb-12 lg:mb-16">
-          <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4">
-            Our <span className="gradient-text">Projects</span>
+          <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4" data-testid="text-projects-heading">
+            Our <span className="gradient-text">Ecosystem</span>
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            10+ live applications serving real businesses. From AI trading platforms to local service websites — we build solutions that work.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
+            17+ live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 
@@ -165,14 +251,10 @@ export default function Projects() {
               className="glass-card rounded-xl md:rounded-2xl p-3 md:p-6 gradient-border hover-lift group cursor-pointer"
               data-testid={`project-card-${project.id}`}
             >
-              <div className={`w-full h-20 md:h-32 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
-                {(project as any).isImage ? (
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                ) : (
-                  <span className="text-3xl md:text-5xl">{project.image}</span>
-                )}
+              <div className={`w-full h-24 md:h-36 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-lg" />
                 </div>
               </div>
               
@@ -181,7 +263,7 @@ export default function Projects() {
                 <ExternalLink className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </div>
               
-              <h3 className="text-sm md:text-xl font-bold font-display mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-1">{project.title}</h3>
+              <h3 className="text-sm md:text-xl font-bold font-display mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-1" data-testid={`text-project-title-${project.id}`}>{project.title}</h3>
               <p className="text-muted-foreground text-[10px] md:text-sm mb-2 md:mb-4 line-clamp-2 md:line-clamp-3">{project.description}</p>
               
               <div className="flex flex-wrap gap-1 md:gap-2">
@@ -197,7 +279,7 @@ export default function Projects() {
 
         <div className="mt-16 text-center">
           <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border max-w-3xl mx-auto">
-            <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
+            <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4" data-testid="text-cta-heading">
               Want Something <span className="gradient-text">Like This?</span>
             </h2>
             <p className="text-muted-foreground mb-6">
@@ -206,6 +288,7 @@ export default function Projects() {
             <Link 
               href="/contact"
               className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl text-lg font-bold"
+              data-testid="button-start-project"
             >
               Start Your Project
               <ArrowRight className="w-5 h-5" />
@@ -214,12 +297,7 @@ export default function Projects() {
         </div>
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
-          <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
