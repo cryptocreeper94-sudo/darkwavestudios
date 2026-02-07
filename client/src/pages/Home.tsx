@@ -391,17 +391,14 @@ export default function Home() {
                 >
                   Trust Layer Hub
                 </Link>
-                <a 
-                  href="https://dwsc.io/guardian-ai" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link 
+                  href="/guardian-ai" 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3 flex items-center gap-2"
+                  className="text-sm text-foreground hover:text-primary transition-colors py-2 pl-3"
                   data-testid="nav-guardian-mobile"
                 >
                   Guardian AI
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                </Link>
                 <a 
                   href="https://trustshield.tech" 
                   target="_blank"
@@ -516,7 +513,7 @@ export default function Home() {
               <Link href="/payment" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-pricing">Pricing</Link>
               <Link href="/developers" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-developers">Developers</Link>
               <Link href="/ecosystem" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-ecosystem">Ecosystem</Link>
-              <a href="https://dwsc.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</a>
+              <Link href="/guardian-ai" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-guardian">Guardian AI</Link>
               <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">About</Link>
               <a 
                 href="https://dwtl.io/studio" 
