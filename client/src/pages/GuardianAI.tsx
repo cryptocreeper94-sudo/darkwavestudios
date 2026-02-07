@@ -23,7 +23,9 @@ import {
   Loader2,
   XCircle,
   CheckCircle2,
-  Scan
+  Scan,
+  ExternalLink,
+  Rocket
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { useToast } from "@/hooks/use-toast";
@@ -343,13 +345,22 @@ export default function GuardianAI() {
             Guardian AI scans blockchain-deployed bots to verify they're legitimate, safe, and not fraudulent.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-6">
             <a 
               href="#scan"
               className="btn-glow inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
               data-testid="button-hero-scan"
             >
               <Scan className="w-5 h-5" /> Scan an AI Agent
+            </a>
+            <a 
+              href="https://dwsc.io/ai-agents"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
+              data-testid="link-hero-create-agent"
+            >
+              <Rocket className="w-5 h-5" /> Create an AI Agent <ExternalLink className="w-4 h-4" />
             </a>
             <Link 
               href="/guardian-ai-registry"
@@ -359,6 +370,20 @@ export default function GuardianAI() {
               <Search className="w-5 h-5" /> Certified Registry
             </Link>
           </div>
+          
+          <p className="text-sm text-muted-foreground mb-12" data-testid="text-hero-create-hint">
+            Don't have an AI agent yet?{" "}
+            <a 
+              href="https://dwsc.io/ai-agents" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-purple-400 hover:text-purple-300 underline underline-offset-2"
+              data-testid="link-hero-create-inline"
+            >
+              Build and train one at our AI Agent Marketplace
+            </a>{" "}
+            — then come back here to scan and certify it.
+          </p>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {stats.map((stat, i) => (
@@ -380,10 +405,23 @@ export default function GuardianAI() {
             <h2 className="font-display font-bold text-3xl lg:text-5xl mb-4" data-testid="text-scanner-heading">
               Guardian AI <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Security Scan</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
               Paste any AI agent's URL or contract address. Our AI analyzes it for scam indicators, 
               honeypot patterns, rug pull risks, and fraudulent behavior.
             </p>
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-sm" data-testid="banner-create-agent">
+              <Rocket className="w-5 h-5 text-purple-400 shrink-0" />
+              <span className="text-muted-foreground">Want to create your own AI agent?</span>
+              <a 
+                href="https://dwsc.io/ai-agents" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-purple-400 hover:text-purple-300 font-semibold inline-flex items-center gap-1 whitespace-nowrap"
+                data-testid="link-scanner-create-agent"
+              >
+                Build & Train at DW Agent Marketplace <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
 
           <div className="max-w-3xl mx-auto">
