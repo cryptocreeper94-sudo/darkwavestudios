@@ -94,7 +94,7 @@ The platform includes a documents management system for:
 
 ### Trust Layer Hub
 The platform includes a blockchain-verified code marketplace:
-- **Widget Marketplace**: 30+ embeddable widgets (analytics, booking, lead capture, estimators, VIN decoder, payroll, delivery tracking, etc.)
+- **Widget Marketplace**: 30+ embeddable widgets (analytics, booking, lead capture, estimators, VIN decoder, payroll, delivery tracking, effects kit, etc.)
 - **Live Widget Previews**: Interactive widget demonstrations
 - **Full Code View**: Modal displaying complete widget source code
 - **Categories**: Components, utilities, hooks, API, auth

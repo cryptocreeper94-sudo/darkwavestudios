@@ -471,6 +471,17 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
+    id: "effects-kit", name: "DarkWave Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#a855f7",
+    description: "Complete UI effects system — glass, 3D hover, shimmer, scroll animations, haptics & micro-interactions", price: 149, priceId: "price_widget_effects_kit",
+    fullDescription: "Drop-in UI polish kit used across DarkWave Studios' entire production platform. Includes glassmorphism panels, 3D perspective card hover, purple gradient shimmer loading, IntersectionObserver scroll-triggered animations, navigator.vibrate haptic feedback, and micro-interaction classes (press, lift, ripple). One CSS file + two utility modules — paste into any React or vanilla project and instantly elevate your UI.",
+    features: ["Glassmorphism (glass, glass-card, glass-strong)", "3D perspective card tilt on hover", "Purple gradient shimmer skeleton loading", "Scroll-triggered fade, slide & scale animations", "IntersectionObserver hook + ScrollReveal component", "Haptic feedback utility (6 vibration patterns)", "Button press scale effect", "Hover elevation with shadow", "Expanding ripple click effect", "Animated toggle switch", "CSS-only — no runtime dependencies", "Dark & light theme compatible"],
+    requirements: ["Any website or React app", "No backend required", "No external dependencies"],
+    includes: ["Full CSS effects stylesheet", "useScrollAnimation React hook", "ScrollReveal wrapper component", "Haptic feedback utility module", "Integration guide", "30-day email support", "Lifetime updates"],
+    techStack: ["CSS3", "TypeScript", "React 18 (optional)", "IntersectionObserver API", "Web Vibration API"],
+    linesOfCode: "~420 lines (CSS + hooks + utility)",
+    complexity: "Beginner-friendly"
+  },
+  {
     id: "compliance-engine", name: "Compliance Engine", icon: Fingerprint, containerId: "demo-compliance-engine", color: "#0ea5e9",
     description: "Worker compliance and document verification", price: 199, priceId: "price_widget_compliance_engine",
     fullDescription: "Automated compliance tracking for I-9 verification, background checks, certifications, and license expiration. Ensures your workforce stays compliant with alerts before documents expire. Built from ORBIT Staffing's compliance system.",
@@ -523,6 +534,7 @@ const WIDGET_MAP: Record<string, string> = {
   "CRM Pipeline Manager": "tl-crm",
   "Weather-Based Scheduling": "tl-weather",
   "Signal Chat Widget": "tl-signal-chat",
+  "DarkWave Effects Kit": "tl-effects-kit",
 };
 
 export default function TrustLayerHub() {
@@ -2982,6 +2994,82 @@ export default function TrustLayerHub() {
                         ? "bg-white/10 border border-purple-400/30 text-purple-300 hover:bg-purple-500/10"
                         : widgetTheme === "dark" ? "bg-slate-700 text-purple-400 hover:bg-slate-600" : "bg-purple-100 text-purple-700 hover:bg-purple-200"
                     }`}>Swap</button>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "effects-kit" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Effects Kit</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Interactive demo — try each effect</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 flex-1">
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer hover:scale-105 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-purple-400/30 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-purple-500/20 hover:bg-slate-700/60" : "bg-purple-50 border border-purple-200 hover:bg-purple-100"
+                    }`} style={{ perspective: "600px" }}>
+                      <div className="transition-transform duration-300 hover:rotate-y-6 hover:rotate-x-3" style={{ transformStyle: "preserve-3d" }}>
+                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : ""}`}>🪟</div>
+                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-700"}`}>Glassmorphism</div>
+                        <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>blur + transparency</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-xl ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-cyan-400/30 shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-cyan-500/20 hover:bg-slate-700/60" : "bg-cyan-50 border border-cyan-200 hover:bg-cyan-100"
+                    }`} style={{ perspective: "600px", transformStyle: "preserve-3d" }}>
+                      <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : ""}`}>🎴</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-700"}`}>3D Card Hover</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>perspective + tilt</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center relative overflow-hidden ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-pink-400/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-pink-500/20" : "bg-pink-50 border border-pink-200"
+                    }`}>
+                      <div className="absolute inset-0 shimmer-skeleton opacity-30" style={{ background: "linear-gradient(90deg, transparent, rgba(168,85,247,0.3), transparent)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }}></div>
+                      <div className="relative z-10">
+                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]" : ""}`}>✨</div>
+                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-pink-300" : widgetTheme === "dark" ? "text-pink-400" : "text-pink-700"}`}>Shimmer Load</div>
+                        <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>purple gradient sweep</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-green-400/30 shadow-lg shadow-green-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-green-500/20" : "bg-green-50 border border-green-200"
+                    }`}>
+                      <div className={`text-lg mb-0.5 animate-bounce ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" : ""}`}>📜</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-green-300" : widgetTheme === "dark" ? "text-green-400" : "text-green-700"}`}>Scroll Reveal</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>fade + slide + scale</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer active:scale-90 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-amber-400/30 shadow-lg shadow-amber-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-amber-500/20" : "bg-amber-50 border border-amber-200"
+                    }`} onClick={() => { if (navigator.vibrate) navigator.vibrate(25); }}>
+                      <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" : ""}`}>📳</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-amber-300" : widgetTheme === "dark" ? "text-amber-400" : "text-amber-700"}`}>Haptic Touch</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>tap to feel vibrate</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer group ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-red-400/30 shadow-lg shadow-red-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-red-500/20" : "bg-red-50 border border-red-200"
+                    }`}>
+                      <div className={`text-lg mb-0.5 group-active:scale-75 transition-transform ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]" : ""}`}>🎯</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-red-300" : widgetTheme === "dark" ? "text-red-400" : "text-red-700"}`}>Micro Actions</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>press · lift · ripple</div>
+                    </div>
+                  </div>
+                  <div className={`flex items-center justify-center gap-1 mt-2 px-2 py-1 rounded text-[9px] font-semibold ${
+                    widgetTheme === "trustlayer" ? "bg-purple-500/10 text-purple-300 border border-purple-500/20" : widgetTheme === "dark" ? "bg-purple-900/20 text-purple-400" : "bg-purple-50 text-purple-600 border border-purple-200"
+                  }`}>
+                    <Sparkles className="w-3 h-3" />
+                    <span>6 effect modules · ~420 lines · zero dependencies</span>
                   </div>
                 </div>
               )}

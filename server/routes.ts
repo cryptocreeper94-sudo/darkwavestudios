@@ -1364,7 +1364,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       const validWidgets = [
         'tl-analytics', 'tl-booking', 'tl-chat', 'tl-crew-tracker',
         'tl-crm', 'tl-estimator', 'tl-lead-capture', 'tl-proposal',
-        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather'
+        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather', 'tl-effects-kit'
       ];
       
       if (!validWidgets.includes(widgetName)) {
