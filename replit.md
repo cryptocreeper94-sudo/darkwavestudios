@@ -148,7 +148,50 @@ The application uses a storage abstraction layer (`server/storage.ts`) that impl
 
 Loaded via Google Fonts CDN.
 
+### UI/UX Effects System
+The platform includes a complete effects library applied across all pages:
+
+**Glassmorphism** (CSS classes):
+- `glass` — basic glass panel (backdrop-blur + semi-transparent bg)
+- `glass-card` — card variant with border glow and hover lift
+- `glass-strong` — heavy blur for modals/overlays
+
+**3D Card Hover** (`card-3d` class):
+- CSS perspective + translateZ on hover for depth tilt effect
+- Applied to project cards, service cards, widget cards
+
+**Shimmer/Skeleton Loading** (CSS animation):
+- Purple gradient shimmer sweep animation for loading states
+- Classes: `shimmer-skeleton`, `shimmer-text`, `shimmer-circle`, `shimmer-card`
+
+**Scroll-Triggered Animations** (IntersectionObserver-based):
+- Hook: `useScrollAnimation` in `client/src/hooks/use-scroll-animation.tsx`
+- Component: `ScrollReveal` wrapper for declarative usage
+- Animation types: `scroll-fade-in`, `scroll-slide-left`, `scroll-slide-right`, `scroll-scale-in`
+- Triggered once when element enters viewport (`.visible` class toggle)
+- Applied to Home page sections: projects, services, FAQ, testimonials, newsletter
+
+**Haptic Feedback** (`client/src/lib/haptics.ts`):
+- Utility: `haptic(pattern)` using `navigator.vibrate()`
+- Patterns: light (10ms), medium (25ms), heavy (50ms), success, error, selection
+- Applied to hero CTAs and key interactive buttons
+
+**Micro-Interactions** (CSS classes):
+- `btn-press` — scale-down press effect on click
+- `hover-elevate` — lift + shadow on hover
+- `ripple-effect` — expanding ripple on click (CSS animation)
+- `toggle-switch` — animated toggle with smooth transition
+
+### Purchase Delivery System
+- Stripe webhook creates secure download tokens on successful payment
+- Coinbase Commerce uses API status check at verification endpoint
+- Download tokens: one-time use, 24-hour expiry, stored in DB
+- PaymentSuccess page verifies session, displays download links
+- Expired/used tokens show re-purchase prompt
+
 ## Recent Changes (Feb 2026)
+- Implemented complete UI/UX effects system (glassmorphism, 3D hover, shimmer, scroll animations, haptic feedback, micro-interactions)
+- Fixed purchase delivery gaps: route mismatch, Coinbase fulfillment, expired session handling
 - Added Affiliate Disclosure page (/affiliate-disclosure) with FTC compliance — linked from footer
 - Added Support & FAQ page (/support) with searchable FAQ, category filters, expandable answers
 - Added PWA manifest (manifest.json) and service worker (sw.js) for offline support
