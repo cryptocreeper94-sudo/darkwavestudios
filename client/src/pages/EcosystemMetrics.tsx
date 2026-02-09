@@ -223,6 +223,48 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
     version: "v2.1",
   },
+  {
+    id: "chronicles",
+    name: "Chronicles",
+    url: "https://yourlegacy.io",
+    totalLines: 0,
+    totalFiles: 0,
+    stack: ["Coming Soon"],
+    breakdown: [
+      { language: "TBD", lines: 0 },
+    ],
+    icon: Gamepad2,
+    gradient: "from-amber-500 to-red-500",
+    status: "Coming Soon",
+  },
+  {
+    id: "trusthome",
+    name: "TrustHome",
+    url: "#",
+    totalLines: 0,
+    totalFiles: 0,
+    stack: ["Coming Soon"],
+    breakdown: [
+      { language: "TBD", lines: 0 },
+    ],
+    icon: Building2,
+    gradient: "from-sky-500 to-indigo-500",
+    status: "Coming Soon",
+  },
+  {
+    id: "trustvault",
+    name: "TrustVault",
+    url: "#",
+    totalLines: 0,
+    totalFiles: 0,
+    stack: ["Coming Soon"],
+    breakdown: [
+      { language: "TBD", lines: 0 },
+    ],
+    icon: Shield,
+    gradient: "from-emerald-500 to-cyan-500",
+    status: "Coming Soon",
+  },
 ];
 
 function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: number; duration?: number; suffix?: string }) {

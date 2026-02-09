@@ -181,6 +181,24 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://yourlegacy.io",
     category: "gaming"
+  },
+  {
+    id: "trusthome",
+    name: "TrustHome",
+    tagline: "Your Home. Verified. Secure.",
+    description: "Smart home management platform powered by Trust Layer identity and blockchain verification. IoT device management, secure access control, and verified home automation.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "#",
+    category: "smart-home"
+  },
+  {
+    id: "trustvault",
+    name: "TrustVault",
+    tagline: "Your Assets. Locked Down. Trust Verified.",
+    description: "Secure digital asset storage and management with Trust Layer verified custody. Multi-chain wallet, encrypted backup, and blockchain-verified access controls.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "#",
+    category: "security"
   }
 ];
 
@@ -191,7 +209,8 @@ const categories = [
   { id: "trades", name: "Trade Services", description: "Field service platforms for contractors" },
   { id: "auto", name: "Auto & Delivery", description: "Vehicle and food service platforms" },
   { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" },
-  { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" }
+  { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
+  { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 
 function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryName: string }) {

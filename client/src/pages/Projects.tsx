@@ -190,6 +190,36 @@ const projects = [
     gradient: "from-primary/20 to-accent/20",
     url: "https://darkwavestudios.io",
     category: "Agency"
+  },
+  {
+    id: 18,
+    title: "Chronicles",
+    description: "Immersive blockchain gaming experience powered by the Trust Layer ecosystem. Build your legacy in a dynamic world of strategy, adventure, and on-chain progression.",
+    tech: ["Gaming", "Blockchain", "Strategy", "Trust Layer"],
+    image: trustLayerImg,
+    gradient: "from-amber-500/20 to-red-600/20",
+    url: "https://yourlegacy.io",
+    category: "Gaming"
+  },
+  {
+    id: 19,
+    title: "TrustHome",
+    description: "Smart home management platform powered by Trust Layer identity and blockchain verification. IoT device management, secure access control, and verified home automation.",
+    tech: ["Smart Home", "IoT", "Trust Layer", "Security"],
+    image: trustLayerImg,
+    gradient: "from-sky-500/20 to-indigo-600/20",
+    url: "#",
+    category: "Smart Home"
+  },
+  {
+    id: 20,
+    title: "TrustVault",
+    description: "Secure digital asset storage and management with Trust Layer verified custody. Multi-chain wallet, encrypted backup, and blockchain-verified access controls.",
+    tech: ["Security", "Digital Assets", "Custody", "Multi-Chain"],
+    image: trustLayerImg,
+    gradient: "from-emerald-500/20 to-cyan-600/20",
+    url: "#",
+    category: "Security"
   }
 ];
 
@@ -197,8 +227,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 17+ Live Web Applications & Ecosystem"
-        description="Explore 17+ live web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 20 Web Applications & Ecosystem"
+        description="Explore 20 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"

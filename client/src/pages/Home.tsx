@@ -191,6 +191,33 @@ const projects = [
     image: "/ecosystem/vedasolus.png",
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://vedasolus.io"
+  },
+  {
+    id: 17,
+    title: "Chronicles",
+    description: "Immersive blockchain gaming experience — build your legacy in a dynamic world of strategy and adventure",
+    tech: ["Gaming", "Blockchain", "Strategy"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-amber-500/20 to-red-600/20",
+    url: "https://yourlegacy.io"
+  },
+  {
+    id: 18,
+    title: "TrustHome",
+    description: "Smart home management platform powered by Trust Layer identity and blockchain verification",
+    tech: ["Smart Home", "IoT", "Trust Layer"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-sky-500/20 to-indigo-600/20",
+    url: "#"
+  },
+  {
+    id: 19,
+    title: "TrustVault",
+    description: "Secure digital asset storage and management with Trust Layer verified custody",
+    tech: ["Security", "Digital Assets", "Custody"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-emerald-500/20 to-cyan-600/20",
+    url: "#"
   }
 ];
 
