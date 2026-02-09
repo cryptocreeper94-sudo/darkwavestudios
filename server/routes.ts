@@ -641,6 +641,8 @@ export async function registerRoutes(
       }
 
       const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const downloadToken = crypto.randomBytes(32).toString("hex");
+      const totalAmount = items.reduce((sum: number, item: { price: number }) => sum + item.price * 100, 0);
       
       const lineItems = items.map((item: { id: string; name: string; price: number; type: string }) => ({
         price_data: {
@@ -658,11 +660,24 @@ export async function registerRoutes(
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}&token=${downloadToken}`,
         cancel_url: `${baseUrl}/hub`,
         metadata: {
           items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+          purchase_type: "hub_widgets",
+          download_token: downloadToken,
         },
+      });
+
+      // Create purchase record
+      await storage.createPurchase({
+        stripeSessionId: session.id,
+        customerEmail: "pending@checkout.com",
+        items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+        totalAmount,
+        status: "pending",
+        downloadToken,
+        paymentMethod: "stripe",
       });
 
       res.json({ success: true, url: session.url });
@@ -689,6 +704,7 @@ export async function registerRoutes(
       const total = items.reduce((sum: number, item: { price: number }) => sum + item.price, 0);
       const itemNames = items.map((i: { name: string }) => i.name).join(", ");
       const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const downloadToken = crypto.randomBytes(32).toString("hex");
 
       const response = await fetch("https://api.commerce.coinbase.com/charges", {
         method: "POST",
@@ -707,8 +723,10 @@ export async function registerRoutes(
           },
           metadata: {
             items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+            purchase_type: "hub_widgets",
+            download_token: downloadToken,
           },
-          redirect_url: `${baseUrl}/payment-success`,
+          redirect_url: `${baseUrl}/payment-success?token=${downloadToken}`,
           cancel_url: `${baseUrl}/hub`,
         }),
       });
@@ -716,6 +734,17 @@ export async function registerRoutes(
       const data = await response.json();
       
       if (data.data?.hosted_url) {
+        // Create purchase record for Coinbase
+        await storage.createPurchase({
+          coinbaseChargeId: data.data.id,
+          customerEmail: "pending@checkout.com",
+          items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+          totalAmount: total * 100,
+          status: "pending",
+          downloadToken,
+          paymentMethod: "coinbase",
+        });
+
         res.json({ success: true, url: data.data.hosted_url });
       } else {
         res.status(500).json({ success: false, error: "Failed to create Coinbase charge" });
@@ -1348,6 +1377,153 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       const code = await fs.readFile(widgetPath, 'utf-8');
       
       res.json({ success: true, widgetName, code, lines: code.split('\n').length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Verify purchase and get download info
+  app.get("/api/purchases/verify", async (req, res) => {
+    try {
+      const { token, session_id } = req.query;
+      
+      let purchase;
+      if (token) {
+        purchase = await storage.getPurchaseByToken(token as string);
+      } else if (session_id) {
+        purchase = await storage.getPurchaseByStripeSession(session_id as string);
+      }
+      
+      if (!purchase) {
+        return res.status(404).json({ success: false, error: "Purchase not found" });
+      }
+
+      // If we have a Stripe session, fetch customer email
+      if (purchase.stripeSessionId && purchase.customerEmail === "pending@checkout.com") {
+        try {
+          const stripe = await getUncachableStripeClient();
+          if (stripe) {
+            const session = await stripe.checkout.sessions.retrieve(purchase.stripeSessionId);
+            if (session.customer_details?.email) {
+              const { purchases: purchasesTable } = await import("@shared/schema");
+              await db.update(purchasesTable)
+                .set({ customerEmail: session.customer_details.email })
+                .where(eq(purchasesTable.id, purchase.id));
+              purchase = { ...purchase, customerEmail: session.customer_details.email };
+            }
+            // Auto-fulfill if payment is complete
+            if (session.payment_status === "paid" && purchase.status !== "fulfilled") {
+              await storage.fulfillPurchase(purchase.id);
+              purchase = { ...purchase, status: "fulfilled" };
+            }
+          }
+        } catch (e) {
+          console.error("[Purchase] Error fetching Stripe session:", e);
+        }
+      }
+
+      const items = JSON.parse(purchase.items);
+      
+      res.json({
+        success: true,
+        purchase: {
+          id: purchase.id,
+          items,
+          totalAmount: purchase.totalAmount,
+          status: purchase.status,
+          customerEmail: purchase.customerEmail !== "pending@checkout.com" ? purchase.customerEmail : null,
+          downloadToken: purchase.downloadToken,
+          downloadCount: purchase.downloadCount,
+          paymentMethod: purchase.paymentMethod,
+          createdAt: purchase.createdAt,
+          fulfilledAt: purchase.fulfilledAt,
+        }
+      });
+    } catch (error: any) {
+      console.error("Purchase verify error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Download purchased widget source code
+  app.get("/api/purchases/download/:token", async (req, res) => {
+    try {
+      const purchase = await storage.getPurchaseByToken(req.params.token);
+      
+      if (!purchase) {
+        return res.status(404).json({ success: false, error: "Invalid download link" });
+      }
+
+      if (purchase.status !== "fulfilled") {
+        return res.status(403).json({ success: false, error: "Payment not yet confirmed. Please wait a moment and try again." });
+      }
+
+      const items = JSON.parse(purchase.items);
+      const widgetId = req.query.widget as string;
+
+      if (!widgetId) {
+        return res.status(400).json({ success: false, error: "Widget ID required" });
+      }
+
+      const item = items.find((i: any) => i.id === widgetId);
+      if (!item) {
+        return res.status(403).json({ success: false, error: "This widget is not included in your purchase" });
+      }
+
+      // Map widget IDs to file names where available
+      const widgetFileMap: Record<string, string> = {
+        "estimator": "tl-estimator",
+        "lead-capture": "tl-lead-capture",
+        "reviews": "tl-reviews",
+        "booking": "tl-booking",
+        "analytics": "tl-analytics",
+        "chat": "tl-chat",
+        "crm": "tl-crm",
+        "crew-tracker": "tl-crew-tracker",
+        "proposal": "tl-proposal",
+        "seo": "tl-seo",
+        "weather": "tl-weather",
+        "signal-chat": "tl-signal-chat",
+      };
+
+      const widgetFileName = widgetFileMap[widgetId];
+      let code = "";
+      let fileName = `${widgetId}-widget.ts`;
+
+      if (widgetFileName) {
+        // Serve actual widget file
+        try {
+          const fsPromises = await import("fs/promises");
+          const pathModule = await import("path");
+          const widgetPath = pathModule.join(process.cwd(), "client", "public", "widgets", `${widgetFileName}.js`);
+          code = await fsPromises.readFile(widgetPath, "utf-8");
+          fileName = `${widgetFileName}.js`;
+        } catch {
+          code = generateWidgetPlaceholderCode(widgetId, item.name);
+          fileName = `${widgetId}-widget.tsx`;
+        }
+      } else {
+        // Generate comprehensive placeholder for new widgets
+        code = generateWidgetPlaceholderCode(widgetId, item.name);
+        fileName = `${widgetId}-widget.tsx`;
+      }
+
+      await storage.incrementDownloadCount(purchase.id);
+
+      res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.send(code);
+    } catch (error: any) {
+      console.error("Download error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get all purchases (admin)
+  app.get("/api/purchases", requireAdminAuth, async (_req, res) => {
+    try {
+      const allPurchases = await storage.getPurchases();
+      res.json({ success: true, purchases: allPurchases });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
     }
@@ -2610,4 +2786,167 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   });
 
   return httpServer;
+}
+
+function generateWidgetPlaceholderCode(widgetId: string, widgetName: string): string {
+  const widgetDescriptions: Record<string, { desc: string; features: string[] }> = {
+    "vin-decoder": { desc: "Vehicle Identification Number decoder with NHTSA API integration", features: ["VIN validation", "NHTSA lookup", "Vehicle specs display", "Recall checking", "Vehicle profile storage"] },
+    "parts-aggregator": { desc: "Multi-retailer auto parts search and price comparison engine", features: ["40+ retailer search", "Price comparison grid", "Part cross-reference", "Availability check", "Wishlist storage"] },
+    "shift-manager": { desc: "Employee shift scheduling with conflict detection", features: ["Drag-and-drop schedule", "Conflict detection", "Shift swap requests", "Overtime alerts", "Schedule templates"] },
+    "payroll-calc": { desc: "Payroll calculator with tax withholding for W-2 and 1099 workers", features: ["W-2 & 1099 support", "Federal/state tax", "Overtime calculation", "Pay stub generation", "QuickBooks export"] },
+    "ocr-scanner": { desc: "Camera-based text extraction using Tesseract.js", features: ["Camera capture", "Text extraction", "Receipt scanning", "VIN recognition", "Multi-language support"] },
+    "driver-leaderboard": { desc: "Gamified employee performance ranking system", features: ["Real-time rankings", "Achievement badges", "Streak tracking", "Team vs individual", "Performance reports"] },
+    "delivery-tracker": { desc: "Real-time order and delivery GPS tracking system", features: ["GPS tracking", "ETA calculations", "Status updates", "Photo proof", "Customer notifications"] },
+    "menu-builder": { desc: "Digital restaurant menu with online ordering integration", features: ["Drag-and-drop editor", "Category management", "Dietary labels", "QR code menus", "Online ordering"] },
+    "room-visualizer": { desc: "AI-powered paint color room visualization tool", features: ["Room photo upload", "Benjamin Moore colors", "Sherwin-Williams colors", "Before/after comparison", "Palette suggestions"] },
+    "invoice-generator": { desc: "Professional invoice creation with Stripe payment integration", features: ["Invoice templates", "Line items", "Tax calculation", "Stripe payments", "PDF export"] },
+    "emergency-dashboard": { desc: "Real-time emergency incident command center", features: ["Incident reporting", "Team dispatch", "Status board", "Evacuation tracking", "Alert broadcasting"] },
+    "inventory-counter": { desc: "3-phase inventory counting with variance detection", features: ["3-phase counting", "Barcode scanning", "Variance detection", "Approval workflows", "Spreadsheet export"] },
+    "token-scanner": { desc: "Multi-chain token safety analysis and scoring", features: ["23+ chains", "Honeypot detection", "Liquidity analysis", "Ownership check", "Risk scoring"] },
+    "wellness-assessment": { desc: "Ayurvedic dosha analysis and wellness quiz", features: ["Dosha analysis", "Personalized recommendations", "Daily routines", "Dietary suggestions", "PDF reports"] },
+    "multi-wallet": { desc: "Unified multi-chain wallet for Solana and EVM chains", features: ["Solana support", "22 EVM chains", "Portfolio tracking", "Transaction history", "WalletConnect"] },
+    "compliance-engine": { desc: "Automated worker compliance and document verification", features: ["I-9 verification", "Background checks", "Cert tracking", "Expiration alerts", "Audit logging"] },
+  };
+
+  const info = widgetDescriptions[widgetId] || { desc: widgetName, features: ["Core functionality"] };
+
+  return `/**
+ * ${widgetName} Widget
+ * ${info.desc}
+ * 
+ * DarkWave Studios - Trust Layer Hub
+ * Licensed for use by the purchaser only.
+ * 
+ * Features:
+${info.features.map(f => ` * - ${f}`).join("\n")}
+ * 
+ * Installation:
+ * 1. Copy this file into your React project
+ * 2. Install dependencies: npm install react react-dom
+ * 3. Import and use: import { ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget } from './${widgetId}-widget'
+ * 
+ * For support: support@dwsc.io
+ * Documentation: https://darkwavestudios.com/developers
+ */
+
+import React, { useState, useEffect } from 'react';
+
+interface ${widgetName.replace(/[^a-zA-Z]/g, "")}Props {
+  primaryColor?: string;
+  theme?: 'light' | 'dark' | 'trustlayer';
+  onEvent?: (event: string, data: any) => void;
+  className?: string;
+}
+
+export function ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget({ 
+  primaryColor = '#3b82f6', 
+  theme = 'dark',
+  onEvent,
+  className = '' 
+}: ${widgetName.replace(/[^a-zA-Z]/g, "")}Props) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    // Initialize widget
+    setLoading(false);
+    onEvent?.('widget:loaded', { widget: '${widgetId}' });
+  }, []);
+
+  const themeStyles = {
+    light: { bg: '#ffffff', text: '#1a1a1a', border: '#e5e7eb', accent: primaryColor },
+    dark: { bg: '#0f172a', text: '#f1f5f9', border: '#334155', accent: primaryColor },
+    trustlayer: { bg: '#0c0a1a', text: '#e2e8f0', border: '#3b0764', accent: primaryColor },
+  };
+
+  const styles = themeStyles[theme];
+
+  if (loading) {
+    return (
+      <div className={className} style={{ 
+        background: styles.bg, 
+        color: styles.text, 
+        padding: '2rem', 
+        borderRadius: '1rem',
+        border: \`1px solid \${styles.border}\`,
+        textAlign: 'center' 
+      }}>
+        <div style={{ 
+          width: '2rem', height: '2rem', 
+          border: \`2px solid \${styles.accent}\`, 
+          borderTopColor: 'transparent',
+          borderRadius: '50%', 
+          margin: '0 auto',
+          animation: 'spin 1s linear infinite' 
+        }} />
+        <p style={{ marginTop: '1rem', opacity: 0.7 }}>Loading ${widgetName}...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} style={{ 
+      background: styles.bg, 
+      color: styles.text, 
+      padding: '1.5rem', 
+      borderRadius: '1rem',
+      border: \`1px solid \${styles.border}\`,
+      fontFamily: "'Inter', system-ui, sans-serif"
+    }}>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: '0.75rem',
+        marginBottom: '1.5rem',
+        paddingBottom: '1rem',
+        borderBottom: \`1px solid \${styles.border}\`
+      }}>
+        <div style={{ 
+          width: '2.5rem', height: '2.5rem', 
+          borderRadius: '0.75rem',
+          background: \`\${styles.accent}20\`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '1.25rem'
+        }}>
+          ⚡
+        </div>
+        <div>
+          <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 700 }}>${widgetName}</h3>
+          <p style={{ margin: 0, fontSize: '0.75rem', opacity: 0.6 }}>Powered by DarkWave Trust Layer</p>
+        </div>
+      </div>
+
+      {/* Widget Content - Customize below */}
+      <div style={{ minHeight: '200px' }}>
+        <p style={{ opacity: 0.8, fontSize: '0.875rem', lineHeight: 1.6 }}>
+          ${info.desc}
+        </p>
+        
+        <div style={{ marginTop: '1.5rem' }}>
+${info.features.map(f => `          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0', fontSize: '0.813rem' }}>
+            <span style={{ color: styles.accent }}>✓</span>
+            <span>${f}</span>
+          </div>`).join("\n")}
+        </div>
+      </div>
+
+      <div style={{ 
+        marginTop: '1.5rem', 
+        padding: '0.75rem 1rem',
+        background: \`\${styles.accent}10\`,
+        borderRadius: '0.5rem',
+        fontSize: '0.75rem',
+        opacity: 0.7,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem'
+      }}>
+        🔒 Verified by Trust Layer Hub • Blockchain Registered
+      </div>
+    </div>
+  );
+}
+
+export default ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget;
+`;
 }

@@ -122,6 +122,25 @@ export class WebhookHandlers {
               });
             }
           }
+
+          // Fulfill widget/snippet purchases
+          if (session.metadata?.items && session.metadata?.purchase_type === 'hub_widgets') {
+            const purchase = await storage.getPurchaseByStripeSession(session.id);
+            if (purchase && purchase.status !== 'fulfilled') {
+              await storage.fulfillPurchase(purchase.id);
+              console.log(`[Purchase] Fulfilled purchase ${purchase.id} for ${purchase.customerEmail}`);
+              
+              // Send SMS notification for widget sales
+              try {
+                const { sendSMS } = await import('./sms');
+                const items = JSON.parse(purchase.items);
+                const itemNames = items.map((i: any) => i.name).join(', ');
+                await sendSMS(`💰 Widget Sale!\n\nEmail: ${purchase.customerEmail}\nItems: ${itemNames}\nTotal: $${(purchase.totalAmount / 100).toFixed(2)}\nToken: ${purchase.downloadToken.slice(0, 8)}...`);
+              } catch (e) {
+                console.error('[Purchase] SMS notification failed:', e);
+              }
+            }
+          }
         }
         break;
       }

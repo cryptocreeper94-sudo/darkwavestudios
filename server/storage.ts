@@ -1,7 +1,7 @@
 import { 
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, pulseRequests, bookings, payments,
   pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
-  ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs, guardianScans,
+  ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs, guardianScans, purchases,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -22,7 +22,8 @@ import {
   type CodeSnippet, type InsertCodeSnippet,
   type SnippetCategory, type InsertSnippetCategory,
   type EcosystemLog, type InsertEcosystemLog,
-  type GuardianScan, type InsertGuardianScan
+  type GuardianScan, type InsertGuardianScan,
+  type Purchase, type InsertPurchase
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, sql, count } from "drizzle-orm";
@@ -124,6 +125,14 @@ export interface IStorage {
   getGuardianScan(id: string): Promise<GuardianScan | undefined>;
   createGuardianScan(scan: InsertGuardianScan): Promise<GuardianScan>;
   updateGuardianScan(id: string, data: Partial<InsertGuardianScan>): Promise<GuardianScan | undefined>;
+
+  // Purchases
+  getPurchases(): Promise<Purchase[]>;
+  getPurchaseByToken(token: string): Promise<Purchase | undefined>;
+  getPurchaseByStripeSession(sessionId: string): Promise<Purchase | undefined>;
+  createPurchase(purchase: InsertPurchase): Promise<Purchase>;
+  fulfillPurchase(id: string): Promise<Purchase | undefined>;
+  incrementDownloadCount(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -589,6 +598,34 @@ export class DatabaseStorage implements IStorage {
   async updateGuardianScan(id: string, data: Partial<InsertGuardianScan>): Promise<GuardianScan | undefined> {
     const [updated] = await db.update(guardianScans).set(data).where(eq(guardianScans.id, id)).returning();
     return updated || undefined;
+  }
+
+  async getPurchases(): Promise<Purchase[]> {
+    return db.select().from(purchases).orderBy(desc(purchases.createdAt));
+  }
+
+  async getPurchaseByToken(token: string): Promise<Purchase | undefined> {
+    const [purchase] = await db.select().from(purchases).where(eq(purchases.downloadToken, token));
+    return purchase || undefined;
+  }
+
+  async getPurchaseByStripeSession(sessionId: string): Promise<Purchase | undefined> {
+    const [purchase] = await db.select().from(purchases).where(eq(purchases.stripeSessionId, sessionId));
+    return purchase || undefined;
+  }
+
+  async createPurchase(purchase: InsertPurchase): Promise<Purchase> {
+    const [created] = await db.insert(purchases).values(purchase).returning();
+    return created;
+  }
+
+  async fulfillPurchase(id: string): Promise<Purchase | undefined> {
+    const [updated] = await db.update(purchases).set({ status: "fulfilled", fulfilledAt: new Date() }).where(eq(purchases.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async incrementDownloadCount(id: string): Promise<void> {
+    await db.update(purchases).set({ downloadCount: sql`${purchases.downloadCount} + 1` }).where(eq(purchases.id, id));
   }
 }
 

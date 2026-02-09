@@ -708,3 +708,28 @@ export const insertGuardianScanSchema = createInsertSchema(guardianScans).omit({
 });
 export type InsertGuardianScan = z.infer<typeof insertGuardianScanSchema>;
 export type GuardianScan = typeof guardianScans.$inferSelect;
+
+// Widget & Snippet Purchases
+export const purchases = pgTable("purchases", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  stripeSessionId: text("stripe_session_id"),
+  coinbaseChargeId: text("coinbase_charge_id"),
+  customerEmail: text("customer_email").notNull(),
+  items: text("items").notNull(),
+  totalAmount: integer("total_amount").notNull(),
+  status: text("status").default("pending"),
+  downloadToken: text("download_token").notNull(),
+  downloadCount: integer("download_count").default(0),
+  paymentMethod: text("payment_method").default("stripe"),
+  createdAt: timestamp("created_at").defaultNow(),
+  fulfilledAt: timestamp("fulfilled_at"),
+});
+
+export const insertPurchaseSchema = createInsertSchema(purchases).omit({
+  id: true,
+  downloadCount: true,
+  createdAt: true,
+  fulfilledAt: true,
+});
+export type InsertPurchase = z.infer<typeof insertPurchaseSchema>;
+export type Purchase = typeof purchases.$inferSelect;
