@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
 import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
+import { ScrollReveal } from "@/hooks/use-scroll-animation";
+import { haptic } from "@/lib/haptics";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -289,14 +292,29 @@ const faqs = [
 
 function AnimatedElement({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const [isVisible, setIsVisible] = useState(false);
+  const elRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), delay);
-    return () => clearTimeout(timer);
+    const el = elRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const timer = setTimeout(() => setIsVisible(true), delay);
+          observer.unobserve(el);
+          return () => clearTimeout(timer);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [delay]);
   
   return (
     <div 
+      ref={elRef}
       className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className || ''}`}
     >
       {children}
@@ -582,7 +600,8 @@ export default function Home() {
                   <div className="flex flex-wrap gap-2 lg:gap-3">
                     <Link 
                       href="/contact"
-                      className="btn-glow inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold animate-pulse-glow"
+                      onClick={() => haptic("medium")}
+                      className="btn-glow btn-press ripple-effect inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold animate-pulse-glow"
                       data-testid="hero-cta-primary"
                     >
                       Start Project
@@ -590,7 +609,8 @@ export default function Home() {
                     </Link>
                     <Link 
                       href="/projects"
-                      className="inline-flex items-center gap-1 glass px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold hover:bg-white/10 transition-colors"
+                      onClick={() => haptic("light")}
+                      className="inline-flex items-center gap-1 glass px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold hover:bg-white/10 transition-colors btn-press"
                       data-testid="hero-cta-secondary"
                     >
                       View Work
@@ -775,7 +795,7 @@ export default function Home() {
           </section>
 
           {/* BENTO GRID SECTION 2: Projects Carousel + Value Props - 3-COL MOBILE */}
-          <section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10 scroll-mt-24">
+          <ScrollReveal animation="fade-in"><section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10 scroll-mt-24">
             {/* Projects Carousel - 3-col mobile / 8-col desktop */}
             <div className="col-span-3 lg:col-span-8">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
@@ -872,12 +892,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section></ScrollReveal>
 
           <AdUnit slot="2345678901" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-4 lg:my-8" />
 
           {/* BENTO GRID SECTION 3: Services + Pricing */}
-          <section id="services" className="mb-6 lg:mb-10 scroll-mt-24">
+          <ScrollReveal animation="fade-in" delay={100}><section id="services" className="mb-6 lg:mb-10 scroll-mt-24">
             {/* Mobile: Pricing + Services Carousel */}
             <div className="lg:hidden space-y-2">
               {/* Compact Pricing Bar */}
@@ -996,10 +1016,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+          </section></ScrollReveal>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
-          <section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
+          <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
             {/* FAQ - Full width on mobile, 7-col desktop */}
             <div className="col-span-3 lg:col-span-7">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-6 gradient-border">
@@ -1066,10 +1086,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section></ScrollReveal>
 
           {/* BUILD YOUR OWN - STUDIO IDE CTA */}
-          <section className="mt-6 lg:mt-12 mb-6 lg:mb-10">
+          <ScrollReveal animation="fade-in"><section className="mt-6 lg:mt-12 mb-6 lg:mb-10">
             <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-20"
@@ -1137,10 +1157,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section></ScrollReveal>
 
           {/* NEWSLETTER SECTION */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mt-6 lg:mt-12">
+          <ScrollReveal animation="fade-in"><section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mt-6 lg:mt-12">
             <div className="col-span-3 lg:col-span-6">
               <Newsletter />
             </div>
@@ -1191,7 +1211,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section></ScrollReveal>
 
           <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
         </main>
