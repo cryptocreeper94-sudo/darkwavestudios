@@ -132,6 +132,7 @@ export interface IStorage {
   getPurchaseByStripeSession(sessionId: string): Promise<Purchase | undefined>;
   createPurchase(purchase: InsertPurchase): Promise<Purchase>;
   fulfillPurchase(id: string): Promise<Purchase | undefined>;
+  updatePurchaseStatus(id: string, status: string): Promise<void>;
   incrementDownloadCount(id: string): Promise<void>;
 }
 
@@ -622,6 +623,10 @@ export class DatabaseStorage implements IStorage {
   async fulfillPurchase(id: string): Promise<Purchase | undefined> {
     const [updated] = await db.update(purchases).set({ status: "fulfilled", fulfilledAt: new Date() }).where(eq(purchases.id, id)).returning();
     return updated || undefined;
+  }
+
+  async updatePurchaseStatus(id: string, status: string): Promise<void> {
+    await db.update(purchases).set({ status }).where(eq(purchases.id, id));
   }
 
   async incrementDownloadCount(id: string): Promise<void> {

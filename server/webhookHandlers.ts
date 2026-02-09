@@ -151,6 +151,15 @@ export class WebhookHandlers {
           if (payment) {
             await storage.updatePaymentStatus(payment.id, 'failed');
           }
+
+          // Also mark any associated purchase as failed
+          if (session.metadata?.purchase_type === 'hub_widgets') {
+            const purchase = await storage.getPurchaseByStripeSession(session.id);
+            if (purchase && purchase.status === 'pending') {
+              await storage.updatePurchaseStatus(purchase.id, 'expired');
+              console.log(`[Purchase] Expired purchase ${purchase.id} — session timed out`);
+            }
+          }
         }
         break;
       }

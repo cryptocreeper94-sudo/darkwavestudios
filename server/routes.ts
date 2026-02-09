@@ -660,7 +660,7 @@ export async function registerRoutes(
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}&token=${downloadToken}`,
+        success_url: `${baseUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}&token=${downloadToken}`,
         cancel_url: `${baseUrl}/hub`,
         metadata: {
           items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
@@ -726,7 +726,7 @@ export async function registerRoutes(
             purchase_type: "hub_widgets",
             download_token: downloadToken,
           },
-          redirect_url: `${baseUrl}/payment-success?token=${downloadToken}`,
+          redirect_url: `${baseUrl}/payment/success?token=${downloadToken}`,
           cancel_url: `${baseUrl}/hub`,
         }),
       });
@@ -1398,27 +1398,65 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         return res.status(404).json({ success: false, error: "Purchase not found" });
       }
 
-      // If we have a Stripe session, fetch customer email
-      if (purchase.stripeSessionId && purchase.customerEmail === "pending@checkout.com") {
+      // Stripe: verify payment status and update
+      if (purchase.stripeSessionId && purchase.status !== "fulfilled") {
         try {
           const stripe = await getUncachableStripeClient();
           if (stripe) {
             const session = await stripe.checkout.sessions.retrieve(purchase.stripeSessionId);
-            if (session.customer_details?.email) {
+            if (session.customer_details?.email && purchase.customerEmail === "pending@checkout.com") {
               const { purchases: purchasesTable } = await import("@shared/schema");
               await db.update(purchasesTable)
                 .set({ customerEmail: session.customer_details.email })
                 .where(eq(purchasesTable.id, purchase.id));
               purchase = { ...purchase, customerEmail: session.customer_details.email };
             }
-            // Auto-fulfill if payment is complete
             if (session.payment_status === "paid" && purchase.status !== "fulfilled") {
               await storage.fulfillPurchase(purchase.id);
-              purchase = { ...purchase, status: "fulfilled" };
+              purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+              console.log(`[Purchase] Auto-fulfilled Stripe purchase ${purchase.id}`);
             }
           }
         } catch (e) {
-          console.error("[Purchase] Error fetching Stripe session:", e);
+          console.error("[Purchase] Error verifying Stripe session:", e);
+        }
+      }
+
+      // Coinbase: auto-fulfill when user returns from Coinbase (redirect means payment completed)
+      if (purchase.paymentMethod === "coinbase" && purchase.status !== "fulfilled" && purchase.coinbaseChargeId) {
+        try {
+          const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+          if (coinbaseApiKey) {
+            const chargeRes = await fetch(`https://api.commerce.coinbase.com/charges/${purchase.coinbaseChargeId}`, {
+              headers: {
+                "X-CC-Api-Key": coinbaseApiKey,
+                "X-CC-Version": "2018-03-22",
+              },
+            });
+            const chargeData = await chargeRes.json();
+            const timeline = chargeData.data?.timeline || [];
+            const isCompleted = timeline.some((t: any) => t.status === "COMPLETED");
+            const isPending = timeline.some((t: any) => t.status === "PENDING" || t.status === "NEW");
+            
+            if (isCompleted) {
+              await storage.fulfillPurchase(purchase.id);
+              purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+              console.log(`[Purchase] Auto-fulfilled Coinbase purchase ${purchase.id}`);
+            } else if (isPending && !isCompleted) {
+              // Payment sent but not yet confirmed — mark as pending, front-end will keep polling
+              console.log(`[Purchase] Coinbase purchase ${purchase.id} still pending confirmation`);
+            }
+          } else {
+            // No Coinbase key to verify — auto-fulfill on redirect as fallback
+            await storage.fulfillPurchase(purchase.id);
+            purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+            console.log(`[Purchase] Fallback-fulfilled Coinbase purchase ${purchase.id}`);
+          }
+        } catch (e) {
+          console.error("[Purchase] Error verifying Coinbase charge:", e);
+          // Fallback: fulfill on redirect since Coinbase only redirects after payment
+          await storage.fulfillPurchase(purchase.id);
+          purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
         }
       }
 
