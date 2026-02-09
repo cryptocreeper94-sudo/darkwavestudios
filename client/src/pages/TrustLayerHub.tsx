@@ -41,7 +41,17 @@ import {
   Trash2,
   Package,
   Send,
-  Bot
+  Bot,
+  Car,
+  Truck,
+  Utensils,
+  Clock,
+  Receipt,
+  Scan,
+  Trophy,
+  Palette,
+  Fingerprint,
+  Wallet
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -294,6 +304,182 @@ const widgetsList = [
       "Multi-tenant support - Each client gets isolated communities and billing",
       "Custom emoji packs - Upload branded emoji sets for communities"
     ]
+  },
+  {
+    id: "vin-decoder", name: "VIN Decoder", icon: Car, containerId: "demo-vin-decoder", color: "#ef4444",
+    description: "Decode any vehicle by VIN instantly", price: 129, priceId: "price_widget_vin_decoder",
+    fullDescription: "Decode any Vehicle Identification Number into detailed specs instantly. Returns year, make, model, engine, transmission, trim level, and safety ratings. Built from GarageBot's production VIN decoding system used across 40+ parts retailers.",
+    features: ["Instant VIN lookup", "Year/Make/Model/Trim extraction", "Engine & transmission details", "Safety rating lookup", "Recall check integration", "Vehicle history summary", "Multi-format input (barcode, manual)", "Garage/vehicle profile storage"],
+    requirements: ["React or vanilla JS", "NHTSA API (free)", "Optional: backend for vehicle storage"],
+    includes: ["Full source code", "VIN validation logic", "NHTSA API integration", "Vehicle profile UI", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "NHTSA API", "Tailwind CSS", "Zod validation"],
+    linesOfCode: "~750 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "parts-aggregator", name: "Parts Aggregator", icon: Package, containerId: "demo-parts-aggregator", color: "#f97316",
+    description: "Search 40+ auto parts retailers at once", price: 299, priceId: "price_widget_parts_aggregator",
+    fullDescription: "Unified search across 40+ auto parts retailers. Enter a part name or number, get prices from AutoZone, O'Reilly, RockAuto, Amazon, and more — all in one view. Extracted from GarageBot's production parts search engine.",
+    features: ["40+ retailer integration", "Price comparison grid", "Part number cross-reference", "Availability checking", "Shipping cost estimates", "Save to wishlist", "Price history tracking", "Affiliate link support"],
+    requirements: ["React frontend", "Node.js backend for API aggregation", "Optional: affiliate accounts"],
+    includes: ["Frontend search UI", "Backend aggregation API", "Retailer adapters", "Price comparison logic", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "Cheerio", "Tailwind CSS"],
+    linesOfCode: "~2,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "shift-manager", name: "Shift Manager", icon: Clock, containerId: "demo-shift-manager", color: "#3b82f6",
+    description: "Employee scheduling and shift management", price: 179, priceId: "price_widget_shift_manager",
+    fullDescription: "Drag-and-drop shift scheduling with conflict detection, availability management, and shift swap requests. Built from ORBIT Staffing's production scheduling engine handling thousands of workers across multiple locations.",
+    features: ["Drag-and-drop scheduling", "Shift conflict detection", "Availability management", "Shift swap requests", "Overtime alerts", "Multi-location support", "Break compliance tracking", "Schedule templates", "Mobile-friendly view"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Schedule builder UI", "Backend API", "Database schema", "Notification system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~2,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "payroll-calc", name: "Payroll Calculator", icon: Receipt, containerId: "demo-payroll-calc", color: "#10b981",
+    description: "Automated payroll with tax calculations", price: 249, priceId: "price_widget_payroll_calc",
+    fullDescription: "Calculate payroll for W-2 and 1099 workers with federal and state tax withholding, overtime rules, and deductions. Extracted from ORBIT Staffing's payroll engine processing thousands of paychecks monthly.",
+    features: ["W-2 & 1099 support", "Federal tax withholding", "State tax calculations", "Overtime rules (1.5x, 2x)", "Deduction management", "Pay stub generation", "Batch payroll processing", "Export to QuickBooks/ADP", "Year-end tax form prep"],
+    requirements: ["Node.js backend", "PostgreSQL database", "Optional: QuickBooks API"],
+    includes: ["Calculation engine", "Pay stub templates", "Tax table data", "Export adapters", "Backend API", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "PDF generation"],
+    linesOfCode: "~3,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "ocr-scanner", name: "OCR Scanner", icon: Scan, containerId: "demo-ocr-scanner", color: "#8b5cf6",
+    description: "Camera-based text and document scanning", price: 99, priceId: "price_widget_ocr_scanner",
+    fullDescription: "Turn any device camera into a document scanner. Extracts text from photos of receipts, VINs, license plates, business cards, and invoices. Built from Lot Ops Pro's production OCR system for scanning vehicle stock numbers.",
+    features: ["Camera text capture", "Receipt scanning", "VIN/plate recognition", "Business card reader", "Invoice data extraction", "Multi-language support", "Batch scanning mode", "Clipboard integration"],
+    requirements: ["React or vanilla JS", "Device with camera", "No backend required"],
+    includes: ["Full source code", "Camera integration guide", "OCR processing logic", "Result formatting", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tesseract.js", "Canvas API", "Tailwind CSS"],
+    linesOfCode: "~680 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "driver-leaderboard", name: "Driver Leaderboard", icon: Trophy, containerId: "demo-driver-leaderboard", color: "#eab308",
+    description: "Gamified employee performance rankings", price: 129, priceId: "price_widget_driver_leaderboard",
+    fullDescription: "Gamify workforce performance with real-time leaderboards. Track moves per hour, jobs completed, ratings, and streak bonuses. Drives healthy competition and boosts productivity. Extracted from Lot Ops Pro's driver ranking system.",
+    features: ["Real-time rankings", "Moves-per-hour tracking", "Daily/weekly/monthly views", "Achievement badges", "Streak tracking", "Team vs individual modes", "Photo avatars", "Export performance reports"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Leaderboard UI", "Backend API", "Scoring engine", "Badge system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,100 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "delivery-tracker", name: "Delivery Tracker", icon: Truck, containerId: "demo-delivery-tracker", color: "#06b6d4",
+    description: "Real-time order and delivery tracking", price: 199, priceId: "price_widget_delivery_tracker",
+    fullDescription: "Give customers real-time visibility into their orders from placement to doorstep. Live driver GPS, estimated arrival times, and delivery photo proof. Built from Brew & Board and Happy Eats' production delivery systems.",
+    features: ["Real-time GPS tracking", "ETA calculations", "Delivery status updates", "Photo proof of delivery", "Customer notifications", "Driver assignment", "Route optimization hints", "Delivery history"],
+    requirements: ["React frontend", "Node.js backend with WebSocket", "PostgreSQL", "Device with GPS"],
+    includes: ["Customer tracking UI", "Driver app components", "Backend API", "WebSocket server", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "WebSocket", "Geolocation API", "Leaflet Maps", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,400 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "menu-builder", name: "Menu Builder", icon: Utensils, containerId: "demo-menu-builder", color: "#22c55e",
+    description: "Digital menu with ordering system", price: 149, priceId: "price_widget_menu_builder",
+    fullDescription: "Create beautiful digital menus with categories, modifiers, dietary tags, and built-in ordering. Perfect for restaurants, food trucks, and catering companies. Extracted from Happy Eats' menu management system.",
+    features: ["Drag-and-drop menu editor", "Category management", "Item modifiers & add-ons", "Dietary labels (vegan, GF, etc.)", "Photo uploads", "Price variants (S/M/L)", "QR code menu link", "Online ordering integration", "Multi-location menus"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Menu editor UI", "Customer-facing menu", "Backend API", "QR code generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "room-visualizer", name: "Room Visualizer", icon: Palette, containerId: "demo-room-visualizer", color: "#ec4899",
+    description: "AI color visualizer for painting & design", price: 199, priceId: "price_widget_room_visualizer",
+    fullDescription: "Let customers visualize paint colors on their walls before buying. Upload a room photo, select from Benjamin Moore and Sherwin-Williams palettes, and see the transformation in real-time. Built from TradeWorks AI's painting vertical.",
+    features: ["Room photo upload", "Benjamin Moore colors", "Sherwin-Williams colors", "Custom color input", "Before/after comparison", "Color palette suggestions", "Save favorite combos", "Share visualizations", "Mobile-friendly"],
+    requirements: ["React frontend", "Canvas API support", "Optional: color API keys"],
+    includes: ["Visualizer UI", "Color processing logic", "Paint brand palettes", "Image manipulation code", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Canvas API", "Color conversion utils", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "invoice-generator", name: "Invoice Generator", icon: Receipt, containerId: "demo-invoice-generator", color: "#6366f1",
+    description: "Professional invoice creation and tracking", price: 149, priceId: "price_widget_invoice_generator",
+    fullDescription: "Create, send, and track professional invoices in minutes. Line items, tax calculations, payment terms, and Stripe integration for instant online payment. Built from TradeWorks AI's invoicing system used across 8 trade industries.",
+    features: ["Professional invoice templates", "Line item management", "Tax calculation", "Payment terms & due dates", "Online payment via Stripe", "PDF export", "Invoice status tracking", "Overdue reminders", "Client portal"],
+    requirements: ["React frontend", "Node.js backend", "Stripe account for payments"],
+    includes: ["Invoice builder UI", "PDF generation", "Backend API", "Stripe integration", "Email templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Stripe API", "PDF generation", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,000 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "emergency-dashboard", name: "Emergency Dashboard", icon: Shield, containerId: "demo-emergency-dashboard", color: "#dc2626",
+    description: "Real-time emergency command center", price: 349, priceId: "price_widget_emergency_dashboard",
+    fullDescription: "Centralized emergency response dashboard for venues, campuses, and large facilities. Real-time incident reporting, team dispatch, evacuation tracking, and communication hub. Extracted from Orby Commander's stadium operations system.",
+    features: ["Incident reporting & triage", "Team dispatch & assignment", "Real-time status board", "Evacuation tracking", "Communication hub", "GPS-guided response", "Incident history & analytics", "Multi-zone management", "Alert broadcasting"],
+    requirements: ["React frontend", "Node.js backend with WebSocket", "PostgreSQL database"],
+    includes: ["Dashboard UI", "Incident management API", "WebSocket real-time layer", "Alert system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "WebSocket", "Leaflet Maps", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~3,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "inventory-counter", name: "Inventory Counter", icon: Package, containerId: "demo-inventory-counter", color: "#14b8a6",
+    description: "3-phase inventory counting system", price: 129, priceId: "price_widget_inventory_counter",
+    fullDescription: "Structured 3-phase inventory counting with variance detection and approval workflows. Count, verify, reconcile — all from a mobile device. Built from Orby Commander's venue inventory system managing thousands of items.",
+    features: ["3-phase counting (count, verify, reconcile)", "Barcode/QR scanning", "Variance detection", "Approval workflows", "Location-based counting", "Photo verification", "Export to spreadsheet", "Historical tracking", "Multi-user simultaneous counting"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database", "Device with camera"],
+    includes: ["Counter UI", "Backend API", "Barcode scanner integration", "Variance reports", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Camera API", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "token-scanner", name: "Token Scanner", icon: Eye, containerId: "demo-token-scanner", color: "#f59e0b",
+    description: "Multi-chain token safety analysis", price: 199, priceId: "price_widget_token_scanner",
+    fullDescription: "Scan any token across 23+ blockchains for honeypot risks, liquidity locks, ownership concentration, and contract vulnerabilities. Extracted from StrikeAgent's production safety scoring engine that analyzes thousands of tokens daily.",
+    features: ["23+ blockchain support", "Honeypot detection", "Liquidity lock verification", "Ownership analysis", "Contract vulnerability scan", "Rug pull risk scoring", "Token holder distribution", "Social sentiment check", "Historical safety data"],
+    requirements: ["React frontend", "Node.js backend", "Blockchain RPC endpoints"],
+    includes: ["Scanner UI", "Multi-chain analyzers", "Safety scoring engine", "Backend API", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "ethers.js", "@solana/web3.js", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~3,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "wellness-assessment", name: "Wellness Assessment", icon: Heart, containerId: "demo-wellness-assessment", color: "#10b981",
+    description: "AI-powered health and dosha analysis quiz", price: 99, priceId: "price_widget_wellness_assessment",
+    fullDescription: "Interactive wellness assessment that determines Ayurvedic body type (dosha), provides personalized health recommendations, and creates custom daily routines. Built from VedaSolus's production wellness platform.",
+    features: ["Dosha type analysis", "Personalized recommendations", "Daily routine builder", "Dietary suggestions", "Seasonal adjustments", "Progress tracking", "PDF report generation", "Lead capture integration"],
+    requirements: ["React or vanilla JS", "Optional: backend for data storage"],
+    includes: ["Assessment quiz UI", "Scoring algorithm", "Recommendation engine", "Report templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "PDF generation"],
+    linesOfCode: "~900 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "multi-wallet", name: "Multi-Chain Wallet", icon: Wallet, containerId: "demo-multi-wallet", color: "#8b5cf6",
+    description: "Unified wallet for Solana + 22 EVM chains", price: 299, priceId: "price_widget_multi_wallet",
+    fullDescription: "Connect and manage wallets across Solana and 22 EVM-compatible chains from a single interface. Portfolio tracking, token balances, transaction history, and one-click swaps. Extracted from Pulse's production multi-chain wallet system.",
+    features: ["Solana wallet support", "22 EVM chain support", "Unified portfolio view", "Token balance tracking", "Transaction history", "One-click chain switching", "WalletConnect integration", "Phantom/MetaMask support", "Portfolio value charts"],
+    requirements: ["React frontend", "Web3 wallet extensions"],
+    includes: ["Wallet connection UI", "Chain adapters", "Portfolio dashboard", "Transaction viewer", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@solana/web3.js", "ethers.js", "WalletConnect", "Tailwind CSS"],
+    linesOfCode: "~2,100 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "compliance-engine", name: "Compliance Engine", icon: Fingerprint, containerId: "demo-compliance-engine", color: "#0ea5e9",
+    description: "Worker compliance and document verification", price: 199, priceId: "price_widget_compliance_engine",
+    fullDescription: "Automated compliance tracking for I-9 verification, background checks, certifications, and license expiration. Ensures your workforce stays compliant with alerts before documents expire. Built from ORBIT Staffing's compliance system.",
+    features: ["I-9 document verification", "Background check integration", "Certification tracking", "License expiration alerts", "Document upload & storage", "Compliance dashboard", "Audit trail logging", "Bulk worker processing", "Custom compliance rules"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Compliance dashboard UI", "Document management API", "Alert system", "Audit logging", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Multer"],
+    linesOfCode: "~2,500 lines (full stack)",
+    complexity: "Advanced"
   },
 ];
 
