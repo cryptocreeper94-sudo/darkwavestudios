@@ -52,7 +52,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <Link href="/ecosystem" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-ecosystem">Ecosystem</Link>
               <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
-              <a href="https://dwsc.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
+              <a href="https://dwtl.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
               <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-shield">Guardian Shield <ExternalLink className="w-3 h-3" /></a>
               <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
             </div>

@@ -354,7 +354,7 @@ export default function GuardianAI() {
               <Scan className="w-5 h-5" /> Scan an AI Agent
             </a>
             <a 
-              href="https://dwsc.io/ai-agents"
+              href="https://dwtl.io/ai-agents"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
@@ -374,7 +374,7 @@ export default function GuardianAI() {
           <p className="text-sm text-muted-foreground mb-12" data-testid="text-hero-create-hint">
             Don't have an AI agent yet?{" "}
             <a 
-              href="https://dwsc.io/ai-agents" 
+              href="https://dwtl.io/ai-agents" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-purple-400 hover:text-purple-300 underline underline-offset-2"
@@ -413,7 +413,7 @@ export default function GuardianAI() {
               <Rocket className="w-5 h-5 text-purple-400 shrink-0" />
               <span className="text-muted-foreground">Want to create your own AI agent?</span>
               <a 
-                href="https://dwsc.io/ai-agents" 
+                href="https://dwtl.io/ai-agents" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-purple-400 hover:text-purple-300 font-semibold inline-flex items-center gap-1 whitespace-nowrap"

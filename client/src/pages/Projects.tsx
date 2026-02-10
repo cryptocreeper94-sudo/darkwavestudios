@@ -29,7 +29,7 @@ const projects = [
     tech: ["AI/ML", "Crypto", "Analytics", "Trading"],
     image: pulseImg,
     gradient: "from-purple-500/20 to-indigo-600/20",
-    url: "https://dwsc.io",
+    url: "https://darkwavepulse.com",
     category: "FinTech"
   },
   {
@@ -139,7 +139,7 @@ const projects = [
     tech: ["Blockchain", "Identity", "DeFi", "Security"],
     image: trustLayerImg,
     gradient: "from-indigo-500/20 to-purple-600/20",
-    url: "https://dwsc.io",
+    url: "https://dwtl.io",
     category: "Blockchain"
   },
   {
@@ -184,16 +184,6 @@ const projects = [
   },
   {
     id: 17,
-    title: "DarkWave Studios",
-    description: "Full-service web development agency and blockchain-verified development ecosystem. Custom web development, AI-powered features, Trust Layer Hub widget marketplace, Guardian AI certification, and developer tools.",
-    tech: ["Agency", "AI", "Blockchain", "Marketplace"],
-    image: darkWaveImg,
-    gradient: "from-primary/20 to-accent/20",
-    url: "https://darkwavestudios.io",
-    category: "Agency"
-  },
-  {
-    id: 18,
     title: "Chronicles",
     description: "Immersive blockchain gaming experience powered by the Trust Layer ecosystem. Build your legacy in a dynamic world of strategy, adventure, and on-chain progression.",
     tech: ["Gaming", "Blockchain", "Strategy", "Trust Layer"],
@@ -209,17 +199,17 @@ const projects = [
     tech: ["Smart Home", "IoT", "Trust Layer", "Security"],
     image: trustLayerImg,
     gradient: "from-sky-500/20 to-indigo-600/20",
-    url: "#",
+    url: "https://trusthome.replit.app",
     category: "Smart Home"
   },
   {
-    id: 20,
+    id: 19,
     title: "TrustVault",
     description: "Secure digital asset storage and management with Trust Layer verified custody. Multi-chain wallet, encrypted backup, and blockchain-verified access controls.",
     tech: ["Security", "Digital Assets", "Custody", "Multi-Chain"],
     image: trustLayerImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
-    url: "#",
+    url: "https://trustvault.replit.app",
     category: "Security"
   }
 ];

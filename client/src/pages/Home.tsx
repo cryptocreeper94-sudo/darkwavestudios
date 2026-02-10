@@ -65,21 +65,12 @@ import processSupportImg from "@/assets/images/process-support.png";
 const projects = [
   {
     id: 1,
-    title: "DarkWave Studios",
-    description: "Full-service web development agency and blockchain-verified development ecosystem",
-    tech: ["Web Dev", "AI", "Blockchain"],
-    image: "/ecosystem/darkwave-studios.png",
-    gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://darkwavestudios.io"
-  },
-  {
-    id: 2,
     title: "Trust Layer",
     description: "Layer 1 blockchain providing verified identity and AI agent certification",
     tech: ["Blockchain", "Identity", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://dwsc.io"
+    url: "https://dwtl.io"
   },
   {
     id: 3,
@@ -97,7 +88,7 @@ const projects = [
     tech: ["AI", "Trading", "Analytics"],
     image: "/ecosystem/pulse.png",
     gradient: "from-violet-500/20 to-purple-600/20",
-    url: "https://dwsc.io/pulse"
+    url: "https://darkwavepulse.com"
   },
   {
     id: 5,
@@ -223,7 +214,7 @@ const projects = [
     tech: ["Smart Home", "IoT", "Trust Layer"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-sky-500/20 to-indigo-600/20",
-    url: "#"
+    url: "https://trusthome.replit.app"
   },
   {
     id: 19,
@@ -232,7 +223,7 @@ const projects = [
     tech: ["Security", "Digital Assets", "Custody"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
-    url: "#"
+    url: "https://trustvault.replit.app"
   }
 ];
 

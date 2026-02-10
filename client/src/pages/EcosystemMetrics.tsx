@@ -116,23 +116,6 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
-    id: "darkwave-studios",
-    name: "DarkWave Studios",
-    url: "https://darkwavestudios.io",
-    totalLines: 138000,
-    totalFiles: 400,
-    stack: ["React 18", "TypeScript", "Vite", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Stripe", "Coinbase Commerce", "OpenAI", "WebSocket", "Trust Layer SSO"],
-    breakdown: [
-      { language: "TypeScript/TSX", lines: 134000 },
-      { language: "CSS", lines: 3500 },
-      { language: "HTML", lines: 500 },
-    ],
-    highlights: ["25 pages", "Trust Layer Hub", "Guardian AI", "Signal Chat", "AI Blog Generator"],
-    icon: Globe,
-    gradient: "from-violet-500 to-purple-500",
-    status: "Production",
-  },
-  {
     id: "lotops-pro",
     name: "LotOps Pro",
     url: "https://lotopspro.com",

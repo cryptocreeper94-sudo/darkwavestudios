@@ -28,7 +28,7 @@ const developerProducts = [
     title: "AI Agent Marketplace",
     description: "Create, deploy, and discover autonomous AI agents. Build trading bots, DeFi agents, NFT snipers, and more.",
     icon: Bot,
-    href: "https://dwsc.io/ai-agents",
+    href: "https://dwtl.io/ai-agents",
     external: true,
     gradient: "from-emerald-500 to-teal-500",
     features: ["Agent builder", "Smart contract integration", "Revenue sharing", "Guardian AI certified"]
@@ -38,7 +38,7 @@ const developerProducts = [
     title: "Guardian AI",
     description: "AI agent certification platform. Verify autonomous agents meet security, transparency, and reliability standards.",
     icon: Shield,
-    href: "https://dwsc.io/guardian-ai",
+    href: "https://dwtl.io/guardian-ai",
     external: true,
     gradient: "from-red-500 to-orange-500",
     features: ["Trust score ratings", "Security audits", "Compliance certification", "Public registry"]
@@ -167,7 +167,7 @@ function PulseApiDocs() {
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted-foreground">Production Base URL</span>
             <button
-              onClick={() => copyToClipboard("https://pulse.darkwavestudios.io/api", "baseurl")}
+              onClick={() => copyToClipboard("https://darkwavepulse.com/api", "baseurl")}
               className="flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 transition-colors"
               data-testid="copy-base-url"
             >
@@ -175,7 +175,7 @@ function PulseApiDocs() {
               {copiedEndpoint === "baseurl" ? "Copied!" : "Copy"}
             </button>
           </div>
-          <code className="text-amber-400 font-mono text-sm lg:text-base">https://pulse.darkwavestudios.io/api</code>
+          <code className="text-amber-400 font-mono text-sm lg:text-base">https://darkwavepulse.com/api</code>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-4 mb-8">

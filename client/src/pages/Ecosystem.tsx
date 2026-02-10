@@ -21,21 +21,12 @@ interface EcosystemApp {
 
 const ecosystemApps: EcosystemApp[] = [
   {
-    id: "darkwave-studios",
-    name: "DarkWave Studios",
-    tagline: "Build Bold. Scale Fast. Trust Everything.",
-    description: "Full-service web development agency and blockchain-verified development ecosystem. Custom web apps, AI integration, and enterprise solutions.",
-    image: "/ecosystem/darkwave-studios.png",
-    url: "https://darkwavestudios.io",
-    category: "core"
-  },
-  {
     id: "trust-layer",
     name: "DarkWave Trust Layer",
     tagline: "The Trust Infrastructure for the AI Economy",
     description: "High-performance Layer 1 Proof-of-Authority blockchain providing verified identity, AI agent certification, and transparent audit trails.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://dwsc.io",
+    url: "https://dwtl.io",
     category: "core"
   },
   {
@@ -53,7 +44,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Where AI Meets Crypto Intelligence",
     description: "AI-driven cryptocurrency trading and analytics platform with predictive signals, quantitative analysis, and real-time crypto news.",
     image: "/ecosystem/pulse.png",
-    url: "https://dwsc.io/pulse",
+    url: "https://darkwavepulse.com",
     category: "trading"
   },
   {
@@ -439,7 +430,7 @@ export default function Ecosystem() {
                   </span>
                 </Link>
                 <a 
-                  href="https://dwsc.io/guardian-ai"
+                  href="https://dwtl.io/guardian-ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
