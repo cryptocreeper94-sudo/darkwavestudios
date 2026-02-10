@@ -178,7 +178,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Chronicles",
     tagline: "You Are the Character. History Is the World.",
     description: "Historically-grounded AI life simulation spanning 7 epochs from the Stone Age to the 20th century. GPT-4o NPCs with 5-axis emotion, Choice Echoes narrative system, faction politics, the 7 Sigils, estate building, voice cloning, and blockchain Chronicle Proofs. No moral judgment, no end state — persistent world where every choice echoes forward.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/chronicles.jpg",
     url: "https://yourlegacy.io",
     category: "gaming"
   },
