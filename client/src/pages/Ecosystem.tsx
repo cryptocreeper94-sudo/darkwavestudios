@@ -185,11 +185,11 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "trusthome",
     name: "TrustHome",
-    tagline: "Your Home. Verified. Secure.",
-    description: "Smart home management platform powered by Trust Layer identity and blockchain verification. IoT device management, secure access control, and verified home automation.",
-    image: "/ecosystem/trust-layer-icon.png",
-    url: "#",
-    category: "smart-home"
+    tagline: "Every Transaction. Verified. Transparent. Trusted.",
+    description: "White-label real estate platform and central hub for agents, buyers, sellers, inspectors, and mortgage brokers. Unified transaction timelines, blockchain-verified document vault, AI voice assistant, CRM, and marketing suite. Woman-owned (WOSB eligible).",
+    image: "/ecosystem/trusthome.png",
+    url: "https://trusthome.replit.app",
+    category: "real-estate"
   },
   {
     id: "trustvault",
@@ -210,6 +210,7 @@ const categories = [
   { id: "auto", name: "Auto & Delivery", description: "Vehicle and food service platforms" },
   { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" },
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
+  { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 

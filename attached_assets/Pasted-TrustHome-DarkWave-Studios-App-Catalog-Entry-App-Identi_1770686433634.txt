@@ -1,0 +1,123 @@
+TrustHome — DarkWave Studios App Catalog Entry
+App Identity
+Field	Value
+Name	TrustHome
+Domain	trusthome.io
+Live URL	trusthome.replit.app
+App ID	dw_app_trusthome
+Version	1.0.0
+Phase	MVP Complete — Pre-Launch
+Owner	DarkWave Studios LLC
+Ownership	Jennifer Lambert 51% (Managing Member) / Jason 49% (Technical Lead)
+Woman-Owned	Yes — qualifies for WOSB/WBENC certification
+Copyright	2026 DarkWave Studios LLC
+Description
+TrustHome is a white-label real estate platform and central hub for all parties in a real estate transaction — agents, buyers, sellers, inspectors, mortgage brokers, title companies, appraisers, and contractors. It provides a unified, transparent, and efficient experience built on DarkWave's custom Layer 1 blockchain (Trust Layer) for universal trust and document verification.
+
+The platform serves as both a client-facing portal (property search, showings, document vault, transaction timelines) and a full agent business suite (CRM, lead management, marketing hub, analytics, expense/mileage tracking). TrustHome is white-label ready for brokerages and includes a Founders Program for early adopter pricing.
+
+Tech Stack
+Layer	Technology
+Frontend	Expo React Native (iOS, Android, Web) with Expo Router
+Backend	Express.js (TypeScript)
+Database	PostgreSQL (Neon-backed) with Drizzle ORM
+State Management	React Query (@tanstack/react-query) + React Context
+Real-Time	WebSockets (Socket.IO)
+AI Engine	OpenAI gpt-5.2 (brain), gpt-4o-mini-transcribe (STT), gpt-audio "nova" (TTS)
+Blockchain	DarkWave Trust Layer (DWTL) — custom L1 via dwsc.io
+Security	Trust Shield integration, RBAC, E2E encryption, HMAC webhook signing
+Styling	React Native StyleSheet, glassmorphism, light/dark themes
+Email	Resend
+Voice AI	OpenAI native (STT/TTS/Chat streaming)
+Language	TypeScript (100% of application code)
+Codebase Metrics
+Metric	Count
+Total Lines of Code	~89,143
+TypeScript (.ts/.tsx)	~55,874 lines
+HTML Templates	~4,733 lines
+Config/Docs/Styles	~28,536 lines
+Total Source Files	~279
+Database Schema	198 lines (shared/schema.ts)
+Backend (server/)	~4,310 lines
+Frontend Screens (app/)	~8,865 lines
+UI Components (components/)	~7,253 lines
+State/Context (contexts/)	~514 lines
+Dependencies	44 production, 7 dev
+Features
+Client Portal
+Visual transaction timeline with blockchain verification
+Property shortlist with side-by-side comparison
+Showing management and scheduling
+Blockchain-verified document vault (encrypted per-tenant)
+Direct messaging with agent
+Mortgage calculator and affordability tools
+Neighborhood intelligence (schools, demographics, crime stats)
+Post-close resource hub
+Agent Dashboard
+Full CRM with lead scoring and automated follow-ups
+Transaction pipeline management with deadline tracking
+AI-powered marketing hub with blog system and caption generation
+Showing and open house management
+Network and referral management
+Performance analytics dashboard
+Branding customization tools
+Expense and mileage tracking
+AI Assistant
+Voice-capable conversational AI for agents and clients
+Streaming text responses (SSE)
+Full voice interaction: record speech, AI responds with audio
+Text-to-speech for any content
+Graceful mobile degradation
+Platform Features
+Custom PIN-based authentication (no third-party auth)
+Multi-tenant architecture with agent_id boundary
+Credential-verified demo mode for licensed professionals
+WelcomeGuide onboarding (8-slide first-login experience)
+Contextual help system across 9+ screens
+Developer console for access request management
+Partner onboarding modal (9 slides with Founders Program + Stripe setup)
+Light/dark theme with premium glassmorphism design
+PWA capabilities
+Trust Shield security badge with ecosystem links
+Ecosystem Integrations
+DarkWave Trust Layer (dwtl.io) — blockchain verification, Trust Score, digital membership
+Trust Shield (trustshield.tech) — security suite
+PaintPros.io — CRM, Signal Chat, Marketing Suite, SSO, Analytics
+DarkWave Media Studio — video walkthroughs and property media
+ORBIT Staffing — bookkeeping, HR, payroll with 51/49 revenue split (client ready, pending ORBIT deployment)
+Pricing (Founders Program)
+Tier	Founder Price (First 100)	Standard Price
+Agent	$49/mo	$99/mo
+Brokerage	$299/mo	$599/mo
+White-Label	$1,499/mo	$2,999/mo
+Authentication PINs
+Developer Access: 0424
+Jennifer Lambert (Partner): 7777
+Linked Ecosystem Apps
+App	Domain	Relationship
+DarkWave Trust Layer	dwtl.io	Blockchain verification provider
+DarkWave Blockchain Explorer	dwsc.io/explorer	Transaction explorer
+Trust Shield	trustshield.tech	Security suite
+PaintPros	paintpros.io	Ecosystem services (CRM, Chat, Marketing, SSO)
+DarkWave Media Studio	darkwavemedia.io	Video/media production
+ORBIT Staffing	orbitstaffing.replit.app	Payroll and financial hub
+DarkWave Studios	darkwavestudios.io	Parent company
+Emblem / App Icon
+The current TrustHome app icon lives at:
+
+assets/images/icon.png
+Full set of icon assets:
+
+assets/images/icon.png — Primary app icon (734KB)
+assets/images/favicon.png — Web favicon
+assets/images/splash-icon.png — Splash screen icon
+assets/images/android-icon-foreground.png — Android adaptive foreground
+assets/images/android-icon-background.png — Android adaptive background
+assets/images/android-icon-monochrome.png — Android monochrome variant
+There's your full catalog entry. The app icon/emblem is at assets/images/icon.png in the project. If you need a public URL for the catalog, it would be served from the published app's assets.
+
+
+Scroll to latest
+
+Make, test, iterate…
+
