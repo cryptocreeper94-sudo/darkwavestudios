@@ -226,12 +226,12 @@ export default function Support() {
                           className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
                           data-testid={`button-faq-${cat.name.toLowerCase()}-${idx}`}
                         >
-                          <span className="font-medium text-sm lg:text-base pr-4">{item.q}</span>
+                          <span className="font-medium text-base lg:text-lg pr-4">{item.q}</span>
                           {isExpanded ? <ChevronUp className="w-5 h-5 text-muted-foreground flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />}
                         </button>
                         {isExpanded && (
                           <div className="px-4 pb-4 border-t border-white/5">
-                            <p className="text-muted-foreground text-sm lg:text-base pt-3">{item.a}</p>
+                            <p className="text-muted-foreground text-sm lg:text-base pt-3 leading-relaxed">{item.a}</p>
                           </div>
                         )}
                       </div>
