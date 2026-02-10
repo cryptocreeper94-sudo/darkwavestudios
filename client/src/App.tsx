@@ -36,6 +36,7 @@ import SignalChat from "@/pages/SignalChat";
 import EcosystemMetrics from "@/pages/EcosystemMetrics";
 import AffiliateDisclosure from "@/pages/AffiliateDisclosure";
 import Support from "@/pages/Support";
+import Studio from "@/pages/Studio";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -73,6 +74,7 @@ function Router() {
       <Route path="/metrics" component={EcosystemMetrics}/>
       <Route path="/affiliate-disclosure" component={AffiliateDisclosure}/>
       <Route path="/support" component={Support}/>
+      <Route path="/studio" component={Studio}/>
       <Route component={NotFound} />
     </Switch>
   );

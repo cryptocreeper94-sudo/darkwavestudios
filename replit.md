@@ -116,6 +116,16 @@ AI agent security scanner and certification platform for the crypto ecosystem:
 - **Certified Agent Registry**: Searchable database of verified AI agents
 - **Certification Request Form**: Lead capture for certification inquiries
 
+### TrustVault Studio Integration
+Cross-app media editor powered by TrustVault via Trust Layer SSO:
+- **API Client**: `server/trustvault-client.ts` — proxy layer with rate limiting (60 req/min)
+- **Base URL**: https://trustvault.replit.app
+- **Auth**: Bearer JWT via shared JWT_SECRET (HS256, 7-day expiry)
+- **Proxy Routes**: All `/api/trustvault/*` endpoints forward to TrustVault's `/api/studio/*`
+- **Webhook**: POST `/api/trustvault/webhook` receives render events (started, complete, failed)
+- **Studio Page**: `/studio` — SSO login, media browser (filterable by category), project management, embedded editor iframe, render event feed
+- **CORS**: Whitelisted origins include darkwavestudios.replit.app and darkwavestudios.com
+
 ### Public Information Pages
 - **Mission Page**: Company vision, mission statement, core values, and strategic goals
 - **Investors Page**: Key metrics, growth opportunities, investment highlights
@@ -211,3 +221,6 @@ The platform includes a complete effects library applied across all pages:
 - Ecosystem totals: 20 apps, ~2.08M lines of code, 12 production builds
 - Trust Layer Hub: 32 widgets, 19 code snippets
 - Added Chronicles product description at docs/CHRONICLES-PRODUCT-DESCRIPTION.md
+- Integrated TrustVault Studio: API client (`server/trustvault-client.ts`), proxy routes for all `/api/studio/*` endpoints, webhook receiver at `/api/trustvault/webhook`, and `/studio` page with SSO login, media browser, project management, embedded editor, and render event feed
+- TrustVault uses shared JWT_SECRET for Trust Layer SSO cross-app authentication (Bearer JWT, HS256, 7-day expiry)
+- Webhook events: render.started, render.complete, render.failed — stored in-memory with per-user filtering

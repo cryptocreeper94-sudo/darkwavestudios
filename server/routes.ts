@@ -15,6 +15,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import multer from "multer";
 import widgetRoutes from "./widgets/widget-routes";
+import { trustVaultFetch, getCapabilities, storeWebhookEvent, getWebhookEvents, validateWebhookPayload } from "./trustvault-client";
 
 const uploadDir = "uploads/marketing";
 if (!fs.existsSync(uploadDir)) {
@@ -2821,6 +2822,100 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       console.error("Cancel subscription error:", error);
       res.status(500).json({ success: false, error: error.message });
     }
+  });
+
+  // ─── TrustVault Integration ───
+  app.get("/api/trustvault/capabilities", async (_req: Request, res: Response) => {
+    const result = await getCapabilities();
+    res.json(result.data);
+  });
+
+  app.get("/api/trustvault/status", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/status", token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/media", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { page = "1", limit = "20", category } = req.query;
+    let path = `/api/studio/media/list?page=${page}&limit=${limit}`;
+    if (category) path += `&category=${category}`;
+    const result = await trustVaultFetch(path, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/media/:id", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch(`/api/studio/media/${req.params.id}`, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/media/upload", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/media/upload", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/media/confirm", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/media/confirm", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/projects/create", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/projects/create", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/projects/:id/status", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/status`, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/projects/:id/export", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const body = { ...req.body, webhookUrl: "https://darkwavestudios.replit.app/api/trustvault/webhook" };
+    const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/export`, token, { method: "POST", body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/editor/embed-token", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/editor/embed-token", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/webhook", (req: Request, res: Response) => {
+    const validation = validateWebhookPayload(req.body);
+    if (!validation.valid) {
+      return res.status(400).json({ error: validation.error });
+    }
+    const { event, projectId, status, downloadUrl, userId, trustLayerId, timestamp } = req.body;
+    console.log(`[TrustVault Webhook] ${event} — project ${projectId} — status: ${status}`);
+    storeWebhookEvent({ event, projectId, status, downloadUrl, userId, trustLayerId, timestamp });
+    res.json({ received: true });
+  });
+
+  app.get("/api/trustvault/events", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const events = getWebhookEvents(decoded.userId);
+    res.json({ events });
   });
 
   return httpServer;
