@@ -156,7 +156,7 @@ export default function AffiliateDisclosure() {
                   <Link href="/contact" className="text-primary hover:underline" data-testid="link-contact">
                     contact page
                   </Link>{" "}
-                  or email us at support@dwsc.io.
+                  or email us at team@dwsc.io.
                 </p>
                 <p className="text-muted-foreground mt-2">
                   DarkWave Studios, LLC<br />

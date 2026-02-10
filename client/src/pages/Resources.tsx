@@ -262,7 +262,7 @@ Anything else we should know?
 ________________________
 
 ---
-Email completed brief to: hello@darkwavestudios.io
+Email completed brief to: team@dwsc.io
 Or book a call: https://darkwavestudios.io/book
 `
   },

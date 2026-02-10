@@ -99,7 +99,7 @@ const faqCategories = [
       },
       {
         q: "How do I report a bug or issue?",
-        a: "You can report issues through our contact form, email us at support@dwsc.io, or reach out via Signal Chat on our platform. We aim to acknowledge all support requests within 24 hours."
+        a: "You can report issues through our contact form, email us at team@dwsc.io, or reach out via Signal Chat on our platform. We aim to acknowledge all support requests within 24 hours."
       },
       {
         q: "Do you offer ongoing maintenance?",
@@ -255,10 +255,10 @@ export default function Support() {
                 <span className="font-medium mb-1">Contact Us</span>
                 <span className="text-muted-foreground text-sm">Send us a message</span>
               </Link>
-              <a href="mailto:support@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-email-support">
+              <a href="mailto:team@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-email-support">
                 <Mail className="w-8 h-8 text-primary mb-3" />
                 <span className="font-medium mb-1">Email Us</span>
-                <span className="text-muted-foreground text-sm">support@dwsc.io</span>
+                <span className="text-muted-foreground text-sm">team@dwsc.io</span>
               </a>
               <Link href="/book" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-book-support">
                 <Clock className="w-8 h-8 text-primary mb-3" />

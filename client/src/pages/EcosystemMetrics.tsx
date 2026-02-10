@@ -83,7 +83,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "pulse",
     name: "Pulse Platform",
-    url: "https://darkwavepulse.io",
+    url: "https://darkwavepulse.com",
     totalLines: 208250,
     totalFiles: 5073,
     stack: ["React 19", "Vite 7", "Mastra AI", "PostgreSQL", "Inngest", "Firebase Auth", "Stripe"],

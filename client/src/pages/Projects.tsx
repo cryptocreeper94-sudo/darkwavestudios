@@ -193,7 +193,7 @@ const projects = [
     category: "Gaming"
   },
   {
-    id: 19,
+    id: 18,
     title: "TrustHome",
     description: "Smart home management platform powered by Trust Layer identity and blockchain verification. IoT device management, secure access control, and verified home automation.",
     tech: ["Smart Home", "IoT", "Trust Layer", "Security"],
