@@ -268,7 +268,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            17+ live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            20 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 
