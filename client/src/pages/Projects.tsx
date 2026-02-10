@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
+import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 
 import strikeAgentImg from "@/assets/ecosystem/strikeagent.png";
 import pulseImg from "@/assets/ecosystem/pulse.png";
@@ -327,6 +328,10 @@ export default function Projects() {
           </div>
         </div>
       </main>
+
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 mb-8">
+        <SignalPresaleBanner variant="compact" />
+      </div>
 
       <Footer />
     </div>

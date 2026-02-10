@@ -37,6 +37,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Newsletter from "@/components/Newsletter";
+import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 import { FAQSchema } from "@/components/SEOHead";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
@@ -1017,6 +1018,11 @@ export default function Home() {
               ))}
             </div>
           </section></ScrollReveal>
+
+          {/* SIGNAL PRESALE BANNER */}
+          <ScrollReveal animation="fade-in">
+            <SignalPresaleBanner variant="full" className="my-4 lg:my-8" />
+          </ScrollReveal>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
           <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">

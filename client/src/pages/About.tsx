@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Code2, Users, Zap, Shield, Clock, DollarSign } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 
 const values = [
   {
@@ -179,6 +180,10 @@ export default function About() {
           </div>
         </div>
       </main>
+
+      <div className="max-w-4xl mx-auto px-4 mb-8">
+        <SignalPresaleBanner variant="compact" />
+      </div>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">

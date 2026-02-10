@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
+import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
 
 interface BlogPost {
@@ -234,7 +235,8 @@ export default function Blog() {
         </div>
       </main>
 
-      <div className="max-w-4xl mx-auto px-4 mb-8">
+      <div className="max-w-4xl mx-auto px-4 mb-8 space-y-4">
+        <SignalPresaleBanner variant="compact" />
         <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
       </div>
 
