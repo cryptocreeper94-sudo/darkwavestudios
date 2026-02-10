@@ -546,6 +546,16 @@ export default function TrustLayerHub() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const [codeModal, setCodeModal] = useState<{ open: boolean; title: string; code: string; lines: number; loading: boolean }>({
     open: false,
     title: "",
@@ -847,7 +857,7 @@ export default function TrustLayerHub() {
         </div>
         
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-white/10 px-4 py-4">
+          <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 bg-background/95 backdrop-blur-xl border-t border-white/10 px-4 py-4 pb-20 overflow-y-auto z-50">
             <nav className="flex flex-col gap-3">
               <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-projects-mobile">Portfolio</Link>
               <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-services-mobile">Services</Link>

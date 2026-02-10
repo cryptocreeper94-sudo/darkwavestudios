@@ -339,6 +339,15 @@ export default function Home() {
   const [currentProcessStep, setCurrentProcessStep] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const processSteps = [
     { icon: Search, label: "Discovery", desc: "We learn your business, goals, and users. Through in-depth conversations we map out your vision, target audience, and success metrics.", color: "from-cyan-500 to-blue-500", image: processDiscoveryImg },
     { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction. We create interactive prototypes so you can see and feel your product before a single line of code is written.", color: "from-purple-500 to-pink-500", image: processDesignImg },
@@ -390,8 +399,8 @@ export default function Home() {
           
           {/* Mobile Menu Dropdown */}
           {mobileMenuOpen && (
-            <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-white/10">
-              <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 bg-background/95 backdrop-blur-xl border-t border-white/10 overflow-y-auto z-50">
+              <div className="max-w-7xl mx-auto px-4 py-4 pb-20 flex flex-col gap-1">
                 <div className="text-xs text-muted-foreground uppercase tracking-wider py-2">Work</div>
                 <Link 
                   href="/projects" 

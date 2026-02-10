@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Shield, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
@@ -7,6 +7,15 @@ import Footer from "@/components/Footer";
 
 export default function Privacy() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -38,7 +47,7 @@ export default function Privacy() {
             </button>
           </div>
           {mobileMenuOpen && (
-            <div className="lg:hidden glass-strong border-t border-white/5 px-4 py-4">
+            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 glass-strong border-t border-white/5 px-4 py-4 pb-20 overflow-y-auto z-50">
               <div className="flex flex-col gap-2">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Home</Link>
                 <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Terms of Service</Link>
