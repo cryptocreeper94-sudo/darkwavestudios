@@ -27,7 +27,13 @@ import {
   X,
   Terminal,
   ExternalLink,
-  Shield
+  Shield,
+  Search,
+  PenTool,
+  Wrench,
+  Send,
+  Headphones,
+  Quote
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import {
@@ -1023,6 +1029,138 @@ export default function Home() {
           <ScrollReveal animation="fade-in">
             <SignalPresaleBanner variant="full" className="my-4 lg:my-8" />
           </ScrollReveal>
+
+          {/* OUR PROCESS SECTION */}
+          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
+            <div className="text-center mb-6 lg:mb-8">
+              <h2 className="text-xl lg:text-3xl font-bold font-display mb-2" data-testid="text-process-heading">
+                How We <span className="gradient-text">Work</span>
+              </h2>
+              <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">From first conversation to launch day and beyond — here's what working with us looks like.</p>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 lg:gap-4">
+              {[
+                { icon: Search, label: "Discovery", desc: "We learn your business, goals, and users", color: "from-cyan-500 to-blue-500" },
+                { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction", color: "from-purple-500 to-pink-500" },
+                { icon: Wrench, label: "Build", desc: "Full-stack development with weekly demos", color: "from-orange-500 to-red-500" },
+                { icon: Send, label: "Launch", desc: "Deployment, testing, and go-live", color: "from-green-500 to-emerald-500" },
+                { icon: Headphones, label: "Support", desc: "Ongoing maintenance and updates", color: "from-yellow-500 to-orange-500" },
+              ].map((step, i) => (
+                <div key={i} className="relative group" data-testid={`process-step-${i}`}>
+                  <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center hover-lift h-full flex flex-col items-center">
+                    <div className={`w-10 h-10 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-2 lg:mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
+                      <step.icon className="w-5 h-5 lg:w-7 lg:h-7 text-white" />
+                    </div>
+                    <div className="text-[10px] lg:text-xs font-bold text-white/40 mb-1">0{i + 1}</div>
+                    <h3 className="text-xs lg:text-sm font-bold font-display text-foreground mb-1">{step.label}</h3>
+                    <p className="text-[9px] lg:text-xs text-muted-foreground leading-snug sm:block">{step.desc}</p>
+                  </div>
+                  {i < 4 && (
+                    <div className="absolute top-1/3 -right-1 lg:-right-2 w-2 lg:w-4 h-px bg-gradient-to-r from-white/20 to-transparent hidden sm:block" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </section></ScrollReveal>
+
+          {/* TESTIMONIALS SECTION */}
+          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
+            <div className="text-center mb-6 lg:mb-8">
+              <h2 className="text-xl lg:text-3xl font-bold font-display mb-2" data-testid="text-testimonials-heading">
+                What Our <span className="gradient-text">Users Say</span>
+              </h2>
+              <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">Real people using real products built by DarkWave Studios.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
+              {[
+                {
+                  name: "Avery B.",
+                  role: "Product User",
+                  quote: "I use several of the apps in the ecosystem daily. The design is clean, everything just works, and new features keep showing up. It's honestly impressive how much is built into these platforms.",
+                  color: "#8b5cf6",
+                  rating: 5,
+                },
+                {
+                  name: "Kathy G.",
+                  role: "Owner, HappyEats.app",
+                  quote: "DarkWave built HappyEats from the ground up and it's been running smoothly since day one. The whole process was straightforward — they understood what I needed and delivered exactly that.",
+                  color: "#06b6d4",
+                  rating: 5,
+                },
+                {
+                  name: "Matthew K.",
+                  role: "Founder, Validitor",
+                  quote: "Working with DarkWave on Validitor has been a great experience. The technical quality is top-notch and the turnaround time is faster than any agency I've worked with before.",
+                  color: "#10b981",
+                  rating: 5,
+                },
+                {
+                  name: "Shandora",
+                  role: "Signal Founding Member",
+                  quote: "I've been with Signal since the beginning. The platform keeps evolving and the community tools they've built make it easy to stay connected. You can tell real thought goes into every feature.",
+                  color: "#f59e0b",
+                  rating: 5,
+                },
+                {
+                  name: "Madeline A.",
+                  role: "Product User",
+                  quote: "The apps are intuitive and well-designed. I'm not a tech person at all, but everything is easy to navigate. It's clear that a lot of care goes into the user experience.",
+                  color: "#ec4899",
+                  rating: 5,
+                },
+              ].map((t, i) => (
+                <div key={i} className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border card-3d h-full flex flex-col" data-testid={`testimonial-card-${i}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md flex-shrink-0"
+                      style={{ background: t.color }}
+                    >
+                      {t.name.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-foreground">{t.name}</div>
+                      <div className="text-[10px] lg:text-xs text-muted-foreground">{t.role}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {Array.from({ length: t.rating }).map((_, s) => (
+                      <Star key={s} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <Quote className="w-5 h-5 text-primary/30 mb-2 flex-shrink-0" />
+                  <p className="text-xs lg:text-sm text-muted-foreground leading-relaxed flex-1">"{t.quote}"</p>
+                </div>
+              ))}
+            </div>
+          </section></ScrollReveal>
+
+          {/* TRUSTED BY / ECOSYSTEM LOGOS */}
+          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
+            <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border">
+              <div className="text-center mb-4">
+                <p className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Powering 20 Production Applications</p>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-8">
+                {[
+                  { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
+                  { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
+                  { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
+                  { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
+                  { name: "HappyEats", gradient: "from-yellow-400 to-orange-500" },
+                  { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
+                  { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
+                  { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
+                  { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
+                  { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
+                ].map((brand, i) => (
+                  <div key={i} className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity" data-testid={`brand-logo-${i}`}>
+                    <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${brand.gradient}`} />
+                    <span className="text-xs lg:text-sm font-display font-semibold text-foreground/70">{brand.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section></ScrollReveal>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
           <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
