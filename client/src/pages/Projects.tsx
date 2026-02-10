@@ -25,7 +25,7 @@ const projects = [
   {
     id: 1,
     title: "Pulse",
-    description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent token discovery, DarkWave-V2 AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
+    description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent asset discovery, DarkWave-V2 AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
     tech: ["AI/ML", "Crypto", "Analytics", "Trading"],
     image: pulseImg,
     gradient: "from-purple-500/20 to-indigo-600/20",

@@ -253,7 +253,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "CSS", lines: 400, files: 3 },
       { language: "HTML", lines: 200, files: 1 },
     ],
-    highlights: ["Autonomous token discovery", "Multi-chain scanning", "Safety scoring engine", "Smart auto-trade", "80,558+ predictions"],
+    highlights: ["Autonomous asset discovery", "Multi-chain scanning", "Safety scoring engine", "Smart auto-trade", "80,558+ predictions"],
     icon: Zap,
     gradient: "from-yellow-500 to-red-500",
     status: "Production",

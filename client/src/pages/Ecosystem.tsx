@@ -60,7 +60,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "strikeagent",
     name: "StrikeAgent",
     tagline: "Strike First. Strike Smart.",
-    description: "Autonomous AI-powered token discovery and trading system. Multi-chain scanning, safety scoring, and smart auto-trade capabilities.",
+    description: "Autonomous AI-powered asset discovery and trading system. Multi-chain scanning, safety scoring, and smart auto-trade capabilities.",
     image: "/ecosystem/strikeagent.png",
     url: "https://strikeagent.io",
     category: "trading"

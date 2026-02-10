@@ -89,4 +89,4 @@ Chronicles is a historically-grounded AI life simulation. Not sci-fi, not dimens
 
 - **Done**: Core AI engine, epoch framework, NPC emotion system, Choice Echoes, basic faction system
 - **In Progress**: 7 Sigils quest line, estate management, voice cloning integration
-- **Next**: Blockchain Chronicle Proofs, SIG token economy, scenario generator, multiplayer elements
+- **Next**: Blockchain Chronicle Proofs, SIG asset economy, scenario generator, multiplayer elements

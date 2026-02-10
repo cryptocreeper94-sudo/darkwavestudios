@@ -102,7 +102,7 @@ const projects = [
   {
     id: 5,
     title: "Strike Agent",
-    description: "Autonomous AI-powered token discovery and trading system",
+    description: "Autonomous AI-powered asset discovery and trading system",
     tech: ["AI", "Trading", "Multi-chain"],
     image: "/ecosystem/strikeagent.png",
     gradient: "from-cyan-500/20 to-blue-600/20",

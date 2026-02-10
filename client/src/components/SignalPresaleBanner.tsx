@@ -22,7 +22,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
             <Zap className="w-5 h-5 text-primary" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="font-bold text-sm font-display">Signal Token Presale — Live Now</div>
+            <div className="font-bold text-sm font-display">Signal Asset Presale — Live Now</div>
             <div className="text-xs text-muted-foreground">Starting at $0.001 per SIG</div>
           </div>
           <ExternalLink className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
@@ -47,7 +47,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-xs text-primary font-semibold uppercase tracking-wider mb-0.5">Presale Live</div>
-            <div className="font-bold text-base lg:text-lg font-display">Signal Token — $0.001/SIG</div>
+            <div className="font-bold text-base lg:text-lg font-display">Signal Asset — $0.001/SIG</div>
             <div className="text-xs text-muted-foreground mt-0.5">Be among the first to own Signal and help build the Trust Layer ecosystem</div>
           </div>
           <div className="hidden sm:flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-lg font-semibold text-sm group-hover:bg-primary/30 transition-colors flex-shrink-0">
@@ -80,7 +80,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
               Own a Piece of the <span className="gradient-text">Trust Layer</span>
             </h3>
             <p className="text-sm text-muted-foreground mb-4 max-w-xl">
-              Signal is the native token powering a 20-app ecosystem with 2.08M+ lines of production code. 
+              Signal is the native digital asset powering a 20-app ecosystem with 2.08M+ lines of production code. 
               Join early at $0.001/SIG before the price increases.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
@@ -106,7 +106,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
             <div className="text-center lg:text-right">
               <div className="text-xs text-muted-foreground">Current Price</div>
               <div className="text-3xl lg:text-4xl font-bold font-display gradient-text">$0.001</div>
-              <div className="text-xs text-muted-foreground">per SIG token</div>
+              <div className="text-xs text-muted-foreground">per SIG</div>
             </div>
             <div className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-bold text-sm group-hover:scale-105 transition-transform btn-glow">
               Join Signal Presale
