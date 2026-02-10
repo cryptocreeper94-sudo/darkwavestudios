@@ -196,7 +196,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Trust Vault",
     tagline: "Your Media. Secured. Organized. Yours.",
     description: "Universal IP storage and media management platform. Multi-tenant media vault with video/audio/image/document upload, editing suite, collections, Spinny AI agent, Signal Chat, Stripe subscriptions, and TrustLayer SSO. Central content vault for the DarkWave ecosystem.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
   }
