@@ -2,6 +2,7 @@ import {
   users, leads, subscribers, blogPosts, testimonials, caseStudies, quoteRequests, pulseRequests, bookings, payments,
   pageViews, analyticsEvents, seoKeywords, conversations, messages, documents,
   ecosystemApps, codeSnippets, snippetCategories, ecosystemLogs, guardianScans, purchases,
+  aiCreditBalances, aiCreditTransactions,
   type User, type InsertUser,
   type Lead, type InsertLead,
   type Subscriber, type InsertSubscriber,
@@ -23,7 +24,8 @@ import {
   type SnippetCategory, type InsertSnippetCategory,
   type EcosystemLog, type InsertEcosystemLog,
   type GuardianScan, type InsertGuardianScan,
-  type Purchase, type InsertPurchase
+  type Purchase, type InsertPurchase,
+  type AiCreditBalance, type AiCreditTransaction, type InsertAiCreditTransaction
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, sql, count } from "drizzle-orm";
@@ -134,6 +136,13 @@ export interface IStorage {
   fulfillPurchase(id: string): Promise<Purchase | undefined>;
   updatePurchaseStatus(id: string, status: string): Promise<void>;
   incrementDownloadCount(id: string): Promise<void>;
+
+  // AI Credits
+  getCreditBalance(userId: string): Promise<AiCreditBalance | undefined>;
+  getOrCreateCreditBalance(userId: string): Promise<AiCreditBalance>;
+  addCredits(userId: string, amount: number, description: string, stripeSessionId?: string): Promise<AiCreditBalance>;
+  useCredits(userId: string, amount: number, description: string, category: string): Promise<{ success: boolean; balance?: AiCreditBalance; error?: string }>;
+  getCreditTransactions(userId: string, limit?: number): Promise<AiCreditTransaction[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -631,6 +640,72 @@ export class DatabaseStorage implements IStorage {
 
   async incrementDownloadCount(id: string): Promise<void> {
     await db.update(purchases).set({ downloadCount: sql`${purchases.downloadCount} + 1` }).where(eq(purchases.id, id));
+  }
+
+  // AI Credits
+  async getCreditBalance(userId: string): Promise<AiCreditBalance | undefined> {
+    const [balance] = await db.select().from(aiCreditBalances).where(eq(aiCreditBalances.userId, userId));
+    return balance || undefined;
+  }
+
+  async getOrCreateCreditBalance(userId: string): Promise<AiCreditBalance> {
+    const existing = await this.getCreditBalance(userId);
+    if (existing) return existing;
+    const [created] = await db.insert(aiCreditBalances).values({ userId, credits: 0, totalPurchased: 0, totalUsed: 0 }).returning();
+    return created;
+  }
+
+  async addCredits(userId: string, amount: number, description: string, stripeSessionId?: string): Promise<AiCreditBalance> {
+    const balance = await this.getOrCreateCreditBalance(userId);
+    const newCredits = balance.credits + amount;
+    const [updated] = await db.update(aiCreditBalances).set({
+      credits: newCredits,
+      totalPurchased: balance.totalPurchased + amount,
+      updatedAt: new Date(),
+    }).where(eq(aiCreditBalances.userId, userId)).returning();
+
+    await db.insert(aiCreditTransactions).values({
+      userId,
+      type: "purchase",
+      amount,
+      balanceAfter: newCredits,
+      description,
+      stripeSessionId: stripeSessionId || null,
+    });
+
+    return updated;
+  }
+
+  async useCredits(userId: string, amount: number, description: string, category: string): Promise<{ success: boolean; balance?: AiCreditBalance; error?: string }> {
+    const balance = await this.getOrCreateCreditBalance(userId);
+    if (balance.credits < amount) {
+      return { success: false, error: `Insufficient credits. You have ${balance.credits} credits, but this action requires ${amount}.` };
+    }
+
+    const newCredits = balance.credits - amount;
+    const [updated] = await db.update(aiCreditBalances).set({
+      credits: newCredits,
+      totalUsed: balance.totalUsed + amount,
+      updatedAt: new Date(),
+    }).where(eq(aiCreditBalances.userId, userId)).returning();
+
+    await db.insert(aiCreditTransactions).values({
+      userId,
+      type: "usage",
+      amount: -amount,
+      balanceAfter: newCredits,
+      description,
+      category,
+    });
+
+    return { success: true, balance: updated };
+  }
+
+  async getCreditTransactions(userId: string, limit = 50): Promise<AiCreditTransaction[]> {
+    return db.select().from(aiCreditTransactions)
+      .where(eq(aiCreditTransactions.userId, userId))
+      .orderBy(desc(aiCreditTransactions.createdAt))
+      .limit(limit);
   }
 }
 

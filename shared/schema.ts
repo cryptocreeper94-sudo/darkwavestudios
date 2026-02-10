@@ -733,3 +733,57 @@ export const insertPurchaseSchema = createInsertSchema(purchases).omit({
 });
 export type InsertPurchase = z.infer<typeof insertPurchaseSchema>;
 export type Purchase = typeof purchases.$inferSelect;
+
+// AI Credit Balances
+export const aiCreditBalances = pgTable("ai_credit_balances", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().unique(),
+  credits: integer("credits").notNull().default(0),
+  totalPurchased: integer("total_purchased").notNull().default(0),
+  totalUsed: integer("total_used").notNull().default(0),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertAiCreditBalanceSchema = createInsertSchema(aiCreditBalances).omit({
+  id: true,
+  updatedAt: true,
+});
+export type InsertAiCreditBalance = z.infer<typeof insertAiCreditBalanceSchema>;
+export type AiCreditBalance = typeof aiCreditBalances.$inferSelect;
+
+// AI Credit Transactions
+export const aiCreditTransactions = pgTable("ai_credit_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull(),
+  type: text("type").notNull(), // purchase, usage, bonus, refund
+  amount: integer("amount").notNull(), // positive for purchase/bonus, negative for usage
+  balanceAfter: integer("balance_after").notNull(),
+  description: text("description").notNull(),
+  category: text("category"), // blog, guardian, studio, transcription, tts, image
+  stripeSessionId: text("stripe_session_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertAiCreditTransactionSchema = createInsertSchema(aiCreditTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertAiCreditTransaction = z.infer<typeof insertAiCreditTransactionSchema>;
+export type AiCreditTransaction = typeof aiCreditTransactions.$inferSelect;
+
+// Credit cost definitions
+export const AI_CREDIT_COSTS = {
+  "blog-post": { credits: 5, label: "AI Blog Post" },
+  "guardian-scan": { credits: 0, label: "Guardian AI Scan (Free)" },
+  "studio-export": { credits: 10, label: "Studio Export/Render" },
+  "transcription-min": { credits: 1, label: "AI Transcription (per min)" },
+  "tts-1000chars": { credits: 3, label: "Text-to-Speech (per 1K chars)" },
+  "image-enhance": { credits: 2, label: "AI Image Enhancement" },
+} as const;
+
+export const CREDIT_PACKAGES = [
+  { id: "starter", credits: 50, price: 299, label: "Starter Pack", description: "50 credits" },
+  { id: "popular", credits: 100, price: 499, label: "Popular Pack", description: "100 credits", badge: "Best Value" },
+  { id: "pro", credits: 250, price: 999, label: "Pro Pack", description: "250 credits", badge: "Save 20%" },
+  { id: "enterprise", credits: 1000, price: 2999, label: "Enterprise Pack", description: "1,000 credits", badge: "Save 40%" },
+] as const;
