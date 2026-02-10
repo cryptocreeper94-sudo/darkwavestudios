@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
 import { eq, asc, desc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
@@ -2821,6 +2821,131 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     } catch (error: any) {
       console.error("Cancel subscription error:", error);
       res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ─── AI Credits System ───
+  app.get("/api/credits/packages", (_req: Request, res: Response) => {
+    res.json({ packages: CREDIT_PACKAGES, costs: AI_CREDIT_COSTS });
+  });
+
+  app.get("/api/credits/balance", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const balance = await storage.getOrCreateCreditBalance(decoded.userId);
+    res.json({ balance });
+  });
+
+  app.get("/api/credits/transactions", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const limit = parseInt(req.query.limit as string) || 50;
+    const transactions = await storage.getCreditTransactions(decoded.userId, limit);
+    res.json({ transactions });
+  });
+
+  app.post("/api/credits/purchase", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { packageId } = req.body;
+      const pkg = CREDIT_PACKAGES.find(p => p.id === packageId);
+      if (!pkg) return res.status(400).json({ error: "Invalid package" });
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) return res.status(500).json({ error: "Payment system not configured" });
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            product_data: { name: `AI Credits — ${pkg.label}`, description: pkg.description },
+            unit_amount: pkg.price,
+          },
+          quantity: 1,
+        }],
+        mode: "payment",
+        success_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?cancelled=true`,
+        metadata: { userId: decoded.userId, packageId: pkg.id, credits: String(pkg.credits) },
+      });
+
+      res.json({ sessionId: session.id, url: session.url });
+    } catch (error: any) {
+      console.error("Credit purchase error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/credits/verify-purchase", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { sessionId } = req.body;
+      if (!sessionId) return res.status(400).json({ error: "Missing session ID" });
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) return res.status(500).json({ error: "Payment system not configured" });
+
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+      if (session.payment_status !== "paid") {
+        return res.status(400).json({ error: "Payment not completed" });
+      }
+
+      if (session.metadata?.userId !== decoded.userId) {
+        return res.status(403).json({ error: "Session does not belong to this user" });
+      }
+
+      const credits = parseInt(session.metadata?.credits || "0");
+      const packageId = session.metadata?.packageId || "unknown";
+      if (credits <= 0) return res.status(400).json({ error: "Invalid credit amount" });
+
+      const balance = await storage.addCredits(decoded.userId, credits, `Purchased ${credits} credits (${packageId})`, sessionId);
+      res.json({ success: true, balance, creditsAdded: credits });
+    } catch (error: any) {
+      console.error("Credit verify error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/credits/use", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { action, quantity = 1 } = req.body;
+      const costEntry = AI_CREDIT_COSTS[action as keyof typeof AI_CREDIT_COSTS];
+      if (!costEntry) return res.status(400).json({ error: "Invalid action type" });
+      if (costEntry.credits === 0) return res.json({ success: true, message: "This action is free", creditsUsed: 0 });
+
+      const totalCost = costEntry.credits * quantity;
+      const result = await storage.useCredits(decoded.userId, totalCost, `${costEntry.label}${quantity > 1 ? ` x${quantity}` : ""}`, action);
+      if (!result.success) {
+        return res.status(402).json({ error: result.error });
+      }
+
+      res.json({ success: true, balance: result.balance, creditsUsed: totalCost });
+    } catch (error: any) {
+      console.error("Credit use error:", error);
+      res.status(500).json({ error: error.message });
     }
   });
 

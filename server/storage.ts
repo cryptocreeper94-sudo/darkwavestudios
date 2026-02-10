@@ -656,11 +656,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async addCredits(userId: string, amount: number, description: string, stripeSessionId?: string): Promise<AiCreditBalance> {
-    const balance = await this.getOrCreateCreditBalance(userId);
-    const newCredits = balance.credits + amount;
+    if (stripeSessionId) {
+      const [existing] = await db.select().from(aiCreditTransactions)
+        .where(eq(aiCreditTransactions.stripeSessionId, stripeSessionId));
+      if (existing) {
+        const balance = await this.getOrCreateCreditBalance(userId);
+        return balance;
+      }
+    }
+
+    await this.getOrCreateCreditBalance(userId);
     const [updated] = await db.update(aiCreditBalances).set({
-      credits: newCredits,
-      totalPurchased: balance.totalPurchased + amount,
+      credits: sql`${aiCreditBalances.credits} + ${amount}`,
+      totalPurchased: sql`${aiCreditBalances.totalPurchased} + ${amount}`,
       updatedAt: new Date(),
     }).where(eq(aiCreditBalances.userId, userId)).returning();
 
@@ -668,7 +676,7 @@ export class DatabaseStorage implements IStorage {
       userId,
       type: "purchase",
       amount,
-      balanceAfter: newCredits,
+      balanceAfter: updated.credits,
       description,
       stripeSessionId: stripeSessionId || null,
     });
@@ -677,23 +685,29 @@ export class DatabaseStorage implements IStorage {
   }
 
   async useCredits(userId: string, amount: number, description: string, category: string): Promise<{ success: boolean; balance?: AiCreditBalance; error?: string }> {
-    const balance = await this.getOrCreateCreditBalance(userId);
-    if (balance.credits < amount) {
-      return { success: false, error: `Insufficient credits. You have ${balance.credits} credits, but this action requires ${amount}.` };
-    }
+    await this.getOrCreateCreditBalance(userId);
 
-    const newCredits = balance.credits - amount;
     const [updated] = await db.update(aiCreditBalances).set({
-      credits: newCredits,
-      totalUsed: balance.totalUsed + amount,
+      credits: sql`${aiCreditBalances.credits} - ${amount}`,
+      totalUsed: sql`${aiCreditBalances.totalUsed} + ${amount}`,
       updatedAt: new Date(),
-    }).where(eq(aiCreditBalances.userId, userId)).returning();
+    }).where(
+      and(
+        eq(aiCreditBalances.userId, userId),
+        gte(aiCreditBalances.credits, amount)
+      )
+    ).returning();
+
+    if (!updated) {
+      const balance = await this.getCreditBalance(userId);
+      return { success: false, error: `Insufficient credits. You have ${balance?.credits ?? 0} credits, but this action requires ${amount}.` };
+    }
 
     await db.insert(aiCreditTransactions).values({
       userId,
       type: "usage",
       amount: -amount,
-      balanceAfter: newCredits,
+      balanceAfter: updated.credits,
       description,
       category,
     });

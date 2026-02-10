@@ -51,6 +51,8 @@ Database tables include:
 - `chatUsers` - Signal Chat user identities
 - `chatMessages` - Signal Chat real-time messages
 - `guardianScans` - Guardian AI security scan results and trust scores
+- `aiCreditBalances` - Per-user AI credit balances (available, purchased, used)
+- `aiCreditTransactions` - Full transaction log (purchases, usage, bonuses, refunds)
 
 ### Analytics System
 The platform includes a comprehensive analytics system:
@@ -115,6 +117,16 @@ AI agent security scanner and certification platform for the crypto ecosystem:
 - **Trust Score System**: 4 dimensions (Security, Transparency, Reliability, Compliance)
 - **Certified Agent Registry**: Searchable database of verified AI agents
 - **Certification Request Form**: Lead capture for certification inquiries
+
+### AI Credits System
+Pay-as-you-go credit system for AI features across the platform:
+- **Credit Packages**: Starter (50/$2.99), Popular (100/$4.99), Pro (250/$9.99), Enterprise (1000/$29.99)
+- **Credit Costs**: Blog Post (5), Studio Export (10), Transcription (1/min), TTS (3/1K chars), Image Enhancement (2), Guardian Scan (free)
+- **Stripe Integration**: Checkout sessions for credit purchases with verify-purchase flow
+- **Idempotency**: Duplicate Stripe session verification prevented via stripeSessionId check
+- **Atomic Operations**: SQL-level balance updates prevent race conditions and negative balances
+- **Transaction Log**: Full audit trail with type, amount, balance after, category, timestamps
+- **Credits Page**: `/credits` — balance dashboard, cost reference, package purchasing, transaction history
 
 ### TrustVault Studio Integration
 Cross-app media editor powered by TrustVault via Trust Layer SSO:
@@ -224,3 +236,5 @@ The platform includes a complete effects library applied across all pages:
 - Integrated TrustVault Studio: API client (`server/trustvault-client.ts`), proxy routes for all `/api/studio/*` endpoints, webhook receiver at `/api/trustvault/webhook`, and `/studio` page with SSO login, media browser, project management, embedded editor, and render event feed
 - TrustVault uses shared JWT_SECRET for Trust Layer SSO cross-app authentication (Bearer JWT, HS256, 7-day expiry)
 - Webhook events: render.started, render.complete, render.failed — stored in-memory with per-user filtering
+- Built AI Credits system: database tables (aiCreditBalances, aiCreditTransactions), storage layer, API endpoints, Stripe checkout purchase flow, /credits dashboard page with balance, costs, packages, and transaction history
+- Credits use atomic SQL updates to prevent race conditions and idempotent Stripe session verification to prevent duplicate fulfillment
