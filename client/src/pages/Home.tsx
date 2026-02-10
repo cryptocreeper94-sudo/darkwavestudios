@@ -56,6 +56,11 @@ import cardStudioIdeImg from "@/assets/images/card-studio-ide.png";
 import cardDevelopersHubImg from "@/assets/images/card-developers-hub.png";
 import cardAuditToolImg from "@/assets/images/card-audit-tool.png";
 import cardResourcesImg from "@/assets/images/card-resources.png";
+import processDiscoveryImg from "@/assets/images/process-discovery.png";
+import processDesignImg from "@/assets/images/process-design.png";
+import processBuildImg from "@/assets/images/process-build.png";
+import processLaunchImg from "@/assets/images/process-launch.png";
+import processSupportImg from "@/assets/images/process-support.png";
 
 const projects = [
   {
@@ -331,7 +336,19 @@ function AnimatedElement({ children, className, delay = 0 }: { children: React.R
 
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
+  const [currentProcessStep, setCurrentProcessStep] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const processSteps = [
+    { icon: Search, label: "Discovery", desc: "We learn your business, goals, and users. Through in-depth conversations we map out your vision, target audience, and success metrics.", color: "from-cyan-500 to-blue-500", image: processDiscoveryImg },
+    { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction. We create interactive prototypes so you can see and feel your product before a single line of code is written.", color: "from-purple-500 to-pink-500", image: processDesignImg },
+    { icon: Wrench, label: "Build", desc: "Full-stack development with weekly demos. You see real progress every week and guide the direction as we build your product.", color: "from-orange-500 to-red-500", image: processBuildImg },
+    { icon: Send, label: "Launch", desc: "Deployment, testing, and go-live. We handle everything — hosting, domain setup, performance optimization, and a smooth launch day.", color: "from-green-500 to-emerald-500", image: processLaunchImg },
+    { icon: Headphones, label: "Support", desc: "Ongoing maintenance and updates. We don't disappear after launch. Bug fixes, feature additions, and performance monitoring — we're here for the long run.", color: "from-yellow-500 to-orange-500", image: processSupportImg },
+  ];
+
+  const nextProcessStep = () => setCurrentProcessStep((prev) => (prev + 1) % processSteps.length);
+  const prevProcessStep = () => setCurrentProcessStep((prev) => (prev - 1 + processSteps.length) % processSteps.length);
   const { isAdFree, loading: adLoading, startCheckout } = useAdFreeStatus();
 
   const nextProject = () => {
@@ -1030,36 +1047,76 @@ export default function Home() {
             <SignalPresaleBanner variant="full" className="my-4 lg:my-8" />
           </ScrollReveal>
 
-          {/* OUR PROCESS SECTION */}
+          {/* OUR PROCESS CAROUSEL */}
           <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
-            <div className="text-center mb-6 lg:mb-8">
+            <div className="text-center mb-4 lg:mb-6">
               <h2 className="text-xl lg:text-3xl font-bold font-display mb-2" data-testid="text-process-heading">
                 How We <span className="gradient-text">Work</span>
               </h2>
               <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">From first conversation to launch day and beyond — here's what working with us looks like.</p>
             </div>
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 lg:gap-4">
-              {[
-                { icon: Search, label: "Discovery", desc: "We learn your business, goals, and users", color: "from-cyan-500 to-blue-500" },
-                { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction", color: "from-purple-500 to-pink-500" },
-                { icon: Wrench, label: "Build", desc: "Full-stack development with weekly demos", color: "from-orange-500 to-red-500" },
-                { icon: Send, label: "Launch", desc: "Deployment, testing, and go-live", color: "from-green-500 to-emerald-500" },
-                { icon: Headphones, label: "Support", desc: "Ongoing maintenance and updates", color: "from-yellow-500 to-orange-500" },
-              ].map((step, i) => (
-                <div key={i} className="relative group" data-testid={`process-step-${i}`}>
-                  <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center hover-lift h-full flex flex-col items-center">
-                    <div className={`w-10 h-10 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-2 lg:mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
-                      <step.icon className="w-5 h-5 lg:w-7 lg:h-7 text-white" />
+
+            <div className="glass-card rounded-xl lg:rounded-2xl overflow-hidden gradient-border">
+              <div className="relative">
+                <div className="relative h-48 lg:h-72 overflow-hidden">
+                  <img
+                    src={processSteps[currentProcessStep].image}
+                    alt={processSteps[currentProcessStep].label}
+                    className="w-full h-full object-cover transition-opacity duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-[#0a0a1a]/60 to-transparent" />
+
+                  <div className="absolute top-3 left-3 lg:top-4 lg:left-4">
+                    <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br ${processSteps[currentProcessStep].color} flex items-center justify-center shadow-lg`}>
+                      {(() => { const Icon = processSteps[currentProcessStep].icon; return <Icon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />; })()}
                     </div>
-                    <div className="text-[10px] lg:text-xs font-bold text-white/40 mb-1">0{i + 1}</div>
-                    <h3 className="text-xs lg:text-sm font-bold font-display text-foreground mb-1">{step.label}</h3>
-                    <p className="text-[9px] lg:text-xs text-muted-foreground leading-snug sm:block">{step.desc}</p>
                   </div>
-                  {i < 4 && (
-                    <div className="absolute top-1/3 -right-1 lg:-right-2 w-2 lg:w-4 h-px bg-gradient-to-r from-white/20 to-transparent hidden sm:block" />
-                  )}
+
+                  <div className="absolute top-3 right-3 lg:top-4 lg:right-4 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg">
+                    <span className="text-[10px] lg:text-xs font-bold text-white/70">Step {currentProcessStep + 1} of {processSteps.length}</span>
+                  </div>
                 </div>
-              ))}
+
+                <div className="p-4 lg:p-6 -mt-8 relative z-10">
+                  <div className="text-[10px] lg:text-xs font-bold text-white/40 mb-1">0{currentProcessStep + 1}</div>
+                  <h3 className="text-lg lg:text-2xl font-bold font-display text-foreground mb-2">{processSteps[currentProcessStep].label}</h3>
+                  <p className="text-xs lg:text-sm text-muted-foreground leading-relaxed">{processSteps[currentProcessStep].desc}</p>
+                </div>
+
+                <div className="flex items-center justify-between px-4 pb-4 lg:px-6 lg:pb-6">
+                  <div className="flex gap-1.5">
+                    {processSteps.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentProcessStep(i)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i === currentProcessStep
+                            ? `w-6 bg-gradient-to-r ${processSteps[i].color}`
+                            : "w-1.5 bg-white/20 hover:bg-white/40"
+                        }`}
+                        data-testid={`process-dot-${i}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={prevProcessStep}
+                      className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      data-testid="button-process-prev"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={nextProcessStep}
+                      className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      data-testid="button-process-next"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </section></ScrollReveal>
 
