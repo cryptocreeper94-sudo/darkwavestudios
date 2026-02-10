@@ -1022,22 +1022,22 @@ export default function Home() {
           <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
             {/* FAQ - Full width on mobile, 7-col desktop */}
             <div className="col-span-3 lg:col-span-7">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-6 gradient-border">
-                <h2 className="text-xs lg:text-2xl font-bold font-display mb-1.5 lg:mb-4" data-testid="faq-title">
+              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+                <h2 className="text-base lg:text-2xl font-bold font-display mb-2 lg:mb-4" data-testid="faq-title">
                   <span className="gradient-text">FAQ</span>
                 </h2>
-                <Accordion type="single" collapsible className="space-y-0.5 lg:space-y-3">
+                <Accordion type="single" collapsible className="space-y-1.5 lg:space-y-3">
                   {faqs.slice(0, 4).map((faq, index) => (
                     <AccordionItem 
                       key={index} 
                       value={`item-${index}`}
-                      className="glass rounded-md lg:rounded-xl border-0 overflow-hidden"
+                      className="glass rounded-lg lg:rounded-xl border-0 overflow-hidden"
                       data-testid={`faq-item-${index}`}
                     >
-                      <AccordionTrigger className="px-1.5 lg:px-4 py-1 lg:py-4 text-left font-display font-semibold text-[7px] lg:text-sm hover:no-underline hover:text-primary transition-colors [&>svg]:w-2.5 [&>svg]:h-2.5 lg:[&>svg]:w-4 lg:[&>svg]:h-4">
+                      <AccordionTrigger className="px-3 lg:px-4 py-2.5 lg:py-4 text-left font-display font-semibold text-sm lg:text-base hover:no-underline hover:text-primary transition-colors [&>svg]:w-4 [&>svg]:h-4 lg:[&>svg]:w-4 lg:[&>svg]:h-4">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="px-1.5 lg:px-4 pb-1.5 lg:pb-4 text-muted-foreground text-[6px] lg:text-sm leading-relaxed">
+                      <AccordionContent className="px-3 lg:px-4 pb-3 lg:pb-4 text-muted-foreground text-xs lg:text-sm leading-relaxed">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
