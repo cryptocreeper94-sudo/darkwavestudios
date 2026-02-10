@@ -94,7 +94,7 @@ The platform includes a documents management system for:
 
 ### Trust Layer Hub
 The platform includes a blockchain-verified code marketplace:
-- **Widget Marketplace**: 30+ embeddable widgets (analytics, booking, lead capture, estimators, VIN decoder, payroll, delivery tracking, effects kit, etc.)
+- **Widget Marketplace**: 32 embeddable widgets (analytics, booking, lead capture, estimators, VIN decoder, payroll, delivery tracking, effects kit, etc.)
 - **Live Widget Previews**: Interactive widget demonstrations
 - **Full Code View**: Modal displaying complete widget source code
 - **Categories**: Components, utilities, hooks, API, auth
@@ -204,3 +204,10 @@ The platform includes a complete effects library applied across all pages:
 - Fixed Coinbase Commerce redirect URL (uses successUrl/cancelUrl from request body instead of undefined req.headers.origin)
 - Updated all 3 business documents (Business Plan, Executive Summary, Roadmap) to reflect current ecosystem features
 - Full platform audit completed: all 25 pages return 200, all form endpoints verified, Stripe/Coinbase payments confirmed working, admin portal tested, analytics tracking verified, AI endpoints operational, ecosystem images confirmed
+- Added DarkWave Effects Kit widget ($149) to Trust Layer Hub with interactive 6-tile live demo
+- Updated TrustHome ecosystem entry: real estate platform, 89,143 lines, 279 files, MVP Complete
+- Updated TrustVault ecosystem entry: media vault platform, 26,660 lines, 100 files, Active — Production
+- Updated Chronicles ecosystem entry: AI life simulation, 13,800 lines (in Trust Layer build), In Development
+- Ecosystem totals: 20 apps, ~2.08M lines of code, 12 production builds
+- Trust Layer Hub: 32 widgets, 19 code snippets
+- Added Chronicles product description at docs/CHRONICLES-PRODUCT-DESCRIPTION.md
