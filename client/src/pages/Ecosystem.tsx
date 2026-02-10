@@ -176,8 +176,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "chronicles",
     name: "Chronicles",
-    tagline: "Your Legacy. Your Story. Your Game.",
-    description: "Immersive gaming experience powered by the Trust Layer ecosystem. Build your legacy in a dynamic world of strategy and adventure.",
+    tagline: "You Are the Character. History Is the World.",
+    description: "Historically-grounded AI life simulation spanning 7 epochs from the Stone Age to the 20th century. GPT-4o NPCs with 5-axis emotion, Choice Echoes narrative system, faction politics, the 7 Sigils, estate building, voice cloning, and blockchain Chronicle Proofs. No moral judgment, no end state — persistent world where every choice echoes forward.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://yourlegacy.io",
     category: "gaming"
