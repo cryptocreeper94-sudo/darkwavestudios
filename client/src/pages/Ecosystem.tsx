@@ -193,11 +193,11 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "trustvault",
-    name: "TrustVault",
-    tagline: "Your Assets. Locked Down. Trust Verified.",
-    description: "Secure digital asset storage and management with Trust Layer verified custody. Multi-chain wallet, encrypted backup, and blockchain-verified access controls.",
+    name: "Trust Vault",
+    tagline: "Your Media. Secured. Organized. Yours.",
+    description: "Universal IP storage and media management platform. Multi-tenant media vault with video/audio/image/document upload, editing suite, collections, Spinny AI agent, Signal Chat, Stripe subscriptions, and TrustLayer SSO. Central content vault for the DarkWave ecosystem.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "#",
+    url: "https://trustvault.replit.app",
     category: "security"
   }
 ];
@@ -322,7 +322,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 11 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.1 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.08 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

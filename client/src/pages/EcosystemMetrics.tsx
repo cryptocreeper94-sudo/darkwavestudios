@@ -256,17 +256,19 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "trustvault",
-    name: "TrustVault",
-    url: "#",
-    totalLines: 0,
-    totalFiles: 0,
-    stack: ["Coming Soon"],
+    name: "Trust Vault",
+    url: "https://trustvault.replit.app",
+    totalLines: 26660,
+    totalFiles: 100,
+    stack: ["React 18", "TypeScript", "Vite", "Express", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI GPT-5.1", "ElevenLabs TTS", "Replit Object Storage", "Uppy", "Framer Motion", "TrustLayer SSO", "WebSocket", "PWA"],
     breakdown: [
-      { language: "TBD", lines: 0 },
+      { language: "TypeScript/TSX", lines: 26500, files: 97 },
+      { language: "CSS", lines: 160, files: 3 },
     ],
+    highlights: ["Multi-tenant media vault", "Spinny AI agent (GPT-5.1 + ElevenLabs)", "Image/Audio/Video editors", "4-tier Stripe subscriptions", "Signal Chat + TrustLayer SSO", "18 database tables"],
     icon: Shield,
     gradient: "from-emerald-500 to-cyan-500",
-    status: "Coming Soon",
+    status: "Active — Production",
   },
 ];
 
