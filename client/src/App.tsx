@@ -36,6 +36,7 @@ import SignalChat from "@/pages/SignalChat";
 import EcosystemMetrics from "@/pages/EcosystemMetrics";
 import AffiliateDisclosure from "@/pages/AffiliateDisclosure";
 import Support from "@/pages/Support";
+import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
   return (
@@ -83,6 +84,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <SignalChatSidebar />
       </TooltipProvider>
     </QueryClientProvider>
   );
