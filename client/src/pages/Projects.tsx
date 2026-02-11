@@ -204,13 +204,13 @@ const projects = [
   },
   {
     id: 19,
-    title: "TrustVault",
-    description: "Secure digital asset storage and management with Trust Layer verified custody. Multi-chain wallet, encrypted backup, and blockchain-verified access controls.",
-    tech: ["Security", "Digital Assets", "Custody", "Multi-Chain"],
+    title: "DW Media Studio",
+    description: "Multi-tenant media vault and editing platform. Image editor with crop, filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections, Signal Chat, 4-tier Stripe subscriptions, and PWA. 29,816 lines of code across 137 files with 92 API endpoints and 21 database tables.",
+    tech: ["Media Vault", "AI Agent", "Editors", "PWA"],
     image: trustLayerImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app",
-    category: "Security"
+    category: "Media"
   }
 ];
 

@@ -183,10 +183,10 @@ const ecosystemApps: EcosystemApp[] = [
     category: "real-estate"
   },
   {
-    id: "trustvault",
-    name: "Trust Vault",
+    id: "dw-media-studio",
+    name: "DW Media Studio",
     tagline: "Your Media. Secured. Organized. Yours.",
-    description: "Universal IP storage and media management platform. Multi-tenant media vault with video/audio/image/document upload, editing suite, collections, Spinny AI agent, Signal Chat, Stripe subscriptions, and TrustLayer SSO. Central content vault for the DarkWave ecosystem.",
+    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 92 API endpoints across 21 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"

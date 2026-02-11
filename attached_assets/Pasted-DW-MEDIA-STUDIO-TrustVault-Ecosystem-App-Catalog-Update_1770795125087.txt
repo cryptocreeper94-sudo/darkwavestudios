@@ -1,0 +1,342 @@
+DW MEDIA STUDIO (TrustVault) — Ecosystem App Catalog
+Updated: February 11, 2026
+
+APP NAME: DW Media Studio (TrustVault)
+LIVE URL: trustvault.replit.app
+ECOSYSTEM: TrustLayer / Dark Wave Studios
+STATUS: Production (Live)
+VERSION: MVP+ (Active Development)
+
+CODEBASE STATS
+
+Total Lines of Code: 29,816
+Total Source Files: 137
+Frontend (React/TypeScript): 22,060 lines across 81 files
+Backend (Node.js/Express): 6,952 lines across 20 files
+Shared Models & Contracts: 804 lines across 4 files
+Frontend Pages: 16
+Frontend Components: 18 custom + 47 UI primitives
+Database Tables: 21
+API Endpoints: 92
+Image Assets: 11 (generated/stock)
+TECH STACK
+
+Frontend:
+
+React 18 + TypeScript
+Vite 7 (bundler/dev server)
+Tailwind CSS 3 (dark-mode-first)
+Framer Motion (animations/transitions)
+shadcn/ui + Radix UI (component library)
+TanStack React Query v5 (server state)
+Wouter (client-side routing)
+Uppy (file upload with presigned URLs)
+Recharts (data visualization)
+React Helmet Async (SEO/meta tags)
+Custom fonts: Outfit, Plus Jakarta Sans
+Backend:
+
+Node.js + TypeScript (tsx/esbuild runtime)
+Express.js 5
+Drizzle ORM (database layer)
+PostgreSQL (Neon-backed, Replit hosted)
+Replit Object Storage (Google Cloud Storage)
+WebSocket server (ws library)
+bcryptjs (password hashing)
+express-session + connect-pg-simple (session management)
+JSON Web Tokens (TrustLayer SSO)
+Stripe SDK (subscription management)
+OpenAI SDK (AI content + Spinny agent)
+ElevenLabs API (text-to-speech)
+MULTI-TENANT USER SYSTEM
+
+Family Accounts (Pre-Provisioned):
+
+Jason (admin/owner) — PIN 0424, full admin access, can view all tenant spaces
+Madeline (daughter) — own isolated vault
+Natalie (daughter) — own vault, must reset password on first login
+Avery (daughter) — own vault, must reset password on first login
+Jennifer (sister) — own vault, must reset password on first login
+Will (nephew) — own vault, must reset password on first login
+Carley (niece) — own vault, must reset password on first login
+Invite System (New Users):
+
+Admin creates invite codes with custom or auto-generated codes
+Invite codes auto-seed on server startup (production-safe)
+New users redeem codes at /join to create their vault
+Full tenant provisioning: user account, isolated tenant space, storage prefix
+Password requirements: 8+ chars, 1 uppercase, 1 special character
+Authentication:
+
+Dual auth system: Custom password-based sessions + JWT-based TrustLayer SSO
+Multi-user login with Name + Password fields
+Session persistence via PostgreSQL store (30-day TTL)
+Admin access controls for protected routes
+CORE FEATURES
+
+Media Vault (Home Dashboard)
+
+2,654 lines — the largest single page
+Upload, store, organize, preview all digital media types
+Category filtering: Video, Audio, Image, Document
+Grid view + Timeline view toggle
+Favorites system with heart toggle
+Search bar with real-time filtering
+Sort options: newest, oldest, name, size, type
+Date range filtering
+Bulk selection with batch actions (delete, tag, move)
+Skeleton loading states
+Ambient mode for immersive playback
+"Now Playing" persistent audio bar
+Image Editor (1,794 lines)
+
+Crop, rotate, flip, resize
+Full filter suite (grayscale, sepia, vintage, cool, warm, dramatic, faded, noir, vivid, cinematic)
+Complete color grading: brightness, contrast, saturation, blur, hue rotation, temperature, vignette, sharpen
+Text overlays: draggable, customizable font/size/color/bold
+Freehand drawing & annotation: brush, eraser, color picker, adjustable thickness
+Stickers & shapes: 10 types, draggable, scalable
+Full mobile touch support: draw, drag, pinch gestures
+Saves as new media item (non-destructive)
+Audio Editor (1,212 lines)
+
+Visual waveform display
+Trim with draggable start/end handles
+Fade in/out controls
+Volume adjustment
+EQ: bass, mid, treble sliders
+Reverb and noise gate effects
+Mobile touch support for trim handles and timeline
+Saves as new media item
+Video Editor (1,040 lines)
+
+Video preview with playback controls
+Trim with visual timeline and draggable handles
+Full color grading: brightness, contrast, saturation, hue, temperature, vignette
+Frame capture (save screenshots from video)
+Widened touch targets (w-6 handles) for mobile
+Scrollable tools panel on small screens
+Mobile touch handlers for trim and seek
+Saves as new media item
+Merge/Combine Editor (1,035 lines)
+
+Guided workflow for combining media
+Image collage creation
+Audio concatenation
+Video concatenation
+Multi-step process with file selection
+Upload System (795 lines)
+
+Uppy-powered with AWS S3 presigned URL plugin
+Direct client-to-cloud uploads (bypasses server)
+Drag-and-drop or file browser
+Title, description, and tag metadata
+Category auto-detection by file type
+Progress tracking with visual feedback
+Multi-file upload support
+Collections System
+
+Create named collections (albums/folders)
+Add/remove media items to collections
+Reorder items within collections
+Reorder collections themselves
+Share collections between tenants
+Collection-based filtering on home page
+SMART FEATURES
+
+Spinny AI Agent (418 lines)
+
+Vinyl record mascot with googly eyes and smiley face
+Floating side tab, opens into full chat panel
+Powered by OpenAI GPT-5.1 with streaming SSE responses
+Tenant-scoped conversations with media vault context awareness
+Persistent conversation history (conversations + messages tables)
+Voice output via ElevenLabs TTS (Sarah voice, primary)
+OpenAI audio (Nova voice) as fallback
+Auto-speak toggle and per-message speak buttons
+Tenant isolation for all conversations
+Signal Chat (576 + 648 lines)
+
+Real-time ecosystem-wide chat system at /chat
+JWT-authenticated via TrustLayer SSO
+Channel-based messaging with WebSocket real-time delivery
+Typing indicators, presence tracking, user join/leave notifications
+Reply threading support
+6 default channels: general, announcements, darkwavestudios-support, garagebot-support, tlid-marketing, guardian-ai
+Auto-seeded on server startup
+Future vision: standalone Telegram/Discord-style platform
+Onboarding Guide (543 lines)
+
+8-slide interactive walkthrough with photorealistic images
+Swipe navigation (mobile) + button navigation
+Progress bar and dot indicators
+Framer Motion slide transitions
+First-time auto-show with localStorage persistence
+Accessible from help menu anytime
+Custom overlay (not Dialog) for guaranteed mobile centering
+Vault Dashboard (283 lines)
+
+Storage usage visualization
+Media count by category
+Recent activity feed
+Quick stats overview
+MONETIZATION & BUSINESS
+
+Stripe Subscription System (343 lines backend + 425 lines frontend)
+
+4 Pricing Tiers:
+Free: 1GB storage, 100 items, basic editing
+Personal ($4.99/mo or $49.99/yr): 25GB, 2,500 items, all editors, collections
+Pro ($9.99/mo or $99.99/yr): 100GB, 10,000 items, priority processing, API access
+Studio ($19.99/mo or $199.99/yr): 500GB, unlimited items, team features, dedicated support
+Stripe Checkout integration for payment processing
+Stripe Customer Portal for subscription management
+Webhook handling for subscription lifecycle events
+Usage tracking and tier limit enforcement
+AI Blog System (507 lines admin + supporting pages)
+
+Full blog platform with public and admin interfaces
+SEO-optimized content with meta tags
+AI content generation via OpenAI
+Draft/Published/Archived workflow
+Slug-based URLs for clean blog post links
+Blog listing with featured images
+ECOSYSTEM INTEGRATIONS
+
+TrustLayer SSO
+
+Cross-app single sign-on via shared JWT_SECRET (HS256, 7-day expiry)
+Trust Layer ID generation: tl-{base36-timestamp}-{random-8-chars}
+Auth endpoints: register, login, me
+Bridge endpoint: creates chat_users from existing TrustVault sessions
+Shared across all DarkWave ecosystem apps
+ORBIT Financial Hub Integration (177 + 146 lines)
+
+Registered as dw_app_trustvault with 100% Jason royalty split
+Connection status monitoring
+Financial statement retrieval
+Transaction reporting
+Worker/contractor/timesheet sync
+Code snippets and activity logs
+Webhook receiver with HMAC signature verification
+Admin-only API routes
+DarkWave Studio API (562 lines)
+
+External API layer for DarkWave Studios integration
+JWT Bearer auth via TrustLayer SSO
+CORS-whitelisted for DarkWave origins
+Rate-limited: 60 requests/minute
+Endpoints: media list/get/upload/confirm, project create/status/export
+Editor embed token generation
+Webhook callbacks to DarkWave on render events
+Ecosystem API (238 + 132 lines)
+
+Inter-service API for DarkWave ecosystem
+HMAC authentication
+Tenant-scoped project management
+Webhook callbacks with retry mechanisms
+Walkthrough request handling
+ADMIN & MANAGEMENT
+
+Admin Panel (336 lines)
+
+User management: view all accounts, reset passwords
+Invite code management: create, delete, track usage
+Tenant overview
+Admin-only route protection
+Community Voice / Feature Requests
+
+User-submitted feature requests
+Voting system
+Category organization (music services, media tools, storage, social, integrations)
+Status tracking (open, under review, planned, in progress, completed, declined)
+Admin seed capability
+Roadmap Page (374 lines)
+
+Visual development roadmap
+Phase-based progress tracking
+Public-facing feature timeline
+PROGRESSIVE WEB APP (PWA)
+
+Web app manifest for installability
+Service worker with stale-while-revalidate caching
+Native splash screen
+Offline capability
+Mobile-first responsive design across all pages
+Touch-optimized: all editors support touch gestures
+DATABASE SCHEMA (21 Tables)
+
+sessions — Express session store
+users — Base user table
+pin_auth — Authentication credentials (name, hashed password, admin flag, tenant link)
+tenants — Tenant spaces (name, storage prefix, tier, status)
+media_items — Media file metadata (title, category, tags, favorites, tenant-scoped)
+collections — Named media groupings
+collection_items — Collection membership junction
+processing_jobs — Video/audio processing queue
+api_keys — Ecosystem API credentials
+ecosystem_projects — Tenant-scoped ecosystem projects
+blog_posts — Blog content with SEO fields
+subscriptions — Stripe subscription state
+whitelist — Invite code registry
+feature_requests — Community voice submissions
+feature_votes — Feature request voting
+chat_users — TrustLayer SSO accounts for Signal Chat
+chat_channels — Signal Chat channels
+chat_messages — Signal Chat message history
+conversations — Spinny AI agent conversations
+messages — Spinny AI agent message history
+activity — Activity feed events
+API SURFACE: 92 Endpoints
+
+Auth (10): status, setup, login, logout, claim-account, reset-password, change-password, me, bridge-sso, join
+Media (8): list, get, create, update, delete, batch-update, batch-delete, toggle-favorite
+Collections (9): list, get, create, update, delete, add-items, remove-items, reorder-items, share
+Upload: presigned URL generation via Object Storage
+Video Processing (3): trim, merge, job status
+AI Agent (5): conversations CRUD, messages, TTS
+Blog (7): posts CRUD, generate, by-slug, all-posts
+Stripe (4): config, checkout, portal, webhook
+Features (5): CRUD, vote, seed
+Whitelist (3): list, create, delete
+Ecosystem (5): status, provision, projects, cancel, walkthrough-request
+ORBIT (6): status, financial-statement, report-transaction, logs, snippets, webhook
+DarkWave Studio (9): status, capabilities, media list/get/upload/confirm, projects create/status/export, embed-token
+Admin (2): users, family-members
+Activity (2): get, post
+Usage & Subscription (2): usage, subscription
+Signal Chat: WebSocket at /ws/chat + REST auth endpoints
+
+ENVIRONMENT VARIABLES
+
+DATABASE_URL — PostgreSQL connection
+SESSION_SECRET — Express session signing
+JWT_SECRET — TrustLayer SSO (shared across ecosystem)
+STRIPE_SECRET_KEY — Stripe server-side
+STRIPE_PUBLISHABLE_KEY — Stripe client-side
+ELEVENLABS_API_KEY — Spinny TTS voice
+ORBIT_HUB_URL — ORBIT Staffing OS hub
+ORBIT_ECOSYSTEM_API_KEY — ORBIT auth key
+ORBIT_ECOSYSTEM_API_SECRET — ORBIT auth secret
+DEFAULT_OBJECT_STORAGE_BUCKET_ID — Replit Object Storage
+PUBLIC_OBJECT_SEARCH_PATHS — Public asset paths
+PRIVATE_OBJECT_DIR — Private file storage
+NPM DEPENDENCIES: 80+ packages
+
+Server: express, drizzle-orm, pg, express-session, connect-pg-simple, @google-cloud/storage, zod, jsonwebtoken, ws, bcryptjs, stripe, openai
+Client: react, @tanstack/react-query, wouter, framer-motion, @uppy/core, @uppy/aws-s3, @uppy/react, recharts, react-helmet-async, react-hook-form, lucide-react, react-icons
+UI: Full shadcn/ui suite (47 components) built on Radix UI primitives
+Build: vite, esbuild, tsx, drizzle-kit, typescript, tailwindcss, autoprefixer
+
+DESIGN SYSTEM
+
+Premium Protocol UI/UX Standard (docs/PREMIUM_UI_PROTOCOL.md)
+Glassmorphism effects
+3D hover/tilt effects (TiltCard component)
+Shimmer/skeleton loading states
+Dark-mode-first with theme toggle (Light/Dark/System)
+Micro-interactions and scroll-triggered animations
+Ambient mode for media playback
+Mobile-first responsive across all views
+Touch-optimized editors with gesture support
+DW Media Studio is the media management backbone of the TrustLayer ecosystem, providing secure multi-tenant storage, professional-grade editing, and seamless integration with DarkWave Studios, ORBIT Financial Hub, and Signal Chat.

@@ -218,10 +218,10 @@ const projects = [
   },
   {
     id: 19,
-    title: "TrustVault",
-    description: "Secure digital asset storage and management with Trust Layer verified custody",
-    tech: ["Security", "Digital Assets", "Custody"],
-    image: "/ecosystem/trust-layer-icon.png",
+    title: "DW Media Studio",
+    description: "Multi-tenant media vault with image/audio/video editors, Spinny AI agent, and 4-tier subscriptions",
+    tech: ["Media", "AI", "Editors", "PWA"],
+    image: "/ecosystem/trustvault.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app"
   }
