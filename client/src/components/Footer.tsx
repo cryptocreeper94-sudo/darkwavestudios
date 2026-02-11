@@ -5,16 +5,16 @@ export default function Footer() {
   return (
     <footer className="relative z-10 glass-strong mt-6 lg:mt-12 border-t border-white/10" data-testid="footer">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 mb-8">
-          <div className="col-span-2 lg:col-span-1">
-            <div className="font-display text-lg lg:text-xl font-bold gradient-text mb-3" data-testid="text-footer-brand">
-              DarkWave Studios
-            </div>
-            <p className="text-xs lg:text-sm text-muted-foreground">
-              Full-service web agency delivering agency-quality work without agency prices.
-            </p>
+        <div className="text-center mb-8">
+          <div className="font-display text-lg lg:text-xl font-bold gradient-text mb-2" data-testid="text-footer-brand">
+            DarkWave Studios
           </div>
-          
+          <p className="text-xs lg:text-sm text-muted-foreground max-w-md mx-auto">
+            Full-service web agency delivering agency-quality work without agency prices.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 mb-8 max-w-3xl mx-auto text-center">
           <div>
             <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Work</div>
             <div className="flex flex-col gap-2">
@@ -52,14 +52,13 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <Link href="/ecosystem" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-ecosystem">Ecosystem</Link>
               <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
-              <a href="https://dwtl.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
-              <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="footer-link-shield">Guardian Shield <ExternalLink className="w-3 h-3" /></a>
+              <a href="https://dwtl.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center justify-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
+              <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center justify-center gap-1" data-testid="footer-link-shield">Guardian Shield <ExternalLink className="w-3 h-3" /></a>
               <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
             </div>
           </div>
         </div>
         
-        {/* Trust Layer Branding */}
         <div className="border-t border-white/10 pt-6">
           <div className="flex flex-col items-center gap-4 mb-6">
             <div className="flex flex-wrap items-center justify-center gap-2 text-muted-foreground" data-testid="text-trust-layer-branding">
@@ -100,16 +99,15 @@ export default function Footer() {
             </div>
           </div>
           
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-4 border-t border-white/5">
-            <div className="text-muted-foreground text-[10px] lg:text-sm text-center md:text-left" data-testid="text-copyright">
-              &copy; 2026 DarkWave Studios. All rights reserved.
-            </div>
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/5 text-center">
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href="/terms" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-terms">Terms</Link>
               <Link href="/privacy" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">Privacy</Link>
               <Link href="/affiliate-disclosure" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-affiliates">Affiliates</Link>
               <Link href="/support" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-support">Support</Link>
-              <span className="text-[10px] lg:text-xs text-muted-foreground">Nashville, TN</span>
+            </div>
+            <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-copyright">
+              &copy; 2026 DarkWave Studios. All rights reserved. &middot; Nashville, TN
             </div>
           </div>
         </div>
