@@ -328,6 +328,7 @@ function AnimatedElement({ children, className, delay = 0 }: { children: React.R
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
   const [currentProcessStep, setCurrentProcessStep] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -373,7 +374,7 @@ export default function Home() {
       <div className="fixed inset-0 bg-background pointer-events-none" />
 
       <div className="relative z-10">
-        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-white/10">
           {/* Mobile Header */}
           <div className="lg:hidden max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="font-display text-base font-semibold gradient-text" data-testid="logo-mobile">
@@ -572,7 +573,7 @@ export default function Home() {
           )}
           
           {/* Desktop Header */}
-          <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-3 items-center justify-between">
+          <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-2.5 items-center justify-between">
             <Link href="/" className="font-display text-lg font-semibold gradient-text" data-testid="logo">
               DarkWave Studios
             </Link>
@@ -597,10 +598,10 @@ export default function Home() {
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-4 lg:px-6 pt-24 pb-24 lg:pt-20 lg:pb-20">
+        <main className="max-w-7xl mx-auto px-4 lg:px-6 pt-20 pb-16 lg:pt-16 lg:pb-16">
           
           {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
             {/* Main Hero - 3-col mobile / 8-col desktop */}
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
@@ -682,10 +683,10 @@ export default function Home() {
             </AnimatedElement>
           </section>
 
-          <AdUnit slot="1234567890" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-4 lg:my-8" />
+          <AdUnit slot="1234567890" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-3 lg:my-4" />
 
           {/* STUDIO IDE FEATURED SECTION */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
+          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
             <AnimatedElement delay={100} className="col-span-3 lg:col-span-8">
               <a 
                 href="https://dwtl.io/studio" 
@@ -755,7 +756,7 @@ export default function Home() {
           </section>
 
           {/* FREE TOOLS SECTION */}
-          <section className="grid grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10">
+          <section className="grid grid-cols-2 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
             <AnimatedElement delay={100} className="col-span-1 lg:col-span-6">
               <Link 
                 href="/audit" 
@@ -819,7 +820,7 @@ export default function Home() {
           </section>
 
           {/* BENTO GRID SECTION 2: Projects Carousel + Value Props - 3-COL MOBILE */}
-          <ScrollReveal animation="fade-in"><section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mb-6 lg:mb-10 scroll-mt-24">
+          <ScrollReveal animation="fade-in"><section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6 scroll-mt-24">
             {/* Projects Carousel - 3-col mobile / 8-col desktop */}
             <div className="col-span-3 lg:col-span-8">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
@@ -898,7 +899,7 @@ export default function Home() {
             </div>
 
             {/* Value Props - Side by side on mobile */}
-            <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-3 lg:gap-5">
+            <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-2 lg:gap-3">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 <div className="relative z-10">
@@ -918,10 +919,10 @@ export default function Home() {
             </div>
           </section></ScrollReveal>
 
-          <AdUnit slot="2345678901" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-4 lg:my-8" />
+          <AdUnit slot="2345678901" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-3 lg:my-4" />
 
           {/* BENTO GRID SECTION 3: Services + Pricing */}
-          <ScrollReveal animation="fade-in" delay={100}><section id="services" className="mb-6 lg:mb-10 scroll-mt-24">
+          <ScrollReveal animation="fade-in" delay={100}><section id="services" className="mb-4 lg:mb-6 scroll-mt-24">
             {/* Mobile: Pricing + Services Carousel */}
             <div className="lg:hidden space-y-2">
               {/* Compact Pricing Bar */}
@@ -981,7 +982,7 @@ export default function Home() {
             </div>
 
             {/* Desktop: Original Grid Layout */}
-            <div className="hidden lg:grid lg:grid-cols-12 gap-4">
+            <div className="hidden lg:grid lg:grid-cols-12 gap-3">
               {/* Pricing Card - 4-col desktop */}
               <div className="lg:col-span-4 row-span-2">
                 <div className="glass-card rounded-2xl p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
@@ -1044,13 +1045,13 @@ export default function Home() {
 
           {/* SIGNAL PRESALE BANNER */}
           <ScrollReveal animation="fade-in">
-            <SignalPresaleBanner variant="full" className="my-4 lg:my-8" />
+            <SignalPresaleBanner variant="full" className="my-3 lg:my-5" />
           </ScrollReveal>
 
           {/* OUR PROCESS CAROUSEL */}
-          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
-            <div className="text-center mb-4 lg:mb-6">
-              <h2 className="text-xl lg:text-3xl font-bold font-display mb-2" data-testid="text-process-heading">
+          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
+            <div className="text-center mb-3 lg:mb-4">
+              <h2 className="text-xl lg:text-3xl font-bold font-display mb-1" data-testid="text-process-heading">
                 How We <span className="gradient-text">Work</span>
               </h2>
               <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">From first conversation to launch day and beyond — here's what working with us looks like.</p>
@@ -1120,16 +1121,16 @@ export default function Home() {
             </div>
           </section></ScrollReveal>
 
-          {/* TESTIMONIALS SECTION */}
-          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
-            <div className="text-center mb-6 lg:mb-8">
-              <h2 className="text-xl lg:text-3xl font-bold font-display mb-2" data-testid="text-testimonials-heading">
+          {/* TESTIMONIALS CAROUSEL */}
+          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
+            <div className="text-center mb-3 lg:mb-4">
+              <h2 className="text-xl lg:text-3xl font-bold font-display mb-1" data-testid="text-testimonials-heading">
                 What Our <span className="gradient-text">Users Say</span>
               </h2>
               <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">Real people using real products built by DarkWave Studios.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
-              {[
+            {(() => {
+              const testimonials = [
                 {
                   name: "Avery B.",
                   role: "Product User",
@@ -1165,62 +1166,99 @@ export default function Home() {
                   color: "#ec4899",
                   rating: 5,
                 },
-              ].map((t, i) => (
-                <div key={i} className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border card-3d h-full flex flex-col" data-testid={`testimonial-card-${i}`}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md flex-shrink-0"
-                      style={{ background: t.color }}
-                    >
-                      {t.name.split(" ").map(n => n[0]).join("")}
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-foreground">{t.name}</div>
-                      <div className="text-[10px] lg:text-xs text-muted-foreground">{t.role}</div>
-                    </div>
-                  </div>
-                  <div className="flex gap-0.5 mb-3">
-                    {Array.from({ length: t.rating }).map((_, s) => (
-                      <Star key={s} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+              ];
+              const getVisible = () => {
+                const visible = [];
+                for (let i = 0; i < 3; i++) {
+                  visible.push({ ...testimonials[(currentTestimonial + i) % testimonials.length], idx: i });
+                }
+                return visible;
+              };
+              return (
+                <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-3">
+                    {getVisible().map((t, i) => (
+                      <div key={`${currentTestimonial}-${i}`} className={`glass rounded-lg lg:rounded-xl p-3 lg:p-5 flex flex-col ${i > 0 ? 'hidden lg:flex' : ''}`} data-testid={`testimonial-card-${i}`}>
+                        <div className="flex items-center gap-3 mb-2">
+                          <div
+                            className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md flex-shrink-0"
+                            style={{ background: t.color }}
+                          >
+                            {t.name.split(" ").map(n => n[0]).join("")}
+                          </div>
+                          <div>
+                            <div className="text-sm font-bold text-foreground">{t.name}</div>
+                            <div className="text-[10px] lg:text-xs text-muted-foreground">{t.role}</div>
+                          </div>
+                          <div className="flex gap-0.5 ml-auto">
+                            {Array.from({ length: t.rating }).map((_, s) => (
+                              <Star key={s} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs lg:text-sm text-muted-foreground leading-relaxed flex-1">"{t.quote}"</p>
+                      </div>
                     ))}
                   </div>
-                  <Quote className="w-5 h-5 text-primary/30 mb-2 flex-shrink-0" />
-                  <p className="text-xs lg:text-sm text-muted-foreground leading-relaxed flex-1">"{t.quote}"</p>
+                  <div className="flex items-center justify-center gap-1.5 mt-3">
+                    {testimonials.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentTestimonial(index)}
+                        className={`h-1.5 rounded-full transition-all ${
+                          index === currentTestimonial ? 'w-6 bg-primary' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                        }`}
+                        data-testid={`testimonial-dot-${index}`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })()}
           </section></ScrollReveal>
 
-          {/* TRUSTED BY / ECOSYSTEM LOGOS */}
-          <ScrollReveal animation="fade-in"><section className="mb-6 lg:mb-10">
-            <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border">
-              <div className="text-center mb-4">
-                <p className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Powering 20 Production Applications</p>
+          {/* TRUSTED BY / ECOSYSTEM MARQUEE */}
+          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
+            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-4 gradient-border overflow-hidden">
+              <div className="text-center mb-2">
+                <p className="text-[10px] lg:text-xs font-semibold text-muted-foreground uppercase tracking-wider">Powering 20 Production Applications</p>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-8">
-                {[
-                  { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
-                  { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
-                  { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
-                  { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
-                  { name: "HappyEats", gradient: "from-yellow-400 to-orange-500" },
-                  { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
-                  { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
-                  { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
-                  { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
-                  { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
-                ].map((brand, i) => (
-                  <div key={i} className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity" data-testid={`brand-logo-${i}`}>
-                    <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${brand.gradient}`} />
-                    <span className="text-xs lg:text-sm font-display font-semibold text-foreground/70">{brand.name}</span>
-                  </div>
-                ))}
+              <div className="relative">
+                <div className="flex animate-marquee gap-6 lg:gap-10">
+                  {[
+                    { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
+                    { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
+                    { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
+                    { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
+                    { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
+                    { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
+                    { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
+                    { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
+                    { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
+                    { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
+                    { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
+                    { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
+                    { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
+                    { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
+                    { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
+                    { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
+                    { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
+                    { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
+                  ].map((brand, i) => (
+                    <div key={i} className="flex items-center gap-2 flex-shrink-0" data-testid={`brand-logo-${i}`}>
+                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${brand.gradient}`} />
+                      <span className="text-xs lg:text-sm font-display font-semibold text-foreground/50 whitespace-nowrap">{brand.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section></ScrollReveal>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
-          <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 scroll-mt-24">
+          <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 scroll-mt-24">
             {/* FAQ - Full width on mobile, 7-col desktop */}
             <div className="col-span-3 lg:col-span-7">
               <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
@@ -1290,7 +1328,7 @@ export default function Home() {
           </section></ScrollReveal>
 
           {/* BUILD YOUR OWN - STUDIO IDE CTA */}
-          <ScrollReveal animation="fade-in"><section className="mt-6 lg:mt-12 mb-6 lg:mb-10">
+          <ScrollReveal animation="fade-in"><section className="mt-4 lg:mt-6 mb-4 lg:mb-6">
             <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-20"
@@ -1361,7 +1399,7 @@ export default function Home() {
           </section></ScrollReveal>
 
           {/* NEWSLETTER SECTION */}
-          <ScrollReveal animation="fade-in"><section className="grid grid-cols-3 lg:grid-cols-12 gap-3 lg:gap-5 mt-6 lg:mt-12">
+          <ScrollReveal animation="fade-in"><section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mt-4 lg:mt-6">
             <div className="col-span-3 lg:col-span-6">
               <Newsletter />
             </div>
