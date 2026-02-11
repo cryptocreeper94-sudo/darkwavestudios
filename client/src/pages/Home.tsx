@@ -182,9 +182,9 @@ const projects = [
   },
   {
     id: 15,
-    title: "Happy Eats",
-    description: "White-label food truck and delivery platform with franchise support",
-    tech: ["Delivery", "Food", "SaaS"],
+    title: "TL Driver Connect",
+    description: "Multi-tenant delivery and driver management platform with 108 API endpoints and 33 database tables",
+    tech: ["Delivery", "PWA", "AI", "WebSocket"],
     image: "/ecosystem/happy-eats.png",
     gradient: "from-green-500/20 to-emerald-600/20",
     url: "https://happyeats.app"

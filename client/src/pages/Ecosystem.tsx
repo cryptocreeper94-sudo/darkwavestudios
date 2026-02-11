@@ -138,10 +138,10 @@ const ecosystemApps: EcosystemApp[] = [
     category: "auto"
   },
   {
-    id: "happy-eats",
-    name: "Happy Eats",
-    tagline: "Food Truck Delivery Platform",
-    description: "White-label food truck and delivery platform. Vendor portal, order management, and franchise system with multi-tenant support.",
+    id: "tl-driver-connect",
+    name: "TL Driver Connect",
+    tagline: "Multi-Tenant Delivery & Driver Management",
+    description: "Full-stack delivery and driver management platform. 36 pages, 108 API endpoints, 2 WebSocket servers, 33 database tables, and 39 frontend routes. Multi-tenant architecture with PWA support and TrustLayer SSO integration. 40,033 lines of production TypeScript.",
     image: "/ecosystem/happy-eats.png",
     url: "https://happyeats.app",
     category: "auto"
@@ -186,7 +186,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustvault",
     name: "TrustVault",
     tagline: "Your Media. Secured. Organized. Yours.",
-    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 108 API endpoints across 33 database tables.",
+    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 92 API endpoints across 21 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"

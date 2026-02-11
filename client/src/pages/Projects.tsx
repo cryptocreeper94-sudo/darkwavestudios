@@ -164,13 +164,13 @@ const projects = [
   },
   {
     id: 15,
-    title: "Happy Eats",
-    description: "Food delivery and restaurant discovery platform connecting diners with local restaurants. Online ordering, real-time delivery tracking, restaurant management dashboard, and customer loyalty system.",
-    tech: ["Food Delivery", "Ordering", "Tracking", "Loyalty"],
+    title: "TL Driver Connect",
+    description: "Multi-tenant delivery and driver management platform. 36 pages, 55 UI components, 108 API endpoints, 2 WebSocket servers, 33 database tables, and 39 frontend routes. PWA installable with TrustLayer SSO. 40,033 lines of production TypeScript across 166 files.",
+    tech: ["Delivery", "PWA", "WebSocket", "AI"],
     image: happyEatsImg,
     gradient: "from-yellow-500/20 to-amber-600/20",
-    url: "https://happyeats.replit.app",
-    category: "Food Tech"
+    url: "https://happyeats.app",
+    category: "Delivery"
   },
   {
     id: 16,
@@ -205,7 +205,7 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Multi-tenant media vault and editing platform. Image editor with crop, filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections, Signal Chat, 4-tier Stripe subscriptions, and PWA. 40,033 lines of code across 166 files with 108 API endpoints and 33 database tables.",
+    description: "Multi-tenant media vault and editing platform. Image editor with crop, filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections, Signal Chat, 4-tier Stripe subscriptions, and PWA. 29,816 lines of code across 137 files with 92 API endpoints and 21 database tables.",
     tech: ["Media Vault", "AI Agent", "Editors", "PWA"],
     image: trustLayerImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
