@@ -62,31 +62,31 @@
   --sidebar: 222 47% 7%;
   --sidebar-foreground: 210 40% 98%;
   --sidebar-border: 217 33% 17%;
-  --sidebar-primary: 0 45% 35%;
+  --sidebar-primary: 230 55% 48%;
   --sidebar-primary-foreground: 210 40% 98%;
-  --sidebar-accent: 0 40% 40%;
+  --sidebar-accent: 230 45% 55%;
   --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-ring: 0 45% 35%;
+  --sidebar-ring: 230 55% 48%;
   --popover: 222 47% 8%;
   --popover-foreground: 210 40% 98%;
   --popover-border: 217 33% 17%;
-  --primary: 0 45% 35%;
+  --primary: 230 55% 48%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 0 30% 25%;
+  --secondary: 230 35% 30%;
   --secondary-foreground: 210 40% 98%;
   --muted: 217 33% 17%;
   --muted-foreground: 215 20% 65%;
-  --accent: 0 40% 40%;
+  --accent: 230 45% 55%;
   --accent-foreground: 210 40% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
   --input: 217 33% 17%;
-  --ring: 0 45% 35%;
-  --chart-1: 0 45% 35%;
-  --chart-2: 0 40% 40%;
+  --ring: 230 55% 48%;
+  --chart-1: 230 55% 48%;
+  --chart-2: 230 45% 55%;
   --chart-3: 47 96% 53%;
   --chart-4: 142 76% 36%;
-  --chart-5: 346 77% 50%;
+  --chart-5: 260 60% 55%;
 
   --font-sans: 'Inter', sans-serif;
   --font-serif: Georgia, serif;
@@ -94,9 +94,9 @@
   --radius: .75rem;
   --spacing: 0.25rem;
 
-  --glow-primary: 0 0 8px hsl(0 45% 35% / 0.15);
-  --glow-accent: 0 0 8px hsl(0 40% 40% / 0.15);
-  --glow-primary-intense: 0 0 12px hsl(0 45% 35% / 0.2);
+  --glow-primary: 0 0 8px hsl(230 55% 48% / 0.15);
+  --glow-accent: 0 0 8px hsl(230 45% 55% / 0.15);
+  --glow-primary-intense: 0 0 12px hsl(230 55% 48% / 0.2);
 }
 
 @layer base {
@@ -206,8 +206,8 @@
   }
 
   .gradient-text {
-    color: hsl(0 45% 45%);
-    -webkit-text-fill-color: hsl(0 45% 45%);
+    color: hsl(230 55% 58%);
+    -webkit-text-fill-color: hsl(230 55% 58%);
   }
 
   .gradient-border {
