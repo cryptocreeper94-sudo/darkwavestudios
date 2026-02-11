@@ -186,7 +186,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustvault",
     name: "TrustVault",
     tagline: "Your Media. Secured. Organized. Yours.",
-    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 92 API endpoints across 21 database tables.",
+    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 108 API endpoints across 33 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
