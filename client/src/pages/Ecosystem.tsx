@@ -177,7 +177,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trusthome",
     name: "TrustHome",
     tagline: "Every Transaction. Verified. Transparent. Trusted.",
-    description: "White-label real estate platform and central hub for agents, buyers, sellers, inspectors, and mortgage brokers. Unified transaction timelines, blockchain-verified document vault, AI voice assistant, CRM, and marketing suite. Woman-owned (WOSB eligible).",
+    description: "White-label real estate platform for agents, buyers, sellers, inspectors, and brokers. Expo React Native (iOS/Android/Web), Voice AI assistant (STT/TTS/Chat via GPT-5.2), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration, Signal Chat, and 90+ API endpoints across 10 database tables. Woman-owned (WOSB eligible).",
     image: "/ecosystem/trusthome.png",
     url: "https://trusthome.replit.app",
     category: "real-estate"

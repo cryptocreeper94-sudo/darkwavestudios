@@ -210,9 +210,9 @@ const projects = [
   {
     id: 18,
     title: "TrustHome",
-    description: "Smart home management platform powered by Trust Layer identity and blockchain verification",
-    tech: ["Smart Home", "IoT", "Trust Layer"],
-    image: "/ecosystem/trust-layer-icon.png",
+    description: "White-label real estate platform with Voice AI, CRM, blockchain doc vault, and 90+ API endpoints",
+    tech: ["Real Estate", "Voice AI", "CRM", "PWA"],
+    image: "/ecosystem/trusthome.png",
     gradient: "from-sky-500/20 to-indigo-600/20",
     url: "https://trusthome.replit.app"
   },

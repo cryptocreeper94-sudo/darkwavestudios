@@ -195,12 +195,12 @@ const projects = [
   {
     id: 18,
     title: "TrustHome",
-    description: "Smart home management platform powered by Trust Layer identity and blockchain verification. IoT device management, secure access control, and verified home automation.",
-    tech: ["Smart Home", "IoT", "Trust Layer", "Security"],
+    description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration, and Signal Chat. 23,478 lines of code across 82 files with 90+ API endpoints and 10 database tables. Woman-owned (WOSB eligible).",
+    tech: ["Real Estate", "Voice AI", "Expo", "Blockchain"],
     image: trustLayerImg,
     gradient: "from-sky-500/20 to-indigo-600/20",
     url: "https://trusthome.replit.app",
-    category: "Smart Home"
+    category: "Real Estate"
   },
   {
     id: 19,
