@@ -218,7 +218,7 @@ const projects = [
   },
   {
     id: 19,
-    title: "DW Media Studio",
+    title: "TrustVault",
     description: "Multi-tenant media vault with image/audio/video editors, Spinny AI agent, and 4-tier subscriptions",
     tech: ["Media", "AI", "Editors", "PWA"],
     image: "/ecosystem/trustvault.png",

@@ -342,8 +342,8 @@ const ecosystemMetrics: AppMetric[] = [
     status: "MVP Complete",
   },
   {
-    id: "dw-media-studio",
-    name: "DW Media Studio",
+    id: "trustvault",
+    name: "TrustVault",
     url: "https://trustvault.replit.app",
     totalLines: 29816,
     totalFiles: 137,
