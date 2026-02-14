@@ -175,15 +175,6 @@ const ecosystemApps: EcosystemApp[] = [
     category: "gaming"
   },
   {
-    id: "chronochat",
-    name: "ChronoChat",
-    tagline: "Connect Across Timelines. Chat Beyond Eras.",
-    description: "The community hub for the DarkWave ecosystem. Cross-era chat concept tied into Chronicles, community channels, messaging, and real-time engagement. Built to bridge all ecosystem users into one social layer.",
-    image: "/ecosystem/chronochat.png",
-    url: "https://dwsc.io/community",
-    category: "social"
-  },
-  {
     id: "darkwave-studio",
     name: "DarkWave Studio",
     tagline: "Build on DarkWave Smart Chain.",
@@ -351,7 +342,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 23 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 22 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

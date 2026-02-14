@@ -320,21 +320,6 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
-    id: "chronochat",
-    name: "ChronoChat",
-    url: "https://dwsc.io/community",
-    totalLines: 166,
-    totalFiles: 4,
-    stack: ["React 18", "TypeScript", "Framer Motion", "Trust Layer"],
-    breakdown: [
-      { language: "TypeScript/TSX", lines: 166, files: 4 },
-    ],
-    highlights: ["Community Hub", "Cross-Era Chat", "Ecosystem Social Layer", "Community Channels"],
-    icon: Radio,
-    gradient: "from-cyan-500 to-teal-500",
-    status: "Production",
-  },
-  {
     id: "darkwave-studio",
     name: "DarkWave Studio",
     url: "https://dwsc.io/studio",
