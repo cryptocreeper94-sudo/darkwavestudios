@@ -39,6 +39,7 @@ import Support from "@/pages/Support";
 import Studio from "@/pages/Studio";
 import Credits from "@/pages/Credits";
 import CommandCenter from "@/pages/CommandCenter";
+import Explore from "@/pages/Explore";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -79,6 +80,7 @@ function Router() {
       <Route path="/studio" component={Studio}/>
       <Route path="/credits" component={Credits}/>
       <Route path="/command" component={CommandCenter}/>
+      <Route path="/explore" component={Explore}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,0 +1,330 @@
+=============================================================================
+PUBLIC EXPLORE HUB — GENERALIZED HANDOFF SPECIFICATION
+For agents building a public-facing Explore / Launch / Directory page
+=============================================================================
+
+WHAT IT IS
+----------
+The Public Explore Hub is an UNAUTHENTICATED visitor-facing directory page 
+that serves as a visual "where do you want to go?" launchpad for your 
+entire platform. It mirrors the structure of the owner-only Command Center 
+but exposes ONLY public-facing pages and tools — no admin, analytics, or 
+management features.
+
+It is NOT a replacement for the homepage. The homepage remains the primary 
+marketing/landing page. The Explore Hub is a second entry point — a visual 
+sitemap that helps visitors navigate large platforms with many destinations.
+
+The homepage itself appears AS ONE OF THE CARDS in the Explore Hub, 
+typically as the featured card in the first category.
+
+It does NOT need to be called "Explore" — it can be branded as "Launch", 
+"Directory", "Hub", "Discover", or anything that fits the platform.
+
+=============================================================================
+
+HOW IT DIFFERS FROM THE OWNER COMMAND CENTER
+---------------------------------------------
+| Feature                  | Owner Command Center    | Public Explore Hub     |
+|--------------------------|-------------------------|------------------------|
+| Authentication           | PIN / password required | None — fully public    |
+| Admin tools              | Yes (CRM, analytics)    | No — public pages only |
+| Category tone            | Operational / internal  | Inviting / exploratory |
+| Badge style              | Functional (CRM, Hub)   | Enticing (Free, Live)  |
+| Header                   | Owner badge + logout    | Home button            |
+| Hero text                | "Master Command Center" | "Where do you want to  |
+|                          |                         |  go?"                  |
+| Card descriptions        | Internal/technical      | Visitor-friendly       |
+| Footer                   | "Owner Access Only"     | CTA to Homepage        |
+
+=============================================================================
+
+WHAT IT DOES
+------------
+1. LOADS with a skeleton placeholder (animated pulse, no content flash)
+2. SHOWS a hero banner with a headline and destination count
+3. ORGANIZES every public page into logical CATEGORIES
+4. PRESENTS each destination as a visually rich CARD with:
+   - Label (page name)
+   - Description (visitor-friendly, one line)
+   - Link (where it goes)
+   - Icon (relevant Lucide icon)
+   - Background image (photorealistic, subject-matter relevant)
+   - Glow color (colored shadow on hover + always-on for featured cards)
+   - Optional badge (e.g., "Start Here", "Free", "Live", "22 Apps")
+   - Optional "featured" flag (makes the card larger + persistent glow)
+5. GROUPS cards into horizontally-scrollable CAROUSELS per category
+6. PROVIDES a sticky top header with branding and a Home button
+7. INCLUDES a footer with a prominent "Go to Homepage" CTA button
+
+=============================================================================
+
+CATEGORY STRUCTURE
+------------------
+Categories should cover ALL public pages on the platform. Recommended 
+structure for most platforms (adapt names and counts to fit):
+
+  Category 1: HOME & ABOUT
+    - Homepage (featured, badge: "Start Here")
+    - Mission / About
+    - Team / Founders
+    - Contact
+
+  Category 2: SERVICES / PRODUCTS
+    - Service tiers / Pricing
+    - Plan comparison
+    - Request a quote / Get started
+    - Book a call / Demo
+
+  Category 3: PLATFORM / PORTFOLIO
+    - App ecosystem / Products
+    - Portfolio / Case studies
+    - Metrics / Stats
+
+  Category 4: TOOLS & MARKETPLACE
+    - Widgets / Marketplace
+    - Free tools (audits, scanners)
+    - Developer docs / API
+    - Credits / Tokens
+
+  Category 5: COMMUNITY
+    - Chat / Forum
+    - Blog / News
+    - Support / Help center
+    - Resources / Downloads
+    - Creative tools / Editor
+
+  Category 6: LEGAL
+    - Terms of Service
+    - Privacy Policy
+    - Affiliate / Disclosure
+
+Aim for 5-7 categories with 3-5 cards each. Total: 20-30 destinations.
+
+=============================================================================
+
+CARD DATA MODEL
+---------------
+Each card follows this structure:
+
+  interface LaunchCard {
+    label: string;          // Destination name, e.g., "Homepage"
+    description: string;    // Visitor-friendly one-liner
+    href: string;           // Route, e.g., "/" or "/services"
+    icon: React.ReactNode;  // Lucide icon, e.g., <Home className="size-5" />
+    image: string;          // Path to photorealistic background image
+    glowColor: string;      // Key into glowMap, e.g., "shadow-cyan-500/20"
+    badge?: string;         // Optional badge, e.g., "Start Here", "Free"
+    featured?: boolean;     // If true, card is wider + has persistent glow
+  }
+
+=============================================================================
+
+GLOW SYSTEM
+-----------
+Dynamic Tailwind classes (e.g., `hover:shadow-cyan-500/20`) are NOT 
+reliably picked up by Tailwind JIT. Use a glow map + inline styles:
+
+  const glowMap: Record<string, string> = {
+    "shadow-cyan-500/20":    "0 10px 40px rgba(6,182,212,0.2)",
+    "shadow-purple-500/20":  "0 10px 40px rgba(168,85,247,0.2)",
+    "shadow-amber-500/20":   "0 10px 40px rgba(245,158,11,0.2)",
+    "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
+    // ... add more as needed
+  };
+
+Apply glow via inline `boxShadow` style:
+  - On hover: apply glow via onMouseEnter/onMouseLeave state
+  - On focus: apply glow via onFocus/onBlur (accessibility)
+  - On featured cards: apply glow ALWAYS (persistent)
+
+=============================================================================
+
+UI DESIGN SPECIFICATION
+-----------------------
+
+LAYOUT: Horizontal Carousel per Category
+  - Each category renders as a full-width section
+  - Cards within a category sit in a shadcn/ui Carousel
+  - Use CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
+  - CarouselItem basis: basis-[280px] (featured: lg:basis-[320px])
+  - Carousel opts: { align: "start", dragFree: true }
+  - Show prev/next arrows on desktop only when cards > 3
+
+THEME: Dark Premium Glassmorphism
+  - Page background: gradient #070b16 via #0c1222 to #070b16
+  - Radial gradients for depth (subtle cyan, purple accents)
+  - Card backgrounds: images with dark gradient overlay
+  - Borders: border-white/5 (idle), border-white/15 (hover)
+  - Text: white for headings, white/50 for descriptions, white/20 footer
+  - All cards: rounded-2xl corners, h-[220px]
+  - Hover: scale-[1.03] with transition-all duration-300
+
+CARD DESIGN:
+  - Background image fills card with object-cover + brightness-110
+  - Gradient overlay: bg-gradient-to-t from-black/90 via-black/60 
+    to-black/30
+  - Icon sits in 8x8 rounded-lg container with bg-white/10 + 
+    backdrop-blur-sm
+  - Badge (if present): pill in top-right, gradient bg (cyan to purple 
+    for public, orange to rose for admin)
+  - Featured cards: ring-1 ring-white/10 + persistent glow
+  - Hover reveals "Go >" text at bottom
+  - focus-visible: ring-2 ring-cyan-500/50 (keyboard accessibility)
+
+STICKY HEADER:
+  - Fixed at top, backdrop-blur-xl, bg-[#070b16]/80
+  - Left side: gradient icon + "Explore" title + subtitle with counts
+  - Right side: Home button (icon + text, links to "/")
+  - Border-bottom: border-white/5
+
+HERO BANNER:
+  - Full-width rounded-2xl image with gradient overlay
+  - Headline: "Where do you want to go?" with gradient text accent
+  - Subtitle: destination and category counts
+  - Height: h-40 mobile, lg:h-56 desktop
+
+FOOTER:
+  - Centered "Go to Homepage" CTA button (gradient bg, hover scale)
+  - Subtle branding text below
+
+ANIMATIONS (Framer Motion):
+  - Hero: initial={{ opacity: 0, y: 20 }}, animate={{ opacity: 1, y: 0 }}
+  - Category sections: staggered fade-in (delay: catIndex * 0.08)
+  - Cards: staggered fade-in (delay: cardIndex * 0.05)
+
+RESPONSIVE / MOBILE:
+  - Carousels are touch-swipeable (dragFree: true)
+  - Prev/next arrows hidden on mobile (hidden lg:flex)
+  - Header adapts: subtitle hidden on mobile, "Home" text hidden on xs
+  - Cards maintain 280px minimum width, scroll horizontally
+
+=============================================================================
+
+SKELETON LOADER
+---------------
+Show while page initializes (600-800ms timer):
+  - Sticky header skeleton: icon + title placeholders
+  - 4 category skeletons, each with:
+    * Category header: icon + title + description placeholders
+    * Row of 4 card placeholders (min-w-[280px] h-[220px])
+  - All placeholders: bg-white/5 animate-pulse, rounded corners
+
+=============================================================================
+
+KEY DIFFERENCES FROM COMMAND CENTER SPEC
+----------------------------------------
+1. NO authentication — page is fully public
+2. NO admin/internal tools — only visitor-facing pages
+3. Homepage is a CARD, not the background context
+4. Badge colors use cyan-to-purple gradient (public) instead of 
+   orange-to-rose (admin)
+5. Descriptions are written FOR visitors, not for the owner
+6. Header has a Home button instead of Owner badge + Logout
+7. Footer has a "Go to Homepage" CTA instead of "Owner Access Only"
+8. Hero text is inviting ("Where do you want to go?") not commanding
+
+=============================================================================
+
+IMAGES
+------
+- Every card MUST have a photorealistic background image
+- Reuse images from the Command Center where routes overlap
+  (e.g., /services, /hub, /guardian-ai all share the same images)
+- Generate new images only for cards unique to the Explore Hub
+  (e.g., Homepage card, Projects card)
+- Store all images in a shared /public/command/ directory (or similar)
+- Apply brightness-110 CSS filter for vibrancy
+- Dark gradient overlay ensures text readability
+
+=============================================================================
+
+IMPLEMENTATION CHECKLIST
+------------------------
+[ ] List all public-facing pages on the platform
+[ ] Group them into 5-7 visitor-friendly categories
+[ ] Write visitor-friendly descriptions for each card
+[ ] Identify which images already exist from Command Center
+[ ] Generate new images for any new cards
+[ ] Build the page component with:
+    [ ] Skeleton loader (animated pulse placeholders)
+    [ ] Sticky header with brand icon + Home button
+    [ ] Hero banner with headline and counts
+    [ ] Category sections with gradient icon + title + description
+    [ ] Horizontal carousels per category (shadcn/ui Carousel)
+    [ ] Card components with image, overlay, icon, label, description
+    [ ] Badge support (badge pills in top-right)
+    [ ] Featured card support (wider + persistent glow)
+    [ ] Glow effects via glowMap + inline boxShadow
+    [ ] Framer Motion entrance animations (staggered)
+    [ ] Focus-visible accessibility styles
+    [ ] Footer with "Go to Homepage" CTA
+[ ] Register the route (e.g., /explore, /launch, /directory)
+[ ] Link to the Explore page from the main navigation or homepage
+[ ] Mobile-optimize all layouts
+[ ] Test all card links navigate to correct pages
+
+=============================================================================
+
+DEPENDENCIES
+------------
+- React (any recent version)
+- Tailwind CSS (v3 or v4)
+- shadcn/ui (Carousel component: CarouselContent, CarouselItem, 
+  CarouselNext, CarouselPrevious)
+- Framer Motion (for staggered animations)
+- Lucide React (for icons)
+- A routing library (Wouter, React Router, Next.js, etc.)
+- embla-carousel-react (peer dep of shadcn Carousel)
+
+=============================================================================
+
+EXAMPLE: MINIMAL CATEGORY
+--------------------------
+
+const categories = [
+  {
+    title: "Home & About",
+    icon: <Home className="size-4" />,
+    gradient: "from-cyan-500 to-blue-500",
+    description: "Start here. Visit the main site, learn about the 
+                  mission, or get in touch with the team directly.",
+    cards: [
+      {
+        label: "Homepage",
+        description: "The main site — services, portfolio, and more",
+        href: "/",
+        icon: <Home className="size-5" />,
+        image: "/command/homepage.png",
+        glowColor: "shadow-cyan-500/20",
+        badge: "Start Here",
+        featured: true,
+      },
+      {
+        label: "Contact Us",
+        description: "Reach out — tell us about your project",
+        href: "/contact",
+        icon: <Mail className="size-5" />,
+        image: "/command/contact.png",
+        glowColor: "shadow-blue-500/20",
+      },
+    ],
+  },
+  // ... more categories
+];
+
+=============================================================================
+
+KEY PRINCIPLES
+--------------
+1. VISITOR-FIRST — every label and description is written for newcomers
+2. HOMEPAGE IS A CARD — not the wrapper, it's one destination among many
+3. VISUAL FIRST — photorealistic images on every card, no plain text
+4. CATEGORIZED — logical groupings that make sense to non-technical users
+5. NO ADMIN TOOLS — this is public; admin tools live in Command Center
+6. SAME PREMIUM FEEL — glassmorphism, glow, animations, carousels
+7. MOBILE READY — touch-swipeable carousels, responsive layout
+8. SHARED IMAGES — reuse Command Center images where routes overlap
+9. EXTENSIBLE — adding a new page = adding one card to a category
+
+=============================================================================
