@@ -954,7 +954,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
 
 Key information about DarkWave:
 - Premium web development agency offering custom websites, apps, and AI solutions
-- Trust Layer Hub is a blockchain-verified widget marketplace with 14+ embeddable widgets
+- Trust Layer Hub is a blockchain-verified widget marketplace with 50 embeddable widgets
 - Guardian AI provides AI agent certification services
 - DarkWave Pulse is a premium predictive AI system for market analysis
 - 60%+ savings compared to traditional agencies
