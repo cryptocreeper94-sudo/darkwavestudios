@@ -165,7 +165,7 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "Multi-tenant delivery and driver management platform. 36 pages, 55 UI components, 108 API endpoints, 2 WebSocket servers, 33 database tables, and 39 frontend routes. PWA installable with TrustLayer SSO. 40,033 lines of production TypeScript across 166 files.",
+    description: "Nationwide delivery, driver management, and food truck ordering platform. 50 pages, 71 UI components, 147 API endpoints, 2 WebSocket servers, 41 database tables, and 55+ client routes. Multi-tenant franchise model with bilingual support. 22,900 lines of production TypeScript across 171 files.",
     tech: ["Delivery", "PWA", "WebSocket", "AI"],
     image: happyEatsImg,
     gradient: "from-yellow-500/20 to-amber-600/20",

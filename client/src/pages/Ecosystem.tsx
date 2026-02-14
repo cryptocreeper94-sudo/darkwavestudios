@@ -140,8 +140,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "tl-driver-connect",
     name: "TL Driver Connect",
-    tagline: "Multi-Tenant Delivery & Driver Management",
-    description: "Full-stack delivery and driver management platform. 36 pages, 108 API endpoints, 2 WebSocket servers, 33 database tables, and 39 frontend routes. Multi-tenant architecture with PWA support and TrustLayer SSO integration. 40,033 lines of production TypeScript.",
+    tagline: "Nationwide Driver & Delivery Platform with Happy Eats",
+    description: "Nationwide delivery, driver management, and food truck ordering platform with multi-tenant franchise architecture. 50 pages, 71 UI components, 147 API endpoints, 2 WebSocket servers, 41 database tables, and 55+ client routes. Features zone-based batch ordering, affiliate referral program, bilingual support, and franchise system. 22,900 lines of production TypeScript.",
     image: "/ecosystem/happy-eats.png",
     url: "https://happyeats.app",
     category: "auto"
@@ -332,7 +332,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.93 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

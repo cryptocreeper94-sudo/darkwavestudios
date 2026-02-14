@@ -183,7 +183,7 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "Multi-tenant delivery and driver management platform with 108 API endpoints and 33 database tables",
+    description: "Nationwide delivery and food truck ordering platform with 147 API endpoints and 41 database tables",
     tech: ["Delivery", "PWA", "AI", "WebSocket"],
     image: "/ecosystem/happy-eats.png",
     gradient: "from-green-500/20 to-emerald-600/20",
