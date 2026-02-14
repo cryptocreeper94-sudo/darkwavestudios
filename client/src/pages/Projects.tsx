@@ -19,6 +19,14 @@ import trustShieldImg from "@/assets/ecosystem/trustshield.png";
 import vedaSolusImg from "@/assets/ecosystem/vedasolus.png";
 import happyEatsImg from "@/assets/ecosystem/happyeats.png";
 import darkWaveImg from "@/assets/ecosystem/darkwavestudios.png";
+import chroniclesImg from "@/assets/ecosystem/chronicles.jpg";
+import darkwaveGamesImg from "@/assets/ecosystem/darkwave-games.png";
+import darkwaveStudioImg from "@/assets/ecosystem/darkwave-studio.png";
+import trustHomeImg from "@/assets/ecosystem/trusthome.png";
+import trustVaultImg from "@/assets/ecosystem/trustvault.png";
+import guardianScannerImg from "@/assets/ecosystem/guardian-scanner.png";
+import signalChatImg from "@/assets/ecosystem/signal-chat.png";
+import trustLayerIconImg from "@/assets/ecosystem/trust-layer-icon.png";
 
 const projects = [
   {
@@ -126,7 +134,7 @@ const projects = [
     title: "Trust Layer",
     description: "Full Layer 1 Proof-of-Authority blockchain ecosystem. Native Signal (SIG) token, wallet, DEX/swap, cross-chain bridge, staking, NFT marketplace, presale, blockchain explorer, DAO governance, and business tenant portals. 672,085 lines across 5 PWAs, 743 endpoints, 289 tables.",
     tech: ["Blockchain", "DeFi", "5 PWAs", "289 Tables"],
-    image: trustLayerImg,
+    image: trustLayerIconImg,
     gradient: "from-indigo-500/20 to-purple-600/20",
     url: "https://dwsc.io",
     category: "Blockchain"
@@ -166,7 +174,7 @@ const projects = [
     title: "TLID.io",
     description: "Self-service automated advertising for any business type. 5-step onboarding, organic posting, and ad campaigns. 11 pages with dedicated PWA manifest. 7,133 lines of production code powered by PaintPros shared backend.",
     tech: ["Marketing", "Advertising", "Automation", "PWA"],
-    image: darkWaveImg,
+    image: trustLayerIconImg,
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://tlid.io",
     category: "Marketing"
@@ -176,7 +184,7 @@ const projects = [
     title: "DarkWave Chronicles",
     description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. 3 playable eras (Modern, Medieval, Wild West), 15 factions, 75 situations, 9 NPCs with persistent relationship scores, AI-generated infinite daily situations, voice interaction, and estate building.",
     tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
-    image: trustLayerImg,
+    image: chroniclesImg,
     gradient: "from-amber-500/20 to-red-600/20",
     url: "https://yourlegacy.io",
     category: "Gaming"
@@ -186,7 +194,7 @@ const projects = [
     title: "The Arcade",
     description: "Premium arcade games, provably fair sweepstakes, and classic card games. Orbit Crash multiplier game, Dragon's Fortune Slots, full arcade collection with Gold Coins & Sweeps Coins via Stripe. Provably fair system and sweepstakes compliance. 5,276 lines of production code.",
     tech: ["Arcade", "Sweepstakes", "Stripe", "Canvas"],
-    image: trustLayerImg,
+    image: darkwaveGamesImg,
     gradient: "from-pink-500/20 to-rose-600/20",
     url: "https://darkwavegames.io",
     category: "Gaming"
@@ -196,7 +204,7 @@ const projects = [
     title: "DarkWave Studio",
     description: "Browser-based IDE for building on the DarkWave Smart Chain. Monaco-powered code editor, smart contract development, Docker sandboxed execution, JWT-authenticated sessions, project management, and developer portal. 7,006 lines of production code.",
     tech: ["IDE", "Smart Contracts", "Docker", "DevTools"],
-    image: trustLayerImg,
+    image: darkwaveStudioImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://dwsc.io/studio",
     category: "DevTools"
@@ -206,7 +214,7 @@ const projects = [
     title: "TrustHome",
     description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. 20 app screens and 21 reusable components. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), and Signal Chat. 26,653 lines of code across 109 files with 103 API endpoints and 6 database tables. Woman-owned (WOSB eligible).",
     tech: ["Real Estate", "Voice AI", "Expo", "Blockchain"],
-    image: trustLayerImg,
+    image: trustHomeImg,
     gradient: "from-sky-500/20 to-indigo-600/20",
     url: "https://trusthome.replit.app",
     category: "Real Estate"
@@ -216,7 +224,7 @@ const projects = [
     title: "TrustVault",
     description: "Universal IP storage and media management platform. Image/audio/video/merge editors, Spinny AI agent (GPT-5.1 + ElevenLabs TTS), 4 AI media tools, collections system, Signal Chat, 4-tier Stripe subscriptions, multi-tenant family vault, and PWA. 105,983 lines of code across 187 files with 132 API endpoints and 26 database tables.",
     tech: ["Media Vault", "AI Agent", "Editors", "PWA"],
-    image: trustLayerImg,
+    image: trustVaultImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app",
     category: "Media"
@@ -226,7 +234,7 @@ const projects = [
     title: "Guardian Scanner",
     description: "AI-powered cryptocurrency token analysis scanner with Pulse predictive scoring. Real-time multi-chain safety checks, honeypot detection, whale analysis, ML price predictions, and Strike Agent buy/watch/avoid recommendations. Covers 12 chains including Solana, Ethereum, BSC, Base, Arbitrum, and Polygon.",
     tech: ["AI Analysis", "Multi-Chain", "ML Predictions", "Safety"],
-    image: trustLayerImg,
+    image: guardianScannerImg,
     gradient: "from-green-500/20 to-emerald-600/20",
     url: "https://dwsc.io/guardian-scanner",
     category: "FinTech"
@@ -236,7 +244,7 @@ const projects = [
     title: "Signal Chat",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 22 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
-    image: trustLayerImg,
+    image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
     url: "https://dwsc.io",
     category: "Social"
