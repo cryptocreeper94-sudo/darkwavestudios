@@ -138,7 +138,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "orby-commander",
     name: "Orby Commander",
-    url: "https://getorby.io",
+    url: "https://orbycommander.com",
     totalLines: 69249,
     totalFiles: 192,
     stack: ["React", "TypeScript", "Express", "PostgreSQL", "Drizzle ORM"],
@@ -157,7 +157,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "brew-board",
     name: "Brew & Board Coffee",
-    url: "https://brewandboard.coffee",
+    url: "https://brewandboardcoffee.replit.app",
     totalLines: 64900,
     totalFiles: 160,
     stack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Stripe", "Solana Blockchain", "Twilio", "DoorDash Drive API"],
@@ -357,7 +357,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "signal-chat",
     name: "Signal Chat",
-    url: "https://dwsc.io",
+    url: "https://dwsc.io/signal-chat",
     totalLines: 0,
     totalFiles: 8,
     stack: ["React 18", "TypeScript", "WebSocket", "JWT", "bcryptjs", "Trust Layer SSO"],

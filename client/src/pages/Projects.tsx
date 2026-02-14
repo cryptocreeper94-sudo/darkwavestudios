@@ -58,7 +58,7 @@ const projects = [
     tech: ["Operations", "GPS", "Compliance", "Real-time"],
     image: orbyImg,
     gradient: "from-orange-500/20 to-red-600/20",
-    url: "https://getorby.io",
+    url: "https://orbycommander.com",
     category: "Operations"
   },
   {
