@@ -18,7 +18,15 @@ import {
   Activity,
   TrendingUp,
   BarChart3,
-  Clock
+  Clock,
+  Newspaper,
+  Mail,
+  Megaphone,
+  Target,
+  Users,
+  Building2,
+  Wrench,
+  Home
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -376,6 +384,207 @@ export default function Developers() {
 
         {/* Pulse API Documentation */}
         <PulseApiDocs />
+
+        {/* Publications & Outreach Directory */}
+        <section className="mb-16 lg:mb-24" data-testid="section-publications">
+          <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border">
+            <div className="text-center mb-8 lg:mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary mb-6">
+                <Megaphone className="w-3.5 h-3.5" />
+                PR & OUTREACH DIRECTORY
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">Publications & Media Outreach</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Target publications for press coverage, product launches, and thought leadership across our ecosystem verticals.
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              {/* Tech & Startup Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Tech & Startup Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 20 production apps and 1.89M+ lines of code", icon: Zap },
+                    { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
+                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 20-app ecosystem as a solo developer", icon: Terminal },
+                    { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
+                    { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
+                    { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-cyan-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Blockchain & Web3 Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Blockchain & Web3 Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "CoinDesk", url: "https://www.coindesk.com/contact/", type: "Press inquiries", pitch: "Trust Layer L1 blockchain, Guardian AI agent certification, Signal digital asset", icon: Shield },
+                    { name: "The Block", url: "https://www.theblock.co/contact", type: "News tips", pitch: "First AI agent certification system for crypto — Guardian AI + Trust Shield", icon: Lock },
+                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 20 apps verified through Trust Layer", icon: Boxes },
+                    { name: "CoinTelegraph", url: "https://cointelegraph.com/press-releases", type: "Press releases", pitch: "Proof-of-Authority L1 with DeFi, NFT marketplace, DAO governance", icon: Globe },
+                    { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
+                    { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-purple-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Industry-Specific Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Industry-Specific Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "Painting Contractor Magazine", url: "https://www.paintmag.com", type: "Trade publication", pitch: "PaintPros.io + TradeWorks AI — 85+ calculators, voice-to-estimate, AI tools for painters", icon: Wrench, color: "amber" },
+                    { name: "Staffing Industry Analysts", url: "https://www2.staffingindustry.com", type: "Staffing industry news", pitch: "ORBIT Staffing OS — automated white-label staffing with GPS tracking, payroll, compliance", icon: Users, color: "amber" },
+                    { name: "Inman News", url: "https://www.inman.com/contribute/", type: "Real estate tech", pitch: "TrustHome — Expo React Native platform with Voice AI, blockchain doc vault, MLS integration", icon: Home, color: "amber" },
+                    { name: "HousingWire", url: "https://www.housingwire.com", type: "Real estate + fintech", pitch: "Blockchain-verified real estate transactions with TrustHome + Trust Layer", icon: Building2, color: "amber" },
+                    { name: "QSR Magazine", url: "https://www.qsrmagazine.com", type: "Food service industry", pitch: "TL Driver Connect / Happy Eats — multi-tenant delivery platform with zone ordering", icon: Target, color: "amber" },
+                    { name: "Venue Management Association", url: "https://www.iavm.org", type: "Venue operations", pitch: "Orby Commander — stadium/arena command center with emergency response + delivery tracking", icon: Building2, color: "amber" },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-amber-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* SaaS & Developer Platforms */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                    <Newspaper className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">SaaS & Developer Platforms</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "20-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
+                    { name: "G2", url: "https://www.g2.com/products/new", type: "Software reviews", pitch: "List PaintPros, ORBIT, and individual products for verified reviews", icon: BarChart3 },
+                    { name: "Capterra", url: "https://www.capterra.com/vendors/sign-up", type: "Software directory", pitch: "List trade service tools, staffing software, and real estate platforms", icon: Target },
+                    { name: "AppSumo", url: "https://sell.appsumo.com", type: "Lifetime deal marketplace", pitch: "Trust Layer Hub widgets or Pulse API access as a limited-time deal", icon: Zap },
+                    { name: "AlternativeTo", url: "https://alternativeto.net/manage-apps/", type: "Software alternative directory", pitch: "Position against competitors — PaintPros vs Jobber, ORBIT vs Bullhorn", icon: Globe },
+                    { name: "StackShare", url: "https://stackshare.io", type: "Tech stack community", pitch: "Showcase the full ecosystem tech stack — great for developer credibility", icon: Boxes },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-emerald-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Outreach Tips */}
+              <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <Mail className="w-5 h-5 text-primary" />
+                  <h3 className="text-lg font-semibold">Outreach Best Practices</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">1</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Lead with the story — solo developer building a 20-app, 1.89M+ line ecosystem is compelling and rare</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">2</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Pitch one product per publication — don't overwhelm. Match the product to the publication's audience</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">3</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Product Hunt launches work best on Tuesday–Thursday. Prepare assets, GIFs, and a maker comment in advance</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">4</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">For trade publications, offer to write a guest article — position yourself as a tech expert solving industry problems</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">5</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Include live demo links and the Ecosystem Metrics page — real numbers build credibility instantly</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">6</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Follow up once after 5–7 days. Keep pitches under 200 words. Journalists are busy — make it easy to say yes</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <p className="text-xs text-muted-foreground">
+                    Contact for all press inquiries: <span className="text-primary font-semibold">team@dwsc.io</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="text-center">
