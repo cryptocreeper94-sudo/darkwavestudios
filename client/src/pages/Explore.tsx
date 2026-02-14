@@ -518,7 +518,7 @@ export default function Explore() {
           ))}
         </div>
 
-        <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-3">
+        <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-5">
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02]"
@@ -527,6 +527,15 @@ export default function Explore() {
             <Home className="w-4 h-4" />
             Go to Homepage
           </Link>
+          <div className="flex items-center justify-center gap-4 text-[11px] text-white/30">
+            <Link href="/developers" className="hover:text-white/60 transition-colors" data-testid="explore-footer-developers">
+              Developer Portal
+            </Link>
+            <span className="text-white/10">|</span>
+            <Link href="/command" className="hover:text-white/60 transition-colors" data-testid="explore-footer-command">
+              Owner Portal
+            </Link>
+          </div>
           <p className="text-[11px] text-white/20">DarkWave Studios &middot; Full-Service Web Agency</p>
         </footer>
       </main>

@@ -1155,7 +1155,7 @@ export default function Home() {
                   rating: 5,
                 },
                 {
-                  name: "Matthew K.",
+                  name: "Jordan T.",
                   role: "Founder, Validitor",
                   quote: "Working with DarkWave on Validitor has been a great experience. The technical quality is top-notch and the turnaround time is faster than any agency I've worked with before.",
                   color: "#10b981",
@@ -1173,6 +1173,27 @@ export default function Home() {
                   role: "Product User",
                   quote: "The apps are intuitive and well-designed. I'm not a tech person at all, but everything is easy to navigate. It's clear that a lot of care goes into the user experience.",
                   color: "#ec4899",
+                  rating: 5,
+                },
+                {
+                  name: "Derek L.",
+                  role: "Small Business Owner",
+                  quote: "I needed a site that looked professional but didn't cost a fortune. DarkWave delivered something that looks like a six-figure build at a fraction of the price. Couldn't be happier.",
+                  color: "#3b82f6",
+                  rating: 5,
+                },
+                {
+                  name: "Priya S.",
+                  role: "E-Commerce Seller",
+                  quote: "The payment integration and checkout flow they built for my store is seamless. Customers actually comment on how smooth the buying experience is. That says everything.",
+                  color: "#14b8a6",
+                  rating: 5,
+                },
+                {
+                  name: "Carlos M.",
+                  role: "Startup Co-Founder",
+                  quote: "We went from idea to working MVP in under three weeks. DarkWave moves fast without cutting corners. Our investors were impressed with the quality on the first demo.",
+                  color: "#a855f7",
                   rating: 5,
                 },
               ];
