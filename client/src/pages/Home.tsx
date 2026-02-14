@@ -196,7 +196,7 @@ const projects = [
     tech: ["Life Sim", "AI", "Voice", "Real-time"],
     image: "/ecosystem/chronicles.jpg",
     gradient: "from-amber-500/20 to-red-600/20",
-    url: "https://dwsc.io/chronicles"
+    url: "https://yourlegacy.io"
   },
   {
     id: 22,

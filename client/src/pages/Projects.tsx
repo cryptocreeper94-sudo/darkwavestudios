@@ -178,7 +178,7 @@ const projects = [
     tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
     image: trustLayerImg,
     gradient: "from-amber-500/20 to-red-600/20",
-    url: "https://dwsc.io/chronicles",
+    url: "https://yourlegacy.io",
     category: "Gaming"
   },
   {

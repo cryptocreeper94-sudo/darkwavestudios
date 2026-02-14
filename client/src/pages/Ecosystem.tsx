@@ -162,7 +162,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Not a Game — a Life.",
     description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history. 16,003 lines of production code.",
     image: "/ecosystem/chronicles.jpg",
-    url: "https://dwsc.io/chronicles",
+    url: "https://yourlegacy.io",
     category: "gaming"
   },
   {

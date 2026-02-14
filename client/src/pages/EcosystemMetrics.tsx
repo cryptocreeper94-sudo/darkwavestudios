@@ -290,7 +290,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "chronicles",
     name: "DarkWave Chronicles",
-    url: "https://dwsc.io/chronicles",
+    url: "https://yourlegacy.io",
     totalLines: 16003,
     totalFiles: 20,
     stack: ["React 18", "TypeScript", "Framer Motion", "OpenAI GPT-4o", "WebSocket", "TanStack Query", "PostgreSQL", "Credits System", "Trust Layer"],
