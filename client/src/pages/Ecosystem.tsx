@@ -160,10 +160,46 @@ const ecosystemApps: EcosystemApp[] = [
     id: "chronicles",
     name: "DarkWave Chronicles",
     tagline: "Not a Game — a Life.",
-    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history.",
+    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history. 16,003 lines of production code.",
     image: "/ecosystem/chronicles.jpg",
+    url: "https://dwsc.io/chronicles",
+    category: "gaming"
+  },
+  {
+    id: "the-arcade",
+    name: "The Arcade",
+    tagline: "Play for Fun or Play to Win!",
+    description: "Premium arcade games, provably fair sweepstakes, and classic card games. Features Orbit Crash multiplier game, Dragon's Fortune Slots, and a full arcade collection. Gold Coins & Sweeps Coins via Stripe, provably fair system, sweepstakes compliance, and a game developer portal. 5,276 lines of production code.",
+    image: "/ecosystem/darkwave-games.png",
     url: "https://darkwavegames.io",
     category: "gaming"
+  },
+  {
+    id: "chronochat",
+    name: "ChronoChat",
+    tagline: "Connect Across Timelines. Chat Beyond Eras.",
+    description: "The community hub for the DarkWave ecosystem. Cross-era chat concept tied into Chronicles, community channels, messaging, and real-time engagement. Built to bridge all ecosystem users into one social layer.",
+    image: "/ecosystem/chronochat.png",
+    url: "https://dwsc.io/community",
+    category: "social"
+  },
+  {
+    id: "darkwave-studio",
+    name: "DarkWave Studio",
+    tagline: "Build on DarkWave Smart Chain.",
+    description: "Browser-based integrated development environment for building on the DarkWave Smart Chain. Monaco-powered code editor, smart contract development, Docker container orchestration for sandboxed execution, JWT-authenticated sessions, resource enforcement, project management, and full developer portal. 7,006 lines of production code.",
+    image: "/ecosystem/darkwave-studio.png",
+    url: "https://dwsc.io/studio",
+    category: "core"
+  },
+  {
+    id: "through-the-veil",
+    name: "Through The Veil",
+    tagline: "Hidden History. Suppressed Truth. Spiritual Warfare.",
+    description: "A Journey Through Hidden History, Suppressed Truth, and Spiritual Warfare. By Jason Andrews. Online book reader with chapter navigation, Volume 2 print edition, and a premium reading experience. 1,860 lines of production code.",
+    image: "/ecosystem/through-the-veil.png",
+    url: "https://dwsc.io/veil",
+    category: "books"
   },
   {
     id: "trusthome",
@@ -213,6 +249,7 @@ const categories = [
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
+  { id: "books", name: "Books & Education", description: "Publishing and educational content" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 
@@ -324,7 +361,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 24 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema
