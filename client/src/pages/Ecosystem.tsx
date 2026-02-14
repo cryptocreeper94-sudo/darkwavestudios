@@ -197,7 +197,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Connect Across Timelines",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all ecosystem apps.",
     image: "/ecosystem/signal-chat.png",
-    url: "https://dwsc.io",
+    url: "https://dwsc.io/signal-chat",
     category: "social"
   }
 ];
