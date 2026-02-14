@@ -163,15 +163,6 @@ const projects = [
     url: "https://nashpaintpros.io"
   },
   {
-    id: 13,
-    title: "Lume Paint Co",
-    description: "Premium tier luxury interior painting with elevated design aesthetic",
-    tech: ["Luxury", "Design", "Premium"],
-    image: "/ecosystem/lume-paint.png",
-    gradient: "from-amber-500/20 to-yellow-600/20",
-    url: "https://lumepaint.co"
-  },
-  {
     id: 14,
     title: "GarageBot",
     description: "Auto parts aggregator with VIN decoding and AI repair assistant",

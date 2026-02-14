@@ -120,15 +120,6 @@ const ecosystemApps: EcosystemApp[] = [
     category: "trades"
   },
   {
-    id: "lume-paint",
-    name: "Lume Paint Co",
-    tagline: "Illuminate Your Space with Luxury",
-    description: "Premium tier live demo for TradeWorks AI painting vertical. Luxury interior painting with elevated design aesthetic.",
-    image: "/ecosystem/lume-paint.png",
-    url: "https://lumepaint.co",
-    category: "trades"
-  },
-  {
     id: "garagebot",
     name: "GarageBot",
     tagline: "Right Part. First Time. Every Engine.",
@@ -332,7 +323,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 21 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

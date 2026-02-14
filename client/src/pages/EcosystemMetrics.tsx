@@ -273,23 +273,6 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
-    id: "lume-paint",
-    name: "Lume Paint Co",
-    url: "https://lumepaint.co",
-    totalLines: 14200,
-    totalFiles: 48,
-    stack: ["React 18", "TypeScript", "Vite", "Express", "PostgreSQL", "TradeWorks AI Engine"],
-    breakdown: [
-      { language: "TypeScript/TSX", lines: 13500, files: 44 },
-      { language: "CSS", lines: 500, files: 3 },
-      { language: "HTML", lines: 200, files: 1 },
-    ],
-    highlights: ["Premium tier TradeWorks demo", "Luxury interior painting", "Elevated design aesthetic", "Lead capture"],
-    icon: Palette,
-    gradient: "from-pink-500 to-fuchsia-500",
-    status: "Production",
-  },
-  {
     id: "tlid-io",
     name: "TLID.io",
     url: "https://tlid.io",
@@ -756,7 +739,7 @@ export default function EcosystemMetrics() {
                 is continuously evolving with new features, applications, and improvements.
               </p>
               <p className="text-xs text-muted-foreground/60 mb-8">
-                Additional apps pending metrics: Lume Paint Co, StrikeAgent, Trust Shield, Chronicles
+                Additional apps pending metrics: StrikeAgent, Trust Shield, Chronicles
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link

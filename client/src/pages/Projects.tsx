@@ -13,7 +13,6 @@ import brewBoardImg from "@/assets/ecosystem/brewandboard.png";
 import lotOpsImg from "@/assets/ecosystem/lotopspro.png";
 import nashPaintImg from "@/assets/ecosystem/nashpaintpros.png";
 import paintProsImg from "@/assets/ecosystem/paintpros.png";
-import lumePaintImg from "@/assets/ecosystem/lumepaintco.png";
 import tradeWorksImg from "@/assets/ecosystem/tradeworksai.png";
 import trustLayerImg from "@/assets/ecosystem/trustlayer.jpg";
 import trustShieldImg from "@/assets/ecosystem/trustshield.png";
@@ -110,16 +109,6 @@ const projects = [
     image: nashPaintImg,
     gradient: "from-yellow-500/20 to-orange-600/20",
     url: "https://nashpaintpros.io",
-    category: "Local Business"
-  },
-  {
-    id: 10,
-    title: "Lume Paint Co",
-    description: "Premium tier demo for TradeWorks AI painting vertical. Luxury 'Sparkle and Shine' design with glassmorphism effects, 3D hover animations, AI room visualizer with Benjamin Moore and Sherwin-Williams colors.",
-    tech: ["Premium Design", "AI Visualizer", "Luxury", "3D Effects"],
-    image: lumePaintImg,
-    gradient: "from-rose-500/20 to-pink-600/20",
-    url: "https://lumepaint.co",
     category: "Local Business"
   },
   {
