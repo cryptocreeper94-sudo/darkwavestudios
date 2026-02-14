@@ -308,7 +308,7 @@ const widgetsList = [
   {
     id: "vin-decoder", name: "VIN Decoder", icon: Car, containerId: "demo-vin-decoder", color: "#ef4444",
     description: "Decode any vehicle by VIN instantly", price: 129, priceId: "price_widget_vin_decoder",
-    fullDescription: "Decode any Vehicle Identification Number into detailed specs instantly. Returns year, make, model, engine, transmission, trim level, and safety ratings. Built from GarageBot's production VIN decoding system used across 40+ parts retailers.",
+    fullDescription: "Decode any Vehicle Identification Number into detailed specs instantly. Returns year, make, model, engine, transmission, trim level, and safety ratings. Built from GarageBot's production VIN decoding system used across 68+ parts retailers.",
     features: ["Instant VIN lookup", "Year/Make/Model/Trim extraction", "Engine & transmission details", "Safety rating lookup", "Recall check integration", "Vehicle history summary", "Multi-format input (barcode, manual)", "Garage/vehicle profile storage"],
     requirements: ["React or vanilla JS", "NHTSA API (free)", "Optional: backend for vehicle storage"],
     includes: ["Full source code", "VIN validation logic", "NHTSA API integration", "Vehicle profile UI", "Setup guide", "30-day email support", "Lifetime updates"],
@@ -318,9 +318,9 @@ const widgetsList = [
   },
   {
     id: "parts-aggregator", name: "Parts Aggregator", icon: Package, containerId: "demo-parts-aggregator", color: "#f97316",
-    description: "Search 40+ auto parts retailers at once", price: 299, priceId: "price_widget_parts_aggregator",
-    fullDescription: "Unified search across 40+ auto parts retailers. Enter a part name or number, get prices from AutoZone, O'Reilly, RockAuto, Amazon, and more — all in one view. Extracted from GarageBot's production parts search engine.",
-    features: ["40+ retailer integration", "Price comparison grid", "Part number cross-reference", "Availability checking", "Shipping cost estimates", "Save to wishlist", "Price history tracking", "Affiliate link support"],
+    description: "Search 68+ auto parts retailers at once", price: 299, priceId: "price_widget_parts_aggregator",
+    fullDescription: "Unified search across 68+ auto parts retailers. Enter a part name or number, get prices from AutoZone, O'Reilly, RockAuto, Amazon, and more — all in one view. Extracted from GarageBot's production parts search engine.",
+    features: ["68+ retailer integration", "Price comparison grid", "Part number cross-reference", "Availability checking", "Shipping cost estimates", "Save to wishlist", "Price history tracking", "Affiliate link support"],
     requirements: ["React frontend", "Node.js backend for API aggregation", "Optional: affiliate accounts"],
     includes: ["Frontend search UI", "Backend aggregation API", "Retailer adapters", "Price comparison logic", "Setup guide", "30-day email support", "Lifetime updates"],
     techStack: ["React 18", "TypeScript", "Node.js", "Express", "Cheerio", "Tailwind CSS"],
@@ -2090,7 +2090,7 @@ export default function TrustLayerHub() {
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-3">
                     <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Parts Aggregator</div>
-                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-orange-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Search 40+ retailers at once</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-orange-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Search 68+ retailers at once</div>
                   </div>
                   <div className="space-y-3 flex-1">
                     <input className={`w-full px-3 py-2 text-xs transition-all ${

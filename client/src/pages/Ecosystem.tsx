@@ -132,7 +132,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "garagebot",
     name: "GarageBot",
     tagline: "Right Part. First Time. Every Engine.",
-    description: "Auto parts aggregator unifying inventory from 40+ retailers. VIN decoding, AI assistant, and blockchain-verified vehicle passports.",
+    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, parts marketplace, and blockchain-verified vehicle passports. 86,000+ lines of source code, 422 API endpoints, 120+ database tables.",
     image: "/ecosystem/garagebot.png",
     url: "https://garagebot.io",
     category: "auto"
@@ -313,7 +313,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.04 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.50 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

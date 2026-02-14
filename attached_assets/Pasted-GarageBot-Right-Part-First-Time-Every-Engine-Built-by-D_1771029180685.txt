@@ -1,0 +1,92 @@
+GarageBot — Right Part. First Time. Every Engine.
+Built by DarkWave Studios
+
+A comprehensive auto parts aggregator and vehicle management platform that unifies inventory from 68+ retailers across 16 product categories into a single searchable interface. Serves casual vehicle owners, professional mechanics, fleet managers, and motorized hobby enthusiasts.
+
+Build Stats:
+
+86,000+ lines of custom-written source code (server, shared schema, client application)
+111,000+ lines total including configuration, templates, and workspace files
+Note: A previous catalog listing cited ~693,000 lines of TypeScript. That figure inadvertently included 137,000+ lines of third-party package type definitions from the dependency cache, which inflated the count. The 86,000+ figure reflects actual project source code written for GarageBot.
+422 API endpoints
+120+ database tables
+43 React pages
+111 React components
+9 custom hooks
+109 package dependencies (92 production, 17 dev)
+Tech Stack:
+
+Frontend: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, Radix UI, Framer Motion, Wouter
+Backend: Node.js, Express.js, TypeScript
+Database: PostgreSQL (Neon serverless), Drizzle ORM
+AI: OpenAI GPT-4o-mini (Buddy AI conversational assistant)
+Payments: Stripe (Elements + backend SDK)
+Blockchain: Solana (Helius RPC, @solana/web3.js)
+Real-Time: WebSocket (Signal Chat)
+Email: Resend
+Social: Meta Graph API (auto-posting, ad campaigns)
+Auth: Custom PIN-based login with DarkWave Trust Layer SSO sync
+Deployment: Replit Autoscale
+Design:
+
+Ultra-premium "Deep Space / Future Forward" dark theme
+Glassmorphism UI with backdrop blur, neon glows, 3D buttons, sparkle effects
+Custom typography: Rajdhani, Inter, JetBrains Mono
+Electric cyan accent palette
+Framer Motion animations throughout
+Fully responsive mobile-first layout
+Platform Features (30+ Tools):
+
+Parts Search — Vehicle-aware search across 68+ retailers, 16 categories
+My Garage — Fleet management, VIN decoding, service records, expense tracking
+Wishlists — Save and share parts lists with public shareable links
+Build Projects — Custom vehicle build tracking with parts lists
+DIY Repair Guides — AI-generated step-by-step guides, YouTube video integration, cross-industry terminology
+Buddy AI — Conversational assistant with memory, part recs, mechanic estimates, proactive alerts, part definitions
+Signal Chat — Community messaging: channels, DMs, reactions, threads, polls, Buddy AI bot in support
+Break Room Hub — Motorsports news, receipt scanner, mileage tracker, NHTSA recall checker, maintenance scheduler, speed traps, fuel prices
+CDL Directory — Trucking company and CDL program directory with search, filter, referral forms
+Insurance Comparison — Multi-provider quote comparison
+Rental Cars — Comparison with Carla, Expedia, Hotels.com
+Genesis Hallmark NFTs — Solana blockchain-verified early adopter hallmarks
+Shade Tree Mechanics — DIY community hub with categorized guides and savings estimates
+Parts Marketplace — Peer-to-peer listings with messaging
+Mechanics Garage — Full shop management: POS, inventory, repair orders, digital inspections, customer management
+Marketing Hub — Premium shop add-on: Meta auto-posting (60+ posts, 3-hour rotation), Meta Ads campaigns, analytics
+Weather Radar — Leaflet map, RainViewer tiles, NOAA severe weather alerts
+Pro "Founders Circle" — Premium subscription tier
+Ad-Free Tier — $5/month removes ads; Pro users automatically ad-free
+Blog — Platform news and automotive content
+Vendor Signup — Retailer onboarding portal
+Partner API — B2B API for shops with key/secret auth, scopes, rate limiting
+Business Integrations Hub — OAuth for QuickBooks, ADP, Gusto, Google Calendar, Twilio, PartsTech, and more
+ORBIT Integration — Connected to ORBIT Staffing OS for payroll and workforce management
+Member Referral Program — Points-based rewards for signups and Pro conversions
+Trivia Quiz — Automotive knowledge game for community engagement
+Inbound Affiliate Program (NEW):
+
+Code Format: GB-XXXXXX (6 uppercase alphanumeric, excludes 0/O/1/I)
+Commission: 10% of GarageBot's affiliate commission on referred purchases
+Pro Bonus: $5 one-time per referred Pro upgrade (idempotent)
+Pro Recurring: $2/month per active Pro referral
+Threshold: $100 total referred purchases before earning starts
+Payout: $20 minimum, PayPal, admin-approved
+Trust Layer Endpoint: /api/affiliate-program/trustlayer/:code
+Security: Admin-gated financial routes, input validation, duplicate protection
+Infrastructure: 4 database tables, 17 storage methods, 15+ API routes
+Affiliate Coverage:
+
+50+ retailer search links with active integrations for Amazon Associates, eBay Partner Network, and CJ Affiliate
+Goal: Every outbound click earns commission
+DarkWave Ecosystem:
+
+Trust Layer SSO sync (shared credentials across all DarkWave apps)
+ORBIT Staffing OS integration
+Cross-app affiliate tracking via Trust Layer handoff endpoints
+That's the straight story. The line count correction note is in there so anyone reading it understands exactly what happened and what the real numbers are. Your 86,000 lines of handwritten code across 422 API routes and 120+ tables is still a seriously large application — most production SaaS platforms run on far less.
+
+
+Scroll to latest
+
+Make, test, iterate…
+

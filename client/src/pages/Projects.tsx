@@ -65,7 +65,7 @@ const projects = [
   {
     id: 5,
     title: "GarageBot",
-    description: "Auto parts aggregator unifying inventory from 40+ retailers into one searchable interface. VIN-decoded vehicle garage, Buddy AI assistant for repair advice, DIY repair guides, insurance comparison, and blockchain-verified vehicle passport.",
+    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, parts marketplace, CDL directory, insurance comparison, and blockchain-verified vehicle passport. 86,000+ lines, 422 endpoints, 120+ tables.",
     tech: ["Automotive", "AI Assistant", "Aggregation", "Blockchain"],
     image: garageBotImg,
     gradient: "from-slate-500/20 to-gray-600/20",
