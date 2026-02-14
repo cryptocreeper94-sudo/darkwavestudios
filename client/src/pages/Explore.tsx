@@ -141,16 +141,16 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full DarkWave ecosystem — 22 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 2.07M+ lines of code.",
+    description: "Explore the full DarkWave ecosystem — 23 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 2.07M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
-        description: "All 22 connected applications in one view",
+        description: "All 23 connected applications in one view",
         href: "/ecosystem",
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
         glowColor: "shadow-indigo-500/20",
-        badge: "22 Apps",
+        badge: "23 Apps",
         featured: true,
       },
       {

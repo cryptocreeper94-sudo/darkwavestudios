@@ -124,9 +124,18 @@ const ecosystemApps: EcosystemApp[] = [
     id: "garagebot",
     name: "GarageBot",
     tagline: "Right Part. First Time. Every Engine.",
-    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, parts marketplace, and blockchain-verified vehicle passports. 86,000+ lines of source code, 422 API endpoints, 120+ database tables.",
+    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, member referrals, affiliate program, and Google AdSense monetization. 88,700+ lines of source code, 422 API endpoints, 120+ database tables.",
     image: "/ecosystem/garagebot.png",
     url: "https://garagebot.io",
+    category: "auto"
+  },
+  {
+    id: "torque",
+    name: "TORQUE",
+    tagline: "Shop Management OS powered by Trust Layer.",
+    description: "Standalone PWA shop management platform within GarageBot. 5-step onboarding with Solana blockchain verification, 11 dashboard tabs covering work orders, appointments, customers, inventory, invoices, team, and reports. 15 business tool integrations (QuickBooks, ADP, Gusto, PartsTech, and more), ORBIT payroll sync, and Partner API. 5,475 lines across 10 files.",
+    image: "/ecosystem/torque.png",
+    url: "https://garagebot.io/torque",
     category: "auto"
   },
   {
@@ -342,7 +351,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 22 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 23 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.07 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

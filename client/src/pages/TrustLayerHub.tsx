@@ -2102,7 +2102,7 @@ export default function TrustLayerHub() {
                       }`}>⚡</div>
                       <div>
                         <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-100" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Trust Layer Ecosystem</div>
-                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-500"}`}>● 142 online across 22 apps</div>
+                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-500"}`}>● 142 online across 23 apps</div>
                       </div>
                     </div>
                     <div className="flex gap-1">

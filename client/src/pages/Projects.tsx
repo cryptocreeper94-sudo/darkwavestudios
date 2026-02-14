@@ -26,6 +26,7 @@ import trustHomeImg from "@/assets/ecosystem/trusthome.png";
 import trustVaultImg from "@/assets/ecosystem/trustvault.png";
 import guardianScannerImg from "@/assets/ecosystem/guardian-scanner.png";
 import signalChatImg from "@/assets/ecosystem/signal-chat.png";
+import torqueImg from "@/assets/ecosystem/torque.png";
 import trustLayerIconImg from "@/assets/ecosystem/trust-layer-icon.png";
 
 const projects = [
@@ -72,11 +73,21 @@ const projects = [
   {
     id: 5,
     title: "GarageBot",
-    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, parts marketplace, CDL directory, insurance comparison, and blockchain-verified vehicle passport. 86,000+ lines, 422 endpoints, 120+ tables.",
+    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, member referrals, affiliate program, and Google AdSense monetization. 88,700+ lines, 422 endpoints, 120+ tables.",
     tech: ["Automotive", "AI Assistant", "Aggregation", "Blockchain"],
     image: garageBotImg,
     gradient: "from-slate-500/20 to-gray-600/20",
     url: "https://garagebot.io",
+    category: "Automotive"
+  },
+  {
+    id: 23,
+    title: "TORQUE",
+    description: "Shop Management OS — standalone PWA within GarageBot. 5-step onboarding wizard with Solana blockchain verification, 11 dashboard tabs (work orders, appointments, customers, inventory, invoices, team, reports, integrations), 15 business tool integrations, ORBIT payroll sync, and Partner API with key/secret auth. 5,475 lines across 10 files.",
+    tech: ["Shop Management", "PWA", "Blockchain", "Integrations"],
+    image: torqueImg,
+    gradient: "from-zinc-500/20 to-slate-600/20",
+    url: "https://garagebot.io/torque",
     category: "Automotive"
   },
   {
@@ -242,7 +253,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 22 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 23 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -255,8 +266,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 22 Web Applications & Ecosystem"
-        description="Explore 22 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 23 Web Applications & Ecosystem"
+        description="Explore 23 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -295,7 +306,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            20 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            23 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 

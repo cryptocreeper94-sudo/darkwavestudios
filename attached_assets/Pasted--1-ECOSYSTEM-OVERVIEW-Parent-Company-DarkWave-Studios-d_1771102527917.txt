@@ -1,0 +1,232 @@
+
+1. ECOSYSTEM OVERVIEW
+Parent Company: DarkWave Studios (darkwavestudios.io)
+Authentication Layer: Trust Layer (dwtl.io) — behind-the-scenes credential sync across all apps
+Blockchain: Solana via Helius RPC for tamper-proof verification
+
+Apps in the Ecosystem
+App	Domain/Route	Purpose	Status
+GarageBot	garagebot.io	Parts aggregator for all motorized vehicles	Live
+TORQUE	garagebot.io/torque	Shop Management OS (standalone PWA)	Live
+Trust Layer	dwtl.io	Cross-app identity & credential sync	Live
+ORBIT	orbitstaffing.replit.app	Staffing & Payroll OS	Live (external)
+Authentication Model (SSO Clarification)
+Each app has its own login form — no redirect-based SSO
+Trust Layer syncs credentials behind the scenes so users can use the same password everywhere
+Password policy (ecosystem-wide): 8+ chars, 1 uppercase, 1 lowercase, 1 number, 1 special character
+2. GARAGEBOT — Parts Aggregator Platform
+Tagline: "Right Part. First Time. Every Engine."
+Target: Casual users, professional mechanics, hobby enthusiasts
+
+Core Features
+Feature	Description
+Parts Search	Unified search across 68+ retailers with vehicle-aware filtering
+Buddy AI	Conversational AI assistant (OpenAI GPT-4) — part recommendations, DIY guides, mechanic estimates, proactive alerts
+Vehicle Fleet	VIN decoding, multi-vehicle garage management
+E-Commerce	Cart system with Stripe payments
+Genesis Hallmarks	NFT system for early adopters (Solana blockchain)
+Pro Subscription	"Founders Circle" — enhanced features, ad-free experience
+Ad-Free Tier	$5/month removes all ads; Pro users automatically ad-free
+DIY Repair Guides	AI-generated guides with YouTube video links, cross-industry terminology
+Signal Chat	Community messaging with WebSocket, Buddy AI bot in support channel
+Shade Tree Mechanics	DIY community hub with categorized guides and savings estimates
+Break Room	Hub for news, tools (receipt scanner, mileage tracker, recall checker), community features
+Weather Radar	Leaflet map with RainViewer tiles + NOAA severe weather alerts
+Rental Cars	Comparison page with Carla, Expedia, Hotels.com
+CDL Directory	Trucking company & CDL program directory with search/filter
+Member Referrals	Points-based system — signups and Pro conversions earn redeemable rewards
+Inbound Affiliates	GB-XXXXXX codes, 10% commission sharing, PayPal payouts, Trust Layer handoff
+Marketing Hub	Auto-posting to Facebook/Instagram every 3 hours, Meta Ads campaigns, analytics
+Ad Monetization (Google AdSense)
+Shows ads on: Dashboard, Results, DIY Guides, Blog, Break Room
+Never shows ads on: Login, Signup, Checkout flows
+Hidden for: Pro subscribers and $5/month ad-free subscribers
+Affiliate Strategy
+50+ retailer search links with vehicle awareness
+Active integrations: Amazon Associates (garagebot-20), eBay Partner Network, CJ Affiliate
+Inbound Affiliate Program
+Route: /affiliates
+Code format: GB-XXXXXX (6 alphanumeric, no ambiguous chars)
+Commission: 10% of GarageBot's affiliate commission on referred purchases
+Bonuses: $5 one-time Pro conversion, $2/month recurring per active Pro referral
+Thresholds: $100 purchase total before earning starts, $20 minimum payout
+Payouts: PayPal, admin-approved
+Trust Layer: Handoff endpoint at /api/affiliate-program/trustlayer/:code
+Database Tables (Core)
+Users, vehicles, vendors, deals, hallmarks, carts, orders, sessions, affiliate_accounts, affiliate_referrals, affiliate_earnings, affiliate_payouts_inbound, communities, channels, messages
+
+3. TORQUE — Shop Management OS (Dedicated Breakdown)
+Tagline: "Shop Management OS powered by Trust Layer"
+Formerly: "Mechanics Garage" (fully rebranded)
+Deployment: Standalone PWA within garagebot.io/torque
+
+PWA Configuration
+Property	Value
+Manifest	/torque-manifest.json
+Service Worker	/torque-sw.js (scoped to /torque)
+Start URL	/torque
+Display Mode	standalone
+Theme Color	#0a0a0f
+Background Color	#0a0a0f
+Orientation	any
+App Icons
+Size	File	Type
+192x192	/torque-icon-192.png	Standard
+512x512	/torque-icon-512.png	Standard
+512x512	/torque-icon-maskable.png	Maskable (Android adaptive)
+Service Worker (torque-sw.js)
+Scope: /torque only — does not touch GarageBot requests
+Cache names (fully isolated):
+torque-v1 — app shell
+torque-static-v1 — static assets
+torque-dynamic-v1 — API responses
+Strategy: Network-first for navigation/API, cache-first for static assets
+Offline: Falls back to cached app shell
+Lifecycle: skipWaiting() + clients.claim() for instant activation
+Tenant Isolation from GarageBot
+Layer	GarageBot	TORQUE
+Navigation	<Nav />	<TorqueNav />
+Footer	<Footer />	<TorqueFooter />
+Service Worker	/sw.js (global)	/torque-sw.js (/torque scope)
+Manifest	GarageBot default	/torque-manifest.json
+Cache Names	garagebot-*	torque-*
+Document Title	"GarageBot — Right Part..."	"TORQUE — Shop Management OS"
+Meta/OG Tags	GarageBot branding	TORQUE branding
+Apple Touch Icon	GarageBot emblem	TORQUE emblem
+All swapping handled by useTorqueTenant() hook with full cleanup on unmount.
+
+Routes
+Route	Purpose	Component
+/torque	Landing page with PWA install	TorqueLanding.tsx
+/torque/onboard	5-step shop setup wizard	TorqueOnboard.tsx
+/torque/app	Full shop dashboard	MechanicsGarage.tsx
+/mechanics-garage	Legacy redirect → /torque/app	Redirect
+Landing Page Features
+Animated splash screen with TORQUE emblem
+Parallax hero section
+3-column bento grid feature showcase
+Testimonial carousel
+FAQ accordion
+Animated counters (shops, work orders, revenue)
+PWA install prompt with beforeinstallprompt handling
+Onboarding (5-Step Wizard)
+Owner Info — Name, email, phone, secure PIN
+Shop Details — Name, description, address, hours, vehicle types
+Team — Add team members with roles
+Services & Integrations — Select offered services, connect business tools
+Verify — Trust Layer blockchain verification on Solana
+Dashboard Tabs
+Tab	Functionality
+Dashboard	Overview stats, recent activity, quick actions
+Work Orders	Create/manage repair orders
+Appointments	Scheduling and calendar
+Customers	Customer database and history
+Inventory	Parts and supplies tracking
+Invoices	Billing and payment tracking
+Team	Staff management and roles
+Reports	Business analytics and insights
+Integrations	Connect 15 business tools
+ORBIT Staffing	Payroll integration via ORBIT
+Partner API	B2B API access with key/secret auth
+Supported Business Integrations (15 Tools)
+Category	Tools
+Accounting	QuickBooks Online, FreshBooks, Xero, Sage Business Cloud, Wave Accounting
+Payroll/HR	UKG Pro, ADP Workforce Now, Gusto, Paychex Flex
+Scheduling	Google Calendar
+Communication	Twilio, Mailchimp
+Parts/Inventory	PartsTech, Nexpart
+Staffing	ORBIT (via external integration)
+Partner API System
+Authentication: API Key + Secret
+Scopes: Granular permission system
+Rate Limiting: Per-endpoint limits
+Purpose: B2B access for TORQUE shop data
+Blockchain Verification
+Network: Solana (via Helius RPC)
+Method: SHA-256 hashing + on-chain transaction
+Purpose: Tamper-proof shop identity verification through Trust Layer
+Key Files
+File	Lines	Purpose
+TorqueLanding.tsx	824	Landing page
+TorqueOnboard.tsx	656	Onboarding wizard
+MechanicsGarage.tsx	3,675	Shop dashboard
+TorqueNav.tsx	~120	Standalone navigation
+useTorqueTenant.ts	~80	Tenant isolation hook
+torque-sw.js	~90	Service worker
+torque-manifest.json	~30	PWA manifest
+Total TORQUE codebase: ~5,475 lines across 10 files
+
+Renaming TORQUE
+If the name conflicts with an existing trademark, renaming takes about 30 minutes:
+
+Find-and-replace "TORQUE"/"torque" across ~10 files
+Rename public assets (manifest, SW, icons)
+Update routes in App.tsx
+Regenerate emblem with new name
+The architecture is modular — nothing is hardcoded deep in the system
+4. TECH STACK
+Frontend
+Technology	Purpose
+React 18 + TypeScript	UI framework
+Vite	Build tool + HMR
+Tailwind CSS	Styling
+shadcn/ui + Radix UI	Component library
+Framer Motion	Animations
+TanStack Query	Server state management
+Wouter	Client-side routing
+Custom fonts	Rajdhani, Inter, JetBrains Mono
+Backend
+Technology	Purpose
+Node.js + Express	API server
+PostgreSQL (Neon)	Database
+Drizzle ORM	Type-safe DB queries
+Express-session	Session management (Postgres store)
+OpenAI GPT-4	Buddy AI assistant
+Stripe SDK	Payment processing
+WebSocket	Real-time chat
+Design Theme
+Name: "Deep Space / Future Forward"
+Palette: Dark backgrounds with electric cyan accents
+Effects: Glow effects, 3D buttons, neon text
+Consistent across: GarageBot and TORQUE (TORQUE uses the same dark theme)
+5. THIRD-PARTY SERVICES
+Service	Purpose
+Stripe	Payments, subscriptions, Pro tier
+OpenAI	Buddy AI (GPT-4)
+Solana/Helius	Blockchain verification
+RainViewer	Weather radar tiles
+NOAA	Severe weather alerts
+Meta Graph API	Facebook/Instagram auto-posting
+Meta Marketing API	Paid ad campaigns
+Replit Auth	OIDC authentication
+Neon	Serverless PostgreSQL
+Resend	Email delivery
+Google AdSense	Ad monetization
+Amazon Associates	Affiliate links
+eBay Partner Network	Affiliate links
+CJ Affiliate	Affiliate links
+6. DEPLOYMENT
+Setting	Value
+Platform	Replit Autoscale
+Frontend	Vite build → static assets
+Backend	esbuild → Node.js server
+Port	5000
+Database	Neon PostgreSQL (managed)
+7. STATS SUMMARY
+Metric	Value
+Retailers aggregated	68+
+Business integrations	15 tools
+Dashboard tabs (TORQUE)	11
+Onboarding steps (TORQUE)	5
+Affiliate retailers	50+
+Marketing posts seeded	122+
+CDL directory entries	51
+Community chat	WebSocket + AI bot
+TORQUE codebase	~5,475 lines
+Total project	Large-scale full-stack application
+That's the complete ecosystem with TORQUE broken out in full detail. Let me know if you want anything added or adjusted.
+
+
+Scroll to latest
+
+Make, test, iterate…
