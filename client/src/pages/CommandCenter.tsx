@@ -162,12 +162,12 @@ const categories: CommandCategory[] = [
       },
       {
         label: "Trust Layer Hub",
-        description: "50 embeddable widgets with live previews & pricing",
+        description: "60 embeddable widgets with live previews & pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "50 Widgets",
+        badge: "60 Widgets",
       },
       {
         label: "Developer Tools",
@@ -424,7 +424,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
     >
       <Link href={card.href} data-testid={`command-${card.href.replace(/\//g, "-").slice(1)}`}>
         <div
-          className={`group relative h-[220px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-white/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
+          className={`group relative h-[260px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-white/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
             card.featured ? "ring-1 ring-white/10" : ""
           }`}
           style={cardStyle}
@@ -450,19 +450,19 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
             </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-            <div className="flex items-center gap-2.5 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+          <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+            <div className="flex items-center gap-3 mb-2.5">
+              <div className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
                 {card.icon}
               </div>
-              <h3 className="font-display font-bold text-sm text-white group-hover:text-white/90 transition-colors" data-testid={`text-label-${card.href.replace(/\//g, "-").slice(1)}`}>
+              <h3 className="font-display font-bold text-[15px] text-white group-hover:text-white/90 transition-colors" data-testid={`text-label-${card.href.replace(/\//g, "-").slice(1)}`}>
                 {card.label}
               </h3>
             </div>
-            <p className="text-[11px] text-white/50 leading-relaxed line-clamp-2">
+            <p className="text-xs text-white/50 leading-relaxed line-clamp-2">
               {card.description}
             </p>
-            <div className="mt-2 flex items-center gap-1 text-[10px] text-white/30 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="mt-3 flex items-center gap-1 text-[10px] text-white/30 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <span>Open</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -569,7 +569,7 @@ export default function CommandCenter() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.05),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all duration-300" data-testid="button-back-home">
               <ArrowLeft className="w-5 h-5 text-white/70" />
@@ -600,30 +600,30 @@ export default function CommandCenter() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
+      <main className="max-w-7xl mx-auto px-5 lg:px-8 py-10 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-2xl overflow-hidden mb-10 lg:mb-14"
+          className="relative rounded-3xl overflow-hidden mb-14 lg:mb-20"
         >
           <img
             src="/command/command-center.png"
             alt="Command Center"
-            className="w-full h-40 lg:h-56 object-cover brightness-110"
+            className="w-full h-48 lg:h-72 object-cover brightness-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#070b16] via-[#070b16]/60 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-            <h1 className="text-2xl lg:text-4xl font-display font-bold mb-1 text-white">
+          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+            <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-white">
               Master <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Command Center</span>
             </h1>
-            <p className="text-sm text-white/50 max-w-xl">
+            <p className="text-sm lg:text-base text-white/50 max-w-xl leading-relaxed">
               Every tool. Every page. One click away. {totalFeatures} features organized across {categories.length} categories.
             </p>
           </div>
         </motion.div>
 
-        <div className="space-y-10 lg:space-y-14">
+        <div className="space-y-14 lg:space-y-20">
           {categories.map((category, catIndex) => (
             <motion.section
               key={category.title}
@@ -631,17 +631,17 @@ export default function CommandCenter() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: catIndex * 0.08 }}
             >
-              <div className="flex items-start gap-3 mb-2">
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5`}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5`}>
                   {category.icon}
                 </div>
                 <div>
-                  <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
-                  <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
+                  <h2 className="text-xl lg:text-2xl font-display font-bold text-white">{category.title}</h2>
+                  <p className="text-xs lg:text-sm text-white/40 leading-relaxed mt-1.5 max-w-2xl">{category.description}</p>
                 </div>
               </div>
 
-              <div className="mt-5 pl-1">
+              <div className="mt-6 lg:mt-8 pl-1">
                 <Carousel
                   opts={{
                     align: "start",
@@ -649,11 +649,11 @@ export default function CommandCenter() {
                   }}
                   className="w-full"
                 >
-                  <CarouselContent className="-ml-4">
+                  <CarouselContent className="-ml-5">
                     {category.cards.map((card, cardIndex) => (
                       <CarouselItem
                         key={card.href}
-                        className={`pl-4 basis-[280px] ${card.featured ? "lg:basis-[320px]" : ""}`}
+                        className={`pl-5 basis-[300px] ${card.featured ? "lg:basis-[360px]" : "lg:basis-[320px]"}`}
                       >
                         <LaunchCardComponent card={card} index={cardIndex} />
                       </CarouselItem>
@@ -671,7 +671,7 @@ export default function CommandCenter() {
           ))}
         </div>
 
-        <footer className="mt-16 lg:mt-24 pb-8 text-center">
+        <footer className="mt-20 lg:mt-32 pb-10 text-center">
           <p className="text-[11px] text-white/20">DarkWave Studios Command Center &middot; Owner Access Only</p>
         </footer>
       </main>

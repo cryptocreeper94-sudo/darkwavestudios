@@ -69,7 +69,13 @@ import {
   Network,
   Megaphone,
   GraduationCap,
-  ClipboardList
+  ClipboardList,
+  Wrench,
+  QrCode,
+  ScanLine,
+  Gift,
+  Dice1,
+  AlertTriangle
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -708,6 +714,116 @@ const widgetsList = [
     linesOfCode: "~2,900 lines (full stack)",
     complexity: "Advanced"
   },
+  {
+    id: "work-order-system", name: "Work Order System", icon: Wrench, containerId: "demo-work-order-system", color: "#64748b",
+    description: "Repair work order management with parts, labor, and status tracking", price: 249, priceId: "price_widget_work_order",
+    fullDescription: "Full work order lifecycle management for repair shops, maintenance teams, and field service operations. Create work orders with customer info, vehicle/equipment details, parts lists, labor tracking, status workflow (open → in-progress → complete → invoiced), technician assignment, and customer notification. Extracted from TORQUE's production shop management system.",
+    features: ["Work order creation with templates", "Parts list with cost tracking", "Labor hours and rate management", "Status workflow (open → in-progress → complete → invoiced)", "Technician assignment", "Customer notification on status change", "Photo attachments for damage documentation", "Priority levels and due dates", "Work order history and search"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Work order UI", "Backend API", "Status workflow engine", "Notification system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~2,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "shop-onboarding", name: "Shop Onboarding Wizard", icon: ClipboardList, containerId: "demo-shop-onboarding", color: "#6366f1",
+    description: "Multi-step business setup wizard with blockchain verification", price: 199, priceId: "price_widget_shop_onboarding",
+    fullDescription: "Guided multi-step business onboarding wizard with blockchain identity verification. 5-step flow: owner info with secure PIN, business details (name, address, hours, specialties), team member setup with roles, services and tool integrations selection, and final blockchain verification on Solana for tamper-proof business identity. Extracted from TORQUE's production onboarding system.",
+    features: ["5-step guided wizard with progress bar", "Owner info with secure PIN creation", "Business details (name, address, hours, vehicle types)", "Team member management with role assignment", "Service selection and tool integration picker", "Blockchain verification on Solana via Trust Layer", "Data validation at each step", "Save and resume capability"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Solana RPC for blockchain verification"],
+    includes: ["Full source code", "Wizard UI with animations", "Backend API", "Blockchain verification module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL", "@solana/web3.js"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "b2b-ordering", name: "B2B Ordering Portal", icon: ShoppingCart, containerId: "demo-b2b-ordering", color: "#0ea5e9",
+    description: "Calendar-based corporate ordering with vendor matching", price: 249, priceId: "price_widget_b2b_ordering",
+    fullDescription: "Calendar-based B2B ordering portal for corporate clients. Schedule recurring orders, browse and match with local vendors, manage delivery windows, track order status in real-time, and handle multi-vendor cart checkout. Built from Brew & Board Coffee's production corporate catering system serving Nashville businesses.",
+    features: ["Calendar-based order scheduling", "Vendor discovery and matching", "Multi-vendor cart system", "Delivery window management", "Recurring order templates", "Real-time order tracking", "Corporate account management", "Invoice generation per order", "Vendor rating and reviews"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Stripe for payments"],
+    includes: ["Full source code", "Ordering portal UI", "Vendor management API", "Calendar scheduling system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Stripe API", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "date-fns"],
+    linesOfCode: "~2,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "loyalty-rewards", name: "Loyalty Rewards Program", icon: Gift, containerId: "demo-loyalty-rewards", color: "#f59e0b",
+    description: "Points-based loyalty system with tiers and redemption", price: 179, priceId: "price_widget_loyalty_rewards",
+    fullDescription: "Complete points-based loyalty and rewards program. Customers earn points on purchases, unlock tier levels (Bronze → Silver → Gold → Platinum), redeem points for discounts or perks, and receive milestone rewards. Includes referral bonuses, birthday rewards, and streak bonuses for consecutive visits. Built from Brew & Board Coffee's loyalty system and GarageBot's member referrals program.",
+    features: ["Points earned per purchase", "4-tier progression (Bronze → Silver → Gold → Platinum)", "Reward catalog with point redemption", "Referral bonus points", "Birthday and milestone rewards", "Streak bonuses for consecutive visits", "Points balance dashboard", "Admin reward configuration", "Expiration rules and notifications"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Loyalty dashboard UI", "Points engine API", "Tier management system", "Admin panel", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~1,900 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "weather-radar", name: "Weather Radar Map", icon: Cloud, containerId: "demo-weather-radar", color: "#0ea5e9",
+    description: "Interactive Leaflet weather radar with severe weather alerts", price: 129, priceId: "price_widget_weather_radar",
+    fullDescription: "Interactive weather radar map with real-time rain/snow overlay tiles from RainViewer API and severe weather alerts from NOAA. Users see animated precipitation on a Leaflet map, toggle radar layers, view severe weather warnings by region, and get push notifications for nearby alerts. Built from GarageBot's production weather radar used by mechanics and drivers to plan outdoor work.",
+    features: ["Leaflet interactive map with zoom/pan", "RainViewer animated radar tiles", "NOAA severe weather alerts", "Geolocation auto-center", "Radar layer toggle (rain/snow/wind)", "Alert severity color coding", "Location-based alert filtering", "Fullscreen map mode", "Mobile touch-optimized"],
+    requirements: ["React 18+ frontend", "No API key required (RainViewer and NOAA are free)"],
+    includes: ["Full source code", "Radar map UI", "RainViewer integration", "NOAA alert parser", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Leaflet", "react-leaflet", "RainViewer API", "NOAA API", "Tailwind CSS"],
+    linesOfCode: "~850 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "provably-fair", name: "Provably Fair Engine", icon: Dice1, containerId: "demo-provably-fair", color: "#8b5cf6",
+    description: "Cryptographic fairness verification for games and contests", price: 199, priceId: "price_widget_provably_fair",
+    fullDescription: "Cryptographic provably fair system for games, contests, giveaways, and random selection processes. Uses server seed + client seed + nonce to generate verifiable random outcomes. Players can independently verify every result using SHA-256 hashing. Includes audit trail, fairness verification UI, and compliance documentation. Extracted from The Arcade's production provably fair gaming system.",
+    features: ["Server seed + client seed + nonce system", "SHA-256 cryptographic verification", "Player-side verification tool", "Seed rotation with reveal history", "Complete audit trail", "Fairness percentage dashboard", "API for game integration", "Compliance documentation generator", "Multi-game support (dice, slots, crash, card draws)"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Verification UI", "Backend fair engine", "Audit logging system", "Compliance docs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "crypto (Node.js)", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "code-editor", name: "Code Editor Widget", icon: Terminal, containerId: "demo-code-editor", color: "#3b82f6",
+    description: "Embeddable Monaco code editor with syntax highlighting and execution", price: 199, priceId: "price_widget_code_editor",
+    fullDescription: "Embeddable Monaco-powered code editor with full syntax highlighting, IntelliSense, multi-language support, and optional sandboxed execution. Perfect for documentation sites, developer portals, coding tutorials, and interactive code playgrounds. Supports JavaScript, TypeScript, Python, Solidity, JSON, HTML, CSS, and more. Extracted from DarkWave Studio's production browser-based IDE.",
+    features: ["Monaco Editor with IntelliSense", "20+ language syntax highlighting", "Dark and light themes", "Code formatting and linting", "Split-pane editor/preview", "File tab management", "Sandboxed code execution", "Copy/download code buttons", "Customizable editor height and features"],
+    requirements: ["React 18+ frontend", "Optional: backend for code execution sandboxing"],
+    includes: ["Full source code", "Editor component", "Language configurations", "Theme customization", "Execution sandbox", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Monaco Editor", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "receipt-scanner", name: "Receipt Scanner", icon: Receipt, containerId: "demo-receipt-scanner", color: "#ef4444",
+    description: "Photo-to-expense data extraction with categorization", price: 129, priceId: "price_widget_receipt_scanner",
+    fullDescription: "Snap a photo of any receipt and instantly extract merchant name, date, line items, tax, tip, and total. Auto-categorizes expenses (food, fuel, parts, supplies, entertainment) and tracks spending over time. Export to CSV for tax filing or accounting software import. Built from GarageBot's Break Room receipt scanner tool.",
+    features: ["Camera or photo upload capture", "Merchant name extraction", "Date and time parsing", "Line item detection", "Tax and tip extraction", "Auto expense categorization", "Spending analytics over time", "CSV export for tax filing", "Multi-currency support"],
+    requirements: ["React 18+ frontend", "OpenAI Vision API key", "Optional: backend for data storage"],
+    includes: ["Full source code", "Scanner UI", "Vision API integration", "Expense categorization engine", "Export templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI Vision API", "Camera API", "Tailwind CSS"],
+    linesOfCode: "~980 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "recall-checker", name: "Vehicle Recall Checker", icon: AlertTriangle, containerId: "demo-recall-checker", color: "#dc2626",
+    description: "VIN-based vehicle recall lookup with NHTSA data", price: 99, priceId: "price_widget_recall_checker",
+    fullDescription: "Enter a VIN or select year/make/model to instantly check for open safety recalls via NHTSA's public API. Displays recall descriptions, remedy status, manufacturer notifications, and affected components. Includes recall alert subscriptions so vehicle owners get notified when new recalls are issued. Built from GarageBot's vehicle safety tools.",
+    features: ["VIN-based recall lookup", "Year/make/model search", "NHTSA recall database integration", "Recall description and severity", "Remedy status tracking", "Manufacturer notification details", "Affected component identification", "Alert subscriptions for new recalls", "Recall history timeline"],
+    requirements: ["React 18+ frontend", "No API key required (NHTSA is free/public)"],
+    includes: ["Full source code", "Recall checker UI", "NHTSA API integration", "Alert subscription system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "NHTSA Recalls API", "Tailwind CSS"],
+    linesOfCode: "~720 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "health-passport", name: "Health Passport / QR Identity", icon: QrCode, containerId: "demo-health-passport", color: "#10b981",
+    description: "Portable verified credential card with QR code sharing", price: 149, priceId: "price_widget_health_passport",
+    fullDescription: "Sovereign portable identity card with blockchain-verified credentials and QR code sharing. Users create a digital health or identity passport containing verified credentials, certifications, or health records. Generate scannable QR codes for instant verification. Supports custom credential types, expiration tracking, and issuer verification. Built from VedaSolus's Health Passport system.",
+    features: ["Digital credential card with photo", "QR code generation for instant sharing", "Blockchain-backed credential verification", "Custom credential types (health, certification, membership)", "Expiration date tracking and alerts", "Issuer verification chain", "Offline QR code display", "Scan-to-verify companion tool", "Export as PDF or image"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Solana RPC for blockchain verification"],
+    includes: ["Full source code", "Passport card UI", "QR generator", "Verification API", "Blockchain module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "qrcode.react", "Node.js", "Express", "PostgreSQL", "@solana/web3.js"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
 ];
 
 interface CartItem {
@@ -1126,7 +1242,7 @@ export default function TrustLayerHub() {
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-snippets">Snippets</div>
             </div>
             <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
-              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">50</div>
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">60</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-widgets">Widgets</div>
             </div>
           </div>
@@ -3354,6 +3470,634 @@ export default function TrustLayerHub() {
                       ? "bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]"
                       : "bg-sky-600 text-white hover:bg-sky-700"
                   }`}>Run Audit</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "media-uploader" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Media Upload</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-pink-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Drag & drop files</div>
+                  </div>
+                  <div className={`flex-1 rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-2 ${widgetTheme === "trustlayer" ? "border-pink-500/30 bg-pink-500/5" : widgetTheme === "dark" ? "border-slate-600 bg-slate-800/30" : "border-gray-300 bg-gray-50"}`}>
+                    <div className={`text-3xl ${widgetTheme === "trustlayer" ? "text-pink-400" : "text-gray-400"}`}>📁</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-pink-300/70" : "text-gray-500"}`}>Drop images, video, or audio</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Max 50 MB · PNG, JPG, MP4, WAV</div>
+                  </div>
+                  <div className="mt-2 space-y-1">
+                    {[{name:"hero-banner.png",size:"2.1 MB",pct:100},{name:"promo-video.mp4",size:"18 MB",pct:73}].map((f,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : widgetTheme === "dark" ? "bg-slate-800/40" : "bg-white border"}`}>
+                        <span className={`flex-1 truncate ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{f.name}</span>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{f.size}</span>
+                        <div className={`w-12 h-1.5 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200"}`}>
+                          <div className="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full" style={{width:`${f.pct}%`}} />
+                        </div>
+                        <span className={`${f.pct===100 ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : (widgetTheme === "trustlayer" ? "text-pink-400" : "text-pink-600")}`}>{f.pct===100?"✓":`${f.pct}%`}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "image-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Image Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-900/30 to-purple-900/30 border border-violet-500/20" : "bg-gray-100 border"}`}>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={`w-20 h-20 rounded-xl ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-500/40 to-purple-500/40 shadow-lg shadow-purple-500/20" : "bg-gradient-to-br from-cyan-200 to-purple-200"}`} />
+                    </div>
+                    <div className={`absolute top-2 left-2 flex gap-1`}>
+                      {["Crop","Rotate","Filter","Resize"].map(t=>(
+                        <span key={t} className={`text-[8px] px-1.5 py-0.5 rounded ${widgetTheme === "trustlayer" ? "bg-white/10 text-violet-300 border border-violet-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-violet-500/20 text-violet-300 border border-violet-500/30" : "bg-violet-100 text-violet-700"}`}>Export PNG</button>
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Export WebP</button>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "audio-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Audio Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 flex flex-col gap-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-500/20" : "bg-gray-50 border"}`}>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600"}`}>▶</div>
+                      <div className="flex-1">
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-green-300" : "text-gray-800"}`}>podcast_ep12.wav</div>
+                        <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>3:42 / 14:28</div>
+                      </div>
+                    </div>
+                    <div className={`h-12 rounded flex items-end gap-px ${widgetTheme === "trustlayer" ? "bg-black/30" : "bg-gray-200"}`}>
+                      {Array.from({length:40}).map((_,i)=>(
+                        <div key={i} className={`flex-1 rounded-t ${i<15 ? (widgetTheme === "trustlayer" ? "bg-green-400/80" : "bg-green-500") : (widgetTheme === "trustlayer" ? "bg-green-400/30" : "bg-green-300")}`} style={{height:`${20+Math.random()*80}%`}} />
+                      ))}
+                    </div>
+                    <div className="flex gap-1.5">
+                      {["Trim","Fade","Noise","Normalize"].map(t=>(
+                        <span key={t} className={`text-[8px] px-2 py-1 rounded-md font-medium ${widgetTheme === "trustlayer" ? "bg-white/5 text-green-300 border border-green-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "video-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Video Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-black border border-red-500/20" : "bg-gray-900 border"}`}>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                        <span className="text-white text-lg ml-1">▶</span>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <div className="flex gap-0.5 h-6 items-end">
+                        {Array.from({length:20}).map((_,i)=>(
+                          <div key={i} className={`flex-1 rounded-sm ${i<8?"bg-red-500/80":"bg-red-500/30"}`} style={{height:"100%"}} />
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-[8px] text-white/50">00:32</span>
+                        <span className="text-[8px] text-white/50">02:18</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    {["Cut","Merge","Caption","Export"].map(t=>(
+                      <button key={t} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-red-500/15 text-red-300 border border-red-500/20" : "bg-red-50 text-red-700 border"}`}>{t}</button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-auto-tagger" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Auto-Tagger</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 space-y-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-cyan-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-gray-700"}`}>Detected Tags</div>
+                    <div className="flex flex-wrap gap-1">
+                      {["landscape","sunset","mountains","nature","golden-hour","panoramic","HDR"].map(t=>(
+                        <span key={t} className={`text-[9px] px-2 py-0.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/20" : "bg-cyan-50 text-cyan-700 border border-cyan-200"}`}>{t}</span>
+                      ))}
+                    </div>
+                    <div className={`text-[10px] font-semibold mt-1 ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-gray-700"}`}>AI Confidence</div>
+                    {[{tag:"landscape",pct:98},{tag:"sunset",pct:94},{tag:"mountains",pct:87}].map(item=>(
+                      <div key={item.tag} className="flex items-center gap-2">
+                        <span className={`text-[9px] w-16 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{item.tag}</span>
+                        <div className={`flex-1 h-1.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200"}`}>
+                          <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style={{width:`${item.pct}%`}} />
+                        </div>
+                        <span className={`text-[9px] font-bold ${widgetTheme === "trustlayer" ? "text-cyan-400" : "text-cyan-600"}`}>{item.pct}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-smart-search" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Smart Search</div>
+                  </div>
+                  <div className={`rounded-lg overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/5 border border-indigo-500/20" : "bg-white border"}`}>
+                    <div className={`flex items-center gap-2 p-2.5 border-b ${widgetTheme === "trustlayer" ? "border-indigo-500/20" : "border-gray-200"}`}>
+                      <span className={`text-sm ${widgetTheme === "trustlayer" ? "text-indigo-400" : "text-indigo-500"}`}>🔍</span>
+                      <span className={`text-xs ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-gray-800"}`}>sunset photos from last week</span>
+                    </div>
+                    <div className="p-2 space-y-1.5">
+                      {[{name:"beach_sunset_04.jpg",match:"97%"},{name:"golden_hour_pano.png",match:"91%"},{name:"evening_skyline.jpg",match:"84%"}].map((r,i)=>(
+                        <div key={i} className={`flex items-center gap-2 p-1.5 rounded-md text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 hover:bg-white/10" : "hover:bg-gray-50"}`}>
+                          <div className={`w-8 h-8 rounded ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-orange-500/30 to-red-500/30" : "bg-gradient-to-br from-orange-200 to-red-200"}`} />
+                          <div className="flex-1">
+                            <div className={`font-medium ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{r.name}</div>
+                          </div>
+                          <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-indigo-400" : "text-indigo-600"}`}>{r.match}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-caption-gen" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Caption Gen</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 space-y-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-amber-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`w-full h-16 rounded-lg flex items-center justify-center ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/20" : "bg-gradient-to-br from-amber-100 to-orange-100"}`}>
+                      <span className="text-2xl">🖼️</span>
+                    </div>
+                    <div className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-amber-300" : "text-gray-700"}`}>Generated Captions</div>
+                    {["A vibrant sunset over rolling mountain peaks with golden light","Majestic mountain landscape bathed in warm evening glow"].map((c,i)=>(
+                      <div key={i} className={`text-[10px] p-2 rounded-md leading-relaxed ${widgetTheme === "trustlayer" ? "bg-amber-500/10 text-amber-200/80 border border-amber-500/15" : "bg-amber-50 text-gray-700 border border-amber-200"}`}>
+                        {c}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "zone-ordering" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-400 to-red-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Zone Ordering</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-2 space-y-1.5 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-orange-500/20" : "bg-gray-50 border"}`}>
+                    {[{zone:"Zone A — Downtown",orders:12,status:"Active"},{zone:"Zone B — Midtown",orders:8,status:"Active"},{zone:"Zone C — Suburbs",orders:3,status:"Paused"}].map((z,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`font-semibold ${widgetTheme === "trustlayer" ? "text-orange-300" : "text-gray-800"}`}>{z.zone}</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{z.orders} orders</div>
+                        </div>
+                        <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold ${z.status === "Active" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-500")}`}>{z.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "affiliate-dashboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Affiliate Dashboard</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 mb-2">
+                    {[{label:"Clicks",val:"2,847"},{label:"Conversions",val:"342"},{label:"Earnings",val:"$1,284"},{label:"Rate",val:"12.0%"}].map(s=>(
+                      <div key={s.label} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? "bg-white/5 border border-emerald-500/15" : "bg-white border"}`}>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-emerald-300" : "text-emerald-600"}`}>{s.val}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`text-[9px] font-semibold mb-1 ${widgetTheme === "trustlayer" ? "text-emerald-300/70" : "text-gray-500"}`}>Top Referrers</div>
+                  {[{name:"blog-post-seo",clicks:892},{name:"twitter-launch",clicks:634}].map(r=>(
+                    <div key={r.name} className={`flex items-center justify-between py-1 px-2 text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>
+                      <span>{r.name}</span><span className={`font-bold ${widgetTheme === "trustlayer" ? "text-emerald-400" : "text-emerald-600"}`}>{r.clicks}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "mileage-tracker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Mileage Tracker</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-blue-500/20" : "bg-blue-50 border border-blue-200"}`}>
+                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-blue-300" : "text-blue-600"}`}>1,247 mi</div>
+                    <div className={`text-[9px] text-center ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>This month · $831 deduction</div>
+                  </div>
+                  <div className="space-y-1 flex-1">
+                    {[{date:"Today",miles:"34 mi",dest:"Client → Office"},{date:"Yesterday",miles:"52 mi",dest:"3 deliveries"},{date:"Feb 12",miles:"18 mi",dest:"Supplier run"}].map((t,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`font-semibold ${widgetTheme === "trustlayer" ? "text-blue-300" : "text-gray-800"}`}>{t.date}</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{t.dest}</div>
+                        </div>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-cyan-400" : "text-blue-600"}`}>{t.miles}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "franchise-onboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Franchise Onboard</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{step:"Business License",done:true},{step:"Location Setup",done:true},{step:"Staff Training",done:false},{step:"POS Integration",done:false},{step:"Grand Opening",done:false}].map((s,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold ${s.done ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400 border border-green-500/30" : "bg-green-100 text-green-600") : (widgetTheme === "trustlayer" ? "bg-white/10 text-gray-500 border border-white/10" : "bg-gray-100 text-gray-400")}`}>{s.done?"✓":i+1}</div>
+                        <span className={`${s.done ? (widgetTheme === "trustlayer" ? "text-green-300 line-through" : "text-green-700 line-through") : (widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700")}`}>{s.step}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`text-center text-[10px] mt-2 ${widgetTheme === "trustlayer" ? "text-violet-300/70" : "text-gray-500"}`}>2 of 5 complete · 40%</div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "mls-search" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>MLS Search</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{addr:"742 Oak Lane",price:"$425,000",bed:"3 bd · 2 ba",sqft:"1,850 sq ft"},{addr:"1501 Maple Dr",price:"$289,900",bed:"2 bd · 1 ba",sqft:"1,200 sq ft"},{addr:"88 River Rd",price:"$675,000",bed:"4 bd · 3 ba",sqft:"2,800 sq ft"}].map((p,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-teal-500/15" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-teal-300" : "text-gray-800"}`}>{p.addr}</div>
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600"}`}>{p.price}</div>
+                        </div>
+                        <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{p.bed} · {p.sqft}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-lead-scoring" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-rose-400 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Lead Scoring</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{name:"Sarah Chen",score:94,label:"Hot"},{name:"Marcus Webb",score:71,label:"Warm"},{name:"Lisa Park",score:42,label:"Cold"}].map((l,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black ${l.score>80 ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600") : l.score>60 ? (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-600") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-500")}`}>{l.score}</div>
+                        <div className="flex-1">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{l.name}</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{l.label} Lead</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "welcome-guide" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Welcome Guide</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 text-center ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-sky-500/10 to-cyan-500/10 border border-sky-500/20" : "bg-sky-50 border border-sky-200"}`}>
+                    <div className="text-2xl mb-1">👋</div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-700"}`}>Welcome, Alex!</div>
+                    <div className={`text-[9px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Let's get you set up in 3 steps</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{step:"Connect your account",done:true},{step:"Set your preferences",done:false},{step:"Invite your team",done:false}].map((s,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-xs ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] ${s.done ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600") : (widgetTheme === "trustlayer" ? "bg-white/10 text-gray-500" : "bg-gray-100 text-gray-400")}`}>{s.done?"✓":i+1}</div>
+                        <span className={`${s.done ? (widgetTheme === "trustlayer" ? "text-green-300" : "text-green-700") : (widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700")}`}>{s.step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "voice-estimate" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-fuchsia-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Voice Estimate</div>
+                  </div>
+                  <div className={`flex-1 flex flex-col items-center justify-center rounded-lg p-4 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-purple-500/20" : "bg-purple-50 border border-purple-200"}`}>
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-purple-500/30 to-fuchsia-500/30 border-2 border-purple-400/40 shadow-lg shadow-purple-500/20 animate-pulse" : "bg-purple-100 border-2 border-purple-300"}`}>
+                      <span className="text-2xl">🎙️</span>
+                    </div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-purple-700"}`}>Tap to speak your estimate</div>
+                    <div className={`text-[9px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>"Paint the master bedroom eggshell white"</div>
+                    <div className={`mt-3 px-4 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Estimated: $1,200 — $1,800</div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "calculator-hub" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-slate-400 to-gray-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Calculator Hub</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 flex-1">
+                    {[{name:"ROI",icon:"📈",val:"+247%"},{name:"Loan",icon:"💰",val:"$1,842/mo"},{name:"Tax",icon:"📋",val:"$12,400"},{name:"Tip",icon:"🧾",val:"$18.00"},{name:"BMI",icon:"⚖️",val:"24.1"},{name:"Convert",icon:"🔄",val:"€94.20"}].map(c=>(
+                      <div key={c.name} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5 hover:bg-white/10" : "bg-white border hover:bg-gray-50"} transition-colors cursor-pointer`}>
+                        <div className="text-lg">{c.icon}</div>
+                        <div className={`text-[9px] font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{c.name}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{c.val}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "media-collections" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Collections</div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5 mb-2">
+                    {[
+                      {name:"Logos",count:24,color:"from-cyan-500/30 to-blue-500/30"},
+                      {name:"Photos",count:156,color:"from-green-500/30 to-emerald-500/30"},
+                      {name:"Icons",count:89,color:"from-purple-500/30 to-violet-500/30"},
+                    ].map(c=>(
+                      <div key={c.name} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${c.color} border border-white/10` : "bg-white border"}`}>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-white" : "text-gray-800"}`}>{c.count}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{c.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-4 gap-1 flex-1">
+                    {Array.from({length:8}).map((_,i)=>(
+                      <div key={i} className={`rounded-md ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${["from-cyan-500/20 to-blue-600/20","from-purple-500/20 to-pink-500/20","from-amber-500/20 to-orange-500/20","from-green-500/20 to-teal-500/20"][i%4]}` : "bg-gray-100"}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "subscription-manager" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Subscriptions</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{name:"Pro Plan",price:"$29/mo",status:"Active",next:"Mar 14"},{name:"Storage Add-on",price:"$9/mo",status:"Active",next:"Mar 14"},{name:"API Access",price:"$49/mo",status:"Cancelled",next:"—"}].map((s,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-gray-800"}`}>{s.name}</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Next: {s.next}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-white" : "text-gray-900"}`}>{s.price}</div>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${s.status === "Active" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600")}`}>{s.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "work-order-system" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-slate-400 to-zinc-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Work Orders</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{id:"WO-4821",title:"Brake Pad Replace",tech:"Mike R.",status:"In Progress",priority:"High"},{id:"WO-4820",title:"Oil Change + Filter",tech:"Sarah L.",status:"Completed",priority:"Normal"},{id:"WO-4819",title:"Transmission Diag",tech:"James K.",status:"Pending",priority:"Urgent"}].map((wo,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className={`text-[9px] font-mono ${widgetTheme === "trustlayer" ? "text-slate-400" : "text-gray-400"}`}>{wo.id}</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${wo.priority === "Urgent" ? (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600") : wo.priority === "High" ? (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-700") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-600")}`}>{wo.priority}</span>
+                        </div>
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{wo.title}</div>
+                        <div className="flex items-center justify-between mt-0.5">
+                          <span className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{wo.tech}</span>
+                          <span className={`text-[8px] font-semibold ${wo.status === "Completed" ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : wo.status === "In Progress" ? (widgetTheme === "trustlayer" ? "text-blue-400" : "text-blue-600") : (widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600")}`}>{wo.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "shop-onboarding" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Shop Onboarding</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-indigo-300/70" : "text-gray-500"}`}>Step 3 of 6</div>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[1,2,3,4,5,6].map(s=>(
+                      <div key={s} className={`flex-1 h-1.5 rounded-full ${s<=3 ? (widgetTheme === "trustlayer" ? "bg-indigo-400" : "bg-indigo-500") : (widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200")}`} />
+                    ))}
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-indigo-500/20" : "bg-indigo-50 border border-indigo-200"}`}>
+                    <div className={`text-xs font-semibold mb-2 ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-indigo-700"}`}>Business Hours</div>
+                    {["Mon–Fri: 8:00 AM — 6:00 PM","Saturday: 9:00 AM — 3:00 PM","Sunday: Closed"].map((h,i)=>(
+                      <div key={i} className={`text-[10px] py-1 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-600"}`}>{h}</div>
+                    ))}
+                  </div>
+                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30" : "bg-indigo-600 text-white"}`}>Continue to Step 4</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "b2b-ordering" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>B2B Orders</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{client:"AutoZone #847",items:12,total:"$2,340",status:"Processing"},{client:"NAPA Auto Parts",items:8,total:"$1,567",status:"Shipped"},{client:"O'Reilly #221",items:24,total:"$4,890",status:"Pending"}].map((o,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-cyan-500/10" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-gray-800"}`}>{o.client}</div>
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600"}`}>{o.total}</div>
+                        </div>
+                        <div className="flex items-center justify-between mt-0.5">
+                          <span className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{o.items} items</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-semibold ${o.status === "Shipped" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : o.status === "Processing" ? (widgetTheme === "trustlayer" ? "bg-blue-500/20 text-blue-400" : "bg-blue-100 text-blue-700") : (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-700")}`}>{o.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "loyalty-rewards" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Loyalty Rewards</div>
+                  </div>
+                  <div className={`rounded-lg p-3 text-center mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border border-amber-500/20" : "bg-amber-50 border border-amber-200"}`}>
+                    <div className={`text-3xl font-black ${widgetTheme === "trustlayer" ? "text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.4)]" : "text-amber-600"}`}>2,450</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-amber-300/70" : "text-amber-600"}`}>Points Available</div>
+                    <div className={`text-[8px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Gold Tier · $24.50 value</div>
+                  </div>
+                  <div className="space-y-1">
+                    {[{reward:"Free Oil Change",pts:500},{reward:"$25 Service Credit",pts:1000},{reward:"Full Detail",pts:2000}].map((r,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{r.reward}</span>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600"}`}>{r.pts} pts</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "weather-radar" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Weather Radar</div>
+                  </div>
+                  <div className={`flex-1 rounded-xl overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-[#0a1628] border border-sky-500/20" : "bg-gray-100 border"}`}>
+                    <div className="absolute inset-0">
+                      <div className={`absolute inset-0 ${widgetTheme === "trustlayer" ? "bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.15),transparent_70%)]" : ""}`} />
+                      <svg viewBox="0 0 200 150" className="w-full h-full opacity-30" preserveAspectRatio="xMidYMid slice">
+                        <path d="M0,100 Q50,80 100,90 T200,85 V150 H0Z" fill={widgetTheme === "trustlayer" ? "rgba(14,165,233,0.15)" : "rgba(14,165,233,0.1)"} />
+                        <path d="M0,120 Q60,110 120,115 T200,105 V150 H0Z" fill={widgetTheme === "trustlayer" ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.07)"} />
+                        <circle cx="60" cy="50" r="25" fill={widgetTheme === "trustlayer" ? "rgba(34,197,94,0.2)" : "rgba(34,197,94,0.15)"} />
+                        <circle cx="65" cy="48" r="18" fill={widgetTheme === "trustlayer" ? "rgba(234,179,8,0.25)" : "rgba(234,179,8,0.15)"} />
+                        <circle cx="68" cy="46" r="8" fill={widgetTheme === "trustlayer" ? "rgba(239,68,68,0.35)" : "rgba(239,68,68,0.2)"} />
+                        <circle cx="140" cy="70" r="20" fill={widgetTheme === "trustlayer" ? "rgba(34,197,94,0.15)" : "rgba(34,197,94,0.1)"} />
+                        <circle cx="145" cy="68" r="10" fill={widgetTheme === "trustlayer" ? "rgba(234,179,8,0.2)" : "rgba(234,179,8,0.1)"} />
+                      </svg>
+                      <div className={`absolute top-2 left-2 flex items-center gap-1 px-2 py-1 rounded-md text-[9px] font-bold ${widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse" : "bg-red-100 text-red-600"}`}>⚠ Severe Thunderstorm Warning</div>
+                      <div className={`absolute top-2 right-2 px-2 py-1 rounded-md text-[8px] ${widgetTheme === "trustlayer" ? "bg-black/40 text-sky-300 backdrop-blur-sm" : "bg-white/80 text-gray-600"}`}>LIVE</div>
+                      <div className={`absolute bottom-2 left-2 text-[8px] ${widgetTheme === "trustlayer" ? "text-sky-300/60" : "text-gray-500"}`}>Updated 2 min ago</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1.5 mt-2">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-green-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Light</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Moderate</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-red-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Heavy</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "provably-fair" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Provably Fair</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20" : "bg-violet-50 border border-violet-200"}`}>
+                    <div className={`text-[9px] font-mono mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Server Seed Hash</div>
+                    <div className={`text-[8px] font-mono break-all ${widgetTheme === "trustlayer" ? "text-violet-300/80" : "text-violet-600"}`}>e3b0c44298fc1c149afbf4c8996fb924</div>
+                    <div className={`text-[9px] font-mono mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Result</div>
+                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-violet-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]" : "text-violet-600"}`}>🎲 4</div>
+                  </div>
+                  <div className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-green-500/15 text-green-400 border border-green-500/20" : "bg-green-100 text-green-700"}`}>
+                    <span>✓</span> Verified Fair — SHA-256
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "code-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Code Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden font-mono text-[9px] ${widgetTheme === "trustlayer" ? "bg-[#0d1117] border border-blue-500/20" : "bg-gray-900 border"}`}>
+                    <div className={`flex items-center gap-1.5 px-3 py-1.5 border-b ${widgetTheme === "trustlayer" ? "border-blue-500/15 bg-white/5" : "border-gray-700 bg-gray-800"}`}>
+                      <div className="w-2 h-2 rounded-full bg-red-500" />
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
+                      <span className={`ml-2 text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>app.tsx</span>
+                    </div>
+                    <div className="p-2 space-y-0.5">
+                      <div><span className="text-purple-400">import</span> <span className="text-cyan-300">React</span> <span className="text-purple-400">from</span> <span className="text-green-300">'react'</span>;</div>
+                      <div />
+                      <div><span className="text-purple-400">function</span> <span className="text-yellow-300">App</span>() {"{"}</div>
+                      <div>  <span className="text-purple-400">return</span> (</div>
+                      <div>    &lt;<span className="text-blue-300">div</span> <span className="text-cyan-200">className</span>=<span className="text-green-300">"app"</span>&gt;</div>
+                      <div>      &lt;<span className="text-yellow-300">Header</span> /&gt;</div>
+                      <div>      &lt;<span className="text-yellow-300">Main</span> /&gt;</div>
+                      <div>    &lt;/<span className="text-blue-300">div</span>&gt;</div>
+                      <div>  );</div>
+                      <div>{"}"}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "receipt-scanner" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Receipt Scanner</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-red-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`text-[9px] font-semibold mb-2 ${widgetTheme === "trustlayer" ? "text-red-300" : "text-gray-700"}`}>Extracted Data</div>
+                    {[{label:"Vendor",val:"AutoZone #1247"},{label:"Date",val:"Feb 14, 2026"},{label:"Subtotal",val:"$127.45"},{label:"Tax",val:"$10.20"},{label:"Total",val:"$137.65"}].map(r=>(
+                      <div key={r.label} className={`flex justify-between py-1 text-[10px] border-b last:border-0 ${widgetTheme === "trustlayer" ? "border-white/5 text-gray-300" : "border-gray-100 text-gray-700"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{r.label}</span>
+                        <span className="font-semibold">{r.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30" : "bg-red-600 text-white"}`}>Scan Another</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "recall-checker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Recall Checker</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 text-center ${widgetTheme === "trustlayer" ? "bg-red-500/10 border border-red-500/20" : "bg-red-50 border border-red-200"}`}>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-red-300" : "text-red-700"}`}>2019 Toyota Camry LE</div>
+                    <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>VIN: 4T1B11HK5KU******</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{title:"Fuel Pump Module",severity:"Safety",date:"Nov 2024",status:"Open"},{title:"Brake Light Switch",severity:"Safety",date:"Jun 2023",status:"Completed"}].map((r,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <span className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{r.title}</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${r.status === "Open" ? (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600") : (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600")}`}>{r.status}</span>
+                        </div>
+                        <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{r.severity} · {r.date}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "health-passport" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Health Passport</div>
+                  </div>
+                  <div className={`rounded-xl p-3 text-center mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20" : "bg-emerald-50 border border-emerald-200"}`}>
+                    <div className={`w-16 h-16 mx-auto rounded-xl flex items-center justify-center mb-2 ${widgetTheme === "trustlayer" ? "bg-emerald-500/20 border border-emerald-400/30 shadow-lg shadow-emerald-500/20" : "bg-white border-2 border-emerald-300"}`}>
+                      <span className="text-3xl">📱</span>
+                    </div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-emerald-300" : "text-emerald-700"}`}>John Doe — Verified</div>
+                    <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>ID: HP-2026-04821</div>
+                  </div>
+                  <div className="space-y-1">
+                    {[{label:"COVID-19 Vaccine",status:"✓ Complete"},{label:"TB Screening",status:"✓ Cleared"},{label:"Flu Shot 2026",status:"⏳ Due Mar 1"}].map((v,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{v.label}</span>
+                        <span className={`font-semibold ${v.status.includes("✓") ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : (widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600")}`}>{v.status}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 

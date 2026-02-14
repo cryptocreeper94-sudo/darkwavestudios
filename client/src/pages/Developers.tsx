@@ -64,7 +64,7 @@ const developerProducts = [
   {
     id: "hub",
     title: "Trust Layer Hub",
-    description: "Blockchain-verified widget marketplace with 50 embeddable components for analytics, booking, lead capture, media editing, AI tools, and more.",
+    description: "Blockchain-verified widget marketplace with 60 embeddable components for analytics, booking, lead capture, media editing, AI tools, and more.",
     icon: Boxes,
     href: "/hub",
     gradient: "from-cyan-500 to-blue-600",

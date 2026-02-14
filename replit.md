@@ -44,7 +44,7 @@ Admin routes are protected using an `X-Admin-Key` header middleware.
 Manages business documents such as the Business Plan, Executive Summary, Roadmap, Terms of Service, and Privacy Policy.
 
 ### Trust Layer Hub
-A blockchain-verified code marketplace offering 50 embeddable widgets with live previews and full code access.
+A blockchain-verified code marketplace offering 60 embeddable widgets with live previews and full code access.
 
 ### AI Agent Marketplace
 An external platform (`https://dwsc.io/ai-agents`) for creating, deploying, and discovering AI agents, integrated with Guardian AI for certification.
