@@ -186,7 +186,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustvault",
     name: "TrustVault",
     tagline: "Your Media. Secured. Organized. Yours.",
-    description: "Multi-tenant media vault and editing platform. Image editor with filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 92 API endpoints across 21 database tables.",
+    description: "Universal IP storage and media management platform for creators, families, and teams. Image editor with filters, drawing, stickers, and text overlays. Audio editor with 3-band EQ, reverb, and noise gate. Video editor with color grading and frame capture. Merge/combine tool for collages and concatenation. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), 4 AI media tools, collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 132 API endpoints across 26 database tables. 105,983 lines of production code.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
@@ -332,7 +332,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.99 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

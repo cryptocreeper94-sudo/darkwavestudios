@@ -219,7 +219,7 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Multi-tenant media vault with image/audio/video editors, Spinny AI agent, and 4-tier subscriptions",
+    description: "Universal media vault with image/audio/video editors, Spinny AI agent, 4 AI tools, and 132 API endpoints",
     tech: ["Media", "AI", "Editors", "PWA"],
     image: "/ecosystem/trustvault.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",

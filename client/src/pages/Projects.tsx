@@ -205,7 +205,7 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Multi-tenant media vault and editing platform. Image editor with crop, filters, drawing, and text overlays. Audio editor with waveform trim, EQ, and effects. Video editor with color grading and frame capture. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), collections, Signal Chat, 4-tier Stripe subscriptions, and PWA. 29,816 lines of code across 137 files with 92 API endpoints and 21 database tables.",
+    description: "Universal IP storage and media management platform. Image/audio/video/merge editors, Spinny AI agent (GPT-5.1 + ElevenLabs TTS), 4 AI media tools, collections system, Signal Chat, 4-tier Stripe subscriptions, multi-tenant family vault, and PWA. 105,983 lines of code across 187 files with 132 API endpoints and 26 database tables.",
     tech: ["Media Vault", "AI Agent", "Editors", "PWA"],
     image: trustLayerImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",

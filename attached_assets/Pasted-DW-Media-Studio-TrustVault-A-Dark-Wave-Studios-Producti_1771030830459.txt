@@ -1,0 +1,113 @@
+DW Media Studio (TrustVault)
+A Dark Wave Studios Production
+Part of the TrustLayer Ecosystem
+
+What It Is:
+DW Media Studio is a universal IP storage and media management platform built for creators, families, and teams. It serves as a secure digital vault where users can upload, organize, edit, and preview videos, audio, images, and documents -- all from one place. Designed as part of the larger Dark Wave Studios / TrustLayer ecosystem, it connects to blockchain identity tracking, cross-app single sign-on, and ecosystem-wide tools.
+
+By the Numbers:
+
+102,539 lines of code (TypeScript + TSX)
+3,444 lines of CSS (custom styling)
+105,983 total lines of source code
+132 API endpoints (57 GET, 53 POST, 8 PATCH, 14 DELETE)
+16 frontend pages
+19 custom components + 47 UI components
+26 database tables (PostgreSQL)
+82 production dependencies, 23 dev dependencies
+13 backend route modules
+8 pre-seeded user accounts
+Platform & Tech Stack:
+
+Frontend: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, shadcn/ui (Radix), Wouter routing, TanStack React Query
+Backend: Node.js, Express 5, Drizzle ORM, PostgreSQL (Neon-backed), WebSocket (ws)
+Storage: Replit Object Storage (Google Cloud Storage) with presigned URL uploads via Uppy
+Payments: Stripe (Checkout, Customer Portal, Webhooks)
+AI: OpenAI (gpt-4.1-mini for media tools, gpt-5.1 for Spinny agent)
+Voice: ElevenLabs TTS (Sarah voice) with OpenAI audio fallback (Nova voice)
+Email: Resend transactional email with premium HTML templates
+Auth: Dual system -- custom session-based auth + JWT TrustLayer SSO
+PWA: Full Progressive Web App with service worker and offline caching
+Core Features:
+
+Multi-Tenant Media Vault -- Each user gets their own isolated media space. Upload videos, audio, images, and documents with drag-and-drop or file picker. Presigned URL uploads go directly to cloud storage for speed and security.
+
+Multi-User Family Access -- 8 pre-configured accounts:
+
+Jason (admin/owner) -- master access to all tenant spaces
+Madeline, Natalie, Avery (daughters)
+Jennifer (sister)
+Will (nephew), Carley (niece)
+Invite system for onboarding new family members
+4-Tier Subscription System (Stripe):
+
+Free -- Basic access
+Personal -- Monthly/annual billing
+Pro -- Monthly/annual billing
+Studio -- Monthly/annual billing
+Full Stripe Checkout, Customer Portal for self-service management
+Automated email notifications: purchase confirmation, plan changes, cancellation, payment failures
+Media Editing Suite:
+
+Image Editor -- Crop, rotate, flip, resize, filters, full color grading (brightness, contrast, saturation, blur, hue, temperature, vignette, sharpen), text overlays (draggable, font/size/color/bold), freehand drawing and annotation (brush, eraser, color, thickness), stickers and shapes (10 types, draggable, scalable)
+Audio Editor -- Trim, fade in/out, volume control, 3-band EQ (bass/mid/treble), reverb, noise gate
+Video Editor -- Trim, full color grading (brightness, contrast, saturation, hue, temperature, vignette), frame capture
+Merge/Combine Tool -- Guided workflow for image collages, audio concatenation, video concatenation
+All editors save results as new media items
+Spinny AI Agent -- A vinyl record mascot with googly eyes and a smiley face. Lives as a floating side tab that opens into a full chat panel. Powered by OpenAI gpt-5.1 with streaming responses. Tenant-scoped conversations with full media vault awareness. Voice output via ElevenLabs TTS with auto-speak toggle and per-message speak buttons.
+
+4 AI-Powered Media Tools:
+
+AI Auto-Tag on Upload -- Vision-based image analysis generates tags and descriptions automatically
+AI Smart Search -- Natural language search ("beach photos," "concert videos") matches against metadata
+AI Auto-Enhance -- One-click optimal color grading with smooth animated application
+AI Caption Generator -- Vision-powered descriptive captions for any media item
+Smart Organization:
+
+Collections system for grouping media
+Timeline view with grid/timeline toggle
+Multiple sort options and date range filtering
+Bulk selection with batch actions
+Category filtering and tagging
+Signal Chat -- Real-time ecosystem-wide messaging at /chat. JWT-authenticated via TrustLayer SSO. Channel-based with WebSocket delivery, typing indicators, presence tracking, and reply threading. 6 default channels: general, announcements, darkwavestudios-support, garagebot-support, tlid-marketing, guardian-ai. Future vision: standalone Telegram/Discord-style platform.
+
+AI-Driven Blog System -- Public and admin interfaces for SEO-optimized content with AI content generation via OpenAI.
+
+Ecosystem Integrations:
+
+TrustLayer SSO -- Cross-app single sign-on with Trust Layer ID generation, shared JWT authentication across all ecosystem apps
+ORBIT Financial Hub -- Connected to ORBIT Staffing OS for financial statements, transaction reporting, worker/contractor sync, HMAC-authenticated webhooks
+DarkWave Studio API -- External API for DarkWave Studios integration with media access, project management, editor embed tokens, CORS-whitelisted, rate-limited (60 req/min)
+Ecosystem API -- Inter-service API with HMAC authentication, tenant scoping, project management, webhook callbacks with retry
+UI/UX Design:
+
+Premium dark-mode-first design
+Glassmorphism effects throughout (154+ instances)
+Custom fonts: Outfit (display) + Plus Jakarta Sans (body)
+Framer Motion animations and micro-interactions
+Skeleton loading states, smooth transitions, hover effects
+Card glow effects, shimmer loading, theme gradients
+Responsive grid layouts
+PWA-ready with native splash screen
+Security:
+
+Bcrypt password hashing
+Session-based authentication with PostgreSQL session store
+JWT-based cross-app SSO (HS256, 7-day expiry)
+Authenticated file uploads (presigned URLs require login)
+HMAC-signed ecosystem webhooks
+All database queries through Drizzle ORM (no raw SQL)
+CORS restricted to whitelisted origins
+No exposed secrets or API keys in client code
+Contact / Ecosystem:
+
+Dark Wave Studios: darkwavestudios.io
+Platform: TrustLayer Ecosystem
+Developer: Jason (admin/owner)
+That's the full catalog description. Let me know if you want me to adjust the format, add pricing details, or include anything else.
+
+
+Scroll to latest
+
+Make, test, iterate…
+
