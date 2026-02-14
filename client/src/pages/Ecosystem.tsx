@@ -383,7 +383,7 @@ export default function Ecosystem() {
         <section className="text-center mb-16 lg:mb-24">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Sparkles className="w-4 h-4" />
-            18 Connected Applications
+            19 Connected Applications
           </div>
           <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
             The DarkWave{" "}
@@ -401,7 +401,7 @@ export default function Ecosystem() {
                 </div>
               ))}
             </div>
-            <span className="text-sm text-muted-foreground self-center">+14 more apps</span>
+            <span className="text-sm text-muted-foreground self-center">+15 more apps</span>
           </div>
         </section>
 
