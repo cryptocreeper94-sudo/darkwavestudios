@@ -70,7 +70,7 @@ const projects = [
     tech: ["Blockchain", "Identity", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://dwtl.io"
+    url: "https://dwsc.io"
   },
   {
     id: 3,

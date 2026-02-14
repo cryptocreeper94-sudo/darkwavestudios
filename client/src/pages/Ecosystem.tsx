@@ -22,18 +22,18 @@ interface EcosystemApp {
 const ecosystemApps: EcosystemApp[] = [
   {
     id: "trust-layer",
-    name: "DarkWave Trust Layer",
-    tagline: "The Trust Infrastructure for the AI Economy",
-    description: "High-performance Layer 1 Proof-of-Authority blockchain providing verified identity, AI agent certification, and transparent audit trails.",
+    name: "Trust Layer",
+    tagline: "The Coordinated Trust Layer",
+    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) token with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge, staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 672,085 lines across 5 interconnected PWAs, 743 API endpoints, 289 database tables.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://dwtl.io",
+    url: "https://dwsc.io",
     category: "core"
   },
   {
     id: "trust-shield",
-    name: "TrustShield",
-    tagline: "Guardian Shield Security",
-    description: "24/7 continuous security monitoring for enterprise blockchain operations. Real-time threat detection and response.",
+    name: "Guardian Shield / TrustShield",
+    tagline: "The World's First AI Agent Certification System",
+    description: "Verify, certify, and protect autonomous AI agents across Security, Transparency, Reliability, and Compliance domains. Guardian Certification Program, continuous enterprise monitoring, public certification registry, and Guardian AI registry for autonomous agents.",
     image: "/ecosystem/trust-shield.png",
     url: "https://trustshield.tech",
     category: "security"
@@ -166,11 +166,11 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "chronicles",
-    name: "Chronicles",
-    tagline: "You Are the Character. History Is the World.",
-    description: "Historically-grounded AI life simulation spanning 7 epochs from the Stone Age to the 20th century. GPT-4o NPCs with 5-axis emotion, Choice Echoes narrative system, faction politics, the 7 Sigils, estate building, voice cloning, and blockchain Chronicle Proofs. No moral judgment, no end state — persistent world where every choice echoes forward.",
+    name: "DarkWave Chronicles",
+    tagline: "Not a Game — a Life.",
+    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history.",
     image: "/ecosystem/chronicles.jpg",
-    url: "https://yourlegacy.io",
+    url: "https://darkwavegames.io",
     category: "gaming"
   },
   {
@@ -190,6 +190,24 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
+  },
+  {
+    id: "guardian-scanner",
+    name: "Guardian Scanner",
+    tagline: "AI-Powered Token Analysis & Pulse Scoring",
+    description: "Real-time multi-chain cryptocurrency token analysis scanner with Pulse predictive scoring. Honeypot detection, whale analysis, ML price predictions, and Strike Agent buy/watch/avoid recommendations. Covers Solana, Ethereum, BSC, Base, Arbitrum, Polygon, and more. Powered by DexScreener data with proprietary Guardian Score algorithm.",
+    image: "/ecosystem/guardian-scanner.png",
+    url: "https://dwsc.io/guardian-scanner",
+    category: "trading"
+  },
+  {
+    id: "signal-chat",
+    name: "Signal Chat",
+    tagline: "Connect Across Timelines",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all ecosystem apps.",
+    image: "/ecosystem/signal-chat.png",
+    url: "https://dwsc.io",
+    category: "social"
   }
 ];
 
@@ -202,6 +220,7 @@ const categories = [
   { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" },
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
+  { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 
@@ -313,7 +332,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.50 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.93 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

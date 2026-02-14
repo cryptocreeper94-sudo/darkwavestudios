@@ -134,19 +134,19 @@ const projects = [
   },
   {
     id: 12,
-    title: "DarkWave Trust Layer",
-    description: "Layer 1 Proof-of-Authority blockchain providing verified identity, AI agent certification, and audit trails. 200K+ TPS, Guardian AI certification, Guardian Shield security, cross-chain bridge, DeFi suite, and Signal Chat.",
-    tech: ["Blockchain", "Identity", "DeFi", "Security"],
+    title: "Trust Layer",
+    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem. Native Signal (SIG) token, wallet, DEX/swap, cross-chain bridge, staking, NFT marketplace, presale, blockchain explorer, DAO governance, and business tenant portals. 672,085 lines across 5 PWAs, 743 endpoints, 289 tables.",
+    tech: ["Blockchain", "DeFi", "5 PWAs", "289 Tables"],
     image: trustLayerImg,
     gradient: "from-indigo-500/20 to-purple-600/20",
-    url: "https://dwtl.io",
+    url: "https://dwsc.io",
     category: "Blockchain"
   },
   {
     id: 13,
-    title: "TrustShield",
-    description: "24/7 continuous security monitoring and AI agent certification platform. Smart contract audits, penetration testing, vulnerability assessment, and Guardian Shield enterprise protection for blockchain operations.",
-    tech: ["Security", "Monitoring", "Auditing", "Enterprise"],
+    title: "Guardian Shield / TrustShield",
+    description: "The world's first AI agent certification system. Verify, certify, and protect autonomous AI agents across Security, Transparency, Reliability, and Compliance domains. Guardian Certification Program, continuous enterprise monitoring, and public certification registry.",
+    tech: ["AI Certification", "Security", "Compliance", "Registry"],
     image: trustShieldImg,
     gradient: "from-teal-500/20 to-cyan-600/20",
     url: "https://trustshield.tech",
@@ -184,12 +184,12 @@ const projects = [
   },
   {
     id: 17,
-    title: "Chronicles",
-    description: "Immersive blockchain gaming experience powered by the Trust Layer ecosystem. Build your legacy in a dynamic world of strategy, adventure, and on-chain progression.",
-    tech: ["Gaming", "Blockchain", "Strategy", "Trust Layer"],
+    title: "DarkWave Chronicles",
+    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. 3 playable eras (Modern, Medieval, Wild West), 15 factions, 75 situations, 9 NPCs with persistent relationship scores, AI-generated infinite daily situations, voice interaction, and estate building.",
+    tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
     image: trustLayerImg,
     gradient: "from-amber-500/20 to-red-600/20",
-    url: "https://yourlegacy.io",
+    url: "https://darkwavegames.io",
     category: "Gaming"
   },
   {
@@ -211,6 +211,26 @@ const projects = [
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app",
     category: "Media"
+  },
+  {
+    id: 20,
+    title: "Guardian Scanner",
+    description: "AI-powered cryptocurrency token analysis scanner with Pulse predictive scoring. Real-time multi-chain safety checks, honeypot detection, whale analysis, ML price predictions, and Strike Agent buy/watch/avoid recommendations. Covers 12 chains including Solana, Ethereum, BSC, Base, Arbitrum, and Polygon.",
+    tech: ["AI Analysis", "Multi-Chain", "ML Predictions", "Safety"],
+    image: trustLayerImg,
+    gradient: "from-green-500/20 to-emerald-600/20",
+    url: "https://dwsc.io/guardian-scanner",
+    category: "FinTech"
+  },
+  {
+    id: 21,
+    title: "Signal Chat",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 20 ecosystem apps.",
+    tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
+    image: trustLayerImg,
+    gradient: "from-purple-500/20 to-pink-600/20",
+    url: "https://dwsc.io",
+    category: "Social"
   }
 ];
 
