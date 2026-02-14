@@ -659,7 +659,7 @@ export default function Home() {
             <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
                 <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">2.04M+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">2.07M+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
               </div>
             </AnimatedElement>
@@ -668,7 +668,7 @@ export default function Home() {
             <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
               <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">20</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">22</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
               </div>
             </AnimatedElement>
