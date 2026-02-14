@@ -96,7 +96,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "tradeworks-ai",
     name: "TradeWorks AI",
     tagline: "One Platform. Eight Trades. Infinite Possibilities.",
-    description: "Comprehensive field toolkit for 8 trade industries. AI-powered estimation, GPS crew tracking, and automated scheduling.",
+    description: "Mobile field tools with 85+ professional calculators, voice-to-estimate, and weather radar. 7 pages with dedicated PWA manifest. 11,231 lines of production code.",
     image: "/ecosystem/tradeworks-ai.png",
     url: "https://tradeworksai.io",
     category: "trades"
@@ -105,16 +105,16 @@ const ecosystemApps: EcosystemApp[] = [
     id: "paint-pros",
     name: "PaintPros.io",
     tagline: "Your Gateway to the Complete Trade Business System",
-    description: "Lead generation and marketing hub for TradeWorks AI. Connects contractors to the 8-trade field toolkit and Trust Layer ecosystem.",
+    description: "Flagship trade services platform with estimating, CRM, crew management, marketing automation, payments, AI tools, customer portals, and weather system. 74 pages with 42,415 lines of frontend code plus 87,420-line shared backend powering TradeWorks AI, NashPaintPros, and TLID.io. 152,149 combined lines across 96 pages.",
     image: "/ecosystem/paint-pros.png",
     url: "https://paintpros.io",
     category: "trades"
   },
   {
     id: "nash-paint-pros",
-    name: "Nashville Painting Professionals",
+    name: "NashPaintPros.io",
     tagline: "Nashville's Trusted Painting Professionals",
-    description: "Live demo for TradeWorks AI painting vertical. Fully functional business site with instant estimates and booking wizard.",
+    description: "Ecosystem hub connecting 20+ platforms with affiliate tracking and lead generation. 4 pages with dedicated PWA manifest. 3,950 lines of production code.",
     image: "/ecosystem/nash-paint-pros.png",
     url: "https://nashpaintpros.io",
     category: "trades"
@@ -157,9 +157,9 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "tlid-io",
-    name: "TLId.io",
+    name: "TLID.io",
     tagline: "Automated Marketing That Works While You Work",
-    description: "TrustLayer Marketing automation platform with Meta Business Suite integration. 17 daily organic posts, smart ad boosting, multi-tenant support.",
+    description: "Self-service automated advertising for any business type. 5-step onboarding, organic posting, and ad campaigns. 11 pages with dedicated PWA manifest. 7,133 lines of production code.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "/marketing",
     category: "business"
@@ -332,7 +332,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.99 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

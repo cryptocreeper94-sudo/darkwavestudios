@@ -80,7 +80,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
               Own a Piece of the <span className="gradient-text">Trust Layer</span>
             </h3>
             <p className="text-sm text-muted-foreground mb-4 max-w-xl">
-              Signal is the native digital asset powering a 20-app ecosystem with 1.99M+ lines of production code. 
+              Signal is the native digital asset powering a 20-app ecosystem with 1.91M+ lines of production code. 
               Join early at $0.001/SIG before the price increases.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">

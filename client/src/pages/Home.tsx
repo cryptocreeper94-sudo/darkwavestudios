@@ -138,7 +138,7 @@ const projects = [
   {
     id: 10,
     title: "TradeWorks AI",
-    description: "Field toolkit for 8 trade industries with AI estimation and scheduling",
+    description: "Mobile field tools with 85+ professional calculators and voice-to-estimate",
     tech: ["AI", "Trades", "Estimation"],
     image: "/ecosystem/tradeworks-ai.png",
     gradient: "from-teal-500/20 to-cyan-600/20",
@@ -147,7 +147,7 @@ const projects = [
   {
     id: 11,
     title: "PaintPros.io",
-    description: "Lead generation hub connecting contractors to Trust Layer ecosystem",
+    description: "Flagship trade services platform with estimating, CRM, and 74 pages",
     tech: ["SaaS", "Leads", "Marketing"],
     image: "/ecosystem/paint-pros.png",
     gradient: "from-rose-500/20 to-pink-600/20",
@@ -155,8 +155,8 @@ const projects = [
   },
   {
     id: 12,
-    title: "Nashville Paint Pros",
-    description: "Live demo for TradeWorks AI with instant estimates and booking",
+    title: "NashPaintPros.io",
+    description: "Ecosystem hub connecting 20+ platforms with affiliate tracking",
     tech: ["Painting", "Estimates", "Booking"],
     image: "/ecosystem/nash-paint-pros.png",
     gradient: "from-violet-500/20 to-purple-600/20",
