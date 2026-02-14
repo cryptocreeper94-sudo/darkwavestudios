@@ -1,0 +1,277 @@
+=============================================================================
+TL DRIVER CONNECT / HAPPY EATS — COMPLETE PLATFORM DESCRIPTION
+Updated: February 13, 2026
+=============================================================================
+
+OVERVIEW
+--------
+TL Driver Connect (TLDC) is a nationwide web application designed to serve 
+commercial and everyday drivers, food truck vendors, and office users. It 
+provides a comprehensive suite of services including food delivery, parts 
+access, concierge services, mileage/expense tracking, entertainment, weather, 
+marketing tools, and a full affiliate referral program. The platform features 
+a multi-tenant franchise model with isolated data, branding, and configurations 
+per franchise, with Kathy's Nashville operation as the initial tenant.
+
+Happy Eats is the food truck ordering arm of the platform, operating as a 
+separate PWA with its own orange theme. It uses zone-based batch ordering in 
+the Nashville I-24 Corridor with an 11 AM cutoff and batch deliveries.
+
+Both platforms are part of the Trust Layer (dwtl.io) ecosystem, sharing a 
+unified affiliate ID system for cross-platform referral tracking and rewards.
+
+=============================================================================
+
+CODEBASE STATS
+--------------
+Total Lines of Code:        ~22,900
+Frontend Files:             138 files (~5,400 lines TypeScript/TSX)
+  - Page Components:        50 pages (~31,900 lines)
+  - UI Components:          71 components (~9,600 lines)
+Backend Files:              33 files (~8,800 lines)
+  - API Routes:             3,101 lines (server/routes.ts)
+  - Storage Layer:          1,199 lines (server/storage.ts)
+Shared Schema:              852 lines (shared/schema.ts)
+Database Tables:            41
+API Endpoints:              147 RESTful endpoints
+WebSocket Servers:          2 (Trucker Talk /ws, Signal Chat /ws/chat)
+Image Assets:               117 photorealistic images
+Ecosystem Modules:          5 (Trust Layer Hub, Orbit Financial, Blockchain, 
+                            Webhook Handler, Index)
+Client Routes:              55+ registered routes
+
+=============================================================================
+
+TECH STACK
+----------
+Frontend:
+  - React 19 with TypeScript
+  - Wouter (routing)
+  - TanStack React Query v5 (state management)
+  - Tailwind CSS v4 with custom 9-theme system
+  - shadcn/ui built on Radix UI
+  - Framer Motion (animations)
+  - Recharts (data visualization)
+  - Vite 7 (build tool)
+
+Backend:
+  - Express 5 on Node.js
+  - Drizzle ORM
+  - PostgreSQL (Neon-backed)
+  - JWT authentication
+  - bcrypt password hashing
+  - WebSocket (ws library)
+
+External Services:
+  - Stripe (payments)
+  - OpenAI API (AI-powered content generation)
+  - ElevenLabs (text-to-speech)
+  - Replit Object Storage (file uploads)
+  - Solana blockchain (trust stamps)
+  - Trust Layer Hub API (ecosystem sync)
+  - Orbit Financial Hub (financial services)
+
+=============================================================================
+
+COMPLETE FEATURE LIST
+---------------------
+
+1. ORDER FLOW & DELIVERY
+   - Zone-based batch ordering (Nashville I-24 Corridor)
+   - 11 AM daily cutoff with batch deliveries
+   - End-to-end order management sandbox with customer, vendor, driver, 
+     and admin views
+   - Multi-truck ordering per zone
+   - Real-time order status tracking
+   - Driver pickup and delivery assignment views
+   - Zone-specific customer ordering pages
+
+2. VENDOR SYSTEM
+   - Self-service vendor signup portal (no upfront fees, 15% commission model)
+   - Menu management (add/edit/delete items, availability toggles)
+   - Item customizations (add-ons, removals, special requests)
+   - Daily truck availability management
+   - Per-vendor order pages with customer-facing menus
+   - Vendor directory and search
+   - Health inspection certification support
+   - Vendor login and dashboard
+
+3. AFFILIATE REFERRAL PROGRAM
+   - Unified affiliate ID system across 3 platforms (tldc-, he-, tl- prefixes)
+   - $20 one-time bonus per qualified vendor referral
+   - Tiered ongoing revenue share:
+     * Starter tier (1-9 referrals): 1% of referred vendor's total order revenue
+     * Builder tier (10+ referrals): 2% of referred vendor's total order revenue
+   - Revenue share calculated on full vendor order value, not platform fee
+   - Anti-fraud activation requirements: 14 days active + $100 in fulfilled orders
+   - Reward status flow: held → pending → paid
+   - $20 minimum payout with optional $100/$200+ accumulation tiers
+   - Premium dashboard with bento grid, glassmorphism, 3D hover effects, 
+     haptic feedback, skeleton loaders, accordions, and carousels
+   - Trust Layer ecosystem cross-platform recognition
+   - Live API handoff specification for Trust Layer integration
+   - Referral code field integrated into vendor signup form
+
+4. HAPPY EATS KITCHEN
+   - Mobile commissary concept with pre-made meal browsing
+   - Kitchen menu management (admin)
+   - Customer-facing kitchen ordering page
+
+5. COMMAND CENTER (Admin Hub)
+   - PIN-protected central admin dashboard
+   - 8 categorized sections:
+     * Operations (Sandbox, Kitchen, Zone Orders, Driver Orders, Zone Map)
+     * Vendors (Portal, Login, Directory)
+     * Orders (Order Management, Tracking)
+     * Marketing (Marketing Hub, Flyer Editor, Materials, Blog, Brand Assets)
+     * Analytics (Web Analytics, Earnings Dashboard)
+     * Business & Franchise (Expense Tracker, Office, Franchise Info/Onboarding/Dashboard, Partner Agreements)
+     * Communication (Signal Chat, Trucker Talk)
+     * Account & Team (Affiliate Program, Account Settings, Operations Panel, Roadmap, CDL Directory)
+     * Developer Tools (Developer Portal, Driver Hub, Everyday Driver, Demo, Platform Info)
+   - Photorealistic card design with glow effects
+   - Category carousels with horizontal scrolling
+
+6. MARKETING SUITE
+   - AI-powered content generation (OpenAI integration)
+   - Marketing Hub with automated social media posting scheduler
+   - Post times: 8am, 10am, 12pm, 2pm, 4pm, 6pm, 8pm
+   - Flyer editor and food truck flyer generator
+   - Marketing materials library
+   - Brand assets management
+   - Blog system with post creation and management
+   - Social media integration (Facebook, Instagram, Twitter)
+
+7. COMMUNICATION
+   - Signal Chat: Encrypted team messaging with WebSocket (/ws/chat)
+     * 7 default channels
+     * JWT-based SSO authentication
+     * Real-time message delivery
+   - Trucker Talk: Open driver community chat with WebSocket (/ws)
+     * Driver-to-driver communication
+     * Tips sharing and community building
+
+8. BUSINESS TOOLS
+   - Mileage tracking with GPS integration
+   - Expense tracking and categorization
+   - Business Suite dashboard
+   - Office management dashboard
+   - Partner agreement management
+
+9. FRANCHISE SYSTEM
+   - Multi-tenant architecture with isolated data per franchise
+   - Franchise information and opportunities page
+   - Franchise onboarding workflow
+   - Franchise performance dashboard
+   - Territory management
+
+10. DRIVER FEATURES
+    - Commercial driver dashboard
+    - Everyday driver mileage/expense tracker
+    - CDL training program directory
+    - GPS finder
+    - Weather integration
+    - Driver order pickup/delivery views
+
+11. INVESTOR RELATIONS
+    - Dedicated investor page with market stats
+    - Revenue model breakdowns
+    - Product roadmap
+    - Interactive guided demo for new users
+
+12. ZONE MAP
+    - Interactive Middle Tennessee delivery zone map
+    - 10 defined delivery zones
+    - Real-time zone status indicators
+    - Location markers
+    - Admin controls for zone activation/deactivation
+
+13. ANALYTICS & TRACKING
+    - Web traffic analytics with event tracking
+    - User engagement metrics
+    - Revenue dashboards
+    - Earnings projections
+    - Real-time analytics data collection (POST /api/analytics/track)
+
+14. BILINGUAL SUPPORT
+    - Full English/Spanish language support
+    - Two-level language control:
+      * Global site-wide toggle
+      * Per-page overrides for shareable content
+    - Translation API with rate limiting (20 requests/minute)
+
+15. TRUST LAYER ECOSYSTEM INTEGRATION
+    - Trust Layer Hub API client for activity logging and worker sync
+    - Orbit Financial Hub for financial services sync
+    - Solana blockchain stamping for trust verification
+    - Ecosystem webhook handler
+    - Cross-platform affiliate ID recognition
+    - Live API endpoints for ecosystem data exchange
+
+16. AUTHENTICATION & SECURITY
+    - PIN-based login for owners/developers
+    - JWT tokens for Signal Chat SSO
+    - bcrypt password hashing
+    - Role-based access control (owner, developer, vendor)
+
+17. PLATFORM DESIGN
+    - Dark theme throughout (#0f172a, #1e293b backgrounds)
+    - Glassmorphism with backdrop-blur-xl
+    - Orange (#FF7849) and rose gradient branding
+    - Photorealistic card images with brightness-110 filter and gradient overlays
+    - Mobile-first responsive layouts
+    - Framer Motion animations throughout
+    - Separate PWA themes: Orange (Happy Eats), Cyan/Lavender/Navy (TL Driver Connect)
+
+=============================================================================
+
+DATABASE SCHEMA (41 Tables)
+---------------------------
+Core: users, drivers, locations, tenants, orders, restaurants, reviews
+Vendor: food_trucks, food_truck_menu_items, food_truck_availability, 
+        food_truck_customizations, vendor_signups
+Kitchen: kitchen_items
+Marketing: marketing_posts, marketing_images, meta_integrations, 
+           scheduled_posts, blog_posts
+Business: expenses, mileage_trips, franchise_territories
+Communication: chat_groups, signal_chat_channels, signal_chat_messages, 
+               signal_chat_users
+Partners: partner_agreements, partner_documents, restaurant_requests
+Affiliate: affiliates, referrals, rewards_ledger
+Analytics: analytics_events
+Ecosystem: ecosystem_apps
+CDL: cdl_programs, cdl_referrals
+Favorites: favorites
+Zones: zones
+Concierge: concierge_requests
+Blockchain: trust_stamps
+
+=============================================================================
+
+KEY API ENDPOINTS (147 total)
+-----------------------------
+Order Flow: CRUD for orders, zone orders, batch processing
+Vendors: Signup, login, menu management, directory, availability
+Affiliates: Register, dashboard, referrals, activation, format-spec, 
+            trust-layer-handoff
+Marketing: Posts, images, scheduling, blog, brand assets
+Analytics: Event tracking, dashboard data
+Kitchen: Menu items, customer browsing
+Franchise: Info, onboarding, dashboard
+Communication: Signal Chat channels/messages, Trucker Talk
+Business: Expenses, mileage trips
+Ecosystem: Status, webhooks, blockchain stamps, financial sync
+Translation: English/Spanish translation with rate limiting
+Auth: PIN login, JWT generation, session management
+
+=============================================================================
+
+DEPLOYMENT
+----------
+- Frontend bound to 0.0.0.0:5000
+- PostgreSQL database (Neon-backed) via DATABASE_URL
+- Replit Object Storage for file uploads
+- Environment secrets managed via Replit Secrets
+- Published via Replit Deployments
+
+=============================================================================
