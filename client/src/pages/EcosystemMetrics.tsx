@@ -4,7 +4,7 @@ import {
   ArrowLeft, Code2, FileCode2, Database, Globe, Layers, Terminal, 
   BarChart3, TrendingUp, Cpu, Shield, Sparkles, ChevronRight, 
   Server, Smartphone, Palette, Bot, Utensils, Truck, Heart, 
-  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search
+  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -559,16 +559,17 @@ export default function EcosystemMetrics() {
             Pure, hand-crafted source code powering the entire DarkWave ecosystem.
           </p>
           <p className="text-xs text-muted-foreground/50 mt-4">
-            Last updated: February 6, 2026 &middot; Excludes node_modules, build artifacts, and lock files
+            Last updated: February 14, 2026 &middot; Excludes node_modules, build artifacts, and lock files
           </p>
         </section>
 
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16 lg:mb-24">
+        <section className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-16 lg:mb-24">
           {[
             { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-cyan-400" },
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
+            { icon: LayoutGrid, label: "Widgets", value: 60, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
             <div key={i} className="relative group" data-testid={`stat-card-${i}`}>
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-white/[0.02] rounded-2xl" />

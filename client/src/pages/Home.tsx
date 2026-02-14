@@ -682,12 +682,12 @@ export default function Home() {
               </div>
             </AnimatedElement>
 
-            {/* Stat 4 - Satisfaction - hidden on mobile, shown on desktop */}
+            {/* Stat 4 - Widgets - hidden on mobile, shown on desktop */}
             <AnimatedElement delay={350} className="hidden lg:block lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-satisfaction">
-                <Star className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display text-foreground">100%</div>
-                <div className="text-muted-foreground text-sm">Satisfaction</div>
+              <div className="glass-card rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
+                <Layers className="w-8 h-8 text-primary mb-2" />
+                <div className="text-3xl font-bold font-display text-foreground">60</div>
+                <div className="text-muted-foreground text-sm">Widgets</div>
               </div>
             </AnimatedElement>
           </section>
