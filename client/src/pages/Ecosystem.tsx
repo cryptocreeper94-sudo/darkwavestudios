@@ -332,7 +332,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 20 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 21 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.91 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema
@@ -383,7 +383,7 @@ export default function Ecosystem() {
         <section className="text-center mb-16 lg:mb-24">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Sparkles className="w-4 h-4" />
-            19 Connected Applications
+            {ecosystemApps.length} Connected Applications
           </div>
           <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
             The DarkWave{" "}
@@ -401,7 +401,7 @@ export default function Ecosystem() {
                 </div>
               ))}
             </div>
-            <span className="text-sm text-muted-foreground self-center">+15 more apps</span>
+            <span className="text-sm text-muted-foreground self-center">+{ecosystemApps.length - 4} more apps</span>
           </div>
         </section>
 
