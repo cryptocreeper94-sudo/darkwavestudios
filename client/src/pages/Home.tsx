@@ -210,7 +210,7 @@ const projects = [
   {
     id: 18,
     title: "TrustHome",
-    description: "White-label real estate platform with Voice AI, CRM, blockchain doc vault, and 90+ API endpoints",
+    description: "White-label real estate platform with Voice AI, CRM, blockchain doc vault, and 103 API endpoints",
     tech: ["Real Estate", "Voice AI", "CRM", "PWA"],
     image: "/ecosystem/trusthome.png",
     gradient: "from-sky-500/20 to-indigo-600/20",

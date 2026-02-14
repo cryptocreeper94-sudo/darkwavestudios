@@ -195,7 +195,7 @@ const projects = [
   {
     id: 18,
     title: "TrustHome",
-    description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration, and Signal Chat. 23,478 lines of code across 82 files with 90+ API endpoints and 10 database tables. Woman-owned (WOSB eligible).",
+    description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. 20 app screens and 21 reusable components. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), and Signal Chat. 26,653 lines of code across 109 files with 103 API endpoints and 6 database tables. Woman-owned (WOSB eligible).",
     tech: ["Real Estate", "Voice AI", "Expo", "Blockchain"],
     image: trustLayerImg,
     gradient: "from-sky-500/20 to-indigo-600/20",

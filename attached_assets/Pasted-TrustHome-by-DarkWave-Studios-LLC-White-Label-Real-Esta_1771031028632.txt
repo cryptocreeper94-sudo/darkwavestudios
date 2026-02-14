@@ -1,0 +1,249 @@
+TrustHome by DarkWave Studios LLC
+White-Label Real Estate Platform
+
+Total Custom Code: 26,653 lines
+
+Frontend: 20,717 lines
+Backend: 3,897 lines
+Landing Page & Templates: 2,039 lines
+20 App Screens:
+
+Auth (Login / Register / Verify / Forgot Password) — 1,023 lines
+Home Dashboard (Agent + Client views)
+Team Login (PIN-based portal) — 1,544 lines
+Leads Management — 416 lines
+Transactions Pipeline
+Properties & Shortlists
+Showings Management — 401 lines
+Messages (Real-time) — 359 lines
+Documents Vault
+Marketing Hub (AI-powered) — 783 lines
+Blog System — 952 lines
+Analytics Dashboard — 359 lines
+Network & Referrals — 596 lines
+Business Suite (Expenses + Mileage) — 839 lines
+Branding & White-Label — 505 lines
+Settings — 456 lines
+Help & Support — 476 lines
+Media Studio (Video/Photo) — 850 lines
+MLS Integration Setup — 1,352 lines
+Developer Console — 1,023 lines
+21 Reusable Components:
+
+GlassCard, PillButton, AccordionSection (Glassmorphism UI system)
+Header with Trust Shield badge and ecosystem links
+Drawer Menu navigation
+Bento Grid layout system
+Horizontal Carousel
+Footer (two-tiered with ecosystem links)
+Info Modal system
+Signal Chat (cross-ecosystem messaging via PaintPros.io)
+AI Assistant (voice-capable, floating panel)
+WelcomeGuide onboarding (18 slides, first-login trigger)
+Partner Onboarding Modal (9 slides — Stripe, Founders Program, ownership)
+Trust Shield Badge with verification modal
+Agent Dashboard, Client Dashboard, Business Suite Screen
+Error Boundary + Error Fallback
+Keyboard-Aware ScrollView
+103 API Endpoints:
+
+13 Authentication endpoints (login, register, verify, PIN, forgot/reset password)
+20 Blockchain/Trust Layer endpoints (stamps, wallet, certifications, registry)
+10 Marketing endpoints (posts, captions, images, quick-post)
+8 Blog endpoints (CRUD + AI generation)
+7 MLS endpoints (config CRUD + test connection)
+6 Calendar endpoints
+6 Expense tracking endpoints (CRUD + OCR receipt scanning)
+5 Mileage tracking endpoints
+4 Media Studio endpoints (status, projects, upload, walkthrough requests)
+4 Lead management endpoints (CRUD + AI scoring)
+3 Voice AI endpoints (chat streaming, voice interaction, text-to-speech)
+Plus: CRM, bookings, referrals, payments, analytics, admin, webhooks
+6 Database Tables + 7 Schemas:
+
+users, verificationCodes, blogPosts, expenses, mileageEntries, mlsConfigurations, accessRequests
+Full multi-tenant architecture with agent_id boundary
+Soft deletes, timestamps, indexing
+10 External Service Integrations:
+
+DarkWave Trust Layer (dwtl.io) — Custom Layer 1 Blockchain
+PaintPros.io — CRM, Signal Chat, Marketing Suite, SSO, Analytics
+Trust Shield (trustshield.tech) — Security Suite
+Orbit Staffing — Bookkeeping, HR, Payroll (51/49 royalty split)
+DarkWave Media Studio — Video walkthroughs, aerial/drone, interior photography
+OpenAI — AI Chat (gpt-5.2), Voice AI (STT/TTS with nova voice)
+ElevenLabs — Voice Synthesis
+Resend — Transactional Email
+Socket.IO — Real-time WebSocket Messaging
+MLS/RESO — Property Data (10+ providers: Bridge, Spark, Trestle, CRMLS, Bright, Stellar, NWMLS, HAR, RETS, Custom)
+68 Dependencies (58 production + 10 dev)
+
+Tech Stack:
+
+Frontend: Expo React Native (iOS, Android, Web) with TypeScript
+Backend: Express.js with TypeScript
+Database: PostgreSQL with Drizzle ORM
+State: React Query + React Context
+Routing: Expo Router (file-based)
+Animations: react-native-reanimated
+Real-time: Socket.IO + WebSockets
+AI: OpenAI (streaming SSE), ElevenLabs
+Email: Resend
+Design System:
+
+Light/Dark mode with TrustHome teal (#1A8A7E)
+Glassmorphism cards with gradient overlays
+Bento grid (3-column) with horizontal carousels
+Pill-shaped buttons with spring press animations
+Accordion sections with smooth expand/collapse
+Premium typography with letter spacing
+Platform-optimized shadows (boxShadow web, native iOS shadows)
+Safe area handling for all device types
+Authentication:
+
+Email + password with 6-digit verification codes
+PIN-based team portal (Developer: 0424, Jennifer Lambert: 7777)
+Password requirements: 8+ chars, uppercase, special character
+Session management with remember-me (30-day)
+Role-based access control (Agent, Client, Vendor, Team, Brokerage Admin)
+Onboarding:
+
+WelcomeGuide: 18-slide walkthrough triggered on first agent login
+Partner Onboarding: 9-slide flow for Jennifer Lambert (51% managing partner)
+Business model overview
+Stripe account setup (LLC business type, bank account, identity verification)
+Founders Program pricing: $49/agent, $299/brokerage, $1,499/white-label (first 100)
+Standard pricing: $99/agent, $599/brokerage, $2,999/white-label
+51/49 ownership split enforcement via Orbit Financial Hub
+WOSB/WBENC certification eligibility
+Contextual help across 16+ screens
+Ownership:
+
+Jennifer Lambert — 51% Partner, Managing Member (Woman-Owned Business)
+Founder — 49% Partner, Technical Lead & Platform Architect
+Entity: DarkWave Studios LLC
+App ID: dw_app_trusthome
+Deployment: Published at trusthome.replit.app with PWA capabilities
+
+
+Scroll to latest
+
+Make, test, iterate…
+
+Git
+Remote Updates
+origin/main•upstream
+last fetched 1 day ago
+Commit
+There are no changes to commit.
+Publishing
+Production
+Status
+Jason published about 9 hours ago
+Visibility
+Public
+Domain
+https://trusthome.replit.app
+Type
+Autoscale
+(4 vCPU / 8 GiB RAM / 3 Max)
+See all usage
+Database
+Production database connected
+Ready to publish to the App Store?
+You'll need an active Apple Developer account. After publishing, you can test your app on TestFlight, then submit to App Store review.
+bef1e329
+JA
+cryptocreeper94
+Jason
+published 1 day ago
+06c1b6b6
+JA
+cryptocreeper94
+Jason
+published 1 day ago
+6e9164ae
+JA
+cryptocreeper94
+Jason
+published 2 days ago
+7e14cb14
+JA
+cryptocreeper94
+Jason
+published 2 days ago
+3a85b657
+JA
+cryptocreeper94
+Jason
+published 2 days ago
+16061c34
+JA
+cryptocreeper94
+Jason
+published 2 days ago
+412c0448
+JA
+cryptocreeper94
+Jason
+published 2 days ago
+a2106ea3
+JA
+cryptocreeper94
+Jason
+published 3 days ago
+58e39dce
+JA
+cryptocreeper94
+Jason
+published 3 days ago
+664755fb
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+7f74de9c
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+6abe8771
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+296875e3
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+0a35ea74
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+1cca10ef
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+bbd878da
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+e8fdb820
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+8d587ea8
+JA
+cryptocreeper94
+Jason
+published 4 days ago
+5594082b
+JA
+cryptocreeper94
+Jason
+published 4 days ago
