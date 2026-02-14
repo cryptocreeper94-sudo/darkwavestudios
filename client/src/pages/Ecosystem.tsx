@@ -5,7 +5,8 @@ import {
   ChevronRight, 
   ExternalLink,
   ArrowLeft,
-  Sparkles
+  Sparkles,
+  Smartphone
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -384,6 +385,10 @@ export default function Ecosystem() {
             A complete suite of interconnected applications spanning trading, business operations, 
             trade services, and enterprise solutions. All powered by Trust Layer blockchain verification.
           </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-muted-foreground mt-4">
+            <Smartphone className="w-3.5 h-3.5 text-primary" />
+            All apps are installable PWAs — download and add to your home screen on any device
+          </div>
           <div className="flex justify-center gap-3 mt-8">
             <div className="flex -space-x-2">
               {["/ecosystem/pulse.png", "/ecosystem/orbit-staffing.png", "/ecosystem/strikeagent.png", "/ecosystem/trust-layer-icon.png"].map((img, i) => (
