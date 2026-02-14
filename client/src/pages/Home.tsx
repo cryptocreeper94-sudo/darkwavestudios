@@ -191,12 +191,39 @@ const projects = [
   },
   {
     id: 17,
-    title: "Chronicles",
-    description: "Immersive blockchain gaming experience — build your legacy in a dynamic world of strategy and adventure",
-    tech: ["Gaming", "Blockchain", "Strategy"],
-    image: "/ecosystem/trust-layer-icon.png",
+    title: "DarkWave Chronicles",
+    description: "Parallel life simulation across historical eras with AI NPCs, voice cloning, and real-time world",
+    tech: ["Life Sim", "AI", "Voice", "Real-time"],
+    image: "/ecosystem/chronicles.jpg",
     gradient: "from-amber-500/20 to-red-600/20",
-    url: "https://yourlegacy.io"
+    url: "https://dwsc.io/chronicles"
+  },
+  {
+    id: 22,
+    title: "The Arcade",
+    description: "Premium arcade games with provably fair sweepstakes, slots, and Stripe-powered coin store",
+    tech: ["Arcade", "Sweepstakes", "Stripe"],
+    image: "/ecosystem/darkwave-games.png",
+    gradient: "from-pink-500/20 to-rose-600/20",
+    url: "https://darkwavegames.io"
+  },
+  {
+    id: 23,
+    title: "ChronoChat",
+    description: "Community hub for the DarkWave ecosystem with cross-era chat and real-time engagement",
+    tech: ["Community", "Chat", "Social"],
+    image: "/ecosystem/chronochat.png",
+    gradient: "from-cyan-500/20 to-teal-600/20",
+    url: "https://dwsc.io/community"
+  },
+  {
+    id: 24,
+    title: "DarkWave Studio",
+    description: "Browser-based IDE for smart contract development on DarkWave Smart Chain",
+    tech: ["IDE", "Smart Contracts", "DevTools"],
+    image: "/ecosystem/darkwave-studio.png",
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://dwsc.io/studio"
   },
   {
     id: 18,

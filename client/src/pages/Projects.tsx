@@ -178,8 +178,38 @@ const projects = [
     tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
     image: trustLayerImg,
     gradient: "from-amber-500/20 to-red-600/20",
+    url: "https://dwsc.io/chronicles",
+    category: "Gaming"
+  },
+  {
+    id: 22,
+    title: "The Arcade",
+    description: "Premium arcade games, provably fair sweepstakes, and classic card games. Orbit Crash multiplier game, Dragon's Fortune Slots, full arcade collection with Gold Coins & Sweeps Coins via Stripe. Provably fair system and sweepstakes compliance. 5,276 lines of production code.",
+    tech: ["Arcade", "Sweepstakes", "Stripe", "Canvas"],
+    image: trustLayerImg,
+    gradient: "from-pink-500/20 to-rose-600/20",
     url: "https://darkwavegames.io",
     category: "Gaming"
+  },
+  {
+    id: 23,
+    title: "ChronoChat",
+    description: "Community hub for the DarkWave ecosystem. Cross-era chat tied into Chronicles, community channels, messaging, and real-time engagement. The social layer bridging all ecosystem users.",
+    tech: ["Community", "Chat", "Social", "Real-time"],
+    image: trustLayerImg,
+    gradient: "from-cyan-500/20 to-teal-600/20",
+    url: "https://dwsc.io/community",
+    category: "Social"
+  },
+  {
+    id: 24,
+    title: "DarkWave Studio",
+    description: "Browser-based IDE for building on the DarkWave Smart Chain. Monaco-powered code editor, smart contract development, Docker sandboxed execution, JWT-authenticated sessions, project management, and developer portal. 7,006 lines of production code.",
+    tech: ["IDE", "Smart Contracts", "Docker", "DevTools"],
+    image: trustLayerImg,
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://dwsc.io/studio",
+    category: "DevTools"
   },
   {
     id: 18,
@@ -214,7 +244,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 20 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 23 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: trustLayerImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -227,8 +257,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 20 Web Applications & Ecosystem"
-        description="Explore 20 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 23 Web Applications & Ecosystem"
+        description="Explore 23 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
