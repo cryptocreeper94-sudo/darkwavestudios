@@ -193,15 +193,6 @@ const ecosystemApps: EcosystemApp[] = [
     category: "core"
   },
   {
-    id: "through-the-veil",
-    name: "Through The Veil",
-    tagline: "Hidden History. Suppressed Truth. Spiritual Warfare.",
-    description: "A Journey Through Hidden History, Suppressed Truth, and Spiritual Warfare. By Jason Andrews. Online book reader with chapter navigation, Volume 2 print edition, and a premium reading experience. 1,860 lines of production code.",
-    image: "/ecosystem/through-the-veil.png",
-    url: "https://dwsc.io/veil",
-    category: "books"
-  },
-  {
     id: "trusthome",
     name: "TrustHome",
     tagline: "Every Transaction. Verified. Transparent. Trusted.",
@@ -249,7 +240,6 @@ const categories = [
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
-  { id: "books", name: "Books & Education", description: "Publishing and educational content" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 
@@ -361,7 +351,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 24 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 23 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.89 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema
