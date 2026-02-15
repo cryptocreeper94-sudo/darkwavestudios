@@ -418,6 +418,24 @@ const ecosystemMetrics: AppMetric[] = [
     gradient: "from-purple-500 to-pink-500",
     status: "Production",
   },
+  {
+    id: "the-void",
+    name: "THE VOID",
+    url: "https://thevoid.replit.app",
+    totalLines: 10400,
+    totalFiles: 107,
+    stack: ["React 18", "Vite", "Tailwind CSS 4", "Framer Motion", "Express.js 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "Whisper", "PWA"],
+    breakdown: [
+      { language: "React/TSX (Frontend)", lines: 3300, files: 45 },
+      { language: "TypeScript (Server)", lines: 1600, files: 18 },
+      { language: "Shared Schema/Types", lines: 200, files: 5 },
+      { language: "Config/PWA/Assets", lines: 5300, files: 39 },
+    ],
+    highlights: ["Voice Recording", "AI Transcription", "4 AI Personalities", "Crisis Guardrails", "Vent History", "PIN Whitelist"],
+    icon: Radio,
+    gradient: "from-violet-500 to-purple-500",
+    status: "Production",
+  },
 ];
 
 function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: number; duration?: number; suffix?: string }) {

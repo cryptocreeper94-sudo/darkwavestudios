@@ -227,6 +227,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/signal-chat.png",
     url: "https://dwsc.io/signal-chat",
     category: "social"
+  },
+  {
+    id: "the-void",
+    name: "THE VOID",
+    tagline: "Scream Into the Abyss. Feel Lighter.",
+    description: "Voice-first venting application for mental wellness. Tap to record frustrations, AI transcription via Whisper, 4 AI response personalities (Smart-ass, Calming, Therapist, Hype Man) powered by GPT-4o, vent history with playback, PIN-based whitelist access, animated void portal splash screen, comprehensive crisis safety guardrails (988, Crisis Text Line, SAMHSA), and installable PWA. 10,400+ lines across 107 files.",
+    image: "/projects/the-void.png",
+    url: "https://thevoid.replit.app",
+    category: "health"
   }
 ];
 
@@ -351,7 +360,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 23 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.07 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 24 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 2.07 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

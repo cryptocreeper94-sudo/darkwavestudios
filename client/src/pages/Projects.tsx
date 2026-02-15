@@ -253,12 +253,22 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 23 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 24 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
     url: "https://dwsc.io",
     category: "Social"
+  },
+  {
+    id: 25,
+    title: "THE VOID",
+    description: "Voice-first venting application for mental wellness. Tap to record frustrations, AI transcription via Whisper, 4 AI response personalities (Smart-ass, Calming, Therapist, Hype Man) powered by GPT-4o, vent history with playback, PIN-based whitelist access, animated void portal splash screen, comprehensive crisis safety guardrails, and installable PWA. 10,400+ lines across 107 files.",
+    tech: ["Voice AI", "Whisper", "GPT-4o", "PWA"],
+    image: "/projects/the-void.png",
+    gradient: "from-violet-500/20 to-purple-600/20",
+    url: "https://thevoid.replit.app",
+    category: "Wellness"
   }
 ];
 
@@ -266,8 +276,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 23 Web Applications & Ecosystem"
-        description="Explore 23 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 24 Web Applications & Ecosystem"
+        description="Explore 24 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -306,7 +316,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            23 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            24 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 
