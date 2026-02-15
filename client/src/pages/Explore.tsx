@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import {
   Carousel,
@@ -12,7 +12,7 @@ import {
   Home, Sparkles, TrendingUp, Mail, Store, Layers,
   FileText, Globe, BarChart3, Boxes, Terminal, Shield,
   Search, Zap, Radio, MessageSquare, Newspaper, Eye,
-  FolderOpen, Lock, Calendar, Compass, ChevronRight
+  FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command
 } from "lucide-react";
 
 interface LaunchCard {
@@ -62,7 +62,7 @@ const categories: ExploreCategory[] = [
       {
         label: "Homepage",
         description: "The main DarkWave Studios site — services, portfolio, and more",
-        href: "/",
+        href: "/home",
         icon: <Home className="size-5" />,
         image: "/command/homepage.png",
         glowColor: "shadow-cyan-500/20",
@@ -405,8 +405,25 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
   );
 }
 
+const ADMIN_KEY = "0424";
+
 export default function Explore() {
   const [loading, setLoading] = useState(true);
+  const [showDevLogin, setShowDevLogin] = useState(false);
+  const [devPassword, setDevPassword] = useState("");
+  const [devError, setDevError] = useState(false);
+  const [, setLocation] = useLocation();
+
+  const handleDevLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (devPassword === ADMIN_KEY) {
+      sessionStorage.setItem("dw_command_auth", "true");
+      setLocation("/command");
+    } else {
+      setDevError(true);
+      setTimeout(() => setDevError(false), 2000);
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600);
@@ -437,7 +454,7 @@ export default function Explore() {
             </div>
           </div>
           <Link
-            href="/"
+            href="/home"
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-sm text-white/70 hover:text-white"
             data-testid="explore-go-home"
           >
@@ -518,22 +535,82 @@ export default function Explore() {
           ))}
         </div>
 
-        <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-5">
+        <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
           <Link
-            href="/"
+            href="/home"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02]"
             data-testid="explore-footer-home"
           >
             <Home className="w-4 h-4" />
             Go to Homepage
           </Link>
+
+          <div className="max-w-sm mx-auto">
+            {!showDevLogin ? (
+              <button
+                onClick={() => setShowDevLogin(true)}
+                className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-all duration-300 text-xs group"
+                data-testid="button-show-dev-login"
+              >
+                <Lock className="w-3 h-3" />
+                <span>Developer Access</span>
+                <Command className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl"
+              >
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-semibold text-white/80">Developer Login</span>
+                </div>
+                <form onSubmit={handleDevLogin} className="space-y-3">
+                  <input
+                    type="password"
+                    value={devPassword}
+                    onChange={(e) => setDevPassword(e.target.value)}
+                    placeholder="Enter access code"
+                    className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all ${
+                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-white/10 focus:ring-cyan-500/30 focus:border-cyan-500/30"
+                    }`}
+                    data-testid="input-dev-password"
+                    autoFocus
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="submit"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                      data-testid="button-dev-login"
+                    >
+                      <Unlock className="w-3.5 h-3.5" />
+                      Access Command Center
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setShowDevLogin(false); setDevPassword(""); setDevError(false); }}
+                      className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white/80 text-sm transition-all"
+                      data-testid="button-dev-cancel"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  {devError && (
+                    <p className="text-red-400 text-xs">Invalid access code</p>
+                  )}
+                </form>
+              </motion.div>
+            )}
+          </div>
+
           <div className="flex items-center justify-center gap-4 text-[11px] text-white/30">
             <Link href="/developers" className="hover:text-white/60 transition-colors" data-testid="explore-footer-developers">
               Developer Portal
             </Link>
             <span className="text-white/10">|</span>
-            <Link href="/command" className="hover:text-white/60 transition-colors" data-testid="explore-footer-command">
-              Owner Portal
+            <Link href="/home" className="hover:text-white/60 transition-colors" data-testid="explore-footer-homepage">
+              Homepage
             </Link>
           </div>
           <p className="text-[11px] text-white/20">DarkWave Studios &middot; Full-Service Web Agency</p>
