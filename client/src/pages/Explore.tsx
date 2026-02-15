@@ -428,13 +428,13 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
 
       <div className="mt-4">
         <Carousel
-          opts={{ align: "center", loop: true }}
+          opts={{ align: "start", loop: true }}
           setApi={setApi}
           className="w-full"
         >
           <CarouselContent className="-ml-4">
             {category.cards.map((card, cardIndex) => (
-              <CarouselItem key={card.href} className="pl-4 basis-full">
+              <CarouselItem key={card.href} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
                 <ExploreCard card={card} index={cardIndex} />
               </CarouselItem>
             ))}
@@ -447,7 +447,7 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
           )}
         </Carousel>
         {category.cards.length > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-4">
+          <div className="flex md:hidden items-center justify-center gap-2 mt-4">
             {category.cards.map((_, i) => (
               <button
                 key={i}
