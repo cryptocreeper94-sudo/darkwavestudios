@@ -473,6 +473,60 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
   );
 }
 
+function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]; categoryTitle: string }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [api, setApi] = useState<any>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setCurrentSlide(api.selectedScrollSnap());
+    api.on("select", onSelect);
+    onSelect();
+    return () => { api.off("select", onSelect); };
+  }, [api]);
+
+  return (
+    <div className="mt-6 lg:mt-8">
+      <Carousel
+        opts={{ align: "start", loop: true }}
+        setApi={setApi}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-4">
+          {cards.map((card, cardIndex) => (
+            <CarouselItem key={card.href} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+              <LaunchCardComponent card={card} index={cardIndex} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {cards.length > 1 && (
+          <>
+            <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+            <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+          </>
+        )}
+      </Carousel>
+      {cards.length > 1 && (
+        <div className="flex md:hidden items-center justify-center gap-2 mt-4">
+          {cards.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => api?.scrollTo(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === currentSlide
+                  ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
+                  : "w-2 h-2 bg-white/20 hover:bg-white/40"
+              }`}
+              data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CommandCenter() {
   const [authenticated, setAuthenticated] = useState(() => {
     try { return sessionStorage.getItem("dw_command_auth") === "true"; } catch { return false; }
@@ -641,32 +695,7 @@ export default function CommandCenter() {
                 </div>
               </div>
 
-              <div className="mt-6 lg:mt-8 pl-1">
-                <Carousel
-                  opts={{
-                    align: "start",
-                    dragFree: true,
-                  }}
-                  className="w-full"
-                >
-                  <CarouselContent className="-ml-5">
-                    {category.cards.map((card, cardIndex) => (
-                      <CarouselItem
-                        key={card.href}
-                        className={`pl-5 basis-[300px] ${card.featured ? "lg:basis-[360px]" : "lg:basis-[320px]"}`}
-                      >
-                        <LaunchCardComponent card={card} index={cardIndex} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  {category.cards.length > 3 && (
-                    <>
-                      <CarouselPrevious className="hidden lg:flex -left-3 top-1/2 bg-white/5 border-white/10 hover:bg-white/10 text-white" />
-                      <CarouselNext className="hidden lg:flex -right-3 top-1/2 bg-white/5 border-white/10 hover:bg-white/10 text-white" />
-                    </>
-                  )}
-                </Carousel>
-              </div>
+              <CommandCategoryCarousel cards={category.cards} categoryTitle={category.title} />
             </motion.section>
           ))}
         </div>
