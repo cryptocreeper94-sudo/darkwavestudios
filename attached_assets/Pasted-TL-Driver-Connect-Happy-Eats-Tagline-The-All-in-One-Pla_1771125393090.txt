@@ -1,0 +1,97 @@
+TL Driver Connect / Happy Eats
+Tagline: The All-in-One Platform for Drivers, Vendors & Businesses on the Road
+
+What It Is
+TL Driver Connect is a nationwide web application built for commercial drivers, everyday commuters, food truck vendors, and office professionals. It combines food delivery, business tools, marketing resources, real-time communication, and logistics services into a single platform. The companion brand, Happy Eats, powers the food ordering and delivery side — connecting food truck vendors with hungry customers across delivery zones.
+
+The Problem It Solves
+Drivers and mobile vendors operate in a fragmented world — juggling separate apps for food orders, expense tracking, route planning, marketing, and communication. Businesses along major corridors have limited access to quality food delivery. Food truck vendors lack affordable tools to manage menus, reach customers, and grow their business. TL Driver Connect brings it all together.
+
+Core Platform Features
+Food Ordering & Delivery (Happy Eats)
+Zone-Based Batch Ordering: 10 defined delivery zones centered on the Hwy 109 & I-840 hub (Lebanon, TN area), serving the 840/109/I-24 corridor
+Dual Order Modes: Batch delivery (lunch cutoff 10:30 AM, dinner cutoff 5:00 PM) and one-off orders for local corridor customers
+Target Customers: Businesses, truck stops, logistics hubs, warehouses, and delivery-area residents
+Multi-Truck Ordering: Customers can order from multiple vendors in a single transaction
+Real-Time Order Tracking: Status updates from placed to picked up to delivered
+Full Order Pipeline: Customer, vendor, driver, and admin views — each with dedicated dashboards
+Vendor Self-Service Portal
+Easy Signup: Vendors register online with health inspection certificate upload and verification
+Daily Check-In: Vendors confirm daily truck availability each morning
+Menu Management: Full control to add, edit, delete items, set pricing, toggle availability, and define customizations (add-ons, removals, special requests)
+Order Dashboard: Real-time incoming orders, order history, and fulfillment management
+Trust Layer Verification: Integrated with dwtl.io for vendor identity and compliance verification
+Invite Code System: Admin-managed codes with 5 perk types (fee discount, priority listing, free marketing, extended trial, bonus credits) to incentivize signups
+Vendor Marketing Toolkit (Signup Incentive)
+Flyer Maker: Fully customizable recruitment and customer-facing flyers with bilingual support (English/Spanish), editable text, image uploads, stock background gallery, color themes, and export to PNG/PDF/print/share/email
+Business Card Generator: Professional cards for vendor branding
+OCR Scanner: Scan and digitize receipts and documents
+Mileage & Expense Tracking: Built-in business suite for tracking operational costs
+AI-Powered Content Generation: Marketing hub with automated social media posting
+Admin Command Center
+PIN-Protected Access: Secure admin, owner, and developer tools
+9 Management Categories: Operations, Vendors, Orders, Marketing, Analytics, Business & Franchise, Communication, Account & Team, Developer Tools
+Batch Pickup Coordinator: Admin tool for organizing batch order pickups from vendor hubs
+Zone Map: Interactive Middle Tennessee map with 10 delivery zones, real-time status, and admin activation controls
+Quick Access Shortcuts: Photorealistic bento card layout for fast navigation
+Real-Time Communication
+Signal Chat: 8 dedicated channels — General, Announcements, Happy Eats, Vendor Support (help desk), Driver Lounge, Load Board Chat, App Support, and more
+Trucker Talk: WebSocket-powered real-time messaging for the driver community
+Vendor Support Channel: Direct communication link between vendors and operations
+Business & Driver Tools
+Mileage Tracking: Log and manage trip data for tax and expense purposes
+Expense Management: Track business costs with categorization
+CDL Program Directory: Resources for commercial driver licensing
+Parts Access: Connect with parts suppliers
+Concierge Services: Premium support layer for drivers
+Investor & Demo Experience
+Investor Page: Market statistics, revenue models, growth roadmap, and franchise opportunity details
+Interactive Demo: Guided walkthrough letting new users experience core platform features firsthand
+Operations Manual
+Comprehensive A-Z Guide: Searchable reference covering every platform feature
+Deep Linking: Clickable navigation buttons that jump directly to relevant app sections
+Bilingual Support: English and Spanish throughout
+Technical Specs
+Frontend: React 19, TypeScript, Tailwind CSS v4, Vite 7, Framer Motion animations, Recharts for data visualization
+Backend: Express 5 on Node.js, 155+ RESTful API endpoints
+Database: PostgreSQL (Neon-backed) with Drizzle ORM, 41 database tables
+Real-Time: Dual WebSocket servers for Trucker Talk and Signal Chat
+Authentication: PIN-based owner/dev login, JWT tokens for SSO, bcrypt password hashing
+Payments: Stripe integration
+AI/ML: OpenAI API for content generation
+File Storage: Replit Object Storage for uploads
+Text-to-Speech: ElevenLabs API
+9-Theme System: Custom visual theming with dark mode, glassmorphism, and gradient design language
+53 Pages: Full application with dedicated views for every user type
+Bilingual: Full English/Spanish support across the platform
+Mobile-First: Fully responsive, optimized for phones and tablets
+PWA-Ready: Dual Progressive Web Apps — Happy Eats (orange theme) and TL Driver Connect (cyan/lavender/navy theme)
+Business Model
+Multi-Tenant Franchise Architecture: Isolated data, branding, and configuration per franchise territory
+Initial Market: Kathy's Nashville operation — Middle Tennessee's I-840/109/I-24 corridor
+Expandable: Designed to be configurable and deployable to new regions nationwide
+Revenue Streams: Vendor fees, delivery commissions, premium tools, franchise licensing
+Vendor Incentive Model: Free marketing toolkit as signup incentive drives vendor acquisition
+Key Numbers
+155+ API endpoints — all tested and operational
+53 pages — every page returning clean
+41 database tables — fully structured and seeded
+10 delivery zones — mapped across Middle Tennessee
+8 chat channels — real-time community and support
+2 flyer editors — fully customizable with bilingual export
+0 mock data — clean database ready for real vendors and real orders
+Launch
+Target Date: April 1, 2026
+Mobile Apps: Coming soon to Google Play and Apple App Store
+SMS Notifications: Twilio integration ready (consent page live at /sms-consent)
+Live URL: Published and accessible now at your Replit domain
+One-Liner for Marketing
+TL Driver Connect — The all-in-one platform where drivers eat, earn, connect, and grow. Powered by Happy Eats food delivery, built for the road.
+
+That's everything — the full picture for marketing, investors, or anyone who needs to understand what this platform does and how it's built. Let me know if you want me to tailor any section or format it differently.
+
+
+Scroll to latest
+
+Make, test, iterate…
+
