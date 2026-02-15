@@ -45,7 +45,8 @@ import SignalChatSidebar from "@/components/SignalChatSidebar";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home}/>
+      <Route path="/" component={Explore}/>
+      <Route path="/home" component={Home}/>
       <Route path="/services" component={Services}/>
       <Route path="/projects" component={Projects}/>
       <Route path="/about" component={About}/>
