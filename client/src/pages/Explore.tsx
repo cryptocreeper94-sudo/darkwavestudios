@@ -344,9 +344,7 @@ function SkeletonLoader() {
 }
 
 function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
-  const [active, setActive] = useState(false);
   const glow = glowMap[card.glowColor] || "none";
-  const cardStyle = active || card.featured ? { boxShadow: glow } : {};
 
   return (
     <motion.div
@@ -356,23 +354,17 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
     >
       <Link href={card.href} data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
         <div
-          className={`group relative h-[220px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-white/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
-            card.featured ? "ring-1 ring-white/10" : ""
-          }`}
-          style={cardStyle}
-          onMouseEnter={() => setActive(true)}
-          onMouseLeave={() => setActive(false)}
-          onFocus={() => setActive(true)}
-          onBlur={() => setActive(false)}
+          className="group relative h-[220px] lg:h-[240px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01] border border-white/10 hover:border-cyan-500/30"
+          style={{ boxShadow: glow }}
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
           <img
             src={card.image}
             alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover brightness-110"
+            className="absolute inset-0 w-full h-full object-cover object-center brightness-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
@@ -383,18 +375,18 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
           )}
 
           <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-            <div className="flex items-center gap-2.5 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-7 h-7 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
                 {card.icon}
               </div>
-              <h3 className="font-display font-bold text-sm text-white group-hover:text-white/90 transition-colors" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+              <h3 className="font-display font-bold text-sm text-white" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
                 {card.label}
               </h3>
             </div>
             <p className="text-[11px] text-white/50 leading-relaxed line-clamp-2">
               {card.description}
             </p>
-            <div className="mt-2 flex items-center gap-1 text-[10px] text-white/30 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="mt-2 flex items-center gap-1 text-[11px] text-cyan-400 font-medium">
               <span>Go</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -402,6 +394,77 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
         </div>
       </Link>
     </motion.div>
+  );
+}
+
+function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; catIndex: number }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [api, setApi] = useState<any>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setCurrentSlide(api.selectedScrollSnap());
+    api.on("select", onSelect);
+    onSelect();
+    return () => { api.off("select", onSelect); };
+  }, [api]);
+
+  return (
+    <motion.section
+      key={category.title}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+    >
+      <div className="flex items-start gap-3 mb-4">
+        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0`}>
+          {category.icon}
+        </div>
+        <div>
+          <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
+          <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <Carousel
+          opts={{ align: "center", loop: true }}
+          setApi={setApi}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4">
+            {category.cards.map((card, cardIndex) => (
+              <CarouselItem key={card.href} className="pl-4 basis-full">
+                <ExploreCard card={card} index={cardIndex} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          {category.cards.length > 1 && (
+            <>
+              <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+              <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+            </>
+          )}
+        </Carousel>
+        {category.cards.length > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-4">
+            {category.cards.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => api?.scrollTo(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === currentSlide
+                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
+                    : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                }`}
+                data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.section>
   );
 }
 
@@ -487,51 +550,9 @@ export default function Explore() {
           </div>
         </motion.div>
 
-        <div className="space-y-10 lg:space-y-14">
+        <div className="space-y-12 lg:space-y-16">
           {categories.map((category, catIndex) => (
-            <motion.section
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: catIndex * 0.08 }}
-            >
-              <div className="flex items-start gap-3 mb-2">
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5`}>
-                  {category.icon}
-                </div>
-                <div>
-                  <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
-                  <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
-                </div>
-              </div>
-
-              <div className="mt-5 pl-1">
-                <Carousel
-                  opts={{
-                    align: "start",
-                    dragFree: true,
-                  }}
-                  className="w-full"
-                >
-                  <CarouselContent className="-ml-4">
-                    {category.cards.map((card, cardIndex) => (
-                      <CarouselItem
-                        key={card.href}
-                        className={`pl-4 basis-[280px] ${card.featured ? "lg:basis-[320px]" : ""}`}
-                      >
-                        <ExploreCard card={card} index={cardIndex} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  {category.cards.length > 3 && (
-                    <>
-                      <CarouselPrevious className="hidden lg:flex -left-3 top-1/2 bg-white/5 border-white/10 hover:bg-white/10 text-white" />
-                      <CarouselNext className="hidden lg:flex -right-3 top-1/2 bg-white/5 border-white/10 hover:bg-white/10 text-white" />
-                    </>
-                  )}
-                </Carousel>
-              </div>
-            </motion.section>
+            <CategoryCarousel key={category.title} category={category} catIndex={catIndex} />
           ))}
         </div>
 
