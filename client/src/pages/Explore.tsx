@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import {
@@ -345,6 +345,28 @@ function SkeletonLoader() {
 
 function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
   const glow = glowMap[card.glowColor] || "none";
+  const isDragging = useRef(false);
+  const startPos = useRef({ x: 0, y: 0 });
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    startPos.current = { x: e.clientX, y: e.clientY };
+    isDragging.current = false;
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    const dx = Math.abs(e.clientX - startPos.current.x);
+    const dy = Math.abs(e.clientY - startPos.current.y);
+    if (dx > 5 || dy > 5) {
+      isDragging.current = true;
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isDragging.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   return (
     <motion.div
@@ -352,7 +374,13 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
     >
-      <Link href={card.href} data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+      <Link
+        href={card.href}
+        data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+        onClick={handleClick}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+      >
         <div
           className="group relative h-[220px] lg:h-[240px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01] border border-white/10 hover:border-cyan-500/30"
           style={{ boxShadow: glow }}
@@ -363,6 +391,7 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
             alt={card.label}
             className="absolute inset-0 w-full h-full object-cover object-center brightness-110"
             loading="lazy"
+            draggable={false}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
 
@@ -428,9 +457,9 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
 
       <div className="mt-4">
         <Carousel
-          opts={{ align: "start", loop: true }}
+          opts={{ align: "start", loop: true, dragFree: false, skipSnaps: false }}
           setApi={setApi}
-          className="w-full"
+          className="w-full touch-pan-y"
         >
           <CarouselContent className="-ml-4">
             {category.cards.map((card, cardIndex) => (
