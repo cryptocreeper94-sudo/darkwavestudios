@@ -253,7 +253,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 24 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 26 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -269,6 +269,26 @@ const projects = [
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://thevoid.replit.app",
     category: "Wellness"
+  },
+  {
+    id: 26,
+    title: "Guardian Screener",
+    description: "AI-powered DEX screener built for traders who refuse to fly blind. Real-time monitoring across all major decentralized exchanges with smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DarkWave. Part of the dwsc.io codebase.",
+    tech: ["AI Analytics", "Multi-Chain", "Real-time", "PWA"],
+    image: "/projects/guardian-screener.png",
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://dwsc.io/guardian-shield",
+    category: "Trading"
+  },
+  {
+    id: 27,
+    title: "Guardian Agent Scanner",
+    description: "AI-powered scanning and analysis engine that evaluates, verifies, and scores autonomous AI agents operating across 13+ blockchain networks. Guardian Score safety ratings, real-time WebSocket data feeds, ML-powered prediction engine, contract address lookup, honeypot and freeze authority detection, whale analysis, quick-trade panel, and category filtering. Part of the dwsc.io codebase.",
+    tech: ["AI Security", "WebSocket", "ML Predictions", "PWA"],
+    image: "/projects/guardian-agent-scanner.png",
+    gradient: "from-cyan-500/20 to-purple-600/20",
+    url: "https://dwsc.io/guardian-scanner",
+    category: "Security"
   }
 ];
 
@@ -276,8 +296,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 24 Web Applications & Ecosystem"
-        description="Explore 24 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 26 Web Applications & Ecosystem"
+        description="Explore 26 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -316,7 +336,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            24 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            26 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 

@@ -236,6 +236,24 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/projects/the-void.png",
     url: "https://thevoid.replit.app",
     category: "health"
+  },
+  {
+    id: "guardian-screener",
+    name: "Guardian Screener",
+    tagline: "See the Market Before It Sees You",
+    description: "AI-powered DEX screener with real-time monitoring across all major decentralized exchanges. Smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DarkWave. Installable PWA. Part of the dwsc.io codebase.",
+    image: "/projects/guardian-screener.png",
+    url: "https://dwsc.io/guardian-shield",
+    category: "trading"
+  },
+  {
+    id: "guardian-agent-scanner",
+    name: "Guardian Agent Scanner",
+    tagline: "Trust Scores for AI Agents",
+    description: "AI-powered scanning engine that evaluates, verifies, and scores autonomous AI agents across 13+ blockchains. Guardian Score safety ratings, real-time WebSocket feeds, ML-powered predictions, contract address lookup, honeypot and freeze authority detection, whale analysis, quick-trade panel, and category filtering. Installable PWA. Part of the dwsc.io codebase.",
+    image: "/projects/guardian-agent-scanner.png",
+    url: "https://dwsc.io/guardian-scanner",
+    category: "security"
   }
 ];
 
@@ -360,7 +378,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 24 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
+        description="Explore the complete DarkWave ecosystem. 26 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
         keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

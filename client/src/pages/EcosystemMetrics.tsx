@@ -436,6 +436,32 @@ const ecosystemMetrics: AppMetric[] = [
     gradient: "from-violet-500 to-purple-500",
     status: "Production",
   },
+  {
+    id: "guardian-screener",
+    name: "Guardian Screener",
+    url: "https://dwsc.io/guardian-shield",
+    totalLines: 0,
+    totalFiles: 0,
+    stack: ["React 18", "Vite", "Tailwind CSS 4", "Framer Motion", "PWA", "TypeScript"],
+    breakdown: [],
+    highlights: ["AI Pattern Detection", "Multi-Chain DEX", "Predictive Analytics", "Rug Pull Detection", "Whale Tracking", "24/7 Alerts"],
+    icon: Search,
+    gradient: "from-cyan-500 to-blue-500",
+    status: "Under Development",
+  },
+  {
+    id: "guardian-agent-scanner",
+    name: "Guardian Agent Scanner",
+    url: "https://dwsc.io/guardian-scanner",
+    totalLines: 0,
+    totalFiles: 0,
+    stack: ["React 18", "Vite", "Tailwind CSS 4", "Framer Motion", "WebSocket", "TanStack Query", "PWA", "TypeScript"],
+    breakdown: [],
+    highlights: ["AI Agent Scoring", "Guardian Score", "13+ Chains", "ML Predictions", "Quick-Trade Panel", "Real-time WebSocket"],
+    icon: Shield,
+    gradient: "from-cyan-500 to-purple-500",
+    status: "Production",
+  },
 ];
 
 function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: number; duration?: number; suffix?: string }) {
