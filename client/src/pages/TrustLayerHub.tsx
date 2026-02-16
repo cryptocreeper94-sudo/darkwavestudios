@@ -4115,20 +4115,26 @@ export default function TrustLayerHub() {
               <ChevronLeft className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
             </button>
             
-            {/* Cyan Dot Indicator */}
-            <div className="flex items-center gap-1.5 px-4">
-              {widgetsList.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedWidget(index)}
-                  className={`rounded-full transition-all duration-300 ${
-                    index === selectedWidget 
-                      ? 'w-8 h-2.5 bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/50' 
-                      : 'w-2.5 h-2.5 bg-white/20 hover:bg-cyan-400/40'
-                  }`}
-                  data-testid={`widget-dot-${index}`}
-                />
-              ))}
+            {/* Cyan Dot Indicator - Grouped (1 dot per 6 widgets) */}
+            <div className="flex items-center gap-2 px-4">
+              {Array.from({ length: Math.ceil(widgetsList.length / 6) }, (_, groupIdx) => {
+                const groupStart = groupIdx * 6;
+                const groupEnd = Math.min(groupStart + 5, widgetsList.length - 1);
+                const isActive = selectedWidget >= groupStart && selectedWidget <= groupEnd;
+                return (
+                  <button
+                    key={groupIdx}
+                    onClick={() => setSelectedWidget(groupStart)}
+                    className={`rounded-full transition-all duration-300 ${
+                      isActive
+                        ? 'w-8 h-2.5 bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/50'
+                        : 'w-2.5 h-2.5 bg-white/20 hover:bg-cyan-400/40'
+                    }`}
+                    data-testid={`widget-dot-${groupIdx}`}
+                    aria-label={`Widgets ${groupStart + 1}-${groupEnd + 1}`}
+                  />
+                );
+              })}
             </div>
             
             <button 
