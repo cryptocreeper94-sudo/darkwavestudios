@@ -654,16 +654,17 @@ export default function Explore() {
             )}
           </div>
 
-          <div className="flex items-center justify-center gap-4 text-[11px] text-white/30">
-            <Link href="/developers" className="hover:text-white/60 transition-colors" data-testid="explore-footer-developers">
-              Developer Portal
-            </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/30">
+            <span>&copy; 2026 DarkWave Studios</span>
             <span className="text-white/10">|</span>
-            <Link href="/home" className="hover:text-white/60 transition-colors" data-testid="explore-footer-homepage">
-              Homepage
-            </Link>
+            <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustshield">
+              Protected by TrustShield.tech
+            </a>
+            <span className="text-white/10">|</span>
+            <a href="https://dwsc.io" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustlayer">
+              Powered by Trust Layer
+            </a>
           </div>
-          <p className="text-[11px] text-white/20">DarkWave Studios &middot; Full-Service Web Agency</p>
         </footer>
       </main>
     </div>

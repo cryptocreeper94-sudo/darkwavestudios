@@ -88,7 +88,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "brew-board",
     name: "Brew & Board Coffee",
     tagline: "Nashville's Premium B2B Coffee Concierge.",
-    description: "B2B platform connecting Nashville businesses with premium local coffee shops and catering vendors. White-glove corporate catering.",
+    description: "B2B platform connecting businesses with premium local coffee shops and catering vendors. White label franchising available — Brew & Board Atlanta, Brew & Board Denver, or purchase a license for full self-branding. This is the working demo.",
     image: "/ecosystem/brew-board.png",
     url: "https://brewandboardcoffee.replit.app",
     category: "business"
@@ -213,11 +213,11 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "guardian-scanner",
     name: "Guardian Scanner",
-    tagline: "AI-Powered Token Analysis & Pulse Scoring",
-    description: "Real-time multi-chain cryptocurrency token analysis scanner with Pulse predictive scoring. Honeypot detection, whale analysis, ML price predictions, and Strike Agent buy/watch/avoid recommendations. Covers Solana, Ethereum, BSC, Base, Arbitrum, Polygon, and more. Powered by DexScreener data with proprietary Guardian Score algorithm.",
+    tagline: "Detect Unsafe & Fraudulent AI Agents",
+    description: "AI-powered scanning and analysis engine purpose-built to evaluate, verify, and score autonomous AI agents operating across blockchain networks. Detects unsafe and fraudulent AI agents with comprehensive safety scores, behavioral pattern analysis, and risk assessments. Guardian Score ratings across security, transparency, reliability, and compliance. Real-time WebSocket feeds, ML predictions, and multi-chain coverage.",
     image: "/ecosystem/guardian-scanner.png",
     url: "https://dwsc.io/guardian-scanner",
-    category: "trading"
+    category: "security"
   },
   {
     id: "signal-chat",
@@ -249,8 +249,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "guardian-agent-scanner",
     name: "Guardian Agent Scanner",
-    tagline: "Trust Scores for AI Agents",
-    description: "AI-powered scanning engine that evaluates, verifies, and scores autonomous AI agents across 13+ blockchains. Guardian Score safety ratings, real-time WebSocket feeds, ML-powered predictions, contract address lookup, honeypot and freeze authority detection, whale analysis, quick-trade panel, and category filtering. Installable PWA. Part of the dwsc.io codebase.",
+    tagline: "AI Agent Safety Verification Engine",
+    description: "Detects unsafe and fraudulent AI agents across 13+ blockchains. Produces comprehensive safety scores, behavioral pattern analysis, and risk assessments for autonomous AI agents making trades, managing wallets, and executing smart contracts. Guardian Score ratings, real-time WebSocket feeds, ML-powered predictions, and contract address lookup. Installable PWA. Part of the dwsc.io codebase.",
     image: "/projects/guardian-agent-scanner.png",
     url: "https://dwsc.io/guardian-scanner",
     category: "security"
@@ -310,9 +310,9 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
         )}
       </div>
       
-      <div className="overflow-hidden rounded-2xl">
+      <div className="overflow-hidden rounded-2xl px-1">
         <div 
-          className="flex gap-4 lg:gap-5 transition-transform duration-500 ease-out"
+          className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {apps.map((app) => (
@@ -321,7 +321,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
               href={app.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 w-full lg:w-[calc(33.333%-1rem)] rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
+              className="flex-shrink-0 w-full px-2 lg:w-[calc(33.333%)] lg:px-2 rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
               data-testid={`app-card-${app.id}`}
             >
               <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">

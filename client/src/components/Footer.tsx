@@ -1,137 +1,34 @@
-import { Link } from "wouter";
-import { ExternalLink, Shield, Facebook } from "lucide-react";
+import { Shield } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 glass-strong mt-6 lg:mt-12 border-t border-white/10" data-testid="footer">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
-        <div className="text-center mb-8">
-          <div className="font-display text-lg lg:text-xl font-bold gradient-text mb-2" data-testid="text-footer-brand">
-            DarkWave Studios
+    <footer className="relative z-10 mt-6 lg:mt-12 border-t border-white/10 bg-background/80 backdrop-blur-sm" data-testid="footer">
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <div className="text-muted-foreground text-xs lg:text-sm" data-testid="text-copyright">
+            &copy; 2026 DarkWave Studios
           </div>
-          <p className="text-xs lg:text-sm text-muted-foreground max-w-md mx-auto">
-            Full-service web agency delivering agency-quality work without agency prices.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 mb-8 max-w-3xl mx-auto text-center">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Work</div>
-            <div className="flex flex-col gap-2">
-              <Link href="/projects" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-portfolio">Portfolio</Link>
-              <Link href="/services" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-services">Services</Link>
-              <Link href="/compare" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-compare">Compare</Link>
-            </div>
-          </div>
-          
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Free Tools</div>
-            <div className="flex flex-col gap-2">
-              <Link href="/audit" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-audit">Website Audit</Link>
-              <Link href="/resources" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-resources">Free Resources</Link>
-              <Link href="/quote" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-quote">Get a Quote</Link>
-              <Link href="/payment" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-pricing">Plans & Pricing</Link>
-            </div>
-          </div>
-          
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">Company</div>
-            <div className="flex flex-col gap-2">
-              <Link href="/about" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-about">About Us</Link>
-              <Link href="/mission" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-mission">Our Mission</Link>
-              <Link href="/investors" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-investors">Investors</Link>
-              <Link href="/contact" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-contact">Contact</Link>
-              <Link href="/book" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-book">Book a Call</Link>
-            </div>
-          </div>
-          
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-foreground mb-3">
-              <Link href="/developers" className="hover:text-primary transition-colors" data-testid="footer-link-developers">Developers</Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Link href="/ecosystem" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-ecosystem">Ecosystem</Link>
-              <Link href="/hub" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-hub">Trust Layer Hub</Link>
-              <a href="https://dwtl.io/guardian-ai" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center justify-center gap-1" data-testid="footer-link-guardian">Guardian AI <ExternalLink className="w-3 h-3" /></a>
-              <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center justify-center gap-1" data-testid="footer-link-shield">Guardian Shield <ExternalLink className="w-3 h-3" /></a>
-              <Link href="/blog" className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-blog">Blog</Link>
-            </div>
-          </div>
-        </div>
-        
-        <div className="border-t border-white/10 pt-6">
-          <div className="flex flex-col items-center gap-4 mb-6">
-            <div className="flex flex-wrap items-center justify-center gap-2 text-muted-foreground" data-testid="text-trust-layer-branding">
-              <Shield className="w-4 h-4 text-primary" />
-              <span className="text-xs lg:text-sm">Powered by <span className="text-primary font-semibold">Trust Layer</span></span>
-              <span className="text-white/30 hidden sm:inline">|</span>
-              <span className="text-xs lg:text-sm">Protected by <span className="text-primary font-semibold">Guardian Trust Shield</span></span>
-            </div>
-            
-            <div className="flex items-center justify-center gap-4">
-              <a
-                href="https://x.com/TrustSignal26"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 hover:border-white/20 transition-all"
-                data-testid="footer-social-x"
-                aria-label="Follow us on X"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61585553137979"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 hover:border-white/20 transition-all"
-                data-testid="footer-social-facebook"
-                aria-label="Follow us on Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div className="flex items-center justify-center gap-4 lg:gap-6">
-              <a 
-                href="https://dwtl.io" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-xs lg:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                data-testid="footer-link-dwtl"
-              >
-                DWTL.io
-              </a>
-              <a 
-                href="https://trustshield.tech" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-xs lg:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                data-testid="footer-link-trustshield"
-              >
-                TrustShield.tech
-              </a>
-              <a 
-                href="https://tlid.io" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-xs lg:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                data-testid="footer-link-tlid"
-              >
-                TLId.io
-              </a>
-            </div>
-          </div>
-          
-          <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/5 text-center">
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/terms" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-terms">Terms</Link>
-              <Link href="/privacy" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">Privacy</Link>
-              <Link href="/affiliate-disclosure" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-affiliates">Affiliates</Link>
-              <Link href="/support" className="text-[10px] lg:text-xs text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-support">Support</Link>
-            </div>
-            <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-copyright">
-              &copy; 2026 DarkWave Studios. All rights reserved. &middot; Nashville, TN
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs lg:text-sm text-muted-foreground">
+            <a
+              href="https://trustshield.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"
+              data-testid="footer-link-trustshield"
+            >
+              <Shield className="w-3.5 h-3.5 text-primary" />
+              <span>Protected by <span className="text-primary font-semibold">TrustShield.tech</span></span>
+            </a>
+            <span className="text-white/30">|</span>
+            <a
+              href="https://dwsc.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+              data-testid="footer-link-trustlayer"
+            >
+              Powered by <span className="text-primary font-semibold">Trust Layer</span>
+            </a>
           </div>
         </div>
       </div>

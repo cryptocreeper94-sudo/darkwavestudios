@@ -103,7 +103,7 @@ const projects = [
   {
     id: 7,
     title: "Brew & Board Coffee",
-    description: "B2B corporate coffee concierge platform for Nashville. Calendar-based ordering, vendor discovery, real-time delivery tracking with driver GPS, virtual host for meetings, team management, and loyalty rewards program.",
+    description: "B2B corporate coffee concierge platform. Calendar-based ordering, vendor discovery, real-time delivery tracking with driver GPS, virtual host for meetings, team management, and loyalty rewards. White label franchising available — Brew & Board Atlanta, etc., or license purchase for full self-branding. This is the working demo.",
     tech: ["B2B", "Delivery", "Ordering", "Loyalty"],
     image: brewBoardImg,
     gradient: "from-amber-600/20 to-orange-600/20",
