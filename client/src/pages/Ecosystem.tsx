@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { 
   ChevronLeft, 
@@ -6,7 +6,8 @@ import {
   ExternalLink,
   ArrowLeft,
   Sparkles,
-  Smartphone
+  Smartphone,
+  X
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
@@ -270,8 +271,70 @@ const categories = [
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
 ];
 
+function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handleEsc);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" data-testid={`modal-${app.id}`}>
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#0d0d1a] border border-white/10 shadow-2xl shadow-primary/10">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+          data-testid="modal-close"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="aspect-video relative overflow-hidden rounded-t-2xl">
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-transparent to-transparent z-10" />
+          <img
+            src={app.image}
+            alt={app.name}
+            className="w-full h-full object-cover"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          />
+        </div>
+
+        <div className="p-6 space-y-4">
+          <div>
+            <h2 className="font-display font-bold text-2xl bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-testid="modal-app-name">
+              {app.name}
+            </h2>
+            <p className="text-sm text-primary/80 italic font-medium mt-1">"{app.tagline}"</p>
+          </div>
+
+          <p className="text-sm text-white/70 leading-relaxed" data-testid="modal-app-description">
+            {app.description}
+          </p>
+
+          <a
+            href={app.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-300"
+            data-testid="modal-visit-app"
+          >
+            <span>Visit {app.name}</span>
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryName: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedApp, setSelectedApp] = useState<EcosystemApp | null>(null);
   
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % apps.length);
@@ -285,6 +348,8 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
 
   return (
     <div className="relative">
+      {selectedApp && <AppDetailModal app={selectedApp} onClose={() => setSelectedApp(null)} />}
+
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="w-1 h-6 bg-gradient-to-b from-primary to-accent rounded-full" />
@@ -316,12 +381,10 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {apps.map((app) => (
-            <a
+            <button
               key={app.id}
-              href={app.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 w-full px-2 lg:w-[calc(33.333%)] lg:px-2 rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1"
+              onClick={() => setSelectedApp(app)}
+              className="flex-shrink-0 w-full px-2 lg:w-[calc(33.333%)] lg:px-2 rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 text-left"
               data-testid={`app-card-${app.id}`}
             >
               <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">
@@ -336,23 +399,18 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                   />
-                  <div className="absolute top-3 right-3 z-20">
-                    <div className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:bg-primary/80 group-hover:border-primary transition-all duration-300">
-                      <ExternalLink className="w-4 h-4" />
-                    </div>
-                  </div>
                 </div>
                 <div className="p-5 lg:p-5 relative">
                   <h4 className="font-display font-bold text-lg lg:text-base mb-1 group-hover:text-primary transition-colors duration-300">{app.name}</h4>
                   <p className="text-sm text-primary/80 mb-3 italic font-medium">"{app.tagline}"</p>
                   <p className="text-sm lg:text-xs text-muted-foreground line-clamp-3 lg:line-clamp-2 leading-relaxed">{app.description}</p>
                   <div className="mt-4 flex items-center gap-2 text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span>Explore</span>
+                    <span>Tap for details</span>
                     <ChevronRight className="w-3 h-3" />
                   </div>
                 </div>
               </div>
-            </a>
+            </button>
           ))}
         </div>
       </div>
