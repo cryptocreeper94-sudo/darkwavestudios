@@ -111,7 +111,7 @@ const hiddenFees = [
 
 const testimonialSlides = [
   {
-    quote: "I was quoted $45,000 by a traditional agency for a basic business website. DarkWave built something better for a fraction of the cost.",
+    quote: "I was quoted $45,000 by a traditional agency for a basic business website. DarkWave Studios built something better for a fraction of the cost.",
     author: "Local Business Owner",
     result: "Saved $30,000+"
   },
@@ -121,7 +121,7 @@ const testimonialSlides = [
     result: "Same-day support"
   },
   {
-    quote: "After being locked into a 24-month contract with limited support, working with DarkWave feels like freedom.",
+    quote: "After being locked into a 24-month contract with limited support, working with DarkWave Studios feels like freedom.",
     author: "Previous Agency Client",
     result: "No more lock-ins"
   }
@@ -141,7 +141,7 @@ export default function Compare() {
       <SEOHead
         title="Compare - DarkWave Studios vs Traditional Agencies"
         description="See how DarkWave Studios compares to traditional web development agencies. Same quality, 60%+ savings, direct developer access, and unlimited support."
-        keywords="compare web agencies, DarkWave vs agencies, affordable web development, boutique web agency comparison"
+        keywords="compare web agencies, DarkWave Studios vs agencies, affordable web development, boutique web agency comparison"
         type="website"
         url="https://darkwavestudios.com/compare"
       />
@@ -156,7 +156,7 @@ export default function Compare() {
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
-            DarkWave
+            DarkWave Studios
           </Link>
           <nav className="hidden lg:flex items-center gap-8">
             <Link href="/services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Services</Link>
@@ -181,7 +181,7 @@ export default function Compare() {
             <span className="text-sm font-medium text-red-400">The Agency Pricing Reality</span>
           </div>
           <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4">
-            Traditional Agency vs. <span className="gradient-text">DarkWave</span>
+            Traditional Agency vs. <span className="gradient-text">DarkWave Studios</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Real numbers from real contracts. See why businesses are switching to direct developer relationships.
@@ -292,7 +292,7 @@ export default function Compare() {
 
               <div className="glass rounded-xl p-4 lg:p-6 bg-primary/5 border border-primary/20">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-lg gradient-text">DarkWave Equivalent</span>
+                  <span className="font-bold text-lg gradient-text">DarkWave Studios Equivalent</span>
                   <span className="font-mono text-xl lg:text-2xl gradient-text">~${darkwaveEstimate.toLocaleString()}</span>
                 </div>
                 <div className="text-2xl lg:text-4xl font-bold font-display gradient-text text-center mt-4">

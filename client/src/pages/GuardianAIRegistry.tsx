@@ -419,7 +419,7 @@ export default function GuardianAIRegistry() {
             <ShieldCheck className="w-5 h-5 text-green-400" />
             <span className="font-display font-bold">Guardian AI Registry</span>
           </div>
-          <div className="text-muted-foreground text-sm">Powered by DarkWave Trust Layer</div>
+          <div className="text-muted-foreground text-sm">Powered by Trust Layer</div>
         </div>
       </footer>
     </div>

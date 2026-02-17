@@ -271,7 +271,7 @@ export default function Contact() {
             
             {/* Why Work With Us */}
             <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
-              <h2 className="text-lg lg:text-xl font-bold font-display mb-5 gradient-text">Why DarkWave?</h2>
+              <h2 className="text-lg lg:text-xl font-bold font-display mb-5 gradient-text">Why DarkWave Studios?</h2>
               <div className="space-y-4">
                 {[
                   { icon: MessageSquare, title: "Direct Developer Access", text: "Talk directly to the person building your app" },

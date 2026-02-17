@@ -246,11 +246,11 @@ const widgetsList = [
   { 
     id: "pulse", name: "Pulse", icon: Activity, containerId: "demo-pulse", color: "#ef4444", 
     description: "AI predictive quant system with 65%+ accuracy", price: 499, priceId: "price_1SwJOePCLBtdVWVNUZOlCId8",
-    fullDescription: "Pulse is our flagship AI predictive system with a verified 65-70% win rate across 100,000+ predictions. Harness institutional-grade quant intelligence for trading, forecasting, and data-driven decision making. Every prediction is hashed to DarkWave Smart Chain for immutable verification.",
+    fullDescription: "Pulse is our flagship AI predictive system with a verified 65-70% win rate across 100,000+ predictions. Harness institutional-grade quant intelligence for trading, forecasting, and data-driven decision making. Every prediction is hashed to DWSC for immutable verification.",
     features: ["65-70% verified win rate", "100,000+ prediction track record", "Real-time market signals", "Multi-asset analysis", "Blockchain-verified predictions", "1-day & 7-day forecasts", "Confidence scoring", "API access included", "Historical backtesting"],
     requirements: ["API integration capability", "Secure server environment recommended"],
     includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"],
-    techStack: ["Python", "TensorFlow", "FastAPI", "React 18", "TypeScript", "PostgreSQL", "Redis", "DarkWave Smart Chain"],
+    techStack: ["Python", "TensorFlow", "FastAPI", "React 18", "TypeScript", "PostgreSQL", "Redis", "DWSC"],
     linesOfCode: "~12,000+ lines (ML pipeline)",
     complexity: "Enterprise-grade",
     customizations: [
@@ -265,7 +265,7 @@ const widgetsList = [
   { 
     id: "pulse-pro", name: "Pulse Pro API", icon: Zap, containerId: "demo-pulse-pro", color: "#f59e0b", 
     description: "Unlimited API access to Pulse predictions", price: 1499, priceId: "price_1SwJOfPCLBtdVWVNJICDoloi",
-    fullDescription: "Full programmatic access to DarkWave Pulse with unlimited API calls. Build your own applications, trading bots, or analytics dashboards powered by our 65%+ accurate predictive engine. Includes backtesting suite and custom model training.",
+    fullDescription: "Full programmatic access to Pulse with unlimited API calls. Build your own applications, trading bots, or analytics dashboards powered by our 65%+ accurate predictive engine. Includes backtesting suite and custom model training.",
     features: ["Unlimited API calls", "All Pulse Basic features", "Custom prediction parameters", "Backtesting suite", "Bulk historical data export", "Custom webhooks", "Rate limit: 1000/min", "Multi-exchange support", "Advanced analytics dashboard"],
     requirements: ["Developer knowledge", "Server for API integration", "API authentication handling"],
     includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"],
@@ -286,7 +286,7 @@ const widgetsList = [
   { 
     id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
     description: "White-label quant system for institutions", price: 3999, priceId: "price_1SwJOfPCLBtdVWVNEGp2zZUu",
-    fullDescription: "Deploy DarkWave Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
+    fullDescription: "Deploy Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
     features: ["All Pulse Pro features", "White-label rights", "Custom branding", "Dedicated infrastructure", "Custom model training", "99.9% SLA uptime", "Priority 24/7 support", "Compliance documentation", "On-premise deployment option"],
     requirements: ["Enterprise infrastructure", "Legal entity for licensing", "Technical integration team"],
     includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"],
@@ -495,9 +495,9 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "effects-kit", name: "DarkWave Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#a855f7",
+    id: "effects-kit", name: "Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#a855f7",
     description: "Complete UI effects system — glass, 3D hover, shimmer, scroll animations, haptics & micro-interactions", price: 149, priceId: "price_widget_effects_kit",
-    fullDescription: "Drop-in UI polish kit used across DarkWave Studios' entire production platform. Includes glassmorphism panels, 3D perspective card hover, purple gradient shimmer loading, IntersectionObserver scroll-triggered animations, navigator.vibrate haptic feedback, and micro-interaction classes (press, lift, ripple). One CSS file + two utility modules — paste into any React or vanilla project and instantly elevate your UI.",
+    fullDescription: "Drop-in UI polish kit used across the entire production platform. Includes glassmorphism panels, 3D perspective card hover, purple gradient shimmer loading, IntersectionObserver scroll-triggered animations, navigator.vibrate haptic feedback, and micro-interaction classes (press, lift, ripple). One CSS file + two utility modules — paste into any React or vanilla project and instantly elevate your UI.",
     features: ["Glassmorphism (glass, glass-card, glass-strong)", "3D perspective card tilt on hover", "Purple gradient shimmer skeleton loading", "Scroll-triggered fade, slide & scale animations", "IntersectionObserver hook + ScrollReveal component", "Haptic feedback utility (6 vibration patterns)", "Button press scale effect", "Hover elevation with shadow", "Expanding ripple click effect", "Animated toggle switch", "CSS-only — no runtime dependencies", "Dark & light theme compatible"],
     requirements: ["Any website or React app", "No backend required", "No external dependencies"],
     includes: ["Full CSS effects stylesheet", "useScrollAnimation React hook", "ScrollReveal wrapper component", "Haptic feedback utility module", "Integration guide", "30-day email support", "Lifetime updates"],
@@ -783,7 +783,7 @@ const widgetsList = [
   {
     id: "code-editor", name: "Code Editor Widget", icon: Terminal, containerId: "demo-code-editor", color: "#3b82f6",
     description: "Embeddable Monaco code editor with syntax highlighting and execution", price: 199, priceId: "price_widget_code_editor",
-    fullDescription: "Embeddable Monaco-powered code editor with full syntax highlighting, IntelliSense, multi-language support, and optional sandboxed execution. Perfect for documentation sites, developer portals, coding tutorials, and interactive code playgrounds. Supports JavaScript, TypeScript, Python, Solidity, JSON, HTML, CSS, and more. Extracted from DarkWave Studio's production browser-based IDE.",
+    fullDescription: "Embeddable Monaco-powered code editor with full syntax highlighting, IntelliSense, multi-language support, and optional sandboxed execution. Perfect for documentation sites, developer portals, coding tutorials, and interactive code playgrounds. Supports JavaScript, TypeScript, Python, Solidity, JSON, HTML, CSS, and more. Extracted from DWSC Studio's production browser-based IDE.",
     features: ["Monaco Editor with IntelliSense", "20+ language syntax highlighting", "Dark and light themes", "Code formatting and linting", "Split-pane editor/preview", "File tab management", "Sandboxed code execution", "Copy/download code buttons", "Customizable editor height and features"],
     requirements: ["React 18+ frontend", "Optional: backend for code execution sandboxing"],
     includes: ["Full source code", "Editor component", "Language configurations", "Theme customization", "Execution sandbox", "Setup guide", "30-day email support", "Lifetime updates"],
@@ -866,7 +866,7 @@ const WIDGET_MAP: Record<string, string> = {
   "CRM Pipeline Manager": "tl-crm",
   "Weather-Based Scheduling": "tl-weather",
   "Signal Chat Widget": "tl-signal-chat",
-  "DarkWave Effects Kit": "tl-effects-kit",
+  "Effects Kit": "tl-effects-kit",
 };
 
 export default function TrustLayerHub() {
@@ -919,7 +919,7 @@ export default function TrustLayerHub() {
   const [pulseSubmitted, setPulseSubmitted] = useState(false);
   const [aiChatOpen, setAiChatOpen] = useState(false);
   const [aiMessages, setAiMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([
-    { role: "assistant", content: "Hello! I'm your DarkWave AI assistant. I can help you explore our widgets, answer questions about the Trust Layer Hub, or assist with your development needs. How can I help you today?" }
+    { role: "assistant", content: "Hello! I'm your Trust Layer AI assistant. I can help you explore our widgets, answer questions about the Trust Layer Hub, or assist with your development needs. How can I help you today?" }
   ]);
   const [aiInput, setAiInput] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
@@ -1139,8 +1139,8 @@ export default function TrustLayerHub() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Trust Layer Hub - Code Marketplace & Developer Ecosystem"
-        description="DarkWave Trust Layer Hub - Share, discover, and sync code snippets across all connected applications. The premium marketplace for verified widgets and components."
-        keywords="code marketplace, developer hub, code snippets, widgets, DarkWave Trust Layer, blockchain verified code"
+        description="Trust Layer Hub - Share, discover, and sync code snippets across all connected applications. The premium marketplace for verified widgets and components."
+        keywords="code marketplace, developer hub, code snippets, widgets, Trust Layer, blockchain verified code"
         type="website"
         url="https://darkwavestudios.com/hub"
       />
@@ -1166,7 +1166,7 @@ export default function TrustLayerHub() {
               </div>
               <div>
                 <h1 className="font-display font-bold text-base lg:text-xl gradient-text" data-testid="text-hub-title">Trust Layer Hub</h1>
-                <p className="text-[8px] lg:text-[10px] text-muted-foreground hidden lg:block">DarkWave Ecosystem</p>
+                <p className="text-[8px] lg:text-[10px] text-muted-foreground hidden lg:block">Trust Layer Ecosystem</p>
               </div>
             </div>
           </div>
@@ -1217,7 +1217,7 @@ export default function TrustLayerHub() {
                   The Developer <span className="gradient-text">Marketplace</span>
                 </h2>
                 <p className="text-muted-foreground text-xs lg:text-base max-w-xl mb-3 lg:mb-6 line-clamp-2 lg:line-clamp-none" data-testid="text-hero-description">
-                  Share, discover, and sync code snippets across all connected DarkWave applications.
+                  Share, discover, and sync code snippets across all connected Trust Layer applications.
                 </p>
                 <div className="flex flex-wrap gap-2 lg:gap-4">
                   <a href="#snippets" className="btn-glow inline-flex items-center gap-1.5 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-2 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-sm font-semibold" data-testid="button-browse-snippets">
@@ -1423,7 +1423,7 @@ export default function TrustLayerHub() {
                         </button>
                       )}
                       <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid={`text-snippet-author-${snippet.id}`}>
-                        by <span className="text-primary">{snippet.authorName || "DarkWave"}</span>
+                        by <span className="text-primary">{snippet.authorName || "Trust Layer"}</span>
                       </div>
                     </div>
                   </div>
@@ -1435,7 +1435,7 @@ export default function TrustLayerHub() {
               <Code2 className="w-10 h-10 lg:w-16 lg:h-16 text-muted-foreground mx-auto mb-2 lg:mb-4 opacity-50" />
               <h4 className="text-base lg:text-xl font-bold font-display mb-1 lg:mb-2" data-testid="text-empty-title">No Snippets Yet</h4>
               <p className="text-xs lg:text-sm text-muted-foreground mb-4 lg:mb-6" data-testid="text-empty-description">
-                Be the first to share code with the DarkWave ecosystem.
+                Be the first to share code with the Trust Layer ecosystem.
               </p>
               <Link 
                 href="/contact"
@@ -2107,7 +2107,7 @@ export default function TrustLayerHub() {
                         ? "bg-gradient-to-r from-red-500 to-orange-500 shadow-lg shadow-red-500/30" 
                         : "bg-red-500"
                     }`}>⛓</div>
-                    <span>Predictions verified on DarkWave Smart Chain</span>
+                    <span>Predictions verified on DWSC</span>
                   </div>
                 </div>
               )}
@@ -2298,7 +2298,7 @@ export default function TrustLayerHub() {
                       }`}>
                         {[
                           { user: "Sarah", msg: "Need help with my booking widget config", time: "2:31 PM", color: "from-pink-500 to-purple-500", badge: "GarageBot" },
-                          { user: "🤖 SignalBot", msg: "Ticket #284 created. @DarkWave team notified.", time: "2:31 PM", color: "from-green-500 to-emerald-500", isBot: true },
+                          { user: "🤖 SignalBot", msg: "Ticket #284 created. @DWS team notified.", time: "2:31 PM", color: "from-green-500 to-emerald-500", isBot: true },
                           { user: "Alex", msg: "Checking your setup now — same TL account right?", time: "2:33 PM", color: "from-blue-500 to-cyan-500", badge: "DWS Team" },
                         ].map((m, i) => (
                           <div key={i} className="flex gap-2 items-start">
@@ -4303,9 +4303,9 @@ export default function TrustLayerHub() {
                 <div className="flex items-start gap-3">
                   <Shield className="w-8 h-8 text-primary flex-shrink-0" />
                   <div>
-                    <div className="text-xs font-semibold text-primary">DarkWave Smart Chain Verified</div>
+                    <div className="text-xs font-semibold text-primary">DWSC Verified</div>
                     <p className="text-[10px] text-muted-foreground mt-0.5">
-                      Every purchase is hashed to the DarkWave blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at trustshield.tech
+                      Every purchase is hashed to the DWSC blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at trustshield.tech
                     </p>
                   </div>
                 </div>
@@ -4328,7 +4328,7 @@ export default function TrustLayerHub() {
                   Join the <span className="gradient-text">Trust Layer</span>
                 </h3>
                 <p className="text-xs lg:text-base text-muted-foreground max-w-2xl mx-auto mb-4 lg:mb-8 line-clamp-2 lg:line-clamp-none">
-                  Connect your app to the DarkWave ecosystem. Share code, sync data, and leverage blockchain-verified integrations.
+                  Connect your app to the Trust Layer ecosystem. Share code, sync data, and leverage blockchain-verified integrations.
                 </p>
                 <div className="flex flex-wrap gap-2 lg:gap-4 justify-center">
                   <Link 
@@ -4358,7 +4358,7 @@ export default function TrustLayerHub() {
             <Shield className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
             <span className="font-display font-bold text-sm lg:text-base gradient-text" data-testid="text-footer-brand">Trust Layer Hub</span>
           </div>
-          <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by DarkWave Trust Layer Blockchain</div>
+          <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by Trust Layer Blockchain</div>
         </div>
       </footer>
 
@@ -4390,7 +4390,7 @@ export default function TrustLayerHub() {
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="font-display font-bold text-white">DarkWave AI</h3>
+                <h3 className="font-display font-bold text-white">Trust Layer AI</h3>
                 <p className="text-xs text-purple-300">Powered by Trust Layer</p>
               </div>
             </div>

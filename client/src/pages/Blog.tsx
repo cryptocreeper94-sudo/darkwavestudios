@@ -125,7 +125,7 @@ export default function Blog() {
                       <div className="flex items-center gap-4 text-muted-foreground text-sm">
                         <span className="flex items-center gap-1">
                           <User className="h-4 w-4" />
-                          {featuredPost.author || 'DarkWave Team'}
+                          {featuredPost.author || 'DarkWave Studios'}
                         </span>
                         <span className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />

@@ -402,7 +402,7 @@ export default function MarketingHub() {
             Marketing <span className="gradient-text">Automation</span>
           </h1>
           <p className="text-muted-foreground">
-            Automated social media posting for the DarkWave ecosystem
+            Automated social media posting for the Trust Layer ecosystem
           </p>
         </div>
 

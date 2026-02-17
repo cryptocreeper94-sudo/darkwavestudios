@@ -139,7 +139,7 @@ const categories: CommandCategory[] = [
     title: "Ecosystem & Platform",
     icon: <Layers className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "The full DarkWave ecosystem. Browse all 26 connected applications, review codebase metrics, manage the widget marketplace, and access developer documentation.",
+    description: "The full Trust Layer ecosystem. Browse all 26 connected applications, review codebase metrics, manage the widget marketplace, and access developer documentation.",
     cards: [
       {
         label: "Ecosystem",

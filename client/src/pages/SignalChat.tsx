@@ -502,7 +502,7 @@ export default function SignalChat() {
     <div className="h-screen bg-[#0a0a1a] flex flex-col">
       <SEOHead
         title="Signal Chat - Real-Time Ecosystem Communication"
-        description="Join Signal Chat, the real-time communication platform for the DarkWave ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
+        description="Join Signal Chat, the real-time communication platform for the Trust Layer ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
         keywords="Signal Chat, real-time chat, ecosystem communication, Trust Layer SSO, WebSocket messaging, cross-app identity"
       />
       <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/10">

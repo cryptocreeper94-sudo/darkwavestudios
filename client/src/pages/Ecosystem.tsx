@@ -168,7 +168,7 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "chronicles",
-    name: "DarkWave Chronicles",
+    name: "Chronicles",
     tagline: "Not a Game — a Life.",
     description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history. 16,003 lines of production code.",
     image: "/ecosystem/chronicles.jpg",
@@ -185,10 +185,10 @@ const ecosystemApps: EcosystemApp[] = [
     category: "gaming"
   },
   {
-    id: "darkwave-studio",
-    name: "DarkWave Studio",
-    tagline: "Build on DarkWave Smart Chain.",
-    description: "Browser-based integrated development environment for building on the DarkWave Smart Chain. Monaco-powered code editor, smart contract development, Docker container orchestration for sandboxed execution, JWT-authenticated sessions, resource enforcement, project management, and full developer portal. 7,006 lines of production code.",
+    id: "dwsc-studio",
+    name: "DWSC Studio",
+    tagline: "Build on DWSC.",
+    description: "Browser-based integrated development environment for building on DWSC. Monaco-powered code editor, smart contract development, Docker container orchestration for sandboxed execution, JWT-authenticated sessions, resource enforcement, project management, and full developer portal. 7,006 lines of production code.",
     image: "/ecosystem/darkwave-studio.png",
     url: "https://dwsc.io/studio",
     category: "core"
@@ -242,7 +242,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "guardian-screener",
     name: "Guardian Screener",
     tagline: "See the Market Before It Sees You",
-    description: "AI-powered DEX screener with real-time monitoring across all major decentralized exchanges. Smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DarkWave. Installable PWA. Part of the dwsc.io codebase.",
+    description: "AI-powered DEX screener with real-time monitoring across all major decentralized exchanges. Smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DWSC. Installable PWA. Part of the dwsc.io codebase.",
     image: "/projects/guardian-screener.png",
     url: "https://dwsc.io/guardian-shield",
     category: "trading"
@@ -259,7 +259,7 @@ const ecosystemApps: EcosystemApp[] = [
 ];
 
 const categories = [
-  { id: "core", name: "Core Platform", description: "The foundation of the DarkWave ecosystem" },
+  { id: "core", name: "Core Platform", description: "The foundation of the Trust Layer ecosystem" },
   { id: "trading", name: "Trading & Crypto", description: "AI-powered trading and blockchain tools" },
   { id: "business", name: "Business Operations", description: "Enterprise workflow and staffing solutions" },
   { id: "trades", name: "Trade Services", description: "Field service platforms for contractors" },
@@ -440,8 +440,8 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete DarkWave ecosystem. 26 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
-        keywords="DarkWave ecosystem, trust layer, blockchain apps, trading platforms, business software"
+        description="Explore the complete Trust Layer ecosystem. 26 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
+        keywords="Trust Layer ecosystem, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema
         items={[
@@ -494,7 +494,7 @@ export default function Ecosystem() {
             {ecosystemApps.length} Connected Applications
           </div>
           <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
-            The DarkWave{" "}
+            The Trust Layer{" "}
             <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
@@ -547,7 +547,7 @@ export default function Ecosystem() {
               </h2>
               <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
                 Access our developer tools, APIs, and Trust Layer widgets to build your own 
-                applications within the DarkWave ecosystem.
+                applications within the Trust Layer ecosystem.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 

@@ -36,7 +36,7 @@ export default function Investors() {
     },
     {
       title: "Blockchain Infrastructure",
-      description: "DarkWave Chain - Layer 1 blockchain with DeFi suite, positioned for enterprise adoption.",
+      description: "DWSC - Layer 1 blockchain with DeFi suite, positioned for enterprise adoption.",
       growth: "Emerging Technology"
     },
     {

@@ -305,7 +305,7 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "chronicles",
-    name: "DarkWave Chronicles",
+    name: "Chronicles",
     url: "https://yourlegacy.io",
     totalLines: 17227,
     totalFiles: 20,
@@ -336,8 +336,8 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
-    id: "darkwave-studio",
-    name: "DarkWave Studio",
+    id: "dwsc-studio",
+    name: "DWSC Studio",
     url: "https://dwsc.io/studio",
     totalLines: 8230,
     totalFiles: 32,
@@ -547,8 +547,8 @@ export default function EcosystemMetrics() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem Metrics - DarkWave Studios"
-        description={`${totalLines.toLocaleString()}+ lines of hand-written code across ${totalApps} production applications. Explore the full DarkWave ecosystem codebase.`}
-        keywords="DarkWave ecosystem metrics, codebase statistics, lines of code, production applications, full-stack development"
+        description={`${totalLines.toLocaleString()}+ lines of hand-written code across ${totalApps} production applications. Explore the full Trust Layer ecosystem codebase.`}
+        keywords="Trust Layer ecosystem metrics, codebase statistics, lines of code, production applications, full-stack development"
       />
       <BreadcrumbSchema
         items={[
@@ -600,7 +600,7 @@ export default function EcosystemMetrics() {
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
             Across {totalApps} production applications. No boilerplate. No generated output. 
-            Pure, hand-crafted source code powering the entire DarkWave ecosystem.
+            Pure, hand-crafted source code powering the entire Trust Layer ecosystem.
           </p>
           <p className="text-xs text-muted-foreground/50 mt-4">
             Last updated: February 14, 2026 &middot; Excludes node_modules, build artifacts, and lock files
@@ -829,7 +829,7 @@ export default function EcosystemMetrics() {
                 Growing Every Day
               </h2>
               <p className="text-muted-foreground mb-3 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
-                These metrics are updated after every development session. The DarkWave ecosystem 
+                These metrics are updated after every development session. The Trust Layer ecosystem 
                 is continuously evolving with new features, applications, and improvements.
               </p>
               <p className="text-xs text-muted-foreground/60 mb-8">

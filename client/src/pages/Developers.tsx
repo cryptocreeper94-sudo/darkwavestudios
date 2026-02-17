@@ -300,7 +300,7 @@ export default function Developers() {
           <h1 className="font-display font-bold text-4xl lg:text-6xl mb-6" data-testid="text-hero-title">
             Build with{" "}
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              DarkWave
+              Trust Layer
             </span>
           </h1>
           
@@ -364,7 +364,7 @@ export default function Developers() {
             <div className="text-center mb-8 lg:mb-12">
               <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">API Capabilities</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Integrate DarkWave services into your applications with our comprehensive API suite.
+                Integrate Trust Layer services into your applications with our comprehensive API suite.
               </p>
             </div>
             
@@ -591,7 +591,7 @@ export default function Developers() {
           <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">Ready to Build?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-              Start integrating DarkWave widgets into your projects today. Browse our marketplace or contact us for custom solutions.
+              Start integrating Trust Layer widgets into your projects today. Browse our marketplace or contact us for custom solutions.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link 

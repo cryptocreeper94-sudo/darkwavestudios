@@ -33,7 +33,7 @@ const projects = [
   {
     id: 1,
     title: "Pulse",
-    description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent asset discovery, DarkWave-V2 AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
+    description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent asset discovery, Pulse-V2 AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
     tech: ["AI/ML", "Crypto", "Analytics", "Trading"],
     image: pulseImg,
     gradient: "from-purple-500/20 to-indigo-600/20",
@@ -192,7 +192,7 @@ const projects = [
   },
   {
     id: 17,
-    title: "DarkWave Chronicles",
+    title: "Chronicles",
     description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. 3 playable eras (Modern, Medieval, Wild West), 15 factions, 75 situations, 9 NPCs with persistent relationship scores, AI-generated infinite daily situations, voice interaction, and estate building.",
     tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
     image: chroniclesImg,
@@ -212,8 +212,8 @@ const projects = [
   },
   {
     id: 24,
-    title: "DarkWave Studio",
-    description: "Browser-based IDE for building on the DarkWave Smart Chain. Monaco-powered code editor, smart contract development, Docker sandboxed execution, JWT-authenticated sessions, project management, and developer portal. 7,006 lines of production code.",
+    title: "DWSC Studio",
+    description: "Browser-based IDE for building on DWSC. Monaco-powered code editor, smart contract development, Docker sandboxed execution, JWT-authenticated sessions, project management, and developer portal. 7,006 lines of production code.",
     tech: ["IDE", "Smart Contracts", "Docker", "DevTools"],
     image: darkwaveStudioImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
@@ -273,7 +273,7 @@ const projects = [
   {
     id: 26,
     title: "Guardian Screener",
-    description: "AI-powered DEX screener built for traders who refuse to fly blind. Real-time monitoring across all major decentralized exchanges with smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DarkWave. Part of the dwsc.io codebase.",
+    description: "AI-powered DEX screener built for traders who refuse to fly blind. Real-time monitoring across all major decentralized exchanges with smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DWSC. Part of the dwsc.io codebase.",
     tech: ["AI Analytics", "Multi-Chain", "Real-time", "PWA"],
     image: "/projects/guardian-screener.png",
     gradient: "from-cyan-500/20 to-blue-600/20",

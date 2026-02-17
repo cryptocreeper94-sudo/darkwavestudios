@@ -61,7 +61,7 @@ const categories: ExploreCategory[] = [
     cards: [
       {
         label: "Homepage",
-        description: "The main DarkWave Studios site — services, portfolio, and more",
+        description: "The main site — services, portfolio, and more",
         href: "/home",
         icon: <Home className="size-5" />,
         image: "/command/homepage.png",
@@ -141,7 +141,7 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full DarkWave ecosystem — 26 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.97M+ lines of code.",
+    description: "Explore the full Trust Layer ecosystem — 26 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.97M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",

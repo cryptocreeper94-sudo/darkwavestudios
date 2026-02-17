@@ -95,7 +95,7 @@ export function AdFreeBanner({ isAdFree = false, loading = false, onUpgrade }: A
       data-testid="ad-free-banner"
     >
       <div className="flex items-center gap-2 text-center sm:text-left">
-        <span className="text-sm text-muted-foreground">Enjoying DarkWave?</span>
+        <span className="text-sm text-muted-foreground">Enjoying the platform?</span>
         <span className="text-sm font-semibold text-white">Go Ad-Free for $5/mo</span>
       </div>
       <button

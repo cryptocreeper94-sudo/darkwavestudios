@@ -191,7 +191,7 @@ const projects = [
   },
   {
     id: 17,
-    title: "DarkWave Chronicles",
+    title: "Chronicles",
     description: "Parallel life simulation across historical eras with AI NPCs, voice cloning, and real-time world",
     tech: ["Life Sim", "AI", "Voice", "Real-time"],
     image: "/ecosystem/chronicles.jpg",
@@ -209,8 +209,8 @@ const projects = [
   },
   {
     id: 24,
-    title: "DarkWave Studio",
-    description: "Browser-based IDE for smart contract development on DarkWave Smart Chain",
+    title: "DWSC Studio",
+    description: "Browser-based IDE for smart contract development on DWSC",
     tech: ["IDE", "Smart Contracts", "DevTools"],
     image: "/ecosystem/darkwave-studio.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
@@ -719,7 +719,7 @@ export default function Home() {
                       <span className="text-[10px] lg:text-xs font-medium text-green-400">Now Available</span>
                     </div>
                     <h3 className="text-lg lg:text-2xl font-bold font-display mb-1 lg:mb-2">
-                      DarkWave <span className="text-primary">Studio IDE</span>
+                      DWSC <span className="text-primary">Studio IDE</span>
                     </h3>
                     <p className="text-muted-foreground text-xs lg:text-sm max-w-xl">
                       AI-powered development environment with modern tools and seamless deployment.
@@ -945,7 +945,7 @@ export default function Home() {
                     </div>
                     <ArrowRight className="w-4 h-4 text-primary" />
                     <div className="text-center">
-                      <div className="text-[8px] text-primary">DarkWave</div>
+                      <div className="text-[8px] text-primary">Our Price</div>
                       <div className="text-lg font-bold font-display gradient-text">60% Less</div>
                     </div>
                   </div>
@@ -999,7 +999,7 @@ export default function Home() {
                   <div className="relative z-10 text-center">
                     <div className="text-sm text-muted-foreground mb-2">Agency Price</div>
                     <div className="text-4xl font-bold line-through text-muted-foreground mb-6">$50,000+</div>
-                    <div className="text-sm text-primary mb-2">DarkWave Price</div>
+                    <div className="text-sm text-primary mb-2">Our Price</div>
                     <div className="text-6xl font-bold font-display gradient-text mb-2">60%+</div>
                     <div className="text-2xl font-display gradient-text mb-6">Less</div>
                     <ul className="text-left space-y-3 mb-6">
@@ -1150,14 +1150,14 @@ export default function Home() {
                 {
                   name: "Kathy G.",
                   role: "Owner, HappyEats.app",
-                  quote: "DarkWave built HappyEats from the ground up and it's been running smoothly since day one. The whole process was straightforward — they understood what I needed and delivered exactly that.",
+                  quote: "DarkWave Studios built HappyEats from the ground up and it's been running smoothly since day one. The whole process was straightforward — they understood what I needed and delivered exactly that.",
                   color: "#06b6d4",
                   rating: 5,
                 },
                 {
                   name: "Jordan T.",
                   role: "Founder, Validitor",
-                  quote: "Working with DarkWave on Validitor has been a great experience. The technical quality is top-notch and the turnaround time is faster than any agency I've worked with before.",
+                  quote: "Working with DarkWave Studios on Validitor has been a great experience. The technical quality is top-notch and the turnaround time is faster than any agency I've worked with before.",
                   color: "#10b981",
                   rating: 5,
                 },
@@ -1178,7 +1178,7 @@ export default function Home() {
                 {
                   name: "Derek L.",
                   role: "Small Business Owner",
-                  quote: "I needed a site that looked professional but didn't cost a fortune. DarkWave delivered something that looks like a six-figure build at a fraction of the price. Couldn't be happier.",
+                  quote: "I needed a site that looked professional but didn't cost a fortune. DarkWave Studios delivered something that looks like a six-figure build at a fraction of the price. Couldn't be happier.",
                   color: "#3b82f6",
                   rating: 5,
                 },
@@ -1192,7 +1192,7 @@ export default function Home() {
                 {
                   name: "Carlos M.",
                   role: "Startup Co-Founder",
-                  quote: "We went from idea to working MVP in under three weeks. DarkWave moves fast without cutting corners. Our investors were impressed with the quality on the first demo.",
+                  quote: "We went from idea to working MVP in under three weeks. DarkWave Studios moves fast without cutting corners. Our investors were impressed with the quality on the first demo.",
                   color: "#a855f7",
                   rating: 5,
                 },

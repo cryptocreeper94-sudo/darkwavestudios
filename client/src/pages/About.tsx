@@ -152,7 +152,7 @@ export default function About() {
                   Full-stack developer with a passion for building applications that solve real problems. After years of watching agencies overcharge and underdeliver, I started DarkWave Studios to offer a better way.
                 </p>
                 <p>
-                  When you work with DarkWave, you work directly with me. No account managers, no support tickets that disappear into a queue. Just direct communication and rapid iteration until your project is exactly what you envisioned.
+                  When you work with DarkWave Studios, you work directly with me. No account managers, no support tickets that disappear into a queue. Just direct communication and rapid iteration until your project is exactly what you envisioned.
                 </p>
                 <p>
                   Currently serving 11 clients with 10+ live applications. From AI trading platforms to local business websites, I build solutions that work.

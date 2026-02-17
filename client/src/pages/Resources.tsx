@@ -34,7 +34,7 @@ const resources: Resource[] = [
     description: "The complete 50-point checklist we use before launching any website. Covers SEO, performance, security, and accessibility.",
     category: "Checklists",
     icon: CheckSquare,
-    downloadName: "DarkWave-Website-Launch-Checklist.txt",
+    downloadName: "DWS-Website-Launch-Checklist.txt",
     content: `DARKWAVE STUDIOS - WEBSITE LAUNCH CHECKLIST
 ============================================
 
@@ -107,7 +107,7 @@ https://darkwavestudios.io
     description: "A beginner-friendly guide to optimizing your website for search engines. Covers the fundamentals that make 80% of the difference.",
     category: "Guides",
     icon: BookOpen,
-    downloadName: "DarkWave-SEO-Quick-Start-Guide.txt",
+    downloadName: "DWS-SEO-Quick-Start-Guide.txt",
     content: `DARKWAVE STUDIOS - SEO QUICK START GUIDE
 =========================================
 
@@ -176,7 +176,7 @@ https://darkwavestudios.io/book
     description: "The exact template we use to scope projects. Fill this out before your consultation to get the most accurate quote.",
     category: "Templates",
     icon: FileText,
-    downloadName: "DarkWave-Project-Brief-Template.txt",
+    downloadName: "DWS-Project-Brief-Template.txt",
     content: `DARKWAVE STUDIOS - PROJECT BRIEF TEMPLATE
 ==========================================
 
@@ -272,7 +272,7 @@ Or book a call: https://darkwavestudios.io/book
     description: "Our recommended tech stack for different project types. Learn what technologies power fast, scalable web applications.",
     category: "Guides",
     icon: Code,
-    downloadName: "DarkWave-Tech-Stack-Guide.txt",
+    downloadName: "DWS-Tech-Stack-Guide.txt",
     content: `DARKWAVE STUDIOS - MODERN TECH STACK GUIDE
 ===========================================
 
@@ -377,7 +377,7 @@ https://darkwavestudios.io/book
     description: "The design principles that make websites convert. Covers layout, typography, color, and user psychology.",
     category: "Guides",
     icon: Palette,
-    downloadName: "DarkWave-Design-Best-Practices.txt",
+    downloadName: "DWS-Design-Best-Practices.txt",
     content: `DARKWAVE STUDIOS - WEB DESIGN BEST PRACTICES
 =============================================
 
@@ -475,7 +475,7 @@ https://darkwavestudios.io/book
     description: "Speed up your website with this technical checklist. Covers images, caching, code optimization, and server configuration.",
     category: "Checklists",
     icon: Zap,
-    downloadName: "DarkWave-Performance-Checklist.txt",
+    downloadName: "DWS-Performance-Checklist.txt",
     content: `DARKWAVE STUDIOS - PERFORMANCE OPTIMIZATION CHECKLIST
 =====================================================
 
