@@ -214,8 +214,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "guardian-scanner",
     name: "Guardian Scanner",
-    tagline: "Detect Unsafe & Fraudulent AI Agents",
-    description: "AI-powered scanning and analysis engine purpose-built to evaluate, verify, and score autonomous AI agents operating across blockchain networks. Detects unsafe and fraudulent AI agents with comprehensive safety scores, behavioral pattern analysis, and risk assessments. Guardian Score ratings across security, transparency, reliability, and compliance. Real-time WebSocket feeds, ML predictions, and multi-chain coverage.",
+    tagline: "Multi-Chain Token & URL Security Scanner",
+    description: "AI-powered multi-chain token and URL security scanner providing real-time safety analysis across 13+ blockchains including Solana, Ethereum, BNB Chain, Base, Arbitrum, Polygon, Avalanche, Fantom, Optimism, Cronos, Tron, zkSync, and the DarkWave chain. Token scanning with the Pulse Safety Engine checks for honeypot traps, freeze/mint authority risks, whale concentration, liquidity lock status, and rug-pull indicators — every token gets a Guardian Score (0-100) and safety grade. URL scanning detects phishing signatures, malicious redirects, fake token claim pages, and known scam domains. AI threat detection produces actionable recommendations: Snipe, Watch, or Avoid. Live market data with trending tokens, gainers/losers, newest launches, and volume leaders via DexScreener integration and WebSocket streaming. Mobile-first PWA installable on any device.",
     image: "/ecosystem/guardian-scanner.png",
     url: "https://dwsc.io/guardian-scanner",
     category: "security"

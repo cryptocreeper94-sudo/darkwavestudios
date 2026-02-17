@@ -394,11 +394,11 @@ const ecosystemMetrics: AppMetric[] = [
     url: "https://dwsc.io/guardian-scanner",
     totalLines: 1224,
     totalFiles: 12,
-    stack: ["React 18", "TypeScript", "DexScreener API", "Axios", "WebSocket", "Pulse AI Engine", "Trust Layer"],
+    stack: ["React 18", "TypeScript", "DexScreener API", "Axios", "WebSocket", "Pulse Safety Engine", "Trust Layer", "PWA"],
     breakdown: [
       { language: "Included in Trust Layer build", lines: 7000, files: 12 },
     ],
-    highlights: ["Multi-chain (12 chains)", "AI Safety Scoring", "Strike Agent Recs", "ML Price Predictions", "Guardian Score A-F", "Live Trending Feed"],
+    highlights: ["13+ Chains", "Token & URL Scanning", "Guardian Score 0-100", "AI Threat Detection", "Snipe/Watch/Avoid", "Live Market Data"],
     icon: Search,
     gradient: "from-green-500 to-emerald-500",
     status: "Production",
