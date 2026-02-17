@@ -243,8 +243,8 @@ const projects = [
   {
     id: 20,
     title: "Guardian Scanner",
-    description: "AI-powered multi-chain token and URL security scanner with real-time safety analysis across 13+ blockchains. Pulse Safety Engine checks for honeypot traps, freeze/mint authority risks, whale concentration, liquidity lock status, and rug-pull indicators. URL scanning detects phishing, malicious redirects, and scam domains. AI threat detection with Snipe/Watch/Avoid recommendations. Live market data via DexScreener integration. Guardian Score (0-100) for every token. Mobile-first PWA.",
-    tech: ["AI Security", "Multi-Chain", "URL Scanner", "PWA"],
+    description: "AI-powered security verification platform that scans and certifies autonomous AI agents and websites/URLs across the crypto ecosystem. Verifies agents across Security, Transparency, Reliability, and Compliance with Guardian trust scores and certification tiers (Assurance Lite and Guardian Premier). URL scanning detects phishing, malicious redirects, impersonation, and scam domains. Public registry of certified agents. Guardian Shield continuous monitoring with real-time alerts. Mobile-first PWA.",
+    tech: ["AI Certification", "URL Scanner", "Registry", "PWA"],
     image: guardianScannerImg,
     gradient: "from-green-500/20 to-emerald-600/20",
     url: "https://dwsc.io/guardian-scanner",

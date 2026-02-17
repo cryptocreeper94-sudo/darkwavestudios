@@ -214,8 +214,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "guardian-scanner",
     name: "Guardian Scanner",
-    tagline: "Multi-Chain Token & URL Security Scanner",
-    description: "AI-powered multi-chain token and URL security scanner providing real-time safety analysis across 13+ blockchains including Solana, Ethereum, BNB Chain, Base, Arbitrum, Polygon, Avalanche, Fantom, Optimism, Cronos, Tron, zkSync, and the DarkWave chain. Token scanning with the Pulse Safety Engine checks for honeypot traps, freeze/mint authority risks, whale concentration, liquidity lock status, and rug-pull indicators — every token gets a Guardian Score (0-100) and safety grade. URL scanning detects phishing signatures, malicious redirects, fake token claim pages, and known scam domains. AI threat detection produces actionable recommendations: Snipe, Watch, or Avoid. Live market data with trending tokens, gainers/losers, newest launches, and volume leaders via DexScreener integration and WebSocket streaming. Mobile-first PWA installable on any device.",
+    tagline: "AI Agent & URL Security Verification",
+    description: "AI-powered security verification platform that scans and certifies both autonomous AI agents and websites/URLs across the crypto ecosystem. AI Agent Scanning & Certification verifies agents across four dimensions: Security, Transparency, Reliability, and Compliance — agents receive a Guardian trust score and can earn certification through the Guardian Certification Program (Assurance Lite and Guardian Premier tiers). All certified agents are listed on the public Guardian AI Registry. Website & URL Scanning checks any project URL, token website, DEX link, airdrop claim page, or Discord invite for phishing indicators, malicious redirects, impersonation patterns, and known scam domains. Guardian Shield subscribers receive continuous monitoring with real-time alerts when certified agents or scanned websites change behavior. Mobile-first PWA installable on any device.",
     image: "/ecosystem/guardian-scanner.png",
     url: "https://dwsc.io/guardian-scanner",
     category: "security"
