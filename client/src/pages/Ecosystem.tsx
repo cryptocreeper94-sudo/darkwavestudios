@@ -375,16 +375,19 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
         )}
       </div>
       
-      <div className="overflow-hidden rounded-2xl px-1">
+      <div className="overflow-hidden rounded-2xl">
         <div 
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {apps.map((app) => (
-            <button
+            <div
               key={app.id}
+              className="flex-shrink-0 w-full lg:w-[calc(33.333%)] flex justify-center"
+            >
+            <button
               onClick={() => setSelectedApp(app)}
-              className="flex-shrink-0 w-full px-2 lg:w-[calc(33.333%)] lg:px-2 rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 text-left"
+              className="w-[calc(100%-16px)] lg:w-[calc(100%-16px)] rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 text-left"
               data-testid={`app-card-${app.id}`}
             >
               <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">
@@ -411,6 +414,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
                 </div>
               </div>
             </button>
+            </div>
           ))}
         </div>
       </div>
