@@ -246,15 +246,6 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/projects/guardian-screener.png",
     url: "https://dwsc.io/guardian-shield",
     category: "trading"
-  },
-  {
-    id: "guardian-agent-scanner",
-    name: "Guardian Agent Scanner",
-    tagline: "AI Agent Safety Verification Engine",
-    description: "Detects unsafe and fraudulent AI agents across 13+ blockchains. Produces comprehensive safety scores, behavioral pattern analysis, and risk assessments for autonomous AI agents making trades, managing wallets, and executing smart contracts. Guardian Score ratings, real-time WebSocket feeds, ML-powered predictions, and contract address lookup. Installable PWA. Part of the dwsc.io codebase.",
-    image: "/projects/guardian-agent-scanner.png",
-    url: "https://dwsc.io/guardian-scanner",
-    category: "security"
   }
 ];
 
@@ -440,7 +431,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete Trust Layer ecosystem. 26 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
+        description="Explore the complete Trust Layer ecosystem. 25 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
         keywords="Trust Layer ecosystem, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

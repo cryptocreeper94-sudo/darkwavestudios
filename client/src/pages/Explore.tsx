@@ -141,16 +141,16 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full Trust Layer ecosystem — 26 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.97M+ lines of code.",
+    description: "Explore the full Trust Layer ecosystem — 25 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.97M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
-        description: "All 26 connected applications in one view",
+        description: "All 25 connected applications in one view",
         href: "/ecosystem",
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
         glowColor: "shadow-indigo-500/20",
-        badge: "26 Apps",
+        badge: "25 Apps",
         featured: true,
       },
       {

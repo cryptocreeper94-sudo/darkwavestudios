@@ -253,7 +253,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 26 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 25 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -279,16 +279,6 @@ const projects = [
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://dwsc.io/guardian-shield",
     category: "Trading"
-  },
-  {
-    id: 27,
-    title: "Guardian Agent Scanner",
-    description: "AI-powered scanning and analysis engine that evaluates, verifies, and scores autonomous AI agents operating across 13+ blockchain networks. Guardian Score safety ratings, real-time WebSocket data feeds, ML-powered prediction engine, contract address lookup, honeypot and freeze authority detection, whale analysis, quick-trade panel, and category filtering. Part of the dwsc.io codebase.",
-    tech: ["AI Security", "WebSocket", "ML Predictions", "PWA"],
-    image: "/projects/guardian-agent-scanner.png",
-    gradient: "from-cyan-500/20 to-purple-600/20",
-    url: "https://dwsc.io/guardian-scanner",
-    category: "Security"
   }
 ];
 
@@ -296,8 +286,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 26 Web Applications & Ecosystem"
-        description="Explore 26 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 25 Web Applications & Ecosystem"
+        description="Explore 25 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -336,7 +326,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            26 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            25 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </div>
 
