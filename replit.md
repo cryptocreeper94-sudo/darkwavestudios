@@ -1,7 +1,14 @@
 # DarkWave Studios
 
 ## Overview
-DarkWave Studios is a freelance web development agency portfolio and lead generation platform. It showcases services, projects, and pricing, while capturing leads through various forms like contact, quote requests, bookings, and newsletter subscriptions. The platform functions as both a marketing site and a CRM, designed to manage potential clients. It also integrates with various AI-powered tools and an extensive ecosystem of applications and widgets, including an AI agent marketplace, a security scanner, and a media editing studio. The long-term vision includes a comprehensive ecosystem of interconnected applications and services built on a shared Trust Layer.
+DarkWave Studios is a freelance web development agency portfolio and lead generation platform. It showcases services, projects, and pricing, while capturing leads through various forms like contact, quote requests, bookings, and newsletter subscriptions. The platform functions as both a marketing site and a CRM, designed to manage potential clients. It also integrates with various AI-powered tools and an extensive ecosystem of 27 interconnected applications and widgets (1.6M+ total LOC), including an AI agent marketplace, a security scanner, and a media editing studio. The long-term vision includes a comprehensive ecosystem of interconnected applications and services built on a shared Trust Layer.
+
+## Recent Changes
+- **Feb 2026**: Updated Trust Layer LOC from 673,309 → 282,494 (accurate count: 160,671 frontend / 61,375 server / 9,460 shared / 50,988 other). Ecosystem total now ~1.6M+ across 27 apps.
+- **Feb 2026**: Added DarkWave Academy (dwsc.io/academy) and ChronoChat (chronochat.io) as new ecosystem apps (25 → 27).
+- **Feb 2026**: Updated Trust Layer highlights: 233 pages, 158 components, 749 endpoints, 544 schema exports, 12 PWA manifests, 7 domains, 12 arcade games.
+- **Feb 2026**: Updated Arcade description to list all 12 games.
+- **Feb 2026**: All count/LOC references updated across Home, Explore, Ecosystem, EcosystemMetrics, Developers, CommandCenter, TrustLayerHub.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
