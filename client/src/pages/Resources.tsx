@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { 
   Download, 
   FileText, 
@@ -15,6 +16,7 @@ import {
   BookOpen
 } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
 import Footer from "@/components/Footer";
 
 interface Resource {
@@ -647,9 +649,14 @@ export default function Resources() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Hero */}
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Download className="w-4 h-4" />
             Free Downloads
@@ -660,11 +667,18 @@ export default function Resources() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Download our proven templates, checklists, and guides. The same resources we use to build successful websites for our clients.
           </p>
-        </div>
+        </motion.div>
 
         {/* Resources Grid */}
         {categories.map(category => (
-          <div key={category} className="mb-12">
+          <motion.div
+            key={category}
+            className="mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+          >
             <h2 className="text-xl font-bold font-display mb-6 flex items-center gap-2">
               {category === "Checklists" && <CheckSquare className="w-5 h-5 text-primary" />}
               {category === "Guides" && <BookOpen className="w-5 h-5 text-primary" />}
@@ -673,7 +687,7 @@ export default function Resources() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {resources.filter(r => r.category === category).map(resource => (
-                <div key={resource.id} className="glass-card rounded-xl p-6 gradient-border hover:bg-white/5 transition-colors">
+                <GlassCard key={resource.id} variant="feature" className="rounded-xl p-6 hover:bg-white/5 transition-colors">
                   <resource.icon className="w-10 h-10 text-primary mb-4" />
                   <h3 className="font-bold mb-2">{resource.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{resource.description}</p>
@@ -685,14 +699,20 @@ export default function Resources() {
                     <Download className="w-4 h-4" />
                     Download Free
                   </button>
-                </div>
+                </GlassCard>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
 
         {/* CTA */}
-        <div className="mt-16 glass-card rounded-2xl p-8 lg:p-12 gradient-border text-center bg-gradient-to-r from-primary/10 to-accent/10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+        <GlassCard glow className="mt-16 rounded-2xl p-8 lg:p-12 text-center bg-gradient-to-r from-primary/10 to-accent/10">
           <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
             Need Custom Solutions?
           </h2>
@@ -704,18 +724,19 @@ export default function Resources() {
               Get a Free Quote
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link href="/audit" className="glass-card px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+            <Link href="/audit" className="px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 transition-colors">
               <Shield className="w-5 h-5" />
               Free Website Audit
             </Link>
           </div>
-        </div>
+        </GlassCard>
+        </motion.div>
       </main>
 
       {/* Email Modal */}
       {showEmailModal && selectedResource && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-card rounded-2xl p-6 lg:p-8 max-w-md w-full gradient-border">
+          <GlassCard className="rounded-2xl p-6 lg:p-8 max-w-md w-full">
             {!emailSubmitted ? (
               <>
                 <h3 className="text-xl font-bold font-display mb-2">
@@ -764,7 +785,7 @@ export default function Resources() {
                 <p className="text-muted-foreground">Check your downloads folder.</p>
               </div>
             )}
-          </div>
+          </GlassCard>
         </div>
       )}
 

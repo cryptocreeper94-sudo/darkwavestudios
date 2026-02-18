@@ -14,6 +14,8 @@ import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
 import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 import webDevImg from "@assets/generated_images/web_development_workspace.png";
 import supportImg from "@assets/generated_images/support_headset_desk.png";
 import domainImg from "@assets/generated_images/domain_hosting_servers.png";
@@ -128,7 +130,7 @@ export default function Services() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
           </Link>
@@ -147,62 +149,75 @@ export default function Services() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12 lg:mb-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 lg:mb-16"
+        >
           <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4">
             Our <span className="gradient-text">Services</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Full-service web development at 60%+ less than traditional agencies. Direct developer access, unlimited support, no hidden fees.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8 lg:space-y-16">
           {services.map((service, index) => (
-            <div 
+            <motion.div
               key={service.title}
-              className={`glass-card rounded-2xl overflow-hidden gradient-border ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              } lg:flex`}
-              data-testid={`service-detail-${service.title.toLowerCase().replace(/\s/g, '-')}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div 
-                className="h-48 lg:h-auto lg:w-2/5 bg-cover bg-center relative"
-                style={{ backgroundImage: `url(${service.image})` }}
+              <GlassCard
+                glow
+                className={`rounded-2xl overflow-hidden ${
+                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                } lg:flex`}
+                data-testid={`service-detail-${service.title.toLowerCase().replace(/\s/g, '-')}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-background via-background/50 to-transparent" />
-                <div className="absolute bottom-4 left-4 lg:bottom-8 lg:left-8">
-                  <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-xl bg-primary/20 backdrop-blur-sm flex items-center justify-center">
-                    <service.icon className="w-6 h-6 lg:w-8 lg:h-8 text-primary" />
+                <div 
+                  className="h-48 lg:h-auto lg:w-2/5 bg-cover bg-center relative"
+                  style={{ backgroundImage: `url(${service.image})` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-background via-background/50 to-transparent" />
+                  <div className="absolute bottom-4 left-4 lg:bottom-8 lg:left-8">
+                    <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-xl bg-primary/20 backdrop-blur-sm flex items-center justify-center">
+                      <service.icon className="w-6 h-6 lg:w-8 lg:h-8 text-primary" />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="p-6 lg:p-10 lg:w-3/5">
-                <h2 className="text-xl lg:text-3xl font-bold font-display mb-3">{service.title}</h2>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
                 
-                <ul className="space-y-3 mb-6">
-                  {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="flex items-center justify-between">
-                  <div className="text-lg font-bold gradient-text">{service.pricing}</div>
-                  <Link 
-                    href="/contact"
-                    className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold"
-                  >
-                    Get Started
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+                <div className="p-6 lg:p-10 lg:w-3/5">
+                  <h2 className="text-xl lg:text-3xl font-bold font-display mb-3">{service.title}</h2>
+                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  
+                  <ul className="space-y-3 mb-6">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="text-lg font-bold gradient-text">{service.pricing}</div>
+                    <Link 
+                      href="/contact"
+                      className="btn-glow inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold"
+                    >
+                      Get Started
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </GlassCard>
+            </motion.div>
           ))}
         </div>
 
@@ -210,8 +225,14 @@ export default function Services() {
           <AdUnit slot="4567890123" format="horizontal" isAdFree={isAdFree} loading={adLoading} />
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <GlassCard glow className="rounded-2xl p-8 lg:p-12 max-w-3xl mx-auto">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
               Ready to <span className="gradient-text">Get Started?</span>
             </h2>
@@ -225,8 +246,8 @@ export default function Services() {
               Contact Us
               <ArrowRight className="w-5 h-5" />
             </Link>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
       </main>
 
       <div className="max-w-4xl mx-auto px-4 mb-8 space-y-4">
@@ -235,7 +256,7 @@ export default function Services() {
       </div>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
         </div>

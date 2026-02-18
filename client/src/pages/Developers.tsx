@@ -29,6 +29,20 @@ import {
   Home
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
 const developerProducts = [
   {
@@ -153,8 +167,15 @@ function PulseApiDocs() {
   };
 
   return (
-    <section className="mb-16 lg:mb-24" data-testid="pulse-api-docs">
-      <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      className="mb-16 lg:mb-24"
+      data-testid="pulse-api-docs"
+    >
+      <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
             <Activity className="w-7 h-7 text-white" />
@@ -187,21 +208,21 @@ function PulseApiDocs() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <TrendingUp className="w-6 h-6 text-amber-400 mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">65-70%</div>
             <div className="text-sm text-muted-foreground">Win Rate</div>
-          </div>
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <BarChart3 className="w-6 h-6 text-amber-400 mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">100K+</div>
             <div className="text-sm text-muted-foreground">Predictions Verified</div>
-          </div>
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <Clock className="w-6 h-6 text-amber-400 mx-auto mb-2" />
             <div className="text-2xl font-bold text-white">Real-time</div>
             <div className="text-sm text-muted-foreground">Data Updates</div>
-          </div>
+          </GlassCard>
         </div>
 
         <h3 className="text-xl font-bold font-display mb-4">Available Endpoints</h3>
@@ -244,8 +265,8 @@ function PulseApiDocs() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </GlassCard>
+    </motion.section>
   );
 }
 
@@ -269,7 +290,7 @@ export default function Developers() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 bg-black border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
               <ChevronRight className="w-5 h-5 rotate-180" />
@@ -289,9 +310,14 @@ export default function Developers() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Hero */}
-        <section className="text-center mb-16 lg:mb-24">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 lg:mb-24"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-6" data-testid="badge-developer-tools">
             <Sparkles className="w-4 h-4" />
             Developer Tools & APIs
@@ -307,7 +333,7 @@ export default function Developers() {
           <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             Access our suite of developer tools, embeddable widgets, and APIs to enhance your applications with battle-tested, production-ready components.
           </p>
-        </section>
+        </motion.section>
 
         {/* Products Grid */}
         <section className="mb-16 lg:mb-24">
@@ -315,9 +341,15 @@ export default function Developers() {
             Developer Products
           </h2>
           
-          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="grid lg:grid-cols-3 gap-6 lg:gap-8"
+          >
             {developerProducts.map((product) => (
-              <div key={product.id} className="glass-card rounded-2xl p-6 lg:p-8 hover-lift gradient-border group" data-testid={`card-product-${product.id}`}>
+              <motion.div key={product.id} variants={itemVariants}>
+              <GlassCard glow className="rounded-2xl p-6 lg:p-8 group" data-testid={`card-product-${product.id}`}>
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                   <product.icon className="w-7 h-7 text-white" />
                 </div>
@@ -353,14 +385,21 @@ export default function Developers() {
                     Explore <ArrowRight className="w-4 h-4" />
                   </Link>
                 )}
-              </div>
+              </GlassCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* API Features */}
-        <section className="mb-16 lg:mb-24">
-          <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 lg:mb-24"
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
             <div className="text-center mb-8 lg:mb-12">
               <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">API Capabilities</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -370,24 +409,31 @@ export default function Developers() {
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {apiFeatures.map((feature, i) => (
-                <div key={i} className="text-center p-6 rounded-xl bg-white/5" data-testid={`card-api-feature-${i}`}>
+                <GlassCard variant="stat" key={i} className="text-center p-6 rounded-xl" data-testid={`card-api-feature-${i}`}>
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="font-semibold mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
+                </GlassCard>
               ))}
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* Pulse API Documentation */}
         <PulseApiDocs />
 
         {/* Publications & Outreach Directory */}
-        <section className="mb-16 lg:mb-24" data-testid="section-publications">
-          <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 lg:mb-24"
+          data-testid="section-publications"
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
             <div className="text-center mb-8 lg:mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary mb-6">
                 <Megaphone className="w-3.5 h-3.5" />
@@ -583,12 +629,18 @@ export default function Developers() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* CTA */}
-        <section className="text-center">
-          <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">Ready to Build?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
               Start integrating Trust Layer widgets into your projects today. Browse our marketplace or contact us for custom solutions.
@@ -609,13 +661,13 @@ export default function Developers() {
                 Contact Us
               </Link>
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
       </main>
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.
           </p>

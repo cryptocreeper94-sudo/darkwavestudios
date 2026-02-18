@@ -3,6 +3,8 @@ import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Calculator, Zap, Check, Loader2, ChevronDown, ChevronUp, Sparkles, Clock, Shield, Code } from "lucide-react";
 import Footer from "@/components/Footer";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 import landingImg from "@assets/generated_images/landing_page_laptop_mockup.png";
 import webappImg from "@assets/generated_images/web_application_dashboard_screen.png";
@@ -122,7 +124,7 @@ export default function Quote() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 bg-black border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
           </Link>
@@ -141,9 +143,14 @@ export default function Quote() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-primary mb-6">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm text-primary mb-6 bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]">
             <Calculator className="w-4 h-4" />
             <span>Instant Project Estimate</span>
           </div>
@@ -153,10 +160,10 @@ export default function Quote() {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Get an instant estimate for your project. Transparent pricing with no hidden fees.
           </p>
-        </div>
+        </motion.div>
 
         {submitted ? (
-          <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 lg:p-12 gradient-border text-center">
+          <GlassCard glow className="max-w-2xl mx-auto rounded-3xl p-8 lg:p-12 text-center">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-6">
               <Sparkles className="w-10 h-10 text-primary" />
             </div>
@@ -172,14 +179,20 @@ export default function Quote() {
               Back to Home
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </GlassCard>
         ) : (
-          <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6"
+          >
             {/* Calculator Section */}
             <div className="col-span-3 lg:col-span-8 space-y-4 lg:space-y-6">
               
               {/* Project Type Accordion */}
-              <div className="glass-card rounded-2xl lg:rounded-3xl gradient-border overflow-hidden card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl overflow-hidden">
                 <button
                   onClick={() => setExpandedSection(expandedSection === "type" ? null : "type")}
                   className="w-full p-6 flex items-center justify-between"
@@ -231,10 +244,10 @@ export default function Quote() {
                     ))}
                   </div>
                 )}
-              </div>
+              </GlassCard>
 
               {/* Features Accordion */}
-              <div className="glass-card rounded-2xl lg:rounded-3xl gradient-border overflow-hidden card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl overflow-hidden">
                 <button
                   onClick={() => setExpandedSection(expandedSection === "features" ? null : "features")}
                   className="w-full p-6 flex items-center justify-between"
@@ -281,10 +294,10 @@ export default function Quote() {
                     ))}
                   </div>
                 )}
-              </div>
+              </GlassCard>
 
               {/* Timeline Accordion */}
-              <div className="glass-card rounded-2xl lg:rounded-3xl gradient-border overflow-hidden card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl overflow-hidden">
                 <button
                   onClick={() => setExpandedSection(expandedSection === "timeline" ? null : "timeline")}
                   className="w-full p-6 flex items-center justify-between"
@@ -326,10 +339,10 @@ export default function Quote() {
                     ))}
                   </div>
                 )}
-              </div>
+              </GlassCard>
 
               {/* Monthly Service Plan */}
-              <div className="glass-card rounded-2xl lg:rounded-3xl gradient-border overflow-hidden card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl overflow-hidden">
                 <button
                   onClick={() => setExpandedSection(expandedSection === "plan" ? null : "plan")}
                   className="w-full p-6 flex items-center justify-between"
@@ -369,10 +382,10 @@ export default function Quote() {
                     ))}
                   </div>
                 )}
-              </div>
+              </GlassCard>
 
               {/* Contact Info */}
-              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                     <Shield className="w-6 h-6 text-primary" />
@@ -417,12 +430,12 @@ export default function Quote() {
                     data-testid="textarea-quote-description"
                   />
                 </div>
-              </div>
+              </GlassCard>
             </div>
 
             {/* Summary Sidebar */}
             <div className="col-span-3 lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-4 lg:space-y-6">
-              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d bg-gradient-to-br from-primary/5 to-accent/5">
+              <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6 bg-gradient-to-br from-primary/5 to-accent/5">
                 <h3 className="font-bold text-lg mb-6 gradient-text">Your Estimate</h3>
                 
                 <div className="space-y-4 mb-6">
@@ -495,10 +508,10 @@ export default function Quote() {
                     </>
                   )}
                 </button>
-              </div>
+              </GlassCard>
 
               {/* Includes Card */}
-              <div className="glass-card rounded-2xl p-6 gradient-border">
+              <GlassCard className="rounded-2xl p-6">
                 <h4 className="font-bold text-sm mb-4">All Projects Include:</h4>
                 <div className="space-y-2">
                   {["Unlimited Support", "Source Code Ownership", "30-Day Bug Fixes", "Performance Optimization", "SEO Best Practices"].map((item, i) => (
@@ -508,9 +521,9 @@ export default function Quote() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </div>
+          </motion.div>
         )}
       </main>
 

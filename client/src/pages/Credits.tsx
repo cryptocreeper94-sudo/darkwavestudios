@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import { AI_CREDIT_COSTS, CREDIT_PACKAGES } from "@shared/schema";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 function Credits() {
   const [token, setToken] = useState<string | null>(null);
@@ -117,35 +119,48 @@ function Credits() {
   if (!token) {
     return (
       <div className="min-h-screen bg-black text-white">
-        <div className="max-w-md mx-auto px-4 pt-32 pb-20">
-          <div className="text-center mb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 max-w-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
             <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mb-4">
               <Coins className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold mb-2">AI Credits</h1>
             <p className="text-gray-400">Sign in to manage your AI credits and usage</p>
-          </div>
-          <form onSubmit={handleLogin} className="glass-card p-6 rounded-xl space-y-4" data-testid="credits-login-form">
-            <div>
-              <label className="block text-sm text-gray-400 mb-1">Username</label>
-              <input type="text" value={loginForm.username} onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
-                placeholder="Your Trust Layer username" data-testid="input-credits-username" />
-            </div>
-            <div>
-              <label className="block text-sm text-gray-400 mb-1">Password</label>
-              <input type="password" value={loginForm.password} onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
-                placeholder="Your password" data-testid="input-credits-password" />
-            </div>
-            {loginError && <p className="text-red-400 text-sm">{loginError}</p>}
-            <button type="submit" disabled={loginMutation.isPending}
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 font-semibold transition-all flex items-center justify-center gap-2"
-              data-testid="button-credits-login">
-              {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
-              Sign In
-            </button>
-          </form>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <GlassCard className="p-6 rounded-xl">
+              <form onSubmit={handleLogin} className="space-y-4" data-testid="credits-login-form">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Username</label>
+                  <input type="text" value={loginForm.username} onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
+                    placeholder="Your Trust Layer username" data-testid="input-credits-username" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Password</label>
+                  <input type="password" value={loginForm.password} onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
+                    placeholder="Your password" data-testid="input-credits-password" />
+                </div>
+                {loginError && <p className="text-red-400 text-sm">{loginError}</p>}
+                <button type="submit" disabled={loginMutation.isPending}
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 font-semibold transition-all flex items-center justify-center gap-2"
+                  data-testid="button-credits-login">
+                  {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
+                  Sign In
+                </button>
+              </form>
+            </GlassCard>
+          </motion.div>
         </div>
         <Footer />
       </div>
@@ -154,8 +169,13 @@ function Credits() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="max-w-6xl mx-auto px-4 pt-24 pb-20">
-        <div className="flex items-center gap-4 mb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-8"
+        >
           <Link href="/">
             <button className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition" data-testid="button-credits-back">
               <ArrowLeft className="w-5 h-5" />
@@ -165,28 +185,33 @@ function Credits() {
             <h1 className="text-3xl font-bold">AI Credits</h1>
             <p className="text-gray-400 text-sm">Track your usage and purchase credits</p>
           </div>
-        </div>
+        </motion.div>
 
         {sessionId && verifyMutation.isSuccess && (
-          <div className="glass-card p-4 rounded-xl mb-6 border border-green-500/30 bg-green-500/5 flex items-center gap-3" data-testid="purchase-success-banner">
+          <GlassCard className="p-4 rounded-xl mb-6 border border-green-500/30 bg-green-500/5 flex items-center gap-3" data-testid="purchase-success-banner">
             <Check className="w-6 h-6 text-green-400 shrink-0" />
             <div>
               <p className="font-semibold text-green-400">Credits Added Successfully!</p>
               <p className="text-sm text-gray-400">{verifyMutation.data?.creditsAdded} credits have been added to your account.</p>
             </div>
-          </div>
+          </GlassCard>
         )}
 
         {cancelled && (
-          <div className="glass-card p-4 rounded-xl mb-6 border border-amber-500/30 bg-amber-500/5 flex items-center gap-3">
+          <GlassCard className="p-4 rounded-xl mb-6 border border-amber-500/30 bg-amber-500/5 flex items-center gap-3">
             <AlertCircle className="w-6 h-6 text-amber-400 shrink-0" />
             <p className="text-gray-300">Purchase cancelled. No charges were made.</p>
-          </div>
+          </GlassCard>
         )}
 
-        {/* Balance Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="glass-card p-6 rounded-xl" data-testid="card-balance">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+        >
+          <GlassCard variant="stat" className="p-6 rounded-xl" data-testid="card-balance">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
                 <Coins className="w-5 h-5" />
@@ -198,8 +223,8 @@ function Credits() {
             ) : (
               <p className="text-4xl font-bold">{balance?.credits ?? 0}</p>
             )}
-          </div>
-          <div className="glass-card p-6 rounded-xl" data-testid="card-purchased">
+          </GlassCard>
+          <GlassCard variant="stat" className="p-6 rounded-xl" data-testid="card-purchased">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5" />
@@ -211,8 +236,8 @@ function Credits() {
             ) : (
               <p className="text-4xl font-bold text-green-400">{balance?.totalPurchased ?? 0}</p>
             )}
-          </div>
-          <div className="glass-card p-6 rounded-xl" data-testid="card-used">
+          </GlassCard>
+          <GlassCard variant="stat" className="p-6 rounded-xl" data-testid="card-used">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
@@ -224,11 +249,16 @@ function Credits() {
             ) : (
               <p className="text-4xl font-bold text-purple-400">{balance?.totalUsed ?? 0}</p>
             )}
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
 
-        {/* Credit Costs Reference */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-amber-400" />
             Credit Costs
@@ -237,7 +267,7 @@ function Credits() {
             {Object.entries(AI_CREDIT_COSTS).map(([key, { credits, label }]) => {
               const Icon = categoryIcons[key] || Zap;
               return (
-                <div key={key} className="glass-card p-4 rounded-xl flex items-center gap-3" data-testid={`cost-${key}`}>
+                <GlassCard key={key} className="p-4 rounded-xl flex items-center gap-3" data-testid={`cost-${key}`}>
                   <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
                     <Icon className="w-4 h-4 text-amber-400" />
                   </div>
@@ -247,14 +277,19 @@ function Credits() {
                       {credits === 0 ? "Free" : `${credits} credits`}
                     </p>
                   </div>
-                </div>
+                </GlassCard>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Purchase Packages */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
             <Package className="w-5 h-5 text-amber-400" />
             Buy Credits
@@ -263,7 +298,7 @@ function Credits() {
             {CREDIT_PACKAGES.map((pkg) => {
               const badge = "badge" in pkg ? pkg.badge : null;
               return (
-              <div key={pkg.id} className={`glass-card p-6 rounded-xl relative ${pkg.id === "popular" ? "border border-amber-500/50 ring-1 ring-amber-500/20" : ""}`} data-testid={`package-${pkg.id}`}>
+              <GlassCard key={pkg.id} glow={pkg.id === "popular"} className={`p-6 rounded-xl relative ${pkg.id === "popular" ? "border border-amber-500/50 ring-1 ring-amber-500/20" : ""}`} data-testid={`package-${pkg.id}`}>
                 {badge && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-xs font-bold rounded-full whitespace-nowrap">
                     {badge}
@@ -284,14 +319,18 @@ function Credits() {
                   {purchaseMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingCart className="w-4 h-4" />}
                   Buy Now
                 </button>
-              </div>
+              </GlassCard>
             );
             })}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Transaction History */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
             <History className="w-5 h-5 text-amber-400" />
             Transaction History
@@ -307,7 +346,7 @@ function Credits() {
               {transactions.map((tx: any) => {
                 const isPositive = tx.amount > 0;
                 return (
-                  <div key={tx.id} className="glass-card p-4 rounded-xl flex items-center justify-between" data-testid={`tx-${tx.id}`}>
+                  <GlassCard key={tx.id} className="p-4 rounded-xl flex items-center justify-between" data-testid={`tx-${tx.id}`}>
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isPositive ? "bg-green-500/10" : "bg-purple-500/10"}`}>
                         {isPositive ? <TrendingUp className="w-4 h-4 text-green-400" /> : <TrendingDown className="w-4 h-4 text-purple-400" />}
@@ -326,18 +365,18 @@ function Credits() {
                       </p>
                       <p className="text-xs text-gray-500">Bal: {tx.balanceAfter}</p>
                     </div>
-                  </div>
+                  </GlassCard>
                 );
               })}
             </div>
           ) : (
-            <div className="text-center py-16 glass-card rounded-xl">
+            <GlassCard className="text-center py-16 rounded-xl">
               <History className="w-12 h-12 text-gray-600 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No transactions yet</h3>
               <p className="text-gray-400 text-sm">Purchase credits above to get started with AI features</p>
-            </div>
+            </GlassCard>
           )}
-        </div>
+        </motion.div>
       </div>
       <Footer />
     </div>

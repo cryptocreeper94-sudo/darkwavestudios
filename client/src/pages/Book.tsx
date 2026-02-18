@@ -5,6 +5,8 @@ import {
   CheckCircle2, Loader2, ChevronLeft, ChevronRight, Zap, User, Mail, Check
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 import videoCallImg from "@assets/generated_images/video_call_meeting_laptop.png";
 import phoneImg from "@assets/generated_images/phone_consultation_screen.png";
@@ -127,7 +129,7 @@ export default function Book() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
           </Link>
@@ -146,9 +148,14 @@ export default function Book() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-primary mb-6">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm text-primary mb-6 bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]">
             <Calendar className="w-4 h-4" />
             <span>Free 30-Minute Call</span>
           </div>
@@ -158,10 +165,10 @@ export default function Book() {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Let's discuss your project. No sales pitch — just an honest conversation about what we can build together.
           </p>
-        </div>
+        </motion.div>
 
         {submitted ? (
-          <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 lg:p-12 gradient-border text-center">
+          <GlassCard glow className="max-w-2xl mx-auto rounded-3xl p-8 lg:p-12 text-center">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10 text-primary" />
             </div>
@@ -179,11 +186,17 @@ export default function Book() {
               Back to Home
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </GlassCard>
         ) : (
-          <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6"
+          >
             {/* Progress Steps */}
-            <div className="col-span-3 lg:col-span-12 glass-card rounded-2xl p-4 gradient-border mb-4">
+            <GlassCard className="col-span-3 lg:col-span-12 rounded-2xl p-4 mb-4">
               <div className="flex items-center justify-between max-w-2xl mx-auto">
                 {["type", "date", "time", "details"].map((s, i) => (
                   <div key={s} className="flex items-center">
@@ -200,10 +213,10 @@ export default function Book() {
                   </div>
                 ))}
               </div>
-            </div>
+            </GlassCard>
 
             {/* Main Content */}
-            <div className="col-span-3 lg:col-span-8 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d">
+            <GlassCard className="col-span-3 lg:col-span-8 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
               
               {/* Step 1: Meeting Type */}
               {step === "type" && (
@@ -433,11 +446,11 @@ export default function Book() {
                   </div>
                 </div>
               )}
-            </div>
+            </GlassCard>
 
             {/* Sidebar */}
             <div className="col-span-3 lg:col-span-4 space-y-4 lg:space-y-6">
-              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+              <GlassCard className="rounded-2xl lg:rounded-3xl p-6">
                 <h3 className="font-bold text-lg mb-4 gradient-text">What to Expect</h3>
                 <div className="space-y-4">
                   {[
@@ -456,22 +469,22 @@ export default function Book() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
 
-              <div className="glass-card rounded-2xl p-6 gradient-border bg-gradient-to-br from-primary/10 to-accent/10">
+              <GlassCard className="rounded-2xl p-6 bg-gradient-to-br from-primary/10 to-accent/10">
                 <div className="text-center">
                   <div className="text-4xl mb-2">🎯</div>
                   <div className="font-bold text-lg">100% Free</div>
                   <div className="text-sm text-muted-foreground">No obligation, no pressure. Cancel anytime.</div>
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </div>
+          </motion.div>
         )}
       </main>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
         </div>

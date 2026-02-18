@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { adminRequest, getAdminQueryOptions } from "@/lib/adminApi";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 interface BlogPost {
   id: string;
@@ -134,7 +136,12 @@ export default function BlogAdmin() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="relative z-10 container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between mb-8"
+        >
           <div className="flex items-center gap-4">
             <Link href="/admin">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground" data-testid="link-back-admin">
@@ -149,17 +156,17 @@ export default function BlogAdmin() {
               <p className="text-muted-foreground">Create SEO-optimized content with AI</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-3 md:grid-cols-12 gap-4">
-          <Card className="col-span-3 md:col-span-4 glass-card border-white/10" data-testid="card-generate">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
+          <GlassCard className="col-span-3 md:col-span-4 p-4 sm:p-6" data-testid="card-generate">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                 <Bot className="h-5 w-5 text-primary" />
                 Generate New Post
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </h3>
+            </div>
+            <div className="space-y-4">
               <div>
                 <label className="text-sm text-muted-foreground mb-2 block">Topic / Title Idea</label>
                 <Input
@@ -215,17 +222,17 @@ export default function BlogAdmin() {
                   </>
                 )}
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </GlassCard>
 
           {generatedBlog ? (
-            <Card className="col-span-3 md:col-span-8 glass-card border-white/10" data-testid="card-preview">
-              <CardHeader>
+            <GlassCard className="col-span-3 md:col-span-8 p-4 sm:p-6" data-testid="card-preview">
+              <div className="mb-4">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                     <Eye className="h-5 w-5 text-primary" />
                     Generated Preview
-                  </CardTitle>
+                  </h3>
                   <div className="flex gap-2">
                     <Button
                       variant="outline"
@@ -248,8 +255,8 @@ export default function BlogAdmin() {
                     </Button>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
+              </div>
+              <div className="space-y-4">
                 <div>
                   <span className="text-xs text-primary font-semibold">{generatedBlog.category}</span>
                   <h2 className="text-2xl font-bold font-display text-foreground mt-1">{generatedBlog.title}</h2>
@@ -267,94 +274,102 @@ export default function BlogAdmin() {
                     {generatedBlog.content}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </GlassCard>
           ) : (
-            <Card className="col-span-3 md:col-span-8 glass-card border-white/10 flex items-center justify-center min-h-[400px]">
+            <GlassCard className="col-span-3 md:col-span-8 flex items-center justify-center min-h-[400px]">
               <div className="text-center">
                 <Bot className="h-16 w-16 mx-auto mb-4 text-muted-foreground/30" />
                 <p className="text-muted-foreground">Enter a topic and generate AI content</p>
               </div>
-            </Card>
+            </GlassCard>
           )}
 
-          <Card className="col-span-3 md:col-span-12 glass-card border-white/10" data-testid="card-posts">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground">All Blog Posts</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {isLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                </div>
-              ) : posts.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  No blog posts yet. Generate your first one above!
-                </div>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="text-muted-foreground text-xs border-b border-white/10">
-                        <th className="text-left py-3 px-2">Title</th>
-                        <th className="text-center py-3 px-2">Category</th>
-                        <th className="text-center py-3 px-2">Status</th>
-                        <th className="text-center py-3 px-2">Created</th>
-                        <th className="text-right py-3 px-2">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {posts.map((post) => (
-                        <tr key={post.id} className="border-b border-white/5 hover:bg-white/5">
-                          <td className="py-3 px-2">
-                            <div className="font-medium text-foreground">{post.title}</div>
-                            <div className="text-xs text-muted-foreground">/{post.slug}</div>
-                          </td>
-                          <td className="py-3 px-2 text-center">
-                            <span className="px-2 py-1 bg-primary/20 text-primary rounded-full text-xs">
-                              {post.category || 'Uncategorized'}
-                            </span>
-                          </td>
-                          <td className="py-3 px-2 text-center">
-                            <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-                              post.published ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
-                            }`}>
-                              {post.published ? 'Published' : 'Draft'}
-                            </span>
-                          </td>
-                          <td className="py-3 px-2 text-center text-muted-foreground text-sm">
-                            {new Date(post.createdAt).toLocaleDateString()}
-                          </td>
-                          <td className="py-3 px-2 text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => togglePublish.mutate({ id: post.id, published: !post.published })}
-                                className="text-muted-foreground hover:text-foreground"
-                                data-testid={`button-toggle-${post.id}`}
-                              >
-                                {post.published ? 'Unpublish' : 'Publish'}
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => deleteBlog.mutate(post.id)}
-                                className="text-red-400 hover:text-red-300"
-                                data-testid={`button-delete-${post.id}`}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </td>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="col-span-3 md:col-span-12"
+          >
+            <GlassCard className="p-4 sm:p-6" data-testid="card-posts">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-foreground">All Blog Posts</h3>
+              </div>
+              <div>
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  </div>
+                ) : posts.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No blog posts yet. Generate your first one above!
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="text-muted-foreground text-xs border-b border-white/10">
+                          <th className="text-left py-3 px-2">Title</th>
+                          <th className="text-center py-3 px-2">Category</th>
+                          <th className="text-center py-3 px-2">Status</th>
+                          <th className="text-center py-3 px-2">Created</th>
+                          <th className="text-right py-3 px-2">Actions</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                      </thead>
+                      <tbody>
+                        {posts.map((post) => (
+                          <tr key={post.id} className="border-b border-white/5 hover:bg-white/5">
+                            <td className="py-3 px-2">
+                              <div className="font-medium text-foreground">{post.title}</div>
+                              <div className="text-xs text-muted-foreground">/{post.slug}</div>
+                            </td>
+                            <td className="py-3 px-2 text-center">
+                              <span className="px-2 py-1 bg-primary/20 text-primary rounded-full text-xs">
+                                {post.category || 'Uncategorized'}
+                              </span>
+                            </td>
+                            <td className="py-3 px-2 text-center">
+                              <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                                post.published ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                              }`}>
+                                {post.published ? 'Published' : 'Draft'}
+                              </span>
+                            </td>
+                            <td className="py-3 px-2 text-center text-muted-foreground text-sm">
+                              {new Date(post.createdAt).toLocaleDateString()}
+                            </td>
+                            <td className="py-3 px-2 text-right">
+                              <div className="flex justify-end gap-2">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => togglePublish.mutate({ id: post.id, published: !post.published })}
+                                  className="text-muted-foreground hover:text-foreground"
+                                  data-testid={`button-toggle-${post.id}`}
+                                >
+                                  {post.published ? 'Unpublish' : 'Publish'}
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => deleteBlog.mutate(post.id)}
+                                  className="text-red-400 hover:text-red-300"
+                                  data-testid={`button-delete-${post.id}`}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </GlassCard>
+          </motion.div>
         </div>
       </div>
     </div>

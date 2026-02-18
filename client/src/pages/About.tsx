@@ -2,6 +2,8 @@ import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Code2, Users, Zap, Shield, Clock, DollarSign } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 const values = [
   {
@@ -62,7 +64,7 @@ export default function About() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
           </Link>
@@ -81,89 +83,132 @@ export default function About() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12 lg:mb-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 lg:mb-16"
+        >
           <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4">
             About <span className="gradient-text">DarkWave Studios</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             A different kind of web agency. Direct developer access, unlimited support, and premium quality at fair prices.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="glass-card rounded-2xl p-6 lg:p-12 gradient-border mb-12 lg:mb-16">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl lg:text-3xl font-bold font-display mb-6 text-center">
-              The <span className="gradient-text">Problem</span> with Traditional Agencies
-            </h2>
-            <div className="space-y-4 text-muted-foreground">
-              <p>
-                Traditional web agencies charge $40,000+ for basic websites. They bill $200/hour for support with only 1 hour/month included. You never talk to the actual developer — just project managers who add layers of overhead and cost.
-              </p>
-              <p>
-                We built DarkWave Studios as the antidote to this broken model. One developer. Direct communication. Unlimited support. Fair prices.
-              </p>
-              <p>
-                Every project is custom-built from scratch using modern technology. No WordPress templates. No page builders. Real code that's maintainable, scalable, and built specifically for your business needs.
-              </p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-2xl p-6 lg:p-12 mb-12 lg:mb-16">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl lg:text-3xl font-bold font-display mb-6 text-center">
+                The <span className="gradient-text">Problem</span> with Traditional Agencies
+              </h2>
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Traditional web agencies charge $40,000+ for basic websites. They bill $200/hour for support with only 1 hour/month included. You never talk to the actual developer — just project managers who add layers of overhead and cost.
+                </p>
+                <p>
+                  We built DarkWave Studios as the antidote to this broken model. One developer. Direct communication. Unlimited support. Fair prices.
+                </p>
+                <p>
+                  Every project is custom-built from scratch using modern technology. No WordPress templates. No page builders. Real code that's maintainable, scalable, and built specifically for your business needs.
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12 lg:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12 lg:mb-16"
+        >
           {stats.map((stat, index) => (
-            <div key={index} className="glass-card rounded-xl p-6 text-center gradient-border">
+            <GlassCard variant="stat" key={index} className="rounded-xl p-6 text-center">
               <div className="text-3xl lg:text-4xl font-bold font-display gradient-text mb-2">{stat.value}</div>
               <div className="text-muted-foreground text-sm">{stat.label}</div>
-            </div>
+            </GlassCard>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mb-12 lg:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 lg:mb-16"
+        >
           <h2 className="text-2xl lg:text-3xl font-bold font-display mb-8 text-center">
             Our <span className="gradient-text">Values</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value, index) => (
-              <div key={index} className="glass-card rounded-xl p-6 gradient-border hover-lift">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <value.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-bold font-display mb-2">{value.title}</h3>
-                <p className="text-muted-foreground text-sm">{value.description}</p>
-              </div>
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.02, y: -2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <GlassCard variant="feature" className="rounded-xl p-6 h-full">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <value.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold font-display mb-2">{value.title}</h3>
+                  <p className="text-muted-foreground text-sm">{value.description}</p>
+                </GlassCard>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="glass-card rounded-2xl p-6 lg:p-12 gradient-border">
-          <div className="lg:flex lg:items-center lg:gap-12">
-            <div className="lg:w-1/3 mb-6 lg:mb-0">
-              <div className="w-32 h-32 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto flex items-center justify-center">
-                <span className="text-6xl lg:text-8xl">👨‍💻</span>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-2xl p-6 lg:p-12">
+            <div className="lg:flex lg:items-center lg:gap-12">
+              <div className="lg:w-1/3 mb-6 lg:mb-0">
+                <div className="w-32 h-32 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto flex items-center justify-center">
+                  <span className="text-6xl lg:text-8xl">👨‍💻</span>
+                </div>
+              </div>
+              <div className="lg:w-2/3">
+                <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
+                  Meet <span className="gradient-text">Jason</span>
+                </h2>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Full-stack developer with a passion for building applications that solve real problems. After years of watching agencies overcharge and underdeliver, I started DarkWave Studios to offer a better way.
+                  </p>
+                  <p>
+                    When you work with DarkWave Studios, you work directly with me. No account managers, no support tickets that disappear into a queue. Just direct communication and rapid iteration until your project is exactly what you envisioned.
+                  </p>
+                  <p>
+                    Currently serving 11 clients with 10+ live applications. From AI trading platforms to local business websites, I build solutions that work.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="lg:w-2/3">
-              <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
-                Meet <span className="gradient-text">Jason</span>
-              </h2>
-              <div className="space-y-4 text-muted-foreground">
-                <p>
-                  Full-stack developer with a passion for building applications that solve real problems. After years of watching agencies overcharge and underdeliver, I started DarkWave Studios to offer a better way.
-                </p>
-                <p>
-                  When you work with DarkWave Studios, you work directly with me. No account managers, no support tickets that disappear into a queue. Just direct communication and rapid iteration until your project is exactly what you envisioned.
-                </p>
-                <p>
-                  Currently serving 11 clients with 10+ live applications. From AI trading platforms to local business websites, I build solutions that work.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
 
-        <div className="mt-16 text-center">
-          <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <GlassCard glow className="rounded-2xl p-8 lg:p-12 max-w-3xl mx-auto">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">
               Ready to <span className="gradient-text">Work Together?</span>
             </h2>
@@ -177,8 +222,8 @@ export default function About() {
               Get in Touch
               <ArrowRight className="w-5 h-5" />
             </Link>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
       </main>
 
       <div className="max-w-4xl mx-auto px-4 mb-8">
@@ -186,7 +231,7 @@ export default function About() {
       </div>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
         </div>

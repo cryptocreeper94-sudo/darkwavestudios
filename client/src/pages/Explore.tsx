@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { GlassCard } from "@/components/glass-card";
 import {
   Carousel,
   CarouselContent,
@@ -313,7 +314,7 @@ function SkeletonLoader() {
   return (
     <div className="min-h-screen bg-[#070b16]">
       <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
             <div className="w-36 h-6 rounded-lg bg-white/5 animate-pulse" />
@@ -321,7 +322,7 @@ function SkeletonLoader() {
           <div className="w-28 h-9 rounded-lg bg-white/5 animate-pulse" />
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12 space-y-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {[1, 2, 3, 4].map((i) => (
           <div key={i}>
             <div className="flex items-center gap-3 mb-5">
@@ -441,8 +442,9 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
   return (
     <motion.section
       key={category.title}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+      initial="hidden"
+      animate="show"
       transition={{ duration: 0.5, delay: catIndex * 0.1 }}
     >
       <div className="flex items-start gap-3 mb-4">
@@ -535,7 +537,7 @@ export default function Explore() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.06),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
               <Compass className="w-5 h-5 text-white" />
@@ -556,7 +558,7 @@ export default function Explore() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -579,11 +581,16 @@ export default function Explore() {
           </div>
         </motion.div>
 
-        <div className="space-y-12 lg:space-y-16">
+        <motion.div
+          className="space-y-12 lg:space-y-16"
+          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }}
+          initial="hidden"
+          animate="show"
+        >
           {categories.map((category, catIndex) => (
             <CategoryCarousel key={category.title} category={category} catIndex={catIndex} />
           ))}
-        </div>
+        </motion.div>
 
         <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
           <Link
@@ -610,8 +617,8 @@ export default function Explore() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl"
               >
+              <GlassCard glow className="p-5 rounded-2xl">
                 <div className="flex items-center justify-center gap-2 mb-3">
                   <Terminal className="w-4 h-4 text-cyan-400" />
                   <span className="text-sm font-semibold text-white/80">Developer Login</span>
@@ -650,6 +657,7 @@ export default function Explore() {
                     <p className="text-red-400 text-xs">Invalid access code</p>
                   )}
                 </form>
+              </GlassCard>
               </motion.div>
             )}
           </div>

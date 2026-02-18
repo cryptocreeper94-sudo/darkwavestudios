@@ -1,10 +1,17 @@
 import { Link } from "wouter";
 import { XCircle, ArrowLeft, MessageCircle, RefreshCw } from "lucide-react";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 export default function PaymentCancel() {
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
-      <div className="max-w-lg text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-lg text-center"
+      >
         <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-500/30 to-red-500/30 flex items-center justify-center mx-auto mb-8">
           <XCircle className="w-12 h-12 text-orange-400" />
         </div>
@@ -17,7 +24,7 @@ export default function PaymentCancel() {
           No worries! Your payment was not processed. Feel free to try again or reach out if you have questions.
         </p>
 
-        <div className="glass-card rounded-2xl p-6 mb-8 text-left">
+        <GlassCard className="rounded-2xl p-6 mb-8 text-left">
           <h3 className="font-display font-bold mb-4">Need Help?</h3>
           <p className="text-sm text-muted-foreground mb-4">
             If you experienced any issues or have questions about our plans, we're here to help.
@@ -27,7 +34,7 @@ export default function PaymentCancel() {
             <li>Not sure which plan is right? Book a free consultation.</li>
             <li>Questions about pricing? Contact us directly.</li>
           </ul>
-        </div>
+        </GlassCard>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 
@@ -40,7 +47,7 @@ export default function PaymentCancel() {
           </Link>
           <Link 
             href="/contact"
-            className="px-6 py-3 glass-card rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
+            className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]"
             data-testid="link-contact"
           >
             <MessageCircle className="w-5 h-5" />
@@ -56,7 +63,7 @@ export default function PaymentCancel() {
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 }

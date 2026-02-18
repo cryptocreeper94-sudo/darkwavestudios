@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
+import { GlassCard } from "@/components/glass-card";
 import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
 import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
 import { ScrollReveal } from "@/hooks/use-scroll-animation";
@@ -334,6 +336,9 @@ function AnimatedElement({ children, className, delay = 0 }: { children: React.R
   );
 }
 
+const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
+const staggerItem = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
+
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
   const [currentProcessStep, setCurrentProcessStep] = useState(0);
@@ -607,13 +612,13 @@ export default function Home() {
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-4 lg:px-6 pt-20 pb-16 lg:pt-16 lg:pb-16">
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 lg:pt-16 lg:pb-16">
           
           {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
+          <motion.section variants={staggerContainer} initial="hidden" animate="show" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
             {/* Main Hero - 3-col mobile / 8-col desktop */}
-            <AnimatedElement delay={100} className="col-span-3 lg:col-span-8 lg:row-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
+            <motion.div variants={staggerItem} className="col-span-3 lg:col-span-8 lg:row-span-2">
+              <GlassCard glow className="lg:rounded-2xl p-4 lg:p-10 relative overflow-hidden h-full min-h-[180px] lg:min-h-[400px] flex flex-col justify-center">
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-1.5 lg:gap-2 bg-primary/10 border border-primary/20 rounded-full px-2 lg:px-4 py-1 lg:py-2 mb-3 lg:mb-6">
                     <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 bg-primary rounded-full animate-pulse" />
@@ -652,58 +657,59 @@ export default function Home() {
                   </div>
                 </div>
                 
-                              </div>
-            </AnimatedElement>
+                              </GlassCard>
+            </motion.div>
 
             {/* Stat 1 - Lines of Code - 1 col mobile */}
-            <AnimatedElement delay={200} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
+            <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
+              <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
                 <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
                 <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.97M+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
-              </div>
-            </AnimatedElement>
+              </GlassCard>
+            </motion.div>
 
             {/* Stat 2 - Live Apps - 1 col mobile */}
-            <AnimatedElement delay={250} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
+            <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
+              <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
                 <div className="text-lg lg:text-3xl font-bold font-display text-foreground">23</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
-              </div>
-            </AnimatedElement>
+              </GlassCard>
+            </motion.div>
 
             {/* Stat 3 - Uptime - 1 col mobile */}
-            <AnimatedElement delay={300} className="col-span-1 lg:col-span-2">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-uptime">
+            <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
+              <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-uptime">
                 <Zap className="w-5 h-5 lg:w-8 lg:h-8 text-green-400 mb-1 lg:mb-2" />
                 <div className="text-lg lg:text-3xl font-bold font-display text-green-400">99.9%</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Uptime</div>
-              </div>
-            </AnimatedElement>
+              </GlassCard>
+            </motion.div>
 
             {/* Stat 4 - Widgets - hidden on mobile, shown on desktop */}
-            <AnimatedElement delay={350} className="hidden lg:block lg:col-span-2">
-              <div className="glass-card rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
+            <motion.div variants={staggerItem} className="hidden lg:block lg:col-span-2">
+              <GlassCard variant="stat" className="rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Layers className="w-8 h-8 text-primary mb-2" />
                 <div className="text-3xl font-bold font-display text-foreground">60</div>
                 <div className="text-muted-foreground text-sm">Widgets</div>
-              </div>
-            </AnimatedElement>
-          </section>
+              </GlassCard>
+            </motion.div>
+          </motion.section>
 
           <AdUnit slot="1234567890" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-3 lg:my-4" />
 
           {/* STUDIO IDE FEATURED SECTION */}
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
-            <AnimatedElement delay={100} className="col-span-3 lg:col-span-8">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
+            <div className="col-span-3 lg:col-span-8">
               <a 
                 href="https://dwtl.io/studio" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block"
                 data-testid="studio-ide-card"
               >
+              <GlassCard variant="feature" className="lg:rounded-2xl relative overflow-hidden group hover-lift h-full">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
                   style={{ backgroundImage: `url(${cardStudioIdeImg})` }}
@@ -730,15 +736,17 @@ export default function Home() {
                     <ExternalLink className="w-4 h-4" />
                   </div>
                 </div>
+              </GlassCard>
               </a>
-            </AnimatedElement>
+            </div>
 
-            <AnimatedElement delay={150} className="col-span-3 lg:col-span-4">
+            <div className="col-span-3 lg:col-span-4">
               <Link 
                 href="/hub" 
-                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block"
                 data-testid="trust-layer-card"
               >
+              <GlassCard variant="feature" className="lg:rounded-2xl relative overflow-hidden group hover-lift h-full">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity"
                   style={{ backgroundImage: `url(${cardDevelopersHubImg})` }}
@@ -760,18 +768,20 @@ export default function Home() {
                     Explore <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
+              </GlassCard>
               </Link>
-            </AnimatedElement>
-          </section>
+            </div>
+          </motion.section>
 
           {/* FREE TOOLS SECTION */}
-          <section className="grid grid-cols-2 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
-            <AnimatedElement delay={100} className="col-span-1 lg:col-span-6">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="grid grid-cols-2 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6">
+            <div className="col-span-1 lg:col-span-6">
               <Link 
                 href="/audit" 
-                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-primary/20"
+                className="block"
                 data-testid="free-audit-card"
               >
+              <GlassCard glow className="lg:rounded-2xl relative overflow-hidden group hover-lift h-full border-primary/20">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-35 group-hover:opacity-55 transition-opacity"
                   style={{ backgroundImage: `url(${cardAuditToolImg})` }}
@@ -794,15 +804,17 @@ export default function Home() {
                     Try Free <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
+              </GlassCard>
               </Link>
-            </AnimatedElement>
+            </div>
 
-            <AnimatedElement delay={150} className="col-span-1 lg:col-span-6">
+            <div className="col-span-1 lg:col-span-6">
               <Link 
                 href="/resources" 
-                className="block glass-card rounded-xl lg:rounded-2xl relative overflow-hidden group hover-lift h-full border border-white/10"
+                className="block"
                 data-testid="resources-card"
               >
+              <GlassCard variant="feature" className="lg:rounded-2xl relative overflow-hidden group hover-lift h-full">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-35 group-hover:opacity-55 transition-opacity"
                   style={{ backgroundImage: `url(${cardResourcesImg})` }}
@@ -824,15 +836,16 @@ export default function Home() {
                     Download <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
+              </GlassCard>
               </Link>
-            </AnimatedElement>
-          </section>
+            </div>
+          </motion.section>
 
           {/* BENTO GRID SECTION 2: Projects Carousel + Value Props - 3-COL MOBILE */}
-          <ScrollReveal animation="fade-in"><section id="projects" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6 scroll-mt-24">
+          <motion.section id="projects" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mb-4 lg:mb-6 scroll-mt-24">
             {/* Projects Carousel - 3-col mobile / 8-col desktop */}
             <div className="col-span-3 lg:col-span-8">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
+              <GlassCard className="lg:rounded-2xl p-3 lg:p-6 gradient-border h-full">
                 <div className="flex items-center justify-between mb-3 lg:mb-4">
                   <h2 className="text-base lg:text-2xl font-bold font-display" data-testid="projects-title">
                     Built to <span className="gradient-text">Perform</span>
@@ -904,38 +917,38 @@ export default function Home() {
                     />
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             </div>
 
             {/* Value Props - Side by side on mobile */}
             <div className="col-span-3 lg:col-span-4 grid grid-cols-2 lg:grid-rows-2 lg:grid-cols-1 gap-2 lg:gap-3">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
+              <GlassCard variant="feature" className="lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 <div className="relative z-10">
                   <MessageSquare className="w-6 h-6 lg:w-10 lg:h-10 text-primary mb-1 lg:mb-3" />
                   <h3 className="text-xs lg:text-xl font-bold font-display mb-0.5 lg:mb-2">Real Support</h3>
                   <p className="text-muted-foreground text-[9px] lg:text-sm hidden lg:block">Not 1 hour per month. Responsive, ongoing support whenever you need it.</p>
                 </div>
-              </div>
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
+              </GlassCard>
+              <GlassCard variant="feature" className="lg:rounded-2xl p-3 lg:p-6 hover-lift gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
                 <div className="relative z-10">
                   <Zap className="w-6 h-6 lg:w-10 lg:h-10 text-accent mb-1 lg:mb-3" />
                   <h3 className="text-xs lg:text-xl font-bold font-display mb-0.5 lg:mb-2">AI-Powered</h3>
                   <p className="text-muted-foreground text-[9px] lg:text-sm hidden lg:block">Modern apps with AI features — not $40k brochure sites.</p>
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </section></ScrollReveal>
+          </motion.section>
 
           <AdUnit slot="2345678901" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="my-3 lg:my-4" />
 
           {/* BENTO GRID SECTION 3: Services + Pricing */}
-          <ScrollReveal animation="fade-in" delay={100}><section id="services" className="mb-4 lg:mb-6 scroll-mt-24">
+          <motion.section id="services" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="mb-4 lg:mb-6 scroll-mt-24">
             {/* Mobile: Pricing + Services Carousel */}
             <div className="lg:hidden space-y-2">
               {/* Compact Pricing Bar */}
-              <div className="glass-card rounded-xl p-3 gradient-border relative overflow-hidden">
+              <GlassCard glow className="p-3 gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10" />
                 <div className="relative z-10 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
@@ -958,16 +971,17 @@ export default function Home() {
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
-              </div>
+              </GlassCard>
 
               {/* Services Carousel for Mobile */}
               <div className="relative">
                 <div className="overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4">
                   <div className="flex gap-2" style={{ width: 'max-content' }}>
                     {services.map((service) => (
-                      <div
+                      <GlassCard
                         key={service.title}
-                        className="glass-card rounded-xl p-3 gradient-border relative overflow-hidden group flex-shrink-0"
+                        variant="feature"
+                        className="p-3 gradient-border relative overflow-hidden group flex-shrink-0"
                         style={{ width: '140px', height: '100px' }}
                         data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
                       >
@@ -982,7 +996,7 @@ export default function Home() {
                           </div>
                           <h3 className="text-[10px] font-bold font-display text-white leading-tight">{service.title}</h3>
                         </div>
-                      </div>
+                      </GlassCard>
                     ))}
                   </div>
                 </div>
@@ -991,10 +1005,10 @@ export default function Home() {
             </div>
 
             {/* Desktop: Original Grid Layout */}
-            <div className="hidden lg:grid lg:grid-cols-12 gap-3">
+            <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="hidden lg:grid lg:grid-cols-12 gap-3">
               {/* Pricing Card - 4-col desktop */}
-              <div className="lg:col-span-4 row-span-2">
-                <div className="glass-card rounded-2xl p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
+              <motion.div variants={staggerItem} className="lg:col-span-4 row-span-2">
+                <GlassCard glow className="rounded-2xl p-8 gradient-border h-full relative overflow-hidden flex flex-col justify-center">
                   <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10" />
                   <div className="relative z-10 text-center">
                     <div className="text-sm text-muted-foreground mb-2">Agency Price</div>
@@ -1024,14 +1038,15 @@ export default function Home() {
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
-                </div>
-              </div>
+                </GlassCard>
+              </motion.div>
 
               {/* Services Grid - Desktop */}
               {services.map((service) => (
-                <div key={service.title} className="lg:col-span-4">
-                  <div
-                    className="glass-card rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden group h-full min-h-[200px]"
+                <motion.div key={service.title} variants={staggerItem} className="lg:col-span-4">
+                  <GlassCard
+                    variant="feature"
+                    className="rounded-2xl p-5 hover-lift gradient-border relative overflow-hidden group h-full min-h-[200px]"
                     data-testid={`service-${service.title.toLowerCase().replace(/\s/g, '-')}`}
                   >
                     <div 
@@ -1046,11 +1061,11 @@ export default function Home() {
                       <h3 className="text-lg font-bold font-display mb-2 text-white">{service.title}</h3>
                       <p className="text-muted-foreground text-sm line-clamp-2">{service.description}</p>
                     </div>
-                  </div>
-                </div>
+                  </GlassCard>
+                </motion.div>
               ))}
-            </div>
-          </section></ScrollReveal>
+            </motion.div>
+          </motion.section>
 
           {/* SIGNAL PRESALE BANNER */}
           <ScrollReveal animation="fade-in">
@@ -1058,7 +1073,7 @@ export default function Home() {
           </ScrollReveal>
 
           {/* OUR PROCESS CAROUSEL */}
-          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="mb-4 lg:mb-6">
             <div className="text-center mb-3 lg:mb-4">
               <h2 className="text-xl lg:text-3xl font-bold font-display mb-1" data-testid="text-process-heading">
                 How We <span className="gradient-text">Work</span>
@@ -1066,7 +1081,7 @@ export default function Home() {
               <p className="text-muted-foreground text-xs lg:text-sm max-w-xl mx-auto">From first conversation to launch day and beyond — here's what working with us looks like.</p>
             </div>
 
-            <div className="glass-card rounded-xl lg:rounded-2xl overflow-hidden gradient-border">
+            <GlassCard className="lg:rounded-2xl overflow-hidden gradient-border">
               <div className="relative">
                 <div className="relative h-48 lg:h-72 overflow-hidden">
                   <img
@@ -1127,11 +1142,11 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section></ScrollReveal>
+            </GlassCard>
+          </motion.section>
 
           {/* TESTIMONIALS CAROUSEL */}
-          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="mb-4 lg:mb-6">
             <div className="text-center mb-3 lg:mb-4">
               <h2 className="text-xl lg:text-3xl font-bold font-display mb-1" data-testid="text-testimonials-heading">
                 What Our <span className="gradient-text">Users Say</span>
@@ -1205,7 +1220,7 @@ export default function Home() {
                 return visible;
               };
               return (
-                <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+                <GlassCard className="lg:rounded-2xl p-3 lg:p-6 gradient-border">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-3">
                     {getVisible().map((t, i) => (
                       <div key={`${currentTestimonial}-${i}`} className={`glass rounded-lg lg:rounded-xl p-3 lg:p-5 flex flex-col ${i > 0 ? 'hidden lg:flex' : ''}`} data-testid={`testimonial-card-${i}`}>
@@ -1242,14 +1257,14 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                </div>
+                </GlassCard>
               );
             })()}
-          </section></ScrollReveal>
+          </motion.section>
 
           {/* TRUSTED BY / ECOSYSTEM MARQUEE */}
-          <ScrollReveal animation="fade-in"><section className="mb-4 lg:mb-6">
-            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-4 gradient-border overflow-hidden">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="mb-4 lg:mb-6">
+            <GlassCard className="lg:rounded-2xl p-3 lg:p-4 gradient-border overflow-hidden">
               <div className="text-center mb-2">
                 <p className="text-[10px] lg:text-xs font-semibold text-muted-foreground uppercase tracking-wider">Powering 20 Production Applications</p>
               </div>
@@ -1284,14 +1299,14 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </div>
-          </section></ScrollReveal>
+            </GlassCard>
+          </motion.section>
 
           {/* BENTO GRID SECTION 4: FAQ + CTA - TRUE 3-COL MOBILE */}
-          <ScrollReveal animation="scale-in"><section id="faq" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 scroll-mt-24">
+          <motion.section id="faq" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 scroll-mt-24">
             {/* FAQ - Full width on mobile, 7-col desktop */}
             <div className="col-span-3 lg:col-span-7">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+              <GlassCard className="lg:rounded-2xl p-3 lg:p-6 gradient-border">
                 <h2 className="text-base lg:text-2xl font-bold font-display mb-2 lg:mb-4" data-testid="faq-title">
                   <span className="gradient-text">FAQ</span>
                 </h2>
@@ -1312,12 +1327,12 @@ export default function Home() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </div>
+              </GlassCard>
             </div>
 
             {/* CTA - Full width on mobile below FAQ, 5-col desktop */}
             <div className="col-span-3 lg:col-span-5" id="contact">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-8 gradient-border relative overflow-hidden">
+              <GlassCard glow className="lg:rounded-2xl p-3 lg:p-8 gradient-border relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20" />
                 <div className="relative z-10 flex items-center gap-3 lg:block lg:text-center">
                   <MessageSquare className="w-8 h-8 lg:w-12 lg:h-12 text-primary lg:mx-auto lg:mb-4 flex-shrink-0" />
@@ -1338,12 +1353,12 @@ export default function Home() {
                     <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
                   </Link>
                 </div>
-              </div>
+              </GlassCard>
             </div>
 
             {/* Trust Signal - hidden on mobile */}
             <div className="hidden lg:block lg:col-span-5 lg:col-start-8">
-              <div className="glass-card rounded-2xl p-5 gradient-border">
+              <GlassCard className="rounded-2xl p-5 gradient-border">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Users className="w-6 h-6 text-primary" />
@@ -1353,13 +1368,13 @@ export default function Home() {
                     <p className="text-muted-foreground text-sm">Work directly with the developer — no middlemen, no delays.</p>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </section></ScrollReveal>
+          </motion.section>
 
           {/* BUILD YOUR OWN - STUDIO IDE CTA */}
-          <ScrollReveal animation="fade-in"><section className="mt-4 lg:mt-6 mb-4 lg:mb-6">
-            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="mt-4 lg:mt-6 mb-4 lg:mb-6">
+            <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
               <div 
                 className="absolute inset-0 bg-cover bg-center opacity-20"
                 style={{ backgroundImage: `url(${cardStudioIdeImg})` }}
@@ -1425,16 +1440,16 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section></ScrollReveal>
+            </GlassCard>
+          </motion.section>
 
           {/* NEWSLETTER SECTION */}
-          <ScrollReveal animation="fade-in"><section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mt-4 lg:mt-6">
+          <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5 }} className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-3 mt-4 lg:mt-6">
             <div className="col-span-3 lg:col-span-6">
               <Newsletter />
             </div>
             <div className="col-span-3 lg:col-span-6">
-              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d h-full">
+              <GlassCard className="rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d h-full">
                 <h3 className="font-bold text-lg lg:text-xl mb-4 gradient-text">Quick Actions</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <Link 
@@ -1478,9 +1493,9 @@ export default function Home() {
                     <span className="text-sm font-medium text-center">View Portfolio</span>
                   </Link>
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </section></ScrollReveal>
+          </motion.section>
 
           <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
         </main>

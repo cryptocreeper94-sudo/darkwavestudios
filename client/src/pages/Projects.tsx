@@ -3,6 +3,8 @@ import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 import strikeAgentImg from "@/assets/ecosystem/strikeagent.png";
 import pulseImg from "@/assets/ecosystem/pulse.png";
@@ -320,27 +322,44 @@ export default function Projects() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12 lg:mb-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 lg:mb-16"
+        >
           <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4" data-testid="text-projects-heading">
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
             25 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+          }}
+        >
           {projects.map((project) => (
-            <a
+            <motion.a
               key={project.id}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card rounded-xl md:rounded-2xl p-3 md:p-6 gradient-border hover-lift group cursor-pointer"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 }
+              }}
               data-testid={`project-card-${project.id}`}
               aria-label={`${project.title} - ${project.category}`}
             >
+              <GlassCard variant="feature" className="rounded-xl md:rounded-2xl p-3 md:p-6 hover-lift group cursor-pointer h-full">
               <div className={`w-full h-24 md:h-36 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover" data-testid={`img-project-${project.id}`} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -363,12 +382,19 @@ export default function Projects() {
                   </span>
                 ))}
               </div>
-            </a>
+              </GlassCard>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mt-16 text-center">
-          <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <GlassCard glow className="rounded-2xl p-8 lg:p-12 max-w-3xl mx-auto">
             <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4" data-testid="text-cta-heading">
               Want Something <span className="gradient-text">Like This?</span>
             </h2>
@@ -383,8 +409,8 @@ export default function Projects() {
               Start Your Project
               <ArrowRight className="w-5 h-5" />
             </Link>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
       </main>
 
       <div className="max-w-7xl mx-auto px-4 lg:px-6 mb-8">

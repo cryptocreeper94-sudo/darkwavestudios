@@ -8,6 +8,8 @@ import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { AdUnit, AdFreeBanner } from "@/components/AdUnit";
 import { SignalPresaleBanner } from "@/components/SignalPresaleBanner";
 import { useAdFreeStatus } from "@/hooks/useAdFreeStatus";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 interface BlogPost {
   id: string;
@@ -52,7 +54,7 @@ export default function Blog() {
       />
       
       <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/">
             <span className="text-2xl font-bold font-display text-foreground cursor-pointer" data-testid="link-logo">
               DarkWave Studios
@@ -72,8 +74,13 @@ export default function Blog() {
       </nav>
 
       <main className="relative z-10 pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
             <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">
               <span className="text-primary">
                 Insights & Resources
@@ -82,7 +89,7 @@ export default function Blog() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Expert insights on web development, AI integration, and digital transformation
             </p>
-          </div>
+          </motion.div>
 
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
@@ -94,10 +101,17 @@ export default function Blog() {
               <p className="text-muted-foreground/60">Check back soon for expert insights and resources</p>
             </div>
           ) : (
-            <div className="grid grid-cols-3 md:grid-cols-12 gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-3 md:grid-cols-12 gap-4"
+            >
               {featuredPost && (
-                <Card 
-                  className="col-span-3 md:col-span-8 glass-card border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300"
+                <GlassCard 
+                  glow
+                  className="col-span-3 md:col-span-8 overflow-hidden group hover:border-primary/30 transition-all duration-300"
                   data-testid={`card-blog-${featuredPost.id}`}
                 >
                   <div className="relative h-64 md:h-80 overflow-hidden">
@@ -113,7 +127,7 @@ export default function Blog() {
                       </span>
                     </div>
                   </div>
-                  <CardContent className="p-6">
+                  <div className="p-6">
                     {featuredPost.category && (
                       <span className="text-primary text-sm font-medium mb-2 block">{featuredPost.category}</span>
                     )}
@@ -142,12 +156,12 @@ export default function Blog() {
                         </Button>
                       </Link>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </GlassCard>
               )}
 
               <div className="col-span-3 md:col-span-4 space-y-4">
-                <Card className="glass-card border-primary/20 p-6">
+                <GlassCard className="p-6" variant="feature">
                   <h3 className="text-lg font-bold font-display text-foreground mb-4">Subscribe to Updates</h3>
                   <p className="text-muted-foreground text-sm mb-4">Get the latest insights delivered to your inbox</p>
                   <input 
@@ -162,9 +176,9 @@ export default function Blog() {
                   >
                     Subscribe
                   </Button>
-                </Card>
+                </GlassCard>
 
-                <Card className="glass-card border-white/10 p-6">
+                <GlassCard className="p-6">
                   <h3 className="text-lg font-bold font-display text-foreground mb-4">Categories</h3>
                   <div className="space-y-2">
                     {['Web Development', 'AI & Automation', 'E-Commerce', 'SEO & Marketing', 'Case Studies'].map((cat) => (
@@ -177,49 +191,57 @@ export default function Blog() {
                       </button>
                     ))}
                   </div>
-                </Card>
+                </GlassCard>
               </div>
 
               <AdUnit slot="3456789012" format="horizontal" isAdFree={isAdFree} loading={adLoading} className="col-span-3 md:col-span-12 my-2" />
 
               {recentPosts.map((post, index) => (
-                <Card 
+                <motion.div
                   key={post.id}
-                  className={`col-span-3 md:col-span-4 glass-card border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300 hover-lift`}
-                  data-testid={`card-blog-${post.id}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="col-span-3 md:col-span-4"
                 >
-                  <div className="relative h-40 overflow-hidden">
-                    <img 
-                      src={post.coverImage || `https://images.unsplash.com/photo-${1550745165 + index}-9bc53b8cbc25?w=600&q=80`}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                  </div>
-                  <CardContent className="p-4">
-                    {post.category && (
-                      <span className="text-primary text-xs font-medium mb-1 block">{post.category}</span>
-                    )}
-                    <h3 className="text-lg font-bold font-display text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{post.excerpt}</p>
-                    <div className="flex items-center gap-3 text-muted-foreground text-xs">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        5 min read
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
-                      </span>
+                  <GlassCard
+                    className="overflow-hidden group hover:border-primary/30 transition-all duration-300 hover-lift h-full"
+                    data-testid={`card-blog-${post.id}`}
+                  >
+                    <div className="relative h-40 overflow-hidden">
+                      <img 
+                        src={post.coverImage || `https://images.unsplash.com/photo-${1550745165 + index}-9bc53b8cbc25?w=600&q=80`}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="p-4">
+                      {post.category && (
+                        <span className="text-primary text-xs font-medium mb-1 block">{post.category}</span>
+                      )}
+                      <h3 className="text-lg font-bold font-display text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{post.excerpt}</p>
+                      <div className="flex items-center gap-3 text-muted-foreground text-xs">
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          5 min read
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="h-3 w-3" />
+                          {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  </GlassCard>
+                </motion.div>
               ))}
 
               {posts.length === 0 && (
-                <Card className="col-span-3 md:col-span-12 glass-card border-white/10 p-12 text-center">
+                <GlassCard className="col-span-3 md:col-span-12 p-12 text-center">
                   <div className="max-w-md mx-auto">
                     <Tag className="h-16 w-16 mx-auto mb-4 text-muted-foreground/30" />
                     <h3 className="text-xl font-bold font-display text-foreground mb-2">Coming Soon</h3>
@@ -228,9 +250,9 @@ export default function Blog() {
                       Subscribe above to be notified when we publish.
                     </p>
                   </div>
-                </Card>
+                </GlassCard>
               )}
-            </div>
+            </motion.div>
           )}
         </div>
       </main>
@@ -241,7 +263,7 @@ export default function Blog() {
       </div>
 
       <footer className="relative z-10 border-t border-white/10 py-8">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.
           </p>

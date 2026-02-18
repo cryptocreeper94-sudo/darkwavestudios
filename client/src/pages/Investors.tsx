@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, TrendingUp, DollarSign, Users, Globe, Rocket, BarChart3, Target, Shield, Menu, X } from "lucide-react";
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 export default function Investors() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,7 +80,7 @@ export default function Investors() {
 
       <div className="relative z-10">
         <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-          <div className="lg:hidden max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="lg:hidden container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
             <Link href="/" className="font-display text-base font-semibold gradient-text">DarkWave Studios</Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors" data-testid="mobile-menu-toggle">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -93,7 +95,7 @@ export default function Investors() {
               </div>
             </div>
           )}
-          <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-3 items-center justify-between">
+          <div className="hidden lg:flex container mx-auto px-4 sm:px-6 lg:px-8 py-3 items-center justify-between">
             <Link href="/" className="font-display text-lg font-semibold gradient-text">DarkWave Studios</Link>
             <div className="flex items-center gap-6">
               <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Portfolio</Link>
@@ -104,7 +106,7 @@ export default function Investors() {
           </div>
         </nav>
 
-        <main className="max-w-7xl mx-auto px-6 pt-24 pb-20">
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
           <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors" data-testid="back-home">
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -112,35 +114,53 @@ export default function Investors() {
 
           <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
             <div className="col-span-3 lg:col-span-12">
-              <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center">
-                    <BarChart3 className="w-8 h-8 text-emerald-400" />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <GlassCard glow className="rounded-2xl p-8 lg:p-12">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center">
+                      <BarChart3 className="w-8 h-8 text-emerald-400" />
+                    </div>
+                    <div>
+                      <h1 className="text-3xl lg:text-5xl font-bold font-display gradient-text" data-testid="investors-title">Investor Relations</h1>
+                      <p className="text-muted-foreground">Partner with the future of web development</p>
+                    </div>
                   </div>
-                  <div>
-                    <h1 className="text-3xl lg:text-5xl font-bold font-display gradient-text" data-testid="investors-title">Investor Relations</h1>
-                    <p className="text-muted-foreground">Partner with the future of web development</p>
-                  </div>
-                </div>
-                <p className="text-lg text-muted-foreground max-w-3xl">
-                  DarkWave Studios is disrupting the traditional agency model by delivering enterprise-quality 
-                  web solutions at 60%+ cost savings. We're seeking strategic partners who share our vision 
-                  of democratizing premium technology.
-                </p>
-              </div>
+                  <p className="text-lg text-muted-foreground max-w-3xl">
+                    DarkWave Studios is disrupting the traditional agency model by delivering enterprise-quality 
+                    web solutions at 60%+ cost savings. We're seeking strategic partners who share our vision 
+                    of democratizing premium technology.
+                  </p>
+                </GlassCard>
+              </motion.div>
             </div>
 
             {metrics.map((metric, i) => (
-              <div key={i} className="col-span-3 lg:col-span-3">
-                <div className="glass-card rounded-xl p-6 h-full text-center hover:scale-105 transition-transform">
-                  <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mb-4">
-                    <metric.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="text-3xl font-bold gradient-text mb-1" data-testid={`metric-${i}`}>{metric.value}</div>
-                  <div className="text-sm font-medium">{metric.label}</div>
-                  <div className="text-xs text-muted-foreground">{metric.sublabel}</div>
-                </div>
-              </div>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="col-span-3 lg:col-span-3"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
+                  <GlassCard variant="stat" className="rounded-xl p-6 h-full text-center">
+                    <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mb-4">
+                      <metric.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="text-3xl font-bold gradient-text mb-1" data-testid={`metric-${i}`}>{metric.value}</div>
+                    <div className="text-sm font-medium">{metric.label}</div>
+                    <div className="text-xs text-muted-foreground">{metric.sublabel}</div>
+                  </GlassCard>
+                </motion.div>
+              </motion.div>
             ))}
 
             <div className="col-span-3 lg:col-span-12">
@@ -148,19 +168,32 @@ export default function Investors() {
             </div>
 
             {opportunities.map((opp, i) => (
-              <div key={i} className="col-span-3 lg:col-span-6">
-                <div className="glass-card rounded-xl p-6 h-full gradient-border">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="col-span-3 lg:col-span-6"
+              >
+                <GlassCard variant="feature" className="rounded-xl p-6 h-full">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-lg font-bold">{opp.title}</h3>
                     <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400">{opp.growth}</span>
                   </div>
                   <p className="text-sm text-muted-foreground">{opp.description}</p>
-                </div>
-              </div>
+                </GlassCard>
+              </motion.div>
             ))}
 
-            <div className="col-span-3 lg:col-span-6 mt-4">
-              <div className="glass-card rounded-xl p-6 h-full">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5 }}
+              className="col-span-3 lg:col-span-6 mt-4"
+            >
+              <GlassCard className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <Target className="w-6 h-6 text-cyan-400" />
                   <h2 className="text-xl font-bold">Investment Highlights</h2>
@@ -173,11 +206,17 @@ export default function Investors() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
+              </GlassCard>
+            </motion.div>
 
-            <div className="col-span-3 lg:col-span-6 mt-4">
-              <div className="glass-card rounded-xl p-6 h-full gradient-border">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="col-span-3 lg:col-span-6 mt-4"
+            >
+              <GlassCard glow className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <Shield className="w-6 h-6 text-purple-400" />
                   <h2 className="text-xl font-bold">Get In Touch</h2>
@@ -193,13 +232,13 @@ export default function Investors() {
                 >
                   Schedule a Discussion
                 </Link>
-              </div>
-            </div>
+              </GlassCard>
+            </motion.div>
           </div>
         </main>
 
         <footer className="relative z-10 glass-strong mt-12">
-          <div className="max-w-7xl mx-auto px-6 py-8 text-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
             <p className="text-muted-foreground text-sm">© 2025 DarkWave Studios. Built with passion.</p>
           </div>
         </footer>

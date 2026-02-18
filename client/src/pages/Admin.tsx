@@ -5,6 +5,8 @@ import {
   TrendingUp, ArrowRight, ChevronDown, ChevronUp, Clock, Check, X,
   Eye, Trash2, RefreshCw, AlertCircle, DollarSign, Zap, BarChart3, Globe, Bot, PenTool, FolderOpen
 } from "lucide-react";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 type TabType = "overview" | "leads" | "quotes" | "bookings" | "subscribers";
 
@@ -200,7 +202,12 @@ export default function Admin() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
         {/* Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
           {tabs.map((tab) => (
@@ -226,24 +233,31 @@ export default function Admin() {
             </button>
           ))}
         </div>
+        </motion.div>
 
         {/* Content */}
         {loading ? (
           <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="col-span-3 glass-card rounded-2xl p-6 animate-pulse">
+              <GlassCard key={i} className="col-span-3 p-6 animate-pulse">
                 <div className="h-4 bg-white/10 rounded w-1/2 mb-4" />
                 <div className="h-8 bg-white/10 rounded w-3/4" />
-              </div>
+              </GlassCard>
             ))}
           </div>
         ) : (
           <>
             {/* Overview Tab */}
             {activeTab === "overview" && stats && (
-              <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+                className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6"
+              >
                 {/* Stats Cards */}
-                <div className="col-span-3 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d bg-gradient-to-br from-primary/10 to-transparent">
+                <GlassCard variant="stat" className="col-span-3 p-6 bg-gradient-to-br from-primary/10 to-transparent">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
                       <Users className="w-7 h-7 text-primary" />
@@ -256,9 +270,9 @@ export default function Admin() {
                       )}
                     </div>
                   </div>
-                </div>
+                </GlassCard>
 
-                <div className="col-span-3 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d bg-gradient-to-br from-accent/10 to-transparent">
+                <GlassCard variant="stat" className="col-span-3 p-6 bg-gradient-to-br from-accent/10 to-transparent">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/30 flex items-center justify-center">
                       <DollarSign className="w-7 h-7 text-accent" />
@@ -271,9 +285,9 @@ export default function Admin() {
                       )}
                     </div>
                   </div>
-                </div>
+                </GlassCard>
 
-                <div className="col-span-3 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+                <GlassCard variant="stat" className="col-span-3 p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/30 to-primary/30 flex items-center justify-center">
                       <Calendar className="w-7 h-7 text-green-400" />
@@ -286,9 +300,9 @@ export default function Admin() {
                       )}
                     </div>
                   </div>
-                </div>
+                </GlassCard>
 
-                <div className="col-span-3 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+                <GlassCard variant="stat" className="col-span-3 p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/30 to-primary/30 flex items-center justify-center">
                       <Mail className="w-7 h-7 text-blue-400" />
@@ -298,12 +312,12 @@ export default function Admin() {
                       <div className="text-3xl font-bold">{stats.totalSubscribers}</div>
                     </div>
                   </div>
-                </div>
+                </GlassCard>
 
                 {/* Quick Actions - Analytics & AI */}
                 <div className="col-span-3 lg:col-span-12 grid grid-cols-3 lg:grid-cols-12 gap-4">
                   <Link href="/analytics" className="col-span-3 lg:col-span-3">
-                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 transition-all cursor-pointer group" data-testid="link-analytics">
+                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 transition-all cursor-pointer group" data-testid="link-analytics">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/30 to-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
                           <BarChart3 className="w-6 h-6 text-cyan-400" />
@@ -313,11 +327,11 @@ export default function Admin() {
                           <div className="text-xs text-muted-foreground">View real-time stats</div>
                         </div>
                       </div>
-                    </div>
+                    </GlassCard>
                   </Link>
 
                   <Link href="/blog/admin" className="col-span-3 lg:col-span-3">
-                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 transition-all cursor-pointer group" data-testid="link-blog-admin">
+                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 transition-all cursor-pointer group" data-testid="link-blog-admin">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-400/30 to-pink-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
                           <PenTool className="w-6 h-6 text-purple-400" />
@@ -327,11 +341,11 @@ export default function Admin() {
                           <div className="text-xs text-muted-foreground">AI content creation</div>
                         </div>
                       </div>
-                    </div>
+                    </GlassCard>
                   </Link>
 
                   <Link href="/analytics" className="col-span-3 lg:col-span-3">
-                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-green-500/20 to-emerald-600/20 hover:from-green-500/30 hover:to-emerald-600/30 transition-all cursor-pointer group" data-testid="link-seo">
+                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-green-500/20 to-emerald-600/20 hover:from-green-500/30 hover:to-emerald-600/30 transition-all cursor-pointer group" data-testid="link-seo">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400/30 to-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
                           <Globe className="w-6 h-6 text-green-400" />
@@ -341,11 +355,11 @@ export default function Admin() {
                           <div className="text-xs text-muted-foreground">Monitor rankings</div>
                         </div>
                       </div>
-                    </div>
+                    </GlassCard>
                   </Link>
 
                   <Link href="/documents" className="col-span-3 lg:col-span-3">
-                    <div className="glass-card rounded-2xl p-6 gradient-border card-3d bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 transition-all cursor-pointer group" data-testid="link-documents">
+                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 transition-all cursor-pointer group" data-testid="link-documents">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400/30 to-amber-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
                           <FolderOpen className="w-6 h-6 text-orange-400" />
@@ -355,12 +369,12 @@ export default function Admin() {
                           <div className="text-xs text-muted-foreground">Business docs & roadmap</div>
                         </div>
                       </div>
-                    </div>
+                    </GlassCard>
                   </Link>
                 </div>
 
                 {/* Recent Activity */}
-                <div className="col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border">
+                <GlassCard className="col-span-3 lg:col-span-6 p-6">
                   <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                     <Clock className="w-5 h-5 text-primary" />
                     Recent Leads
@@ -383,9 +397,9 @@ export default function Admin() {
                       </div>
                     )}
                   </div>
-                </div>
+                </GlassCard>
 
-                <div className="col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border">
+                <GlassCard className="col-span-3 lg:col-span-6 p-6">
                   <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-accent" />
                     Recent Quotes
@@ -411,15 +425,15 @@ export default function Admin() {
                       </div>
                     )}
                   </div>
-                </div>
-              </div>
+                </GlassCard>
+              </motion.div>
             )}
 
             {/* Leads Tab */}
             {activeTab === "leads" && (
               <div className="space-y-4">
                 {leads.map((lead) => (
-                  <div key={lead.id} className="glass-card rounded-2xl gradient-border overflow-hidden card-3d">
+                  <GlassCard key={lead.id} className="overflow-hidden">
                     <button
                       onClick={() => setExpandedItem(expandedItem === lead.id ? null : lead.id)}
                       className="w-full p-5 flex items-center justify-between"
@@ -496,14 +510,14 @@ export default function Admin() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </GlassCard>
                 ))}
                 {leads.length === 0 && (
-                  <div className="glass-card rounded-2xl p-12 text-center">
+                  <GlassCard className="p-12 text-center">
                     <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <div className="text-lg font-medium">No leads yet</div>
                     <div className="text-sm text-muted-foreground">When visitors submit the contact form, they'll appear here.</div>
-                  </div>
+                  </GlassCard>
                 )}
               </div>
             )}
@@ -512,7 +526,7 @@ export default function Admin() {
             {activeTab === "quotes" && (
               <div className="space-y-4">
                 {quotes.map((quote) => (
-                  <div key={quote.id} className="glass-card rounded-2xl gradient-border overflow-hidden card-3d">
+                  <GlassCard key={quote.id} className="overflow-hidden">
                     <button
                       onClick={() => setExpandedItem(expandedItem === quote.id ? null : quote.id)}
                       className="w-full p-5 flex items-center justify-between"
@@ -593,14 +607,14 @@ export default function Admin() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </GlassCard>
                 ))}
                 {quotes.length === 0 && (
-                  <div className="glass-card rounded-2xl p-12 text-center">
+                  <GlassCard className="p-12 text-center">
                     <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <div className="text-lg font-medium">No quote requests yet</div>
                     <div className="text-sm text-muted-foreground">When visitors use the quote calculator, they'll appear here.</div>
-                  </div>
+                  </GlassCard>
                 )}
               </div>
             )}
@@ -609,7 +623,7 @@ export default function Admin() {
             {activeTab === "bookings" && (
               <div className="space-y-4">
                 {bookings.map((booking) => (
-                  <div key={booking.id} className="glass-card rounded-2xl p-5 gradient-border card-3d">
+                  <GlassCard key={booking.id} className="p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-primary/20 flex items-center justify-center">
@@ -645,21 +659,21 @@ export default function Admin() {
                         Cancel
                       </button>
                     </div>
-                  </div>
+                  </GlassCard>
                 ))}
                 {bookings.length === 0 && (
-                  <div className="glass-card rounded-2xl p-12 text-center">
+                  <GlassCard className="p-12 text-center">
                     <AlertCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <div className="text-lg font-medium">No bookings yet</div>
                     <div className="text-sm text-muted-foreground">When visitors book discovery calls, they'll appear here.</div>
-                  </div>
+                  </GlassCard>
                 )}
               </div>
             )}
 
             {/* Subscribers Tab */}
             {activeTab === "subscribers" && (
-              <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border">
+              <GlassCard className="p-6">
                 <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                   <Mail className="w-5 h-5 text-primary" />
                   Newsletter Subscribers ({subscribers.length})
@@ -685,7 +699,7 @@ export default function Admin() {
                     </div>
                   )}
                 </div>
-              </div>
+              </GlassCard>
             )}
           </>
         )}

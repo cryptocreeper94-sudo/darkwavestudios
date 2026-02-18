@@ -34,6 +34,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 const ADMIN_KEY = "0424";
 
@@ -396,25 +398,36 @@ export default function MarketingHub() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-6 pt-24 pb-20">
-        <div className="mb-8">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
           <h1 className="text-3xl lg:text-4xl font-bold font-display mb-2">
             Marketing <span className="gradient-text">Automation</span>
           </h1>
           <p className="text-muted-foreground">
             Automated social media posting for the Trust Layer ecosystem
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          <Card className="glass-card border-white/10" data-testid="card-status-facebook">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid lg:grid-cols-4 gap-6 mb-8"
+        >
+          <GlassCard className="p-4 sm:p-6" data-testid="card-status-facebook">
+            <div className="pb-2">
+              <div className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Facebook className="w-4 h-4" />
                 Facebook
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
+            </div>
+            <div>
               <div className="flex items-center gap-2 mb-2">
                 {integration?.facebookConnected ? (
                   <>
@@ -453,17 +466,17 @@ export default function MarketingHub() {
                   Connect Meta
                 </Button>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </GlassCard>
 
-          <Card className="glass-card border-white/10" data-testid="card-status-instagram">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+          <GlassCard className="p-4 sm:p-6" data-testid="card-status-instagram">
+            <div className="pb-2">
+              <div className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Instagram className="w-4 h-4" />
                 Instagram
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
+            </div>
+            <div>
               <div className="flex items-center gap-2 mb-2">
                 {integration?.instagramConnected ? (
                   <>
@@ -483,17 +496,17 @@ export default function MarketingHub() {
               {!integration?.instagramConnected && (
                 <p className="text-xs text-muted-foreground italic">Connect via Meta</p>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </GlassCard>
 
-          <Card className="glass-card border-white/10" data-testid="card-status-twitter">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+          <GlassCard className="p-4 sm:p-6" data-testid="card-status-twitter">
+            <div className="pb-2">
+              <div className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Zap className="w-4 h-4" />
                 X (Twitter)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
+            </div>
+            <div>
               <div className="flex items-center gap-2">
                 {integration?.twitterConnected ? (
                   <>
@@ -510,68 +523,62 @@ export default function MarketingHub() {
               {integration?.twitterUsername && (
                 <p className="text-xs text-muted-foreground mt-1">@{integration.twitterUsername}</p>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </GlassCard>
 
-          <Card className="glass-card border-white/10" data-testid="card-status-schedule">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+          <GlassCard variant="stat" className="p-4 sm:p-6" data-testid="card-status-schedule">
+            <div className="pb-2">
+              <div className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Clock className="w-4 h-4" />
                 Schedule
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
+            </div>
+            <div>
               <p className="text-2xl font-bold">7</p>
               <p className="text-xs text-muted-foreground">Posts per day</p>
               <p className="text-xs text-muted-foreground mt-1">8am - 8pm CST</p>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </GlassCard>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-          <Card className="glass-card border-white/10" data-testid="card-analytics-impressions">
-            <CardContent className="p-4 text-center">
-              <Eye className="w-6 h-6 mx-auto text-blue-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.impressions.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Impressions</p>
-            </CardContent>
-          </Card>
-          <Card className="glass-card border-white/10" data-testid="card-analytics-reach">
-            <CardContent className="p-4 text-center">
-              <TrendingUp className="w-6 h-6 mx-auto text-green-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.reach.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Reach</p>
-            </CardContent>
-          </Card>
-          <Card className="glass-card border-white/10" data-testid="card-analytics-likes">
-            <CardContent className="p-4 text-center">
-              <Heart className="w-6 h-6 mx-auto text-red-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.likes.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Likes</p>
-            </CardContent>
-          </Card>
-          <Card className="glass-card border-white/10" data-testid="card-analytics-comments">
-            <CardContent className="p-4 text-center">
-              <MessageSquare className="w-6 h-6 mx-auto text-yellow-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.comments.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Comments</p>
-            </CardContent>
-          </Card>
-          <Card className="glass-card border-white/10" data-testid="card-analytics-shares">
-            <CardContent className="p-4 text-center">
-              <Share2 className="w-6 h-6 mx-auto text-purple-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.shares.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Shares</p>
-            </CardContent>
-          </Card>
-          <Card className="glass-card border-white/10" data-testid="card-analytics-clicks">
-            <CardContent className="p-4 text-center">
-              <MousePointer className="w-6 h-6 mx-auto text-cyan-400 mb-2" />
-              <p className="text-2xl font-bold">{analytics.clicks.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Clicks</p>
-            </CardContent>
-          </Card>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
+        >
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-impressions">
+            <Eye className="w-6 h-6 mx-auto text-blue-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.impressions.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Impressions</p>
+          </GlassCard>
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-reach">
+            <TrendingUp className="w-6 h-6 mx-auto text-green-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.reach.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Reach</p>
+          </GlassCard>
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-likes">
+            <Heart className="w-6 h-6 mx-auto text-red-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.likes.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Likes</p>
+          </GlassCard>
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-comments">
+            <MessageSquare className="w-6 h-6 mx-auto text-yellow-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.comments.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Comments</p>
+          </GlassCard>
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-shares">
+            <Share2 className="w-6 h-6 mx-auto text-purple-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.shares.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Shares</p>
+          </GlassCard>
+          <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-clicks">
+            <MousePointer className="w-6 h-6 mx-auto text-cyan-400 mb-2" />
+            <p className="text-2xl font-bold">{analytics.clicks.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">Clicks</p>
+          </GlassCard>
+        </motion.div>
 
         <div className="flex gap-2 mb-6 border-b border-white/10 pb-4">
           <Button 
@@ -702,8 +709,8 @@ export default function MarketingHub() {
             {postsLoading ? (
               <div className="text-center py-12 text-muted-foreground" data-testid="text-loading">Loading...</div>
             ) : posts.length === 0 ? (
-              <Card className="glass-card border-white/10">
-                <CardContent className="py-12 text-center">
+              <GlassCard className="p-4 sm:p-6">
+                <div className="py-12 text-center">
                   <MessageSquare className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold mb-2" data-testid="text-empty-state">No content yet</h3>
                   <p className="text-muted-foreground mb-4">Add your first marketing post to get started</p>
@@ -711,13 +718,13 @@ export default function MarketingHub() {
                     <Plus className="w-4 h-4" />
                     Add Content
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </GlassCard>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {posts.map((post) => (
-                  <Card key={post.id} className="glass-card border-white/10" data-testid={`card-post-${post.id}`}>
-                    <CardContent className="p-4">
+                  <GlassCard key={post.id} className="p-4" data-testid={`card-post-${post.id}`}>
+                    <div>
                       <div className="flex items-start justify-between mb-3">
                         <Badge variant="outline" className="text-xs">
                           {post.platform === "all" ? "All Platforms" : post.platform}
@@ -757,8 +764,8 @@ export default function MarketingHub() {
                           <span>Last: {new Date(post.lastUsedAt).toLocaleDateString()}</span>
                         )}
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </GlassCard>
                 ))}
               </div>
             )}
@@ -766,60 +773,54 @@ export default function MarketingHub() {
         )}
 
         {activeTab === "analytics" && (
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6"
+          >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-impressions">
-                <CardContent className="p-4 text-center">
-                  <Eye className="w-8 h-8 mx-auto text-blue-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.impressions.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Impressions</p>
-                </CardContent>
-              </Card>
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-reach">
-                <CardContent className="p-4 text-center">
-                  <TrendingUp className="w-8 h-8 mx-auto text-green-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.reach.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Reach</p>
-                </CardContent>
-              </Card>
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-likes">
-                <CardContent className="p-4 text-center">
-                  <Heart className="w-8 h-8 mx-auto text-red-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.likes.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Likes</p>
-                </CardContent>
-              </Card>
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-comments">
-                <CardContent className="p-4 text-center">
-                  <MessageSquare className="w-8 h-8 mx-auto text-yellow-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.comments.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Comments</p>
-                </CardContent>
-              </Card>
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-shares">
-                <CardContent className="p-4 text-center">
-                  <Share2 className="w-8 h-8 mx-auto text-purple-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.shares.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Shares</p>
-                </CardContent>
-              </Card>
-              <Card className="glass-card border-white/10" data-testid="card-analytics-full-clicks">
-                <CardContent className="p-4 text-center">
-                  <MousePointer className="w-8 h-8 mx-auto text-cyan-400 mb-2" />
-                  <p className="text-3xl font-bold">{analytics.clicks.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Total Clicks</p>
-                </CardContent>
-              </Card>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-impressions">
+                <Eye className="w-8 h-8 mx-auto text-blue-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.impressions.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Impressions</p>
+              </GlassCard>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-reach">
+                <TrendingUp className="w-8 h-8 mx-auto text-green-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.reach.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Reach</p>
+              </GlassCard>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-likes">
+                <Heart className="w-8 h-8 mx-auto text-red-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.likes.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Likes</p>
+              </GlassCard>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-comments">
+                <MessageSquare className="w-8 h-8 mx-auto text-yellow-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.comments.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Comments</p>
+              </GlassCard>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-shares">
+                <Share2 className="w-8 h-8 mx-auto text-purple-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.shares.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Shares</p>
+              </GlassCard>
+              <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-clicks">
+                <MousePointer className="w-8 h-8 mx-auto text-cyan-400 mb-2" />
+                <p className="text-3xl font-bold">{analytics.clicks.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total Clicks</p>
+              </GlassCard>
             </div>
             
-            <Card className="glass-card border-white/10">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <GlassCard className="p-4 sm:p-6">
+              <div className="mb-4">
+                <h3 className="font-semibold flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-primary" />
                   Performance Summary
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </h3>
+              </div>
+              <div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Engagement Rate</span>
@@ -846,9 +847,9 @@ export default function MarketingHub() {
                     <span className="font-bold">{scheduledPosts.length} posts</span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </GlassCard>
+          </motion.div>
         )}
 
         {activeTab === "images" && (
@@ -865,8 +866,8 @@ export default function MarketingHub() {
             </div>
             
             {marketingImages.length === 0 ? (
-              <Card className="glass-card border-white/10">
-                <CardContent className="py-12 text-center">
+              <GlassCard className="p-4 sm:p-6">
+                <div className="py-12 text-center">
                   <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold mb-2" data-testid="text-empty-images">No images yet</h3>
                   <p className="text-muted-foreground mb-4">Upload images to use in your social media posts</p>
@@ -874,12 +875,12 @@ export default function MarketingHub() {
                     <Plus className="w-4 h-4" />
                     Upload Image
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </GlassCard>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {marketingImages.map((image) => (
-                  <Card key={image.id} className="glass-card border-white/10 overflow-hidden" data-testid={`card-image-${image.id}`}>
+                  <GlassCard key={image.id} className="overflow-hidden" data-testid={`card-image-${image.id}`}>
                     <div className="aspect-square relative">
                       <img 
                         src={image.filePath} 
@@ -899,20 +900,20 @@ export default function MarketingHub() {
                         </Button>
                       </div>
                     </div>
-                    <CardContent className="p-3">
+                    <div className="p-3">
                       <div className="flex items-center justify-between text-xs text-muted-foreground">
                         <Badge variant="outline" className="text-xs">{image.category || 'general'}</Badge>
                         <span>Used {image.usageCount}x</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </GlassCard>
                 ))}
               </div>
             )}
           </div>
         )}
 
-        <div className="mt-12 glass-card rounded-2xl p-8 border border-white/10">
+        <GlassCard glow className="mt-12 p-6 sm:p-8">
           <div className="flex items-start gap-6">
             <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
               <Megaphone className="w-8 h-8 text-primary" />
@@ -931,15 +932,20 @@ export default function MarketingHub() {
               </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
 
-        <div className="mt-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mt-8"
+        >
           <h2 className="text-2xl font-bold font-display mb-6 text-center">
             Get TLId.io for <span className="gradient-text">Your Business</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="glass-card border-white/10" data-testid="card-pricing-starter">
-              <CardContent className="p-6 text-center">
+            <GlassCard className="p-6 text-center" data-testid="card-pricing-starter">
                 <h3 className="text-lg font-semibold mb-2">Starter</h3>
                 <p className="text-3xl font-bold mb-1">$99<span className="text-sm text-muted-foreground">/mo</span></p>
                 <p className="text-sm text-muted-foreground mb-4">Perfect for small businesses</p>
@@ -950,14 +956,12 @@ export default function MarketingHub() {
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Basic analytics</li>
                 </ul>
                 <Button variant="outline" className="w-full" onClick={() => handleSubscribe("starter")} data-testid="button-pricing-starter">Get Started</Button>
-              </CardContent>
-            </Card>
+            </GlassCard>
 
-            <Card className="glass-card border-primary relative" data-testid="card-pricing-pro">
+            <GlassCard glow className="p-6 text-center relative" data-testid="card-pricing-pro">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
               </div>
-              <CardContent className="p-6 text-center">
                 <h3 className="text-lg font-semibold mb-2">Professional</h3>
                 <p className="text-3xl font-bold mb-1">$249<span className="text-sm text-muted-foreground">/mo</span></p>
                 <p className="text-sm text-muted-foreground mb-4">For growing agencies</p>
@@ -969,11 +973,9 @@ export default function MarketingHub() {
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Priority support</li>
                 </ul>
                 <Button className="w-full" onClick={() => handleSubscribe("professional")} data-testid="button-pricing-pro">Get Started</Button>
-              </CardContent>
-            </Card>
+            </GlassCard>
 
-            <Card className="glass-card border-white/10" data-testid="card-pricing-enterprise">
-              <CardContent className="p-6 text-center">
+            <GlassCard className="p-6 text-center" data-testid="card-pricing-enterprise">
                 <h3 className="text-lg font-semibold mb-2">Enterprise</h3>
                 <p className="text-3xl font-bold mb-1">$499<span className="text-sm text-muted-foreground">/mo</span></p>
                 <p className="text-sm text-muted-foreground mb-4">White-label solution</p>
@@ -985,10 +987,9 @@ export default function MarketingHub() {
                   <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Dedicated support</li>
                 </ul>
                 <Button variant="outline" className="w-full" onClick={() => handleSubscribe("enterprise")} data-testid="button-pricing-enterprise">Get Started</Button>
-              </CardContent>
-            </Card>
+            </GlassCard>
           </div>
-        </div>
+        </motion.div>
       </main>
 
       <Dialog open={showNewPost} onOpenChange={setShowNewPost}>
@@ -1090,8 +1091,7 @@ export default function MarketingHub() {
               <div className="space-y-3 mt-4">
                 <h4 className="text-sm font-medium">Generated Posts</h4>
                 {generatedPosts.map((post, i) => (
-                  <Card key={i} className="glass-card border-white/10">
-                    <CardContent className="p-3">
+                  <GlassCard key={i} className="p-3">
                       <p className="text-sm mb-2">{post.content}</p>
                       {post.hashtags?.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2">
@@ -1108,8 +1108,7 @@ export default function MarketingHub() {
                       >
                         <Plus className="w-3 h-3 mr-1" /> Add to Library
                       </Button>
-                    </CardContent>
-                  </Card>
+                  </GlassCard>
                 ))}
               </div>
             )}

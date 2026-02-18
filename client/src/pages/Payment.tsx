@@ -5,6 +5,8 @@ import {
   Clock, Users, Rocket, Star, Sparkles, ArrowRight
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 import starterImg from "@assets/stock_images/electric_energy_ligh_ce0a8be1.jpg";
 import growthImg from "@assets/stock_images/business_growth_char_5920f51f.jpg";
@@ -190,7 +192,7 @@ export default function Payment() {
           { name: "Plans & Pricing", url: "https://darkwavestudios.com/payment" }
         ]}
       />
-      <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/[0.03] backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-display font-bold text-xl gradient-text" data-testid="link-home">
             DarkWave Studios
@@ -206,26 +208,31 @@ export default function Payment() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16 pt-24">
-        <div className="text-center mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-primary mb-6">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 pt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 lg:mb-16"
+        >
+          <GlassCard className="inline-flex items-center gap-2 px-4 py-2 text-sm text-primary mb-6">
             <Shield className="w-4 h-4" />
             <span>Secure Payment — SSL Encrypted</span>
-          </div>
+          </GlassCard>
           <h1 className="text-3xl lg:text-5xl font-bold font-display mb-4">
             Choose Your <span className="gradient-text">Plan</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Transparent pricing with no hidden fees. Pay with card or cryptocurrency.
           </p>
-        </div>
+        </motion.div>
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
           
           {/* Tab Switcher */}
           <div className="col-span-3 lg:col-span-12 flex justify-center mb-4">
-            <div className="glass-card rounded-2xl p-1.5 flex gap-2">
+            <GlassCard className="p-1.5 flex gap-2">
               <button
                 onClick={() => setActiveTab("monthly")}
                 className={`px-6 py-3 rounded-xl font-medium transition-all ${
@@ -248,7 +255,7 @@ export default function Payment() {
               >
                 One-Time Projects
               </button>
-            </div>
+            </GlassCard>
           </div>
 
           {/* Monthly Plans - 3 Cards Side by Side */}
@@ -258,7 +265,7 @@ export default function Payment() {
                 <div 
                   key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`flex-1 min-w-0 glass-card rounded-2xl overflow-hidden gradient-border card-3d cursor-pointer transition-all relative ${
+                  className={`flex-1 min-w-0 rounded-2xl overflow-hidden cursor-pointer transition-all relative border border-white/10 bg-white/[0.03] backdrop-blur-xl ${
                     selectedPlan === plan.id 
                       ? "ring-2 ring-primary bg-primary/10" 
                       : "hover:bg-white/5"
@@ -329,7 +336,7 @@ export default function Payment() {
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl overflow-hidden gradient-border card-3d cursor-pointer transition-all ${
+              className={`col-span-3 lg:col-span-6 rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer transition-all border border-white/10 bg-white/[0.03] backdrop-blur-xl ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
                   : "hover:bg-white/5"
@@ -377,7 +384,7 @@ export default function Payment() {
           {selectedPlan && (
             <>
               {/* Customer Info */}
-              <div className="col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border">
+              <GlassCard className="col-span-3 lg:col-span-6 p-6 lg:p-8">
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <Users className="w-5 h-5 text-primary" />
                   Your Information
@@ -407,10 +414,10 @@ export default function Payment() {
                     />
                   </div>
                 </div>
-              </div>
+              </GlassCard>
 
               {/* Payment Method */}
-              <div className="col-span-3 lg:col-span-6 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border">
+              <GlassCard className="col-span-3 lg:col-span-6 p-6 lg:p-8">
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <CreditCard className="w-5 h-5 text-primary" />
                   Payment Method
@@ -451,10 +458,10 @@ export default function Payment() {
                     </button>
                   )}
                 </div>
-              </div>
+              </GlassCard>
 
               {/* Order Summary & Pay Button */}
-              <div className="col-span-3 lg:col-span-12 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border bg-gradient-to-br from-primary/5 to-accent/5">
+              <GlassCard glow className="col-span-3 lg:col-span-12 p-6 lg:p-8 bg-gradient-to-br from-primary/5 to-accent/5">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
@@ -489,29 +496,35 @@ export default function Payment() {
                     )}
                   </button>
                 </div>
-              </div>
+              </GlassCard>
             </>
           )}
 
           {/* Trust Badges */}
-          <div className="col-span-3 lg:col-span-12 grid grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-            <div className="col-span-1 glass-card rounded-xl p-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="col-span-3 lg:col-span-12 grid grid-cols-3 lg:grid-cols-4 gap-4 mt-8"
+          >
+            <GlassCard className="col-span-1 p-4 text-center">
               <Shield className="w-6 h-6 text-primary mx-auto mb-2" />
               <div className="text-xs text-muted-foreground">SSL Encrypted</div>
-            </div>
-            <div className="col-span-1 glass-card rounded-xl p-4 text-center">
+            </GlassCard>
+            <GlassCard className="col-span-1 p-4 text-center">
               <CreditCard className="w-6 h-6 text-primary mx-auto mb-2" />
               <div className="text-xs text-muted-foreground">PCI Compliant</div>
-            </div>
-            <div className="col-span-1 glass-card rounded-xl p-4 text-center">
+            </GlassCard>
+            <GlassCard className="col-span-1 p-4 text-center">
               <Clock className="w-6 h-6 text-primary mx-auto mb-2" />
               <div className="text-xs text-muted-foreground">24hr Support</div>
-            </div>
-            <div className="col-span-3 lg:col-span-1 glass-card rounded-xl p-4 text-center">
+            </GlassCard>
+            <GlassCard className="col-span-3 lg:col-span-1 p-4 text-center">
               <Star className="w-6 h-6 text-primary mx-auto mb-2" />
               <div className="text-xs text-muted-foreground">Money-back Guarantee</div>
-            </div>
-          </div>
+            </GlassCard>
+          </motion.div>
         </div>
       </main>
     </div>

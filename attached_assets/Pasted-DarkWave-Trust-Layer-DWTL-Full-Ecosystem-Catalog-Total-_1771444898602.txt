@@ -1,0 +1,119 @@
+DarkWave Trust Layer (DWTL) - Full Ecosystem Catalog
+
+Total Lines of Code: 282,494
+
+LOC Breakdown:
+
+Area	LOC
+Frontend (client/)	160,671
+Server (server/)	61,375
+Shared (shared/)	9,460
+Total	282,494
+Detailed Breakdown:
+
+Pages: 127,687 LOC across 233 page files
+Components: 27,138 LOC across 158 component files
+Hooks/Lib: 4,065 LOC
+Server Routes: 22,588 LOC (749 API endpoints)
+Schema: 8,022 LOC (544 exports/tables)
+Storage: 2,958 LOC
+Server Services: 105 TypeScript files
+Tech Stack:
+
+Frontend: React 18, TypeScript, Vite, Wouter, TanStack Query, Tailwind CSS v4, Framer Motion, Recharts
+Backend: Node.js, Express.js, TypeScript, Drizzle ORM
+Database: PostgreSQL (Neon)
+Auth: Firebase Auth (multi-provider), WebAuthn/Passkeys, PIN, JWT
+Payments: Stripe (subscriptions, one-time, presale), Coinbase Commerce
+AI: OpenAI GPT-4o
+Real-time: WebSocket (Signal Chat, Guardian Scanner)
+Blockchain: BFT-PoA consensus, 400ms blocks, 200K+ TPS, SHA-256/Merkle trees
+Cross-Chain: Ethereum Sepolia, Solana Devnet, Polygon Amoy, Arbitrum Sepolia, Base Sepolia
+PWA Manifests (12 installable apps):
+
+PWA	Manifest	Service Worker	Domain/Route
+Trust Layer (main)	manifest-dwsc.webmanifest	-	dwsc.io
+DarkWave Games	manifest-games.webmanifest	-	darkwavegames.io
+Chronicles	manifest-chrono.webmanifest	-	yourlegacy.io
+DarkWave Studios	manifest-studios.webmanifest	-	darkwavestudios.io
+TrustShield	manifest-trustshield.webmanifest	-	trustshield.tech
+Guardian Scanner	manifest-guardian.webmanifest	guardian-scanner-sw.js	dwsc.io/guardian-scanner
+Guardian Screener	manifest-guardian-screener.webmanifest	guardian-screener-sw.js	dwsc.io/guardian-screener
+DarkWave Academy	manifest-academy.webmanifest	academy-sw.js	dwsc.io/academy
+Signal Chat	manifest-signal-chat.webmanifest	-	dwsc.io/signal-chat
+ChronoChat	manifest-chronochat.webmanifest	-	dwsc.io/chronochat
+Through The Veil	manifest-veil.webmanifest	-	dwsc.io/veil (hidden)
+Default	manifest.webmanifest	-	fallback
+Domain Routing (7 host-based apps via app-config.ts):
+
+AppDomain	Domain	Description
+dwsc	dwsc.io	Trust Layer main portal - DeFi, wallet, membership, all internal PWAs
+games	darkwavegames.io	The Arcade - provably fair blockchain games (Slots, Coinflip, Spades, Solitaire, Minesweeper, Galaga, Tetris, Snake, Pacman, Crash, Predictions, Lottery)
+chrono	yourlegacy.io	Chronicles - parallel life simulation across 3 eras (Modern, Medieval, Wild West)
+chronochat	chronochat.io	Signal Chat - cross-app community messaging
+studios	darkwavestudios.io	Trust Studio - web IDE with code editor, API docs, playground, developer portal
+trustshield	trustshield.tech	Guardian Shield - AI agent certification, security scanning, enterprise monitoring
+strikeagent	strikeagent.io	Strike Agent - AI-powered token discovery & safety analysis
+Internal PWA Routes (hosted at dwsc.io):
+
+Route	Product	Description
+/academy	DarkWave Academy	Education & certification platform, 6 course tracks, 3 certs, Stripe subscriptions
+/guardian-scanner	Guardian Scanner	DEX screener with Pulse Safety Engine, ML predictions, real-time threat detection
+/guardian-screener	Guardian Screener	Token safety scanning and analysis
+/guardian-ai	Guardian AI	AI agent scanning and certification with public registry
+/guardian-shield	Guardian Shield	Continuous blockchain security monitoring
+/signal-chat	Signal Chat	Cross-app community messaging with WebSocket
+/chronochat	ChronoChat	Community chat with invite system
+/wallet	Trust Vault	Multi-SIG multi-chain wallet
+/my-hub	Trust Home	Personal dashboard
+/explore	Explore Hub	Ecosystem discovery
+/veil	Through The Veil	eBook reader (hidden from public listings)
+/veil/read	Veil Reader	Reading interface
+/studio	Trust Studio	Web IDE landing
+/studio/editor	Studio Editor	Code editor
+/domains	TLID Domains	.tlid blockchain domain service
+/bridge	Cross-Chain Bridge	SIG <-> wSIG bridge across 5 chains
+/staking	Staking	Validator staking portal
+/liquid-staking	Liquid Staking	stSIG liquid staking
+/swap	Token Swap	AMM-style DEX
+/nft	NFT Marketplace	NFT trading
+/nft-gallery	NFT Gallery	Collection display
+/nft-creator	NFT Creator	Mint new NFTs
+/launchpad	Token Launchpad	New token launches
+/liquidity	Liquidity Pools	LP management
+/multisig	Multi-SIG	M-of-N signature treasury management
+/arcade	Arcade Games	Game lobby
+/chronicles	Chronicles Entry	Game start from main portal
+/presale	Signal Presale	Token presale with crowdfunding
+External Ecosystem Apps (separate domains, 12 apps):
+
+Domain	App	Description
+orbitstaffing.io	ORBIT Staffing OS	Workforce management
+garagebot.io	GarageBot	IoT garage automation
+brewandboard.coffee	Brew & Board Coffee	Coffee shop platform
+lotopspro.io	Lot Ops Pro	Auto auction lot management
+darkwavepulse.com	Pulse	AI predictive market intelligence
+getorby.io	Orby Commander	Venue/event operations
+nashpaintpros.io	Nashville Painting Pros	Painting service
+paintpros.io	PaintPros	Painting service management
+strikeagent.io	StrikeAgent	AI trading bot
+vedasolus.io	VedaSolus	Holistic wellness platform
+tradeworksai.io	TradeWorks AI	Trading intelligence
+happyeats.app	TL Driver Connect	Driver coordination
+TLID Domain Service: tlid.io - Blockchain-verified .tlid identity names
+
+Key Metrics Summary:
+
+282,494 total lines of code
+233 page components
+158 shared components
+749 API endpoints
+544 schema exports
+105 server-side TypeScript files
+12 PWA manifests
+7 host-based domain apps
+27 total ecosystem apps
+3 dedicated service workers
+5 cross-chain bridges
+12 arcade games
+That's everything for the cataloging agent - all PWA links, subdomains, domain routing, tech stack, and LOC breakdown.

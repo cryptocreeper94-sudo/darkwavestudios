@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { 
   Shield, 
   ShieldCheck, 
@@ -19,6 +20,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
 
 interface CertifiedAgent {
   id: string;
@@ -219,9 +221,14 @@ export default function GuardianAIRegistry() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-12">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* Hero */}
-        <section className="text-center mb-10">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
           <h1 className="font-display font-bold text-3xl lg:text-5xl mb-4">
             Verified <span className="text-green-400">AI Agents</span>
           </h1>
@@ -229,10 +236,10 @@ export default function GuardianAIRegistry() {
             Browse the public registry of Guardian AI certified agents. 
             Every agent listed has passed comprehensive security verification.
           </p>
-        </section>
+        </motion.section>
 
         {/* Search & Filters */}
-        <section className="glass-card rounded-xl p-4 lg:p-6 mb-8">
+        <GlassCard className="rounded-xl p-4 lg:p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -277,32 +284,45 @@ export default function GuardianAIRegistry() {
               </select>
             </div>
           </div>
-        </section>
+        </GlassCard>
 
         {/* Stats Bar */}
-        <section className="grid grid-cols-3 gap-4 mb-8">
-          <div className="glass-card rounded-xl p-4 text-center">
+        <motion.section
+          className="grid grid-cols-3 gap-4 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
+        >
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <div className="text-2xl lg:text-3xl font-bold text-green-400">{mockAgents.length}</div>
             <div className="text-sm text-muted-foreground">Certified Agents</div>
-          </div>
-          <div className="glass-card rounded-xl p-4 text-center">
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <div className="text-2xl lg:text-3xl font-bold text-purple-400">
               {mockAgents.filter(a => a.tier === "Enterprise").length}
             </div>
             <div className="text-sm text-muted-foreground">Enterprise Tier</div>
-          </div>
-          <div className="glass-card rounded-xl p-4 text-center">
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <div className="text-2xl lg:text-3xl font-bold text-blue-400">
               {Math.round(mockAgents.reduce((a, b) => a + b.trustScore, 0) / mockAgents.length)}
             </div>
             <div className="text-sm text-muted-foreground">Avg Trust Score</div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* Agent Grid */}
-        <section className="grid lg:grid-cols-2 gap-6" data-testid="agent-grid">
+        <motion.section
+          className="grid lg:grid-cols-2 gap-6"
+          data-testid="agent-grid"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           {filteredAgents.map(agent => (
-            <div key={agent.id} className="glass-card rounded-2xl p-6 hover-lift gradient-border group" data-testid={`card-agent-${agent.id}`}>
+            <GlassCard key={agent.id} variant="feature" className="rounded-2xl p-6 hover-lift group" data-testid={`card-agent-${agent.id}`}>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${getTierColor(agent.tier)} flex items-center justify-center`}>
@@ -375,12 +395,12 @@ export default function GuardianAIRegistry() {
                   <Globe className="w-4 h-4" /> Website
                 </a>
               </div>
-            </div>
+            </GlassCard>
           ))}
-        </section>
+        </motion.section>
 
         {filteredAgents.length === 0 && (
-          <div className="glass-card rounded-2xl p-12 text-center">
+          <GlassCard className="rounded-2xl p-12 text-center">
             <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
             <h3 className="text-xl font-bold mb-2">No Agents Found</h3>
             <p className="text-muted-foreground mb-6">Try adjusting your search or filters</p>
@@ -390,12 +410,18 @@ export default function GuardianAIRegistry() {
             >
               Submit Your Agent <ChevronRight className="w-4 h-4" />
             </Link>
-          </div>
+          </GlassCard>
         )}
 
         {/* CTA */}
-        <section className="mt-12">
-          <div className="glass-card rounded-2xl p-8 lg:p-12 gradient-border text-center">
+        <motion.section
+          className="mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-2xl p-8 lg:p-12 text-center">
             <Shield className="w-12 h-12 text-red-400 mx-auto mb-4" />
             <h2 className="font-display font-bold text-2xl lg:text-3xl mb-4">
               Want Your Agent Listed Here?
@@ -409,8 +435,8 @@ export default function GuardianAIRegistry() {
             >
               Apply for Certification <ChevronRight className="w-5 h-5" />
             </Link>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
       </main>
 
       <footer className="glass-strong mt-12 border-t border-white/5">

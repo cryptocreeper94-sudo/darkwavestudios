@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { adminRequest, getAdminQueryOptions } from "@/lib/adminApi";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 interface Document {
   id: string;
@@ -90,8 +92,13 @@ export default function Documents() {
 
   return (
     <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between mb-8"
+        >
           <div className="flex items-center gap-4">
             <Link href="/admin">
               <Button variant="ghost" size="sm" className="gap-2" data-testid="back-admin">
@@ -111,70 +118,74 @@ export default function Documents() {
             <Plus className="w-4 h-4" />
             New Document
           </Button>
-        </div>
+        </motion.div>
 
         {isCreating && (
-          <Card className="mb-6 border-primary/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <GlassCard className="mb-6 rounded-xl p-6">
+              <div className="flex items-center gap-2 mb-4">
                 <Plus className="w-5 h-5" />
-                Create New Document
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Title</label>
-                  <Input
-                    value={newDoc.title}
-                    onChange={(e) => setNewDoc({ ...newDoc, title: e.target.value })}
-                    placeholder="Document title"
-                    data-testid="input-doc-title"
-                  />
+                <h2 className="text-lg font-semibold">Create New Document</h2>
+              </div>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Title</label>
+                    <Input
+                      value={newDoc.title}
+                      onChange={(e) => setNewDoc({ ...newDoc, title: e.target.value })}
+                      placeholder="Document title"
+                      data-testid="input-doc-title"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Slug (URL-friendly)</label>
+                    <Input
+                      value={newDoc.slug}
+                      onChange={(e) => setNewDoc({ ...newDoc, slug: e.target.value })}
+                      placeholder="document-slug"
+                      data-testid="input-doc-slug"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Slug (URL-friendly)</label>
-                  <Input
-                    value={newDoc.slug}
-                    onChange={(e) => setNewDoc({ ...newDoc, slug: e.target.value })}
-                    placeholder="document-slug"
-                    data-testid="input-doc-slug"
+                  <label className="text-sm font-medium mb-2 block">Category</label>
+                  <select
+                    value={newDoc.category}
+                    onChange={(e) => setNewDoc({ ...newDoc, category: e.target.value })}
+                    className="w-full p-2 rounded-md border bg-background"
+                    data-testid="select-doc-category"
+                  >
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value}>{cat.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Content</label>
+                  <Textarea
+                    value={newDoc.content}
+                    onChange={(e) => setNewDoc({ ...newDoc, content: e.target.value })}
+                    placeholder="Document content..."
+                    rows={10}
+                    data-testid="input-doc-content"
                   />
                 </div>
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={() => setIsCreating(false)}>Cancel</Button>
+                  <Button onClick={() => createDoc.mutate()} disabled={createDoc.isPending} className="gap-2">
+                    {createDoc.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+                    <Save className="w-4 h-4" />
+                    Save Document
+                  </Button>
+                </div>
               </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Category</label>
-                <select
-                  value={newDoc.category}
-                  onChange={(e) => setNewDoc({ ...newDoc, category: e.target.value })}
-                  className="w-full p-2 rounded-md border bg-background"
-                  data-testid="select-doc-category"
-                >
-                  {categories.map((cat) => (
-                    <option key={cat.value} value={cat.value}>{cat.label}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Content</label>
-                <Textarea
-                  value={newDoc.content}
-                  onChange={(e) => setNewDoc({ ...newDoc, content: e.target.value })}
-                  placeholder="Document content..."
-                  rows={10}
-                  data-testid="input-doc-content"
-                />
-              </div>
-              <div className="flex gap-2 justify-end">
-                <Button variant="outline" onClick={() => setIsCreating(false)}>Cancel</Button>
-                <Button onClick={() => createDoc.mutate()} disabled={createDoc.isPending} className="gap-2">
-                  {createDoc.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-                  <Save className="w-4 h-4" />
-                  Save Document
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            </GlassCard>
+          </motion.div>
         )}
 
         {isLoading ? (
@@ -183,8 +194,14 @@ export default function Documents() {
           </div>
         ) : (
           <div className="space-y-8">
-            {categories.map((cat) => (
-              <div key={cat.value}>
+            {categories.map((cat, catIdx) => (
+              <motion.div
+                key={cat.value}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: catIdx * 0.1 }}
+              >
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                   <FileText className="w-5 h-5 text-primary" />
                   {cat.label}
@@ -192,71 +209,69 @@ export default function Documents() {
                 {groupedDocs[cat.value]?.length ? (
                   <div className="grid gap-4">
                     {groupedDocs[cat.value].map((doc) => (
-                      <Card key={doc.id} className="hover:border-primary/30 transition-colors">
-                        <CardContent className="p-4">
-                          {editingDoc?.id === doc.id ? (
-                            <div className="space-y-4">
-                              <Input
-                                value={editingDoc.title}
-                                onChange={(e) => setEditingDoc({ ...editingDoc, title: e.target.value })}
-                                className="font-semibold"
-                              />
-                              <Textarea
-                                value={editingDoc.content}
-                                onChange={(e) => setEditingDoc({ ...editingDoc, content: e.target.value })}
-                                rows={8}
-                              />
-                              <div className="flex gap-2 justify-end">
-                                <Button variant="outline" onClick={() => setEditingDoc(null)}>Cancel</Button>
-                                <Button onClick={() => updateDoc.mutate(editingDoc)} disabled={updateDoc.isPending}>
-                                  {updateDoc.isPending && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
-                                  Save Changes
-                                </Button>
-                              </div>
+                      <GlassCard key={doc.id} className="rounded-xl p-4 hover:border-white/20 transition-colors">
+                        {editingDoc?.id === doc.id ? (
+                          <div className="space-y-4">
+                            <Input
+                              value={editingDoc.title}
+                              onChange={(e) => setEditingDoc({ ...editingDoc, title: e.target.value })}
+                              className="font-semibold"
+                            />
+                            <Textarea
+                              value={editingDoc.content}
+                              onChange={(e) => setEditingDoc({ ...editingDoc, content: e.target.value })}
+                              rows={8}
+                            />
+                            <div className="flex gap-2 justify-end">
+                              <Button variant="outline" onClick={() => setEditingDoc(null)}>Cancel</Button>
+                              <Button onClick={() => updateDoc.mutate(editingDoc)} disabled={updateDoc.isPending}>
+                                {updateDoc.isPending && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
+                                Save Changes
+                              </Button>
                             </div>
-                          ) : (
-                            <div className="flex items-start justify-between">
-                              <div className="flex-1">
-                                <h3 className="font-semibold text-lg">{doc.title}</h3>
-                                <p className="text-sm text-muted-foreground mb-2">/{doc.slug}</p>
-                                <p className="text-sm text-muted-foreground line-clamp-2">{doc.content}</p>
-                                <p className="text-xs text-muted-foreground mt-2">
-                                  Updated: {new Date(doc.updatedAt).toLocaleDateString()}
-                                </p>
-                              </div>
-                              <div className="flex gap-2">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => setEditingDoc(doc)}
-                                  data-testid={`edit-doc-${doc.slug}`}
-                                >
-                                  <Edit3 className="w-4 h-4" />
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => deleteDoc.mutate(doc.id)}
-                                  className="text-destructive hover:text-destructive"
-                                  data-testid={`delete-doc-${doc.slug}`}
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
-                              </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-lg">{doc.title}</h3>
+                              <p className="text-sm text-muted-foreground mb-2">/{doc.slug}</p>
+                              <p className="text-sm text-muted-foreground line-clamp-2">{doc.content}</p>
+                              <p className="text-xs text-muted-foreground mt-2">
+                                Updated: {new Date(doc.updatedAt).toLocaleDateString()}
+                              </p>
                             </div>
-                          )}
-                        </CardContent>
-                      </Card>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setEditingDoc(doc)}
+                                data-testid={`edit-doc-${doc.slug}`}
+                              >
+                                <Edit3 className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deleteDoc.mutate(doc.id)}
+                                className="text-destructive hover:text-destructive"
+                                data-testid={`delete-doc-${doc.slug}`}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </GlassCard>
                     ))}
                   </div>
                 ) : (
-                  <Card className="border-dashed">
-                    <CardContent className="py-8 text-center text-muted-foreground">
+                  <GlassCard className="rounded-xl border-dashed">
+                    <div className="py-8 text-center text-muted-foreground">
                       No documents in this category yet.
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </GlassCard>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         )}

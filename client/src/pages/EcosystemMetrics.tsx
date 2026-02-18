@@ -7,6 +7,20 @@ import {
   Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
 interface AppMetric {
   id: string;
@@ -551,7 +565,7 @@ export default function EcosystemMetrics() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(6,182,212,0.06),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-5 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/ecosystem" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all duration-300" data-testid="back-ecosystem">
               <ArrowLeft className="w-5 h-5" />
@@ -573,8 +587,13 @@ export default function EcosystemMetrics() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
-        <section className="text-center mb-16 lg:mb-24">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 lg:mb-24"
+        >
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Terminal className="w-4 h-4" />
             Living Codebase Metrics
@@ -592,9 +611,14 @@ export default function EcosystemMetrics() {
           <p className="text-xs text-muted-foreground/50 mt-4">
             Last updated: February 14, 2026 &middot; Excludes node_modules, build artifacts, and lock files
           </p>
-        </section>
+        </motion.section>
 
-        <section className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-16 lg:mb-24">
+        <motion.section
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-16 lg:mb-24"
+        >
           {[
             { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-cyan-400" },
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
@@ -602,10 +626,8 @@ export default function EcosystemMetrics() {
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
             { icon: LayoutGrid, label: "Widgets", value: 60, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
-            <div key={i} className="relative group" data-testid={`stat-card-${i}`}>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-white/[0.02] rounded-2xl" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl transition-opacity duration-500" />
-              <div className="relative backdrop-blur-xl border border-white/10 rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1">
+            <motion.div key={i} variants={itemVariants}>
+              <GlassCard variant="stat" className="rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1 group" data-testid={`stat-card-${i}`}>
                 <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-4`}>
                   <stat.icon className={`w-7 h-7 ${stat.color}`} />
                 </div>
@@ -613,12 +635,18 @@ export default function EcosystemMetrics() {
                   <AnimatedCounter target={stat.value} duration={2000} suffix={stat.value > 1000 ? "+" : ""} />
                 </div>
                 <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-              </div>
-            </div>
+              </GlassCard>
+            </motion.div>
           ))}
-        </section>
+        </motion.section>
 
-        <section className="mb-16 lg:mb-24">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 lg:mb-24"
+        >
           <div className="flex items-center gap-3 mb-2">
             <div className="w-1 h-6 bg-gradient-to-b from-primary to-accent rounded-full" />
             <h2 className="text-2xl lg:text-3xl font-display font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
@@ -640,7 +668,7 @@ export default function EcosystemMetrics() {
                   data-testid={`app-metric-${app.id}`}
                 >
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${app.gradient} opacity-0 ${isExpanded ? 'opacity-[0.08]' : 'group-hover:opacity-[0.05]'} transition-opacity duration-500`} />
-                  <div className={`relative backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-500 ${isExpanded ? 'border-primary/30 shadow-xl shadow-primary/5' : 'border-white/10 hover:border-white/20'}`}>
+                  <GlassCard variant="feature" className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${isExpanded ? 'border-primary/30 shadow-xl shadow-primary/5' : ''}`}>
                     <div className="p-5 lg:p-6">
                       <div className="flex items-center gap-4 lg:gap-6">
                         <div className="flex items-center gap-3 lg:gap-4 shrink-0">
@@ -765,14 +793,20 @@ export default function EcosystemMetrics() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </GlassCard>
                 </div>
               );
             })}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="mb-16 lg:mb-24">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 lg:mb-24"
+        >
           <div className="flex items-center gap-3 mb-8">
             <div className="w-1 h-6 bg-gradient-to-b from-cyan-500 to-blue-500 rounded-full" />
             <h2 className="text-2xl lg:text-3xl font-display font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
@@ -780,74 +814,71 @@ export default function EcosystemMetrics() {
             </h2>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] to-white/[0.02]" />
-            <div className="relative backdrop-blur-xl border border-white/10 rounded-2xl p-6 lg:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Database className="w-5 h-5 text-cyan-400" />
-                <h3 className="text-lg font-semibold">{uniqueStack.length} Technologies</h3>
-                <span className="text-xs text-muted-foreground">across the ecosystem</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {uniqueStack.sort().map((tech, i) => (
-                  <span
-                    key={i}
-                    className="text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:border-primary/40 hover:text-white hover:bg-white/10 transition-all duration-300 cursor-default"
-                    data-testid={`tech-${tech.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+          <GlassCard glow className="rounded-2xl p-6 lg:p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <Database className="w-5 h-5 text-cyan-400" />
+              <h3 className="text-lg font-semibold">{uniqueStack.length} Technologies</h3>
+              <span className="text-xs text-muted-foreground">across the ecosystem</span>
             </div>
-          </div>
-        </section>
+            <div className="flex flex-wrap gap-2">
+              {uniqueStack.sort().map((tech, i) => (
+                <span
+                  key={i}
+                  className="text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:border-primary/40 hover:text-white hover:bg-white/10 transition-all duration-300 cursor-default"
+                  data-testid={`tech-${tech.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </GlassCard>
+        </motion.section>
 
-        <section>
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20" />
-            <div className="absolute inset-0 backdrop-blur-3xl" />
-            <div className="absolute inset-[1px] rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02]" />
-            <div className="relative p-10 lg:p-16 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <h2 className="text-2xl lg:text-3xl font-display font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                Growing Every Day
-              </h2>
-              <p className="text-muted-foreground mb-3 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
-                These metrics are updated after every development session. The Trust Layer ecosystem 
-                is continuously evolving with new features, applications, and improvements.
-              </p>
-              <p className="text-xs text-muted-foreground/60 mb-8">
-                Additional apps pending metrics: StrikeAgent, Trust Shield, Chronicles
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/ecosystem"
-                  className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
-                  data-testid="button-explore-ecosystem"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Explore the Ecosystem
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </Link>
-                <Link
-                  href="/investors"
-                  className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
-                  data-testid="button-investor-info"
-                >
-                  Investor Information
-                </Link>
-              </div>
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-3xl p-10 lg:p-16 text-center">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
+              <TrendingUp className="w-8 h-8 text-white" />
             </div>
-          </div>
-        </section>
+            <h2 className="text-2xl lg:text-3xl font-display font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              Growing Every Day
+            </h2>
+            <p className="text-muted-foreground mb-3 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
+              These metrics are updated after every development session. The Trust Layer ecosystem 
+              is continuously evolving with new features, applications, and improvements.
+            </p>
+            <p className="text-xs text-muted-foreground/60 mb-8">
+              Additional apps pending metrics: StrikeAgent, Trust Shield, Chronicles
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/ecosystem"
+                className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+                data-testid="button-explore-ecosystem"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Explore the Ecosystem
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+              <Link
+                href="/investors"
+                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
+                data-testid="button-investor-info"
+              >
+                Investor Information
+              </Link>
+            </div>
+          </GlassCard>
+        </motion.section>
       </main>
 
       <footer className="border-t border-white/5 py-10 backdrop-blur-xl bg-background/30">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-muted-foreground">DarkWave Studios, LLC &middot; All metrics represent hand-written source code only</p>
         </div>
       </footer>

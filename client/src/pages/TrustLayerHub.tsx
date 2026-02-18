@@ -77,6 +77,8 @@ import {
   Dice1,
   AlertTriangle
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { GlassCard } from "@/components/glass-card";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 
 interface EcosystemApp {
@@ -1199,12 +1201,17 @@ export default function TrustLayerHub() {
         )}
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-8">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
         {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-        <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8"
+        >
           {/* Hero Card - 3-col mobile / 8-col desktop */}
           <div className="col-span-3 lg:col-span-8">
-            <div className="glass-card rounded-xl lg:rounded-3xl p-4 lg:p-8 gradient-border relative overflow-hidden h-full">
+            <GlassCard glow className="rounded-xl lg:rounded-3xl p-4 lg:p-8 relative overflow-hidden h-full">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
               <div className="absolute top-0 right-0 w-48 lg:w-96 h-48 lg:h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
               
@@ -1228,31 +1235,37 @@ export default function TrustLayerHub() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </GlassCard>
           </div>
 
           {/* Stats Cards - 3-col mobile / 4-col desktop */}
           <div className="col-span-3 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-4">
-            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
               <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-apps">16</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-apps">Live Apps</div>
-            </div>
-            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
+            </GlassCard>
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
               <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-snippets">19</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-snippets">Snippets</div>
-            </div>
-            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d gradient-border">
+            </GlassCard>
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
               <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">60</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-widgets">Widgets</div>
-            </div>
+            </GlassCard>
           </div>
-        </section>
+        </motion.section>
 
         {/* BENTO GRID SECTION 2: Connected Apps - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
         {apps.length > 0 && (
-          <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8"
+          >
             <div className="col-span-3 lg:col-span-12">
-              <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+              <GlassCard className="rounded-xl lg:rounded-2xl p-3 lg:p-6">
                 <div className="flex items-center justify-between mb-3 lg:mb-4">
                   <h3 className="text-sm lg:text-xl font-bold font-display" data-testid="text-apps-title">
                     Connected <span className="gradient-text">Apps</span>
@@ -1285,15 +1298,22 @@ export default function TrustLayerHub() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             </div>
-          </section>
+          </motion.section>
         )}
 
         {/* BENTO GRID SECTION 3: Search + Categories - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-        <section id="snippets" className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          id="snippets"
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24"
+        >
           <div className="col-span-3 lg:col-span-12">
-            <div className="glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 gradient-border">
+            <GlassCard className="rounded-xl lg:rounded-2xl p-3 lg:p-6">
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4 mb-3 lg:mb-4">
                 <h3 className="text-sm lg:text-xl font-bold font-display" data-testid="text-snippets-title">
                   Code <span className="gradient-text">Snippets</span>
@@ -1331,28 +1351,28 @@ export default function TrustLayerHub() {
                   );
                 })}
               </div>
-            </div>
+            </GlassCard>
           </div>
-        </section>
+        </motion.section>
 
         {/* BENTO GRID SECTION 4: Snippets Grid - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
         <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
           {loading ? (
             <>
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-6 animate-pulse">
+                <GlassCard key={i} className="col-span-3 lg:col-span-6 rounded-xl lg:rounded-2xl p-3 lg:p-6 animate-pulse">
                   <div className="h-4 lg:h-6 bg-white/10 rounded w-1/2 mb-2 lg:mb-4" />
                   <div className="h-3 lg:h-4 bg-white/10 rounded w-full mb-1 lg:mb-2" />
                   <div className="h-16 lg:h-24 bg-white/10 rounded" />
-                </div>
+                </GlassCard>
               ))}
             </>
           ) : filteredSnippets.length > 0 ? (
             <>
               {filteredSnippets.map((snippet) => (
-                <div
+                <GlassCard
                   key={snippet.id}
-                  className="col-span-3 lg:col-span-6 glass-card rounded-xl lg:rounded-2xl p-3 lg:p-5 gradient-border hover-lift group"
+                  className="col-span-3 lg:col-span-6 rounded-xl lg:rounded-2xl p-3 lg:p-5 gradient-border hover-lift group"
                   data-testid={`snippet-${snippet.id}`}
                 >
                   <div className="flex items-start justify-between mb-2 lg:mb-3">
@@ -1427,11 +1447,11 @@ export default function TrustLayerHub() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </GlassCard>
               ))}
             </>
           ) : (
-            <div className="col-span-3 lg:col-span-12 glass-card rounded-xl lg:rounded-2xl p-6 lg:p-12 text-center" data-testid="empty-state-snippets">
+            <GlassCard className="col-span-3 lg:col-span-12 rounded-xl lg:rounded-2xl p-6 lg:p-12 text-center" data-testid="empty-state-snippets">
               <Code2 className="w-10 h-10 lg:w-16 lg:h-16 text-muted-foreground mx-auto mb-2 lg:mb-4 opacity-50" />
               <h4 className="text-base lg:text-xl font-bold font-display mb-1 lg:mb-2" data-testid="text-empty-title">No Snippets Yet</h4>
               <p className="text-xs lg:text-sm text-muted-foreground mb-4 lg:mb-6" data-testid="text-empty-description">
@@ -1444,12 +1464,18 @@ export default function TrustLayerHub() {
               >
                 Contribute <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
               </Link>
-            </div>
+            </GlassCard>
           )}
         </section>
 
         {/* WIDGET STOREFRONT - Compact Tab/Carousel Interface */}
-        <section className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 gradient-border mb-4 lg:mb-8">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+        <GlassCard glow className="rounded-xl lg:rounded-2xl p-4 lg:p-6 mb-4 lg:mb-8">
           <div className="flex items-center justify-between mb-4 lg:mb-6">
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
@@ -4152,7 +4178,7 @@ export default function TrustLayerHub() {
           </div>
 
           {/* Detailed Widget Info Panel */}
-          <div className="mt-6 glass-card rounded-2xl p-4 lg:p-6 gradient-border" data-testid="widget-info-panel">
+          <GlassCard glow className="mt-6 rounded-2xl p-4 lg:p-6" data-testid="widget-info-panel">
             {/* Trust Badge Header */}
             <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-white/10" data-testid="trust-badges">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold" data-testid="badge-trust-shield">
@@ -4315,13 +4341,20 @@ export default function TrustLayerHub() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </GlassCard>
+        </motion.section>
 
         {/* BENTO GRID SECTION 6: CTA - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
-        <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4"
+        >
           <div className="col-span-3 lg:col-span-12">
-            <div className="glass-card rounded-xl lg:rounded-3xl p-4 lg:p-12 gradient-border text-center relative overflow-hidden">
+            <GlassCard glow className="rounded-xl lg:rounded-3xl p-4 lg:p-12 text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10" />
               <div className="relative z-10">
                 <h3 className="text-lg lg:text-3xl font-bold font-display mb-2 lg:mb-4" data-testid="text-cta-title">
@@ -4347,9 +4380,9 @@ export default function TrustLayerHub() {
                   </a>
                 </div>
               </div>
-            </div>
+            </GlassCard>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <footer className="glass-strong mt-6 lg:mt-12 border-t border-white/5">
@@ -4551,7 +4584,7 @@ export default function TrustLayerHub() {
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
           />
-          <div className="relative w-full max-w-2xl max-h-[90vh] glass-card rounded-2xl overflow-hidden flex flex-col">
+          <GlassCard className="relative w-full max-w-2xl max-h-[90vh] rounded-2xl overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-white/10">
               <div>
                 <h3 className="font-bold font-display text-lg flex items-center gap-2">
@@ -4804,7 +4837,7 @@ export default function TrustLayerHub() {
                 </form>
               )}
             </div>
-          </div>
+          </GlassCard>
         </div>
       )}
 
@@ -4815,7 +4848,7 @@ export default function TrustLayerHub() {
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setCodeModal(prev => ({ ...prev, open: false }))}
           />
-          <div className="relative w-full max-w-4xl max-h-[85vh] glass-card rounded-2xl overflow-hidden flex flex-col">
+          <GlassCard className="relative w-full max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-white/10">
               <div>
                 <h3 className="font-bold font-display text-lg">{codeModal.title}</h3>
@@ -4859,7 +4892,7 @@ export default function TrustLayerHub() {
                 </pre>
               )}
             </div>
-          </div>
+          </GlassCard>
         </div>
       )}
     </div>

@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff, Shield, Eye, EyeOff, Check, X, LogOut, Mail, User, Lock } from "lucide-react";
 import { Link } from "wouter";
 import { SEOHead } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
 
 interface ChatChannel {
   id: string;
@@ -331,8 +333,13 @@ export default function SignalChat() {
           <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
         </div>
-        <div className="relative w-full max-w-md">
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative w-full max-w-md"
+        >
+          <GlassCard className="rounded-2xl p-8 shadow-2xl">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
                 <Radio className="w-6 h-6 text-white" />
@@ -492,8 +499,8 @@ export default function SignalChat() {
                 Back to DarkWave Studios
               </Link>
             </div>
-          </div>
-        </div>
+          </GlassCard>
+        </motion.div>
       </div>
     );
   }

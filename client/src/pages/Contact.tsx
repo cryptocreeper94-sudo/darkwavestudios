@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, ArrowLeft, Mail, MessageSquare, Clock, CheckCircle2, Phone, Building2, Zap, Loader2, Send } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -71,7 +73,7 @@ export default function Contact() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
           </Link>
@@ -90,9 +92,14 @@ export default function Contact() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
-        <div className="text-center mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-primary mb-6">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 lg:mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm text-primary mb-6 bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]">
             <Zap className="w-4 h-4" />
             <span>Free Consultation — No Commitment</span>
           </div>
@@ -102,13 +109,17 @@ export default function Contact() {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Tell us about your project. We respond within 24 hours with a custom proposal — no templates, no pressure.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6"
+        >
           
-          {/* Contact Form - Main Card */}
-          <div className="col-span-3 lg:col-span-7 glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d">
+          <GlassCard glow className="col-span-3 lg:col-span-7 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
             {submitted ? (
               <div className="text-center py-12">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-6 animate-pulse">
@@ -264,13 +275,11 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </div>
+          </GlassCard>
 
-          {/* Right Column - Info Cards */}
           <div className="col-span-3 lg:col-span-5 space-y-4 lg:space-y-6">
             
-            {/* Why Work With Us */}
-            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+            <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6">
               <h2 className="text-lg lg:text-xl font-bold font-display mb-5 gradient-text">Why DarkWave Studios?</h2>
               <div className="space-y-4">
                 {[
@@ -290,10 +299,9 @@ export default function Contact() {
                   </div>
                 ))}
               </div>
-            </div>
+            </GlassCard>
 
-            {/* Contact Info */}
-            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d">
+            <GlassCard className="rounded-2xl lg:rounded-3xl p-6">
               <h2 className="text-lg lg:text-xl font-bold font-display mb-4">Get In Touch</h2>
               <div className="space-y-3">
                 <a 
@@ -323,10 +331,9 @@ export default function Contact() {
                   </div>
                 </a>
               </div>
-            </div>
+            </GlassCard>
 
-            {/* Savings Card */}
-            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 gradient-border card-3d bg-gradient-to-br from-primary/10 to-accent/10">
+            <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6 bg-gradient-to-br from-primary/10 to-accent/10">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
                   <Building2 className="w-7 h-7 text-primary" />
@@ -345,14 +352,14 @@ export default function Contact() {
                 See the Comparison
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </div>
+            </GlassCard>
 
           </div>
-        </div>
+        </motion.div>
       </main>
 
       <footer className="glass-strong mt-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
         </div>

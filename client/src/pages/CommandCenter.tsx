@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { GlassCard } from "@/components/glass-card";
 import {
   Carousel,
   CarouselContent,
@@ -379,7 +380,7 @@ function SkeletonLoader() {
   return (
     <div className="min-h-screen bg-[#070b16]">
       <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
             <div className="w-40 h-6 rounded-lg bg-white/5 animate-pulse" />
@@ -387,7 +388,7 @@ function SkeletonLoader() {
           <div className="w-24 h-8 rounded-lg bg-white/5 animate-pulse" />
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12 space-y-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {[1, 2, 3].map((i) => (
           <div key={i}>
             <div className="flex items-center gap-3 mb-5">
@@ -573,7 +574,7 @@ export default function CommandCenter() {
           transition={{ duration: 0.6 }}
           className="relative w-full max-w-md mx-4"
         >
-          <div className="relative rounded-2xl overflow-hidden bg-white/[0.03] backdrop-blur-xl border border-white/10 p-8 lg:p-10">
+          <GlassCard glow className="relative rounded-2xl overflow-hidden p-8 lg:p-10">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-cyan-500/20">
               <Command className="w-8 h-8 text-white" />
             </div>
@@ -608,7 +609,7 @@ export default function CommandCenter() {
                 Access Command Center
               </button>
             </form>
-          </div>
+          </GlassCard>
         </motion.div>
       </div>
     );
@@ -623,7 +624,7 @@ export default function CommandCenter() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.05),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all duration-300" data-testid="button-back-home">
               <ArrowLeft className="w-5 h-5 text-white/70" />
@@ -654,7 +655,7 @@ export default function CommandCenter() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-5 lg:px-8 py-10 lg:py-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -677,12 +678,16 @@ export default function CommandCenter() {
           </div>
         </motion.div>
 
-        <div className="space-y-14 lg:space-y-20">
+        <motion.div
+          className="space-y-14 lg:space-y-20"
+          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }}
+          initial="hidden"
+          animate="show"
+        >
           {categories.map((category, catIndex) => (
             <motion.section
               key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
               transition={{ duration: 0.4, delay: catIndex * 0.08 }}
             >
               <div className="flex items-start gap-4 mb-4">
@@ -698,7 +703,7 @@ export default function CommandCenter() {
               <CommandCategoryCarousel cards={category.cards} categoryTitle={category.title} />
             </motion.section>
           ))}
-        </div>
+        </motion.div>
 
         <footer className="mt-20 lg:mt-32 pb-10 text-center">
           <p className="text-[11px] text-white/20">DarkWave Studios Command Center &middot; Owner Access Only</p>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { 
   Search, 
   Zap, 
@@ -19,6 +20,7 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
 import Footer from "@/components/Footer";
 
 interface AuditResult {
@@ -148,9 +150,14 @@ export default function WebsiteAudit() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         {/* Hero Section */}
-        <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Gauge className="w-4 h-4" />
             Free Instant Analysis
@@ -161,11 +168,12 @@ export default function WebsiteAudit() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Enter your website URL and get an instant analysis of performance, SEO, mobile-friendliness, and security. See exactly what's holding your site back.
           </p>
-        </div>
+        </motion.div>
 
         {/* Audit Form */}
         <div className="max-w-2xl mx-auto mb-12">
-          <form onSubmit={handleAudit} className="glass-card rounded-2xl p-6 lg:p-8 gradient-border">
+          <GlassCard glow className="rounded-2xl p-6 lg:p-8">
+          <form onSubmit={handleAudit}>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1 relative">
                 <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -202,13 +210,19 @@ export default function WebsiteAudit() {
               <p className="mt-4 text-red-400 text-sm">{error}</p>
             )}
           </form>
+          </GlassCard>
         </div>
 
         {/* Results Section */}
         {result && (
-          <div className="space-y-8 animate-in fade-in duration-500">
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {/* Score Overview */}
-            <div className="glass-card rounded-2xl p-6 lg:p-8 gradient-border">
+            <GlassCard className="rounded-2xl p-6 lg:p-8">
               <h2 className="text-xl font-bold font-display mb-6 flex items-center gap-2">
                 <Gauge className="w-5 h-5 text-primary" />
                 Audit Results for {result.url}
@@ -267,11 +281,11 @@ export default function WebsiteAudit() {
                   </div>
                 </div>
               </div>
-            </div>
+            </GlassCard>
 
             {/* Issues & Recommendations */}
             <div className="grid lg:grid-cols-2 gap-6">
-              <div className="glass-card rounded-2xl p-6 gradient-border">
+              <GlassCard className="rounded-2xl p-6">
                 <h3 className="font-bold mb-4 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5 text-yellow-400" />
                   Issues Found
@@ -290,9 +304,9 @@ export default function WebsiteAudit() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
 
-              <div className="glass-card rounded-2xl p-6 gradient-border">
+              <GlassCard className="rounded-2xl p-6">
                 <h3 className="font-bold mb-4 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-primary" />
                   Recommendations
@@ -305,12 +319,12 @@ export default function WebsiteAudit() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             </div>
 
             {/* Email Capture */}
             {showEmailCapture && !emailSubmitted && (
-              <div className="glass-card rounded-2xl p-6 lg:p-8 gradient-border bg-gradient-to-r from-primary/10 to-accent/10">
+              <GlassCard glow className="rounded-2xl p-6 lg:p-8 bg-gradient-to-r from-primary/10 to-accent/10">
                 <div className="text-center max-w-xl mx-auto">
                   <h3 className="text-xl font-bold font-display mb-2">
                     Want a detailed report?
@@ -337,15 +351,15 @@ export default function WebsiteAudit() {
                     </button>
                   </form>
                 </div>
-              </div>
+              </GlassCard>
             )}
 
             {emailSubmitted && (
-              <div className="glass-card rounded-2xl p-6 text-center gradient-border">
+              <GlassCard className="rounded-2xl p-6 text-center">
                 <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-2">Report Sent!</h3>
                 <p className="text-muted-foreground">Check your inbox for the detailed analysis.</p>
-              </div>
+              </GlassCard>
             )}
 
             {/* CTA */}
@@ -358,17 +372,23 @@ export default function WebsiteAudit() {
                   Get a Free Quote
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link href="/book" className="glass-card px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+                <Link href="/book" className="glass px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
                   Book a Call
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Features Section */}
         {!result && (
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
+          <motion.div
+            className="grid md:grid-cols-3 gap-6 mt-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+          >
             {[
               {
                 icon: Zap,
@@ -401,13 +421,13 @@ export default function WebsiteAudit() {
                 description: "See how your site appears when shared on social media."
               }
             ].map((feature, i) => (
-              <div key={i} className="glass-card rounded-xl p-6 gradient-border">
+              <GlassCard key={i} variant="feature" className="rounded-xl p-6">
                 <feature.icon className="w-10 h-10 text-primary mb-4" />
                 <h3 className="font-bold mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
+              </GlassCard>
             ))}
-          </div>
+          </motion.div>
         )}
       </main>
 

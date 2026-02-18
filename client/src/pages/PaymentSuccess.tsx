@@ -2,6 +2,8 @@ import { Link, useSearch } from "wouter";
 import { CheckCircle2, ArrowRight, Home, Download, Package, Clock, Shield, Copy, ExternalLink, RefreshCw } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 interface PurchaseItem {
   id: string;
@@ -76,7 +78,12 @@ export default function PaymentSuccess() {
   if (!token && !sessionId) {
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
-        <div className="max-w-lg text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-lg text-center"
+        >
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-500/30 flex items-center justify-center mx-auto mb-8 animate-pulse" data-testid="icon-success">
             <CheckCircle2 className="w-12 h-12 text-green-400" />
           </div>
@@ -92,15 +99,20 @@ export default function PaymentSuccess() {
               Back to Home
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-20">
-        <div className="text-center mb-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl py-12 sm:py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
           <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${
             isFulfilled 
               ? "bg-gradient-to-br from-green-500/30 to-emerald-500/30" 
@@ -126,17 +138,17 @@ export default function PaymentSuccess() {
               ? "Your widgets are ready to download below." 
               : "Hang tight — we're confirming your payment. This usually takes just a moment."}
           </p>
-        </div>
+        </motion.div>
 
         {isLoading && (
-          <div className="glass-card rounded-2xl p-8 text-center" data-testid="loading-purchase">
+          <GlassCard className="rounded-2xl p-8 text-center" data-testid="loading-purchase">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
             <p className="text-muted-foreground">Loading your purchase details...</p>
-          </div>
+          </GlassCard>
         )}
 
         {error && (
-          <div className="glass-card rounded-2xl p-8 text-center" data-testid="error-purchase">
+          <GlassCard className="rounded-2xl p-8 text-center" data-testid="error-purchase">
             <p className="text-red-400 mb-4">We couldn't find this purchase. Please check your confirmation email.</p>
             <button 
               onClick={() => { setRetryCount(c => c + 1); refetch(); }}
@@ -146,12 +158,18 @@ export default function PaymentSuccess() {
               <RefreshCw className="w-4 h-4" />
               Try Again
             </button>
-          </div>
+          </GlassCard>
         )}
 
         {purchase && (
-          <div className="space-y-6">
-            <div className="glass-card rounded-2xl p-6" data-testid="card-order-summary">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6"
+          >
+            <GlassCard glow className="rounded-2xl p-6" data-testid="card-order-summary">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-display font-bold text-lg flex items-center gap-2">
                   <Package className="w-5 h-5 text-primary" />
@@ -198,10 +216,10 @@ export default function PaymentSuccess() {
                   ${(purchase.totalAmount / 100).toFixed(2)}
                 </span>
               </div>
-            </div>
+            </GlassCard>
 
             {isFulfilled && purchase.downloadToken && (
-              <div className="glass-card rounded-2xl p-6" data-testid="card-download-token">
+              <GlassCard className="rounded-2xl p-6" data-testid="card-download-token">
                 <h3 className="font-display font-bold text-lg flex items-center gap-2 mb-4">
                   <Shield className="w-5 h-5 text-green-400" />
                   Download Access
@@ -232,11 +250,11 @@ export default function PaymentSuccess() {
                     Downloaded {purchase.downloadCount} time{purchase.downloadCount !== 1 ? "s" : ""}
                   </p>
                 )}
-              </div>
+              </GlassCard>
             )}
 
             {!isFulfilled && (
-              <div className="glass-card rounded-2xl p-6 text-center" data-testid="card-processing">
+              <GlassCard className="rounded-2xl p-6 text-center" data-testid="card-processing">
                 <div className="w-6 h-6 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
                 <p className="text-sm text-muted-foreground mb-2">
                   Your payment is being processed. Downloads will appear here automatically.
@@ -244,10 +262,10 @@ export default function PaymentSuccess() {
                 <p className="text-xs text-muted-foreground">
                   This usually takes less than 30 seconds.
                 </p>
-              </div>
+              </GlassCard>
             )}
 
-            <div className="glass-card rounded-2xl p-6" data-testid="card-details">
+            <GlassCard className="rounded-2xl p-6" data-testid="card-details">
               <h3 className="font-display font-bold mb-4">Purchase Details</h3>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
@@ -265,10 +283,10 @@ export default function PaymentSuccess() {
                   </div>
                 )}
               </div>
-            </div>
+            </GlassCard>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/hub" className="px-6 py-3 glass-card rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all" data-testid="link-hub">
+              <Link href="/hub" className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]" data-testid="link-hub">
                 <ExternalLink className="w-5 h-5" />
                 Back to Hub
               </Link>
@@ -277,7 +295,7 @@ export default function PaymentSuccess() {
                 Home
               </Link>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { 
   Shield, 
   ShieldCheck, 
@@ -28,6 +29,7 @@ import {
   Rocket
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
 import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
 
@@ -324,9 +326,14 @@ export default function GuardianAI() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
         {/* Hero */}
-        <section className="text-center mb-16 lg:mb-24">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 lg:mb-24"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-semibold mb-6">
             <ShieldAlert className="w-4 h-4" aria-hidden="true" />
             The Trust Crisis in AI Agents
@@ -387,16 +394,23 @@ export default function GuardianAI() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {stats.map((stat, i) => (
-              <div key={i} className="glass-card rounded-xl p-4 lg:p-6 text-center" data-testid={`stat-${i}`}>
+              <GlassCard key={i} variant="stat" className="rounded-xl p-4 lg:p-6 text-center" data-testid={`stat-${i}`}>
                 <div className="text-2xl lg:text-3xl font-bold font-display text-red-400 mb-1">{stat.value}</div>
                 <div className="text-xs lg:text-sm text-muted-foreground">{stat.label}</div>
-              </div>
+              </GlassCard>
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* SCANNER SECTION */}
-        <section className="mb-16 lg:mb-24" id="scan">
+        <motion.section
+          className="mb-16 lg:mb-24"
+          id="scan"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold mb-4">
               <Scan className="w-4 h-4" aria-hidden="true" />
@@ -425,7 +439,7 @@ export default function GuardianAI() {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-10 gradient-border relative overflow-hidden">
+            <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6 lg:p-10 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5" />
               <div className="relative z-10">
                 <form onSubmit={handleScan} className="space-y-4">
@@ -508,12 +522,12 @@ export default function GuardianAI() {
                   </div>
                 )}
               </div>
-            </div>
+            </GlassCard>
 
             {/* SCAN RESULTS */}
             {scanResult && (
               <div className="mt-8 space-y-6" data-testid="scan-results">
-                <div className="glass-card rounded-2xl p-6 lg:p-8 gradient-border">
+                <GlassCard className="rounded-2xl p-6 lg:p-8">
                   <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
                     <div>
                       <h3 className="font-display font-bold text-xl lg:text-2xl mb-1" data-testid="text-scan-result-title">
@@ -628,7 +642,7 @@ export default function GuardianAI() {
                       <p className="text-sm text-muted-foreground">We recommend addressing the findings above before deploying. Contact us for a full audit.</p>
                     </div>
                   )}
-                </div>
+                </GlassCard>
 
                 <button
                   onClick={() => { setScanResult(null); setScanData({ agentName: "", agentUrl: "", contactEmail: "" }); }}
@@ -640,11 +654,17 @@ export default function GuardianAI() {
               </div>
             )}
           </div>
-        </section>
+        </motion.section>
 
         {/* Problem Section */}
-        <section className="mb-16 lg:mb-24">
-          <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-12 gradient-border relative overflow-hidden">
+        <motion.section
+          className="mb-16 lg:mb-24"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6 lg:p-12 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-orange-500/10" />
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
@@ -685,11 +705,17 @@ export default function GuardianAI() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* Solution / How It Works */}
-        <section className="mb-16 lg:mb-24">
+        <motion.section
+          className="mb-16 lg:mb-24"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-semibold mb-4">
               <ShieldCheck className="w-4 h-4" aria-hidden="true" />
@@ -708,16 +734,16 @@ export default function GuardianAI() {
             {trustMetrics.map((metric, i) => {
               const Icon = metric.icon;
               return (
-                <div key={i} className="glass-card rounded-xl p-6 hover-lift gradient-border">
+                <GlassCard key={i} variant="feature" className="rounded-xl p-6 hover-lift">
                   <Icon className={`w-10 h-10 ${metric.color} mb-4`} aria-hidden="true" />
                   <h3 className="font-bold text-lg mb-2">{metric.name}</h3>
                   <p className="text-sm text-muted-foreground">{metric.description}</p>
-                </div>
+                </GlassCard>
               );
             })}
           </div>
 
-          <div className="glass-card rounded-2xl p-6 lg:p-10">
+          <GlassCard className="rounded-2xl p-6 lg:p-10">
             <h3 className="font-display font-bold text-xl lg:text-2xl mb-8 text-center">How Guardian AI Works</h3>
             <div className="grid md:grid-cols-4 gap-6">
               {[
@@ -741,11 +767,18 @@ export default function GuardianAI() {
                 );
               })}
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* Certification Tiers */}
-        <section className="mb-16 lg:mb-24" id="certify">
+        <motion.section
+          className="mb-16 lg:mb-24"
+          id="certify"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="text-center mb-12">
             <h2 className="font-display font-bold text-3xl lg:text-5xl mb-4">
               Certification <span className="gradient-text">Tiers</span>
@@ -757,9 +790,10 @@ export default function GuardianAI() {
 
           <div className="grid lg:grid-cols-3 gap-6 mb-12">
             {certificationTiers.map((tier, i) => (
-              <div 
+              <GlassCard 
                 key={i}
-                className={`glass-card rounded-2xl p-6 lg:p-8 relative overflow-hidden ${tier.popular ? 'ring-2 ring-purple-500' : ''}`}
+                variant="feature"
+                className={`rounded-2xl p-6 lg:p-8 relative overflow-hidden ${tier.popular ? 'ring-2 ring-purple-500' : ''}`}
               >
                 {tier.popular && (
                   <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 text-xs font-bold rounded-bl-xl">
@@ -797,12 +831,12 @@ export default function GuardianAI() {
                 >
                   {formData.tier === tier.name ? 'Selected' : 'Select Plan'}
                 </button>
-              </div>
+              </GlassCard>
             ))}
           </div>
 
           {/* Certification Form */}
-          <div className="glass-card rounded-2xl p-6 lg:p-10 gradient-border max-w-2xl mx-auto">
+          <GlassCard glow className="rounded-2xl p-6 lg:p-10 max-w-2xl mx-auto">
             <h3 className="font-display font-bold text-xl lg:text-2xl mb-6 text-center">
               Apply for Guardian AI Certification
             </h3>
@@ -885,12 +919,17 @@ export default function GuardianAI() {
                 {submitting ? "Submitting..." : "Request Certification"}
               </button>
             </form>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
 
         {/* CTA */}
-        <section>
-          <div className="glass-card rounded-2xl lg:rounded-3xl p-8 lg:p-12 gradient-border text-center relative overflow-hidden">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-orange-500/10" />
             <div className="relative z-10">
               <ShieldCheck className="w-16 h-16 text-green-400 mx-auto mb-6" aria-hidden="true" />
@@ -918,8 +957,8 @@ export default function GuardianAI() {
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
       </main>
 
       <Footer />

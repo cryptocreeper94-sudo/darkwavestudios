@@ -4,6 +4,8 @@ import { ArrowLeft, Search, ChevronDown, ChevronUp, HelpCircle, Mail, Clock, Mes
 import heroBackground from "@assets/generated_images/dark_tech_abstract_background.png";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 const faqCategories = [
   {
@@ -159,23 +161,35 @@ export default function Support() {
       <div className="fixed inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
 
       <div className="relative z-10">
-        <main className="max-w-4xl mx-auto px-4 lg:px-6 py-8 lg:py-16">
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 max-w-4xl">
           <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors" data-testid="back-home">
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Link>
 
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-              <HelpCircle className="w-6 h-6 text-blue-400" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
+                <HelpCircle className="w-6 h-6 text-blue-400" />
+              </div>
+              <h1 className="text-3xl lg:text-4xl font-bold font-display" data-testid="support-title">
+                Support & <span className="gradient-text">FAQ</span>
+              </h1>
             </div>
-            <h1 className="text-3xl lg:text-4xl font-bold font-display" data-testid="support-title">
-              Support & <span className="gradient-text">FAQ</span>
-            </h1>
-          </div>
-          <p className="text-muted-foreground mb-8">Find answers to common questions or reach out to our team for help.</p>
+            <p className="text-muted-foreground mb-8">Find answers to common questions or reach out to our team for help.</p>
+          </motion.div>
 
-          <div className="relative mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="relative mb-8"
+          >
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
@@ -185,7 +199,7 @@ export default function Support() {
               className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
               data-testid="input-faq-search"
             />
-          </div>
+          </motion.div>
 
           <div className="flex flex-wrap gap-2 mb-8">
             <button
@@ -212,15 +226,21 @@ export default function Support() {
           </div>
 
           <div className="space-y-8 mb-12">
-            {filteredCategories.map(cat => (
-              <div key={cat.name}>
+            {filteredCategories.map((cat, catIdx) => (
+              <motion.div
+                key={cat.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: catIdx * 0.05 }}
+              >
                 <h2 className="text-lg font-bold mb-4 text-foreground">{cat.name}</h2>
                 <div className="space-y-2">
                   {cat.questions.map((item, idx) => {
                     const key = `${cat.name}-${idx}`;
                     const isExpanded = expandedItems.has(key);
                     return (
-                      <div key={key} className="glass-card rounded-xl gradient-border overflow-hidden">
+                      <GlassCard key={key} className="rounded-xl overflow-hidden">
                         <button
                           onClick={() => toggleItem(key)}
                           className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
@@ -234,11 +254,11 @@ export default function Support() {
                             <p className="text-muted-foreground text-sm lg:text-base pt-3 leading-relaxed">{item.a}</p>
                           </div>
                         )}
-                      </div>
+                      </GlassCard>
                     );
                   })}
                 </div>
-              </div>
+              </motion.div>
             ))}
             {filteredCategories.length === 0 && (
               <div className="text-center py-12">
@@ -247,26 +267,33 @@ export default function Support() {
             )}
           </div>
 
-          <div className="glass-card rounded-2xl p-6 lg:p-10 gradient-border">
-            <h2 className="text-2xl font-bold font-display mb-6" data-testid="text-still-need-help">Still Need Help?</h2>
-            <div className="grid sm:grid-cols-3 gap-6">
-              <Link href="/contact" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-contact-support">
-                <MessageSquare className="w-8 h-8 text-primary mb-3" />
-                <span className="font-medium mb-1">Contact Us</span>
-                <span className="text-muted-foreground text-sm">Send us a message</span>
-              </Link>
-              <a href="mailto:team@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-email-support">
-                <Mail className="w-8 h-8 text-primary mb-3" />
-                <span className="font-medium mb-1">Email Us</span>
-                <span className="text-muted-foreground text-sm">team@dwsc.io</span>
-              </a>
-              <Link href="/book" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-book-support">
-                <Clock className="w-8 h-8 text-primary mb-3" />
-                <span className="font-medium mb-1">Book a Call</span>
-                <span className="text-muted-foreground text-sm">Mon-Fri, 9am-6pm CT</span>
-              </Link>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <GlassCard glow className="rounded-2xl p-6 lg:p-10">
+              <h2 className="text-2xl font-bold font-display mb-6" data-testid="text-still-need-help">Still Need Help?</h2>
+              <div className="grid sm:grid-cols-3 gap-6">
+                <Link href="/contact" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-contact-support">
+                  <MessageSquare className="w-8 h-8 text-primary mb-3" />
+                  <span className="font-medium mb-1">Contact Us</span>
+                  <span className="text-muted-foreground text-sm">Send us a message</span>
+                </Link>
+                <a href="mailto:team@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-email-support">
+                  <Mail className="w-8 h-8 text-primary mb-3" />
+                  <span className="font-medium mb-1">Email Us</span>
+                  <span className="text-muted-foreground text-sm">team@dwsc.io</span>
+                </a>
+                <Link href="/book" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-book-support">
+                  <Clock className="w-8 h-8 text-primary mb-3" />
+                  <span className="font-medium mb-1">Book a Call</span>
+                  <span className="text-muted-foreground text-sm">Mon-Fri, 9am-6pm CT</span>
+                </Link>
+              </div>
+            </GlassCard>
+          </motion.div>
         </main>
 
         <Footer />

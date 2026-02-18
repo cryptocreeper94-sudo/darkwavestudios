@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail, Send, Loader2, CheckCircle2, Sparkles } from "lucide-react";
+import { GlassCard } from "@/components/glass-card";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ export default function Newsletter() {
 
   if (success) {
     return (
-      <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d bg-gradient-to-br from-primary/10 to-accent/10">
+      <GlassCard variant="feature" className="rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d bg-gradient-to-br from-primary/10 to-accent/10">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
             <CheckCircle2 className="w-7 h-7 text-primary" />
@@ -49,12 +50,12 @@ export default function Newsletter() {
             <p className="text-sm text-muted-foreground">Check your inbox for a welcome email.</p>
           </div>
         </div>
-      </div>
+      </GlassCard>
     );
   }
 
   return (
-    <div className="glass-card rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d">
+    <GlassCard variant="feature" className="rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d">
       <div className="flex items-center gap-4 mb-6">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
           <Sparkles className="w-7 h-7 text-primary" />
@@ -115,6 +116,6 @@ export default function Newsletter() {
           No spam, ever. Unsubscribe anytime.
         </p>
       </form>
-    </div>
+    </GlassCard>
   );
 }

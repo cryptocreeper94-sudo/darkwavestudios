@@ -7,6 +7,8 @@ import {
   Monitor, Grid, List, Search, Filter, ChevronRight, Loader2, LogIn, Shield
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 function Studio() {
   const [token, setToken] = useState<string | null>(null);
@@ -131,52 +133,65 @@ function Studio() {
   if (!token) {
     return (
       <div className="min-h-screen bg-black text-white">
-        <div className="max-w-md mx-auto px-4 pt-32 pb-20">
-          <div className="text-center mb-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 max-w-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
             <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center mb-4">
               <Monitor className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold mb-2">TrustVault Studio</h1>
             <p className="text-gray-400">Sign in with your Trust Layer account to access the media editor</p>
-          </div>
+          </motion.div>
 
-          <form onSubmit={handleLogin} className="glass-card p-6 rounded-xl space-y-4" data-testid="studio-login-form">
-            <div>
-              <label className="block text-sm text-gray-400 mb-1">Username</label>
-              <input
-                type="text"
-                value={loginForm.username}
-                onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
-                placeholder="Your Trust Layer username"
-                data-testid="input-studio-username"
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-gray-400 mb-1">Password</label>
-              <input
-                type="password"
-                value={loginForm.password}
-                onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
-                placeholder="Your password"
-                data-testid="input-studio-password"
-              />
-            </div>
-            {loginError && <p className="text-red-400 text-sm">{loginError}</p>}
-            <button
-              type="submit"
-              disabled={loginMutation.isPending}
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 font-semibold transition-all flex items-center justify-center gap-2"
-              data-testid="button-studio-login"
-            >
-              {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
-              Sign In
-            </button>
-            <p className="text-xs text-gray-500 text-center mt-3">
-              Uses Trust Layer SSO — same account as Signal Chat
-            </p>
-          </form>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <GlassCard className="p-6 rounded-xl">
+              <form onSubmit={handleLogin} className="space-y-4" data-testid="studio-login-form">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Username</label>
+                  <input
+                    type="text"
+                    value={loginForm.username}
+                    onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
+                    placeholder="Your Trust Layer username"
+                    data-testid="input-studio-username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Password</label>
+                  <input
+                    type="password"
+                    value={loginForm.password}
+                    onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
+                    placeholder="Your password"
+                    data-testid="input-studio-password"
+                  />
+                </div>
+                {loginError && <p className="text-red-400 text-sm">{loginError}</p>}
+                <button
+                  type="submit"
+                  disabled={loginMutation.isPending}
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 font-semibold transition-all flex items-center justify-center gap-2"
+                  data-testid="button-studio-login"
+                >
+                  {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
+                  Sign In
+                </button>
+                <p className="text-xs text-gray-500 text-center mt-3">
+                  Uses Trust Layer SSO — same account as Signal Chat
+                </p>
+              </form>
+            </GlassCard>
+          </motion.div>
         </div>
         <Footer />
       </div>
@@ -185,8 +200,13 @@ function Studio() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 pt-24 pb-20">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between mb-8"
+        >
           <div className="flex items-center gap-4">
             <Link href="/">
               <button className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition" data-testid="button-studio-back">
@@ -207,7 +227,7 @@ function Studio() {
               Sign Out
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {checkingConnection && (
           <div className="flex items-center justify-center py-20">
@@ -217,12 +237,18 @@ function Studio() {
         )}
 
         {!checkingConnection && connectionStatus?.error && (
-          <div className="glass-card p-8 rounded-xl text-center">
-            <AlertCircle className="w-12 h-12 text-amber-400 mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">Connection Issue</h2>
-            <p className="text-gray-400 mb-4">{connectionStatus.error}</p>
-            <p className="text-sm text-gray-500">TrustVault may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <GlassCard className="p-8 rounded-xl text-center">
+              <AlertCircle className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+              <h2 className="text-xl font-bold mb-2">Connection Issue</h2>
+              <p className="text-gray-400 mb-4">{connectionStatus.error}</p>
+              <p className="text-sm text-gray-500">TrustVault may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
+            </GlassCard>
+          </motion.div>
         )}
 
         {!checkingConnection && !connectionStatus?.error && (
@@ -243,7 +269,12 @@ function Studio() {
             </div>
 
             {activeTab === "media" && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+              >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     {Object.entries(categoryIcons).map(([cat, Icon]) => (
@@ -292,7 +323,7 @@ function Studio() {
                 ) : mediaData?.items?.length > 0 ? (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {mediaData.items.map((item: any) => (
-                      <div key={item.id} className="glass-card rounded-xl overflow-hidden group cursor-pointer hover:border-purple-500/50 transition" data-testid={`media-item-${item.id}`}>
+                      <GlassCard key={item.id} className="rounded-xl overflow-hidden group cursor-pointer hover:border-purple-500/50 transition" data-testid={`media-item-${item.id}`}>
                         <div className="aspect-video bg-white/5 flex items-center justify-center relative">
                           {item.thumbnailUrl ? (
                             <img src={item.thumbnailUrl} alt={item.filename} className="w-full h-full object-cover" />
@@ -307,7 +338,7 @@ function Studio() {
                           <p className="text-sm font-medium truncate">{item.filename || item.name}</p>
                           <p className="text-xs text-gray-500">{item.category || "video"}</p>
                         </div>
-                      </div>
+                      </GlassCard>
                     ))}
                   </div>
                 ) : (
@@ -324,11 +355,16 @@ function Studio() {
                     </button>
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
 
             {activeTab === "projects" && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+              >
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold">Projects</h2>
                   <button
@@ -346,17 +382,22 @@ function Studio() {
                   <h3 className="text-lg font-semibold mb-2">Create your first project</h3>
                   <p className="text-gray-400 text-sm">Projects let you organize media, edit timelines, and export renders</p>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {activeTab === "editor" && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+              >
                 <div className="mb-6">
                   <h2 className="text-xl font-bold mb-2">Embedded Editor</h2>
                   <p className="text-gray-400 text-sm">Open TrustVault's full media editor directly in DarkWave Studios</p>
                 </div>
 
-                <div className="glass-card rounded-xl overflow-hidden">
+                <GlassCard className="rounded-xl overflow-hidden">
                   <div className="aspect-video bg-gradient-to-br from-purple-900/20 to-cyan-900/20 flex items-center justify-center">
                     <div className="text-center">
                       <Monitor className="w-16 h-16 text-purple-400 mx-auto mb-4" />
@@ -384,12 +425,17 @@ function Studio() {
                       title="TrustVault Editor"
                     />
                   )}
-                </div>
-              </div>
+                </GlassCard>
+              </motion.div>
             )}
 
             {activeTab === "events" && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+              >
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold">Render Events</h2>
                   <button
@@ -405,7 +451,7 @@ function Studio() {
                 {eventsData?.events?.length > 0 ? (
                   <div className="space-y-3">
                     {eventsData.events.map((evt: any, i: number) => (
-                      <div key={i} className="glass-card p-4 rounded-xl flex items-center justify-between" data-testid={`event-${i}`}>
+                      <GlassCard key={i} className="p-4 rounded-xl flex items-center justify-between" data-testid={`event-${i}`}>
                         <div className="flex items-center gap-3">
                           {evt.status === "complete" ? (
                             <CheckCircle className="w-5 h-5 text-green-400" />
@@ -430,7 +476,7 @@ function Studio() {
                             <p className="text-xs text-gray-600">{new Date(evt.timestamp).toLocaleString()}</p>
                           )}
                         </div>
-                      </div>
+                      </GlassCard>
                     ))}
                   </div>
                 ) : (
@@ -440,7 +486,7 @@ function Studio() {
                     <p className="text-gray-400 text-sm">When you export a project, render status updates will appear here via webhook</p>
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
           </>
         )}

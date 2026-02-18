@@ -10,6 +10,8 @@ import {
   X
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+import { GlassCard } from "@/components/glass-card";
+import { motion } from "framer-motion";
 
 interface EcosystemApp {
   id: string;
@@ -276,7 +278,7 @@ function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => vo
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" data-testid={`modal-${app.id}`}>
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#0d0d1a] border border-white/10 shadow-2xl shadow-primary/10">
+      <GlassCard glow className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl shadow-primary/10">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
@@ -318,7 +320,7 @@ function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => vo
             <ExternalLink className="w-4 h-4" />
           </a>
         </div>
-      </div>
+      </GlassCard>
     </div>
   );
 }
@@ -381,7 +383,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
               className="w-[calc(100%-16px)] lg:w-[calc(100%-16px)] rounded-2xl overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 text-left"
               data-testid={`app-card-${app.id}`}
             >
-              <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">
+              <GlassCard variant="feature" className="relative rounded-2xl overflow-hidden shadow-2xl hover:border-primary/30 hover:shadow-primary/10 transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="aspect-video relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
@@ -403,7 +405,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
                     <ChevronRight className="w-3 h-3" />
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             </button>
             </div>
           ))}
@@ -478,8 +480,13 @@ export default function Ecosystem() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-12 lg:py-20">
-        <section className="text-center mb-16 lg:mb-24">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 lg:mb-24"
+        >
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
             <Sparkles className="w-4 h-4" />
             {ecosystemApps.length} Connected Applications
@@ -506,30 +513,38 @@ export default function Ecosystem() {
             </div>
             <span className="text-sm text-muted-foreground self-center">+{ecosystemApps.length - 4} more apps</span>
           </div>
-        </section>
+        </motion.section>
 
         <div className="space-y-12 lg:space-y-16">
-          {categories.map((category) => {
+          {categories.map((category, catIndex) => {
             const categoryApps = ecosystemApps.filter(app => app.category === category.id);
             if (categoryApps.length === 0) return null;
             
             return (
-              <section key={category.id}>
+              <motion.section
+                key={category.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: catIndex * 0.05 }}
+              >
                 <div className="mb-4">
                   <p className="text-xs text-muted-foreground">{category.description}</p>
                 </div>
                 <AppCarousel apps={categoryApps} categoryName={category.name} />
-              </section>
+              </motion.section>
             );
           })}
         </div>
 
-        <section className="mt-20 lg:mt-32 text-center">
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-500/10 to-accent/20" />
-            <div className="absolute inset-0 backdrop-blur-3xl" />
-            <div className="absolute inset-[1px] rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02]" />
-            <div className="relative p-10 lg:p-16">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mt-20 lg:mt-32 text-center"
+        >
+          <GlassCard glow className="relative rounded-3xl overflow-hidden p-10 lg:p-16">
               <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
@@ -562,9 +577,8 @@ export default function Ecosystem() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
-            </div>
-          </div>
-        </section>
+          </GlassCard>
+        </motion.section>
       </main>
 
       <footer className="border-t border-white/5 py-10 backdrop-blur-xl bg-background/30">
