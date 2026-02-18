@@ -28,7 +28,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trust-layer",
     name: "Trust Layer",
     tagline: "The Coordinated Trust Layer",
-    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) token with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge, staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 672,085 lines across 5 interconnected PWAs, 743 API endpoints, 289 database tables.",
+    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) asset with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge (5 chains), staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 282,494 lines across 12 PWA manifests, 7 host-based domains, 749 API endpoints, 544 schema exports, 233 pages, 158 components.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://dwsc.io",
     category: "core"
@@ -181,7 +181,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "the-arcade",
     name: "The Arcade",
     tagline: "Play for Fun or Play to Win!",
-    description: "Premium arcade games, provably fair sweepstakes, and classic card games. Features Orbit Crash multiplier game, Dragon's Fortune Slots, and a full arcade collection. Gold Coins & Sweeps Coins via Stripe, provably fair system, sweepstakes compliance, and a game developer portal. 5,276 lines of production code.",
+    description: "12 provably fair blockchain games including Slots, Coinflip, Spades, Solitaire, Minesweeper, Galaga, Tetris, Snake, Pacman, Crash, Predictions, and Lottery. Gold Coins & Sweeps Coins via Stripe, cryptographic provably fair system, sweepstakes compliance, and a game developer portal.",
     image: "/ecosystem/darkwave-games.png",
     url: "https://darkwavegames.io",
     category: "gaming"
@@ -246,8 +246,26 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "See the Market Before It Sees You",
     description: "AI-powered DEX screener with real-time monitoring across all major decentralized exchanges. Smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DWSC. Installable PWA. Part of the dwsc.io codebase.",
     image: "/projects/guardian-screener.png",
-    url: "https://dwsc.io/guardian-shield",
+    url: "https://dwsc.io/guardian-screener",
     category: "trading"
+  },
+  {
+    id: "darkwave-academy",
+    name: "DarkWave Academy",
+    tagline: "Learn. Build. Certify.",
+    description: "Education and certification platform for the Trust Layer ecosystem. 6 course tracks covering blockchain development, smart contract security, DeFi protocols, AI integration, full-stack development, and Trust Layer architecture. 3 certification tiers with Stripe-powered subscriptions. Installable PWA at dwsc.io/academy.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://dwsc.io/academy",
+    category: "core"
+  },
+  {
+    id: "chronochat",
+    name: "ChronoChat",
+    tagline: "Community Without Borders",
+    description: "Cross-app community chat platform with invite system, channel-based conversations, and real-time WebSocket messaging. Available as a standalone app at chronochat.io and integrated into the Trust Layer ecosystem at dwsc.io/chronochat. Installable PWA.",
+    image: "/ecosystem/signal-chat.png",
+    url: "https://chronochat.io",
+    category: "social"
   }
 ];
 
@@ -433,7 +451,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete Trust Layer ecosystem. 25 connected applications across 12 production builds spanning trading, business operations, trade services, gaming, and more. Over 1.97 million lines of code."
+        description="Explore the complete Trust Layer ecosystem. 27 connected applications spanning trading, business operations, trade services, gaming, education, and more. Over 1.6 million lines of code."
         keywords="Trust Layer ecosystem, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema
