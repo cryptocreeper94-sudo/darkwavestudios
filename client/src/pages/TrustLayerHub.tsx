@@ -826,6 +826,105 @@ const widgetsList = [
     linesOfCode: "~1,500 lines (full stack)",
     complexity: "Advanced"
   },
+  {
+    id: "referral-program", name: "Referral Program", icon: Gift, containerId: "demo-referral-program", color: "#f472b6",
+    description: "Customer referral system with auto-generated codes and credit rewards", price: 129, priceId: "price_widget_referral_program",
+    fullDescription: "Full customer referral engine with auto-generated referral codes (NAME + 4-digit format), configurable credit rewards for both referrer and referred friend, referral tracking with pending/completed status, shareable referral links, and automatic credit application on first order. Includes referral analytics dashboard showing top referrers, conversion rates, and total credits distributed. Built from TL Driver Connect's customer referral program.",
+    features: ["Auto-generated referral codes", "Configurable credit rewards (referrer + friend)", "Referral status tracking (pending/completed)", "Shareable referral link generation", "Automatic credit application on first order", "Top referrers leaderboard", "Referral conversion analytics", "Email notification on successful referral", "Anti-fraud duplicate detection"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Referral dashboard UI", "Code generation engine", "Credit system API", "Analytics module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,200 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "revenue-analytics", name: "Revenue Analytics", icon: BarChart3, containerId: "demo-revenue-analytics", color: "#6366f1",
+    description: "Real-time revenue dashboard with charts, top sellers, and vendor metrics", price: 179, priceId: "price_widget_revenue_analytics",
+    fullDescription: "Production-grade revenue analytics dashboard with total revenue, order count, average order value, and paid vs pending breakdowns. Includes revenue-over-time line charts with period filtering (today, week, month, all-time), top-selling items ranked by quantity and revenue, and vendor performance metrics with ratings and order counts. Built from TL Driver Connect's revenue analytics system powering live Stripe checkout data.",
+    features: ["Total revenue and order count cards", "Average order value calculation", "Paid vs pending payment breakdown", "Revenue-over-time line charts (Recharts)", "Period filtering (today/week/month/all-time)", "Top-selling items by quantity and revenue", "Vendor performance metrics with ratings", "Order count by vendor", "CSV export for reporting"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Stripe integration (optional)"],
+    includes: ["Full source code", "Dashboard UI with charts", "Revenue API endpoints", "Period filtering logic", "Vendor metrics module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "fuel-finder", name: "Fuel & EV Station Finder", icon: Fuel, containerId: "demo-fuel-finder", color: "#22c55e",
+    description: "Curated fuel and EV charging station directory with GPS proximity sorting", price: 89, priceId: "price_widget_fuel_finder",
+    fullDescription: "GPS-based fuel and EV charging station finder with curated directory, proximity sorting, search and filter functionality, and direct Google Maps integration for turn-by-turn navigation. Displays station details including fuel types, pricing, amenities, hours of operation, and user ratings. Supports both traditional fuel stations and EV charging networks. Built from TL Driver Connect's Fuel Finder module.",
+    features: ["GPS-based proximity sorting", "Fuel station and EV charger directory", "Search and filter by fuel type", "Google Maps navigation integration", "Station details (pricing, hours, amenities)", "User ratings and reviews", "Favorite stations list", "Real-time availability indicators", "Distance and ETA calculations"],
+    requirements: ["React 18+ frontend", "Google Maps API key (optional)"],
+    includes: ["Full source code", "Station finder UI", "GPS proximity engine", "Google Maps integration", "Station data model", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Geolocation API", "Google Maps API", "Tailwind CSS"],
+    linesOfCode: "~850 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "cdl-directory", name: "CDL Training Directory", icon: GraduationCap, containerId: "demo-cdl-directory", color: "#0ea5e9",
+    description: "Searchable CDL training program directory with referral tracking", price: 79, priceId: "price_widget_cdl_directory",
+    fullDescription: "Searchable directory of CDL training programs with program details, location, duration, cost, and certification types. Includes referral tracking for CDL sign-ups with rate limiting to prevent abuse (5 requests per window per IP). Features program comparison, filtering by state/cost/duration, and direct enrollment links. Built from TL Driver Connect's CDL Program Directory.",
+    features: ["Searchable training program listings", "Filter by state, cost, and duration", "Program comparison view", "Referral tracking with attribution", "Rate-limited submissions (anti-abuse)", "Direct enrollment links", "Program certification types", "Cost and duration details", "Mobile-optimized card layout"],
+    requirements: ["React 18+ frontend", "Node.js backend (for referral tracking)"],
+    includes: ["Full source code", "Directory UI", "Search and filter engine", "Referral tracking API", "Rate limiter", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "Tailwind CSS"],
+    linesOfCode: "~700 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "food-truck-map", name: "Food Truck Locator", icon: MapPin, containerId: "demo-food-truck-map", color: "#f97316",
+    description: "Interactive food truck map with pins, availability, and menu previews", price: 119, priceId: "price_widget_food_truck_map",
+    fullDescription: "Interactive map displaying food truck locations with visual pins, availability scheduling, and menu previews. Each truck pin shows real-time status (open/closed/moving), cuisine type, ratings, and distance. Includes truck detail pages with full menu, operating schedule, and contact information. Supports vendor self-management of location and availability. Built from TL Driver Connect's Food Truck Map system.",
+    features: ["Interactive map with truck pins", "Real-time availability status", "Menu previews on hover/click", "Truck detail pages", "Availability scheduling system", "Cuisine type filtering", "Star ratings display", "Distance from user calculation", "Vendor self-service location updates"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Map UI with pins", "Truck management API", "Menu preview component", "Availability scheduler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ambient-soundscape", name: "Ambient Soundscape Engine", icon: Music, containerId: "demo-ambient-soundscape", color: "#a855f7",
+    description: "Procedural audio engine with 21 location soundscapes and day/night variations", price: 149, priceId: "price_widget_ambient_soundscape",
+    fullDescription: "Zero-dependency procedural ambient audio engine built entirely on the Web Audio API. Generates 21 unique location soundscapes across multiple environments with automatic day/night variations, seasonal changes, and smooth crossfading between locations. Includes a floating audio controller UI widget with volume, mute, and location selection. No external audio files required — all sounds are procedurally generated in real-time. Built from Chronicles' Procedural Ambient Audio Engine.",
+    features: ["21 procedural location soundscapes", "Day/night audio variations", "Web Audio API (zero dependencies)", "Smooth crossfading between locations", "Floating audio controller widget", "Volume and mute controls", "Location-based sound profiles", "Seasonal sound variations", "Memory-optimized with proper cleanup"],
+    requirements: ["Any modern browser with Web Audio API support"],
+    includes: ["Full source code", "Audio engine (676 lines)", "Controller UI widget", "21 location profiles", "Integration guide", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "Web Audio API", "React 18", "Tailwind CSS"],
+    linesOfCode: "~930 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "career-simulator", name: "Career & Life Simulator", icon: Briefcase, containerId: "demo-career-simulator", color: "#eab308",
+    description: "Daily life system with 30+ careers, shift schedules, ranks, and needs management", price: 139, priceId: "price_widget_career_simulator",
+    fullDescription: "Full daily life simulation system with 30+ career paths across 4 shift types and 5 progression ranks with wage scaling. Includes needs management (hunger, energy, hygiene, social) with real-time decay and recovery mechanics, career switching, skill-based promotions, and financial tracking. Features a rich UI showing current career status, upcoming shifts, needs bars, and career progression timeline. Built from Chronicles' Daily Life System.",
+    features: ["30+ career paths with descriptions", "4 shift types (morning/afternoon/night/flex)", "5 rank progression tiers", "Wage scaling by rank", "Needs management (hunger/energy/hygiene/social)", "Real-time needs decay and recovery", "Career switching system", "Skill-based promotion logic", "Financial earnings tracker"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Career system UI", "Needs management engine", "Progression API", "Career data models", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,300 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ai-personality", name: "AI Personality Engine", icon: Brain, containerId: "demo-ai-personality", color: "#ec4899",
+    description: "Multi-personality AI chat system with distinct voices and therapeutic modes", price: 199, priceId: "price_widget_ai_personality",
+    fullDescription: "Advanced multi-personality AI chat engine featuring 5 distinct AI personalities, each with unique communication styles, expertise areas, and therapeutic approaches. Supports personality switching mid-conversation, conversation memory, mood detection, and adaptive response styles. Each personality has configurable traits, voice characteristics, and specializations. Built for wellness, coaching, companionship, and creative applications. Built from THE VOID's 5-personality GPT-5.2 system.",
+    features: ["5 distinct AI personalities", "Personality switching mid-conversation", "Conversation memory and context", "Mood detection and adaptive responses", "Configurable personality traits", "Therapeutic conversation modes", "Voice characteristic profiles", "Expertise area specializations", "Session history and continuity"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key"],
+    includes: ["Full source code", "Chat UI with personality selector", "Personality configuration system", "OpenAI integration", "Conversation memory module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "mood-journal", name: "Mood & Reflection Journal", icon: Heart, containerId: "demo-mood-journal", color: "#f43f5e",
+    description: "AI-powered mood tracking with guided reflections and wellness insights", price: 109, priceId: "price_widget_mood_journal",
+    fullDescription: "Comprehensive mood tracking and reflection journal with AI-powered insights. Users log daily moods with emoji selectors, write guided reflections with AI prompts, and track wellness trends over time with visual charts. Includes breathing exercises, gratitude prompts, and personalized wellness recommendations based on mood patterns. Features streak tracking and weekly/monthly mood summaries. Built from THE VOID's 20+ wellness tools.",
+    features: ["Daily mood logging with emoji selectors", "AI-generated reflection prompts", "Guided breathing exercises", "Gratitude journaling", "Mood trend charts over time", "Weekly and monthly mood summaries", "Streak tracking and motivation", "Personalized wellness recommendations", "Export journal entries as PDF"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key (optional for AI prompts)"],
+    includes: ["Full source code", "Journal UI", "Mood tracking API", "Wellness charts", "AI prompt generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "OpenAI"],
+    linesOfCode: "~1,100 lines (full stack)",
+    complexity: "Intermediate"
+  },
 ];
 
 interface CartItem {
