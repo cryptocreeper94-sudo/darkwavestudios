@@ -235,7 +235,7 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors, 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), voice-commanded editing, 4-tier Stripe subscriptions, Command Center with 37+ cards, Signal Chat, AI Blog, and TrustLayer SSO. 107,207 lines of code, 132 API endpoints, 26 database tables.",
+    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors, 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), voice-commanded editing, 4-tier Stripe subscriptions, Command Center with 37+ cards, Signal Chat, AI Blog, and TrustLayer SSO. 143,026 lines of code, 132 API endpoints, 26 database tables.",
     tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
     image: trustVaultImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
