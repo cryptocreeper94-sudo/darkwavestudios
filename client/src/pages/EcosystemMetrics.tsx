@@ -434,7 +434,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "the-void",
     name: "THE VOID",
-    url: "https://thevoid.replit.app",
+    url: "https://intothevoid.app",
     totalLines: 10400,
     totalFiles: 107,
     stack: ["React 18", "Vite", "Tailwind CSS 4", "Framer Motion", "Express.js 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "Whisper", "PWA"],

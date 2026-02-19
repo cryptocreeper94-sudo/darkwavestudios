@@ -237,7 +237,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Scream Into the Abyss. Feel Lighter.",
     description: "Voice-first venting application for mental wellness. Tap to record frustrations, AI transcription via Whisper, 4 AI response personalities (Smart-ass, Calming, Therapist, Hype Man) powered by GPT-4o, vent history with playback, PIN-based whitelist access, animated void portal splash screen, comprehensive crisis safety guardrails (988, Crisis Text Line, SAMHSA), and installable PWA. 10,400+ lines across 107 files.",
     image: "/projects/the-void.png",
-    url: "https://thevoid.replit.app",
+    url: "https://intothevoid.app",
     category: "health"
   },
   {

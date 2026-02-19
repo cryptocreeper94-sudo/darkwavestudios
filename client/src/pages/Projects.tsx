@@ -269,7 +269,7 @@ const projects = [
     tech: ["Voice AI", "Whisper", "GPT-4o", "PWA"],
     image: "/projects/the-void.png",
     gradient: "from-violet-500/20 to-purple-600/20",
-    url: "https://thevoid.replit.app",
+    url: "https://intothevoid.app",
     category: "Wellness"
   },
   {
