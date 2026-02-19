@@ -28,7 +28,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trust-layer",
     name: "Trust Layer",
     tagline: "The Coordinated Trust Layer",
-    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) asset with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge (5 chains), staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 282,494 lines across 12 PWA manifests, 7 host-based domains, 749 API endpoints, 544 schema exports, 233 pages, 158 components.",
+    description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) asset with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge (5 chains), staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 243,958 lines across 555 files, 12 PWA manifests, 7 host-based domains, 749 API endpoints, 544 schema exports, 233 pages, 158 components.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://dwsc.io",
     category: "core"
@@ -172,7 +172,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "chronicles",
     name: "Chronicles",
     tagline: "Not a Game — a Life.",
-    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season 0 features 3 playable eras (Modern, Medieval, Wild West) with 15 factions, 75 hand-crafted situations, 9 NPCs with persistent relationship scores, 15 city zones, and 36 era-specific building templates. AI generates infinite daily situations personalized to your history. 16,003 lines of production code.",
+    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. Season Zero with 3 eras (Modern, Medieval, Wild West), procedural ambient audio engine with 21 location soundscapes and day/night variations, daily life system with 30+ careers across 4 shifts and 5 ranks, faith & spiritual life, geographic travel, estate & interior customization, NPC system with AI chat, marketplace economy, voice system, and pets. 36,947 lines across 27 pages, 5 components, 9 server services.",
     image: "/ecosystem/chronicles.jpg",
     url: "https://yourlegacy.io",
     category: "gaming"

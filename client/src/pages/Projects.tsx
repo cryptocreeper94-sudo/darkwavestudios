@@ -195,8 +195,8 @@ const projects = [
   {
     id: 17,
     title: "Chronicles",
-    description: "A parallel life simulation where you are YOU living across historical eras. 1 hour = 1 real hour, timezone-synced. 3 playable eras (Modern, Medieval, Wild West), 15 factions, 75 situations, 9 NPCs with persistent relationship scores, AI-generated infinite daily situations, voice interaction, and estate building.",
-    tech: ["Life Sim", "AI NPCs", "Voice", "Real-time"],
+    description: "A parallel life simulation with procedural ambient audio engine (21 soundscapes), daily life system (30+ careers, 4 shifts, 5 ranks), faith & spiritual life, geographic travel across 3 eras (Modern, Medieval, Wild West), estate customization, NPC AI chat, marketplace economy, and voice system. 36,947 lines across 27 pages and 9 server services.",
+    tech: ["Life Sim", "Audio Engine", "AI NPCs", "30+ Careers"],
     image: chroniclesImg,
     gradient: "from-amber-500/20 to-red-600/20",
     url: "https://yourlegacy.io",
