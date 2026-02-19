@@ -177,16 +177,16 @@ const categories: ExploreCategory[] = [
     title: "Tools & Widgets",
     icon: <Boxes className="size-4" />,
     gradient: "from-amber-500 to-orange-500",
-    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 60 embeddable widgets, or explore the developer API.",
+    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 70 embeddable widgets, or explore the developer API.",
     cards: [
       {
         label: "Trust Layer Hub",
-        description: "60 embeddable widgets with live previews and pricing",
+        description: "70 embeddable widgets with live previews and pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "60 Widgets",
+        badge: "70 Widgets",
         featured: true,
       },
       {

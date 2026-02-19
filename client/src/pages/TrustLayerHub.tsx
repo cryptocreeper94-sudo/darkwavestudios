@@ -75,7 +75,10 @@ import {
   ScanLine,
   Gift,
   Dice1,
-  AlertTriangle
+  AlertTriangle,
+  Fuel,
+  Briefcase,
+  Brain
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
@@ -925,6 +928,17 @@ const widgetsList = [
     linesOfCode: "~1,100 lines (full stack)",
     complexity: "Intermediate"
   },
+  {
+    id: "npc-chat", name: "NPC Chat System", icon: Bot, containerId: "demo-npc-chat", color: "#f59e0b",
+    description: "Persistent AI characters with relationship scores, memory, and contextual dialogue", price: 169, priceId: "price_widget_npc_chat",
+    fullDescription: "Full NPC (non-player character) chat system with persistent AI characters that remember past conversations, maintain relationship scores, and adapt dialogue based on interaction history. Each NPC has configurable personality traits, backstory, knowledge domains, and emotional states. Supports multiple concurrent NPC relationships, gift/interaction mechanics that affect relationship levels, and contextual dialogue that references shared history. Built from Chronicles' NPC System.",
+    features: ["Persistent AI characters with memory", "Relationship score tracking", "Configurable personality traits and backstory", "Contextual dialogue referencing past interactions", "Emotional state system", "Multiple concurrent NPC relationships", "Interaction mechanics affecting relationships", "Knowledge domain specialization", "Conversation history and continuity"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key"],
+    includes: ["Full source code", "NPC chat UI", "Character configuration system", "Relationship tracking API", "Memory module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
 ];
 
 interface CartItem {
@@ -1348,7 +1362,7 @@ export default function TrustLayerHub() {
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-snippets">Snippets</div>
             </GlassCard>
             <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
-              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">60</div>
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">70</div>
               <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-widgets">Widgets</div>
             </GlassCard>
           </div>
