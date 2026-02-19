@@ -145,7 +145,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "tl-driver-connect",
     name: "TL Driver Connect",
     tagline: "The All-in-One Platform for Drivers, Vendors & Businesses on the Road",
-    description: "Nationwide delivery, driver management, and food truck ordering platform with multi-tenant franchise architecture. 53 pages, 155+ API endpoints, 2 WebSocket servers, 41 database tables, and 10 delivery zones. Features vendor self-service portal, zone-based batch ordering, 9-theme system, bilingual English/Spanish, marketing toolkit, operations manual, and franchise system. 26,500 lines of production TypeScript.",
+    description: "Nationwide dual-PWA platform (Happy Eats + TL Driver Connect) serving drivers, food truck vendors, and franchise operators. Dual PWA system with 9-theme switching, zone-based batch ordering across 11 Middle Tennessee delivery zones, Stripe live checkout with revenue analytics dashboard, customer referral program, vendor self-service portal with menu management, AI-powered marketing hub with flyer editor, Trucker Talk and Signal Chat (8 channels), CDL program directory, fuel finder, business suite (expenses/mileage), franchise system launching April 2026, and operations manual. 183,458 lines of code, 59 pages, 192 API endpoints, 49 database tables.",
     image: "/ecosystem/happy-eats.png",
     url: "https://happyeats.app",
     category: "auto"

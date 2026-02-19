@@ -175,8 +175,8 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "Nationwide delivery, driver management, and food truck ordering platform. 53 pages, 155+ API endpoints, 2 WebSocket servers, 41 database tables, and 10 delivery zones. Multi-tenant franchise model with vendor self-service portal, 9-theme system, and bilingual English/Spanish. 26,500 lines of production TypeScript across 185 files.",
-    tech: ["Delivery", "PWA", "WebSocket", "AI"],
+    description: "Nationwide dual-PWA platform (Happy Eats + TL Driver Connect) with zone-based batch ordering across 11 delivery zones, Stripe live checkout, revenue analytics dashboard, customer referral program, vendor self-service portal, AI marketing hub, Trucker Talk + Signal Chat, CDL directory, fuel finder, business suite, and multi-tenant franchise system. 183,458 lines of code, 59 pages, 192 API endpoints, 49 database tables.",
+    tech: ["Dual PWA", "Stripe Live", "AI", "Franchise"],
     image: happyEatsImg,
     gradient: "from-yellow-500/20 to-amber-600/20",
     url: "https://happyeats.app",
