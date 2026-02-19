@@ -265,7 +265,7 @@ const projects = [
   {
     id: 25,
     title: "THE VOID",
-    description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, Signal Chat, and Capacitor-ready for native iOS/Android. 27 pages, 72 API endpoints, 20+ database tables.",
+    description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, Signal Chat, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
     tech: ["GPT-5.2", "Voice AI", "Stripe", "PWA"],
     image: "/projects/the-void.png",
     gradient: "from-violet-500/20 to-purple-600/20",
