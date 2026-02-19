@@ -235,8 +235,8 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Universal IP storage and media management platform. Image/audio/video/merge editors, Spinny AI agent (GPT-5.1 + ElevenLabs TTS), 4 AI media tools, collections system, Signal Chat, 4-tier Stripe subscriptions, multi-tenant family vault, and PWA. 105,983 lines of code across 187 files with 132 API endpoints and 26 database tables.",
-    tech: ["Media Vault", "AI Agent", "Editors", "PWA"],
+    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors, 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), voice-commanded editing, 4-tier Stripe subscriptions, Command Center with 37+ cards, Signal Chat, AI Blog, and TrustLayer SSO. 107,207 lines of code, 132 API endpoints, 26 database tables.",
+    tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
     image: trustVaultImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app",

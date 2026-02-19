@@ -207,8 +207,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "trustvault",
     name: "TrustVault",
-    tagline: "Your Media. Secured. Organized. Yours.",
-    description: "Universal IP storage and media management platform for creators, families, and teams. Image editor with filters, drawing, stickers, and text overlays. Audio editor with 3-band EQ, reverb, and noise gate. Video editor with color grading and frame capture. Merge/combine tool for collages and concatenation. Spinny AI agent (GPT-5.1 + ElevenLabs TTS), 4 AI media tools, collections system, Signal Chat, 4-tier Stripe subscriptions, PWA installable, and TrustLayer SSO. 132 API endpoints across 26 database tables. 105,983 lines of production code.",
+    tagline: "Your Universal IP Storage & Creative Platform",
+    description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, drawing, stickers, AI auto-enhance, background removal, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, frame capture), and merge/combine studio. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $5.99/Pro $12.99/Studio $24.99), Signal Chat, AI Blog platform, Command Center with 37+ cards across 9 categories, and TrustLayer SSO. 107,207 lines of code, 132 API endpoints, 26 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
