@@ -234,8 +234,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "the-void",
     name: "THE VOID",
-    tagline: "Scream Into the Abyss. Feel Lighter.",
-    description: "Voice-first venting application for mental wellness. Tap to record frustrations, AI transcription via Whisper, 4 AI response personalities (Smart-ass, Calming, Therapist, Hype Man) powered by GPT-4o, vent history with playback, PIN-based whitelist access, animated void portal splash screen, comprehensive crisis safety guardrails (988, Crisis Text Line, SAMHSA), and installable PWA. 10,400+ lines across 107 files.",
+    tagline: "Scream into the abyss. The abyss talks back.",
+    description: "The world's first voice-first venting app — scream, rant, or whisper into 5 AI personalities (Smart-Ass, Calming, Therapist, Hype Man, Roast Master) powered by GPT-5.2 with real-time transcription. 20+ wellness tools including Emotional Voice Fingerprint (vocal biomarker analysis), Living Mood Portrait (generative AI art from emotions), Void Echo time capsules, Voice Journal, Zen Zone with guided breathing, Sleep Sounds mixer, Virtual Rage Room, crisis toolkit, Signal Chat, and gamification with streaks and achievements. Stripe subscriptions ($9.99/mo founders, $14.99/mo standard), affiliate program with blockchain-stamped Void IDs, and Capacitor-ready for native iOS/Android. 27 pages, 72 API endpoints, 20+ database tables.",
     image: "/projects/the-void.png",
     url: "https://intothevoid.app",
     category: "health"

@@ -265,8 +265,8 @@ const projects = [
   {
     id: 25,
     title: "THE VOID",
-    description: "Voice-first venting application for mental wellness. Tap to record frustrations, AI transcription via Whisper, 4 AI response personalities (Smart-ass, Calming, Therapist, Hype Man) powered by GPT-4o, vent history with playback, PIN-based whitelist access, animated void portal splash screen, comprehensive crisis safety guardrails, and installable PWA. 10,400+ lines across 107 files.",
-    tech: ["Voice AI", "Whisper", "GPT-4o", "PWA"],
+    description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, Signal Chat, and Capacitor-ready for native iOS/Android. 27 pages, 72 API endpoints, 20+ database tables.",
+    tech: ["GPT-5.2", "Voice AI", "Stripe", "PWA"],
     image: "/projects/the-void.png",
     gradient: "from-violet-500/20 to-purple-600/20",
     url: "https://intothevoid.app",

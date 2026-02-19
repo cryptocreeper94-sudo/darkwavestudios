@@ -1,0 +1,130 @@
+THE VOID by DarkWave Studios
+Voice-Powered Emotional Release + AI Wellness Platform
+
+One-Liner:
+THE VOID is the world's first voice-first venting app — scream, rant, or whisper into AI-powered personalities that listen, respond, and help you process, surrounded by 20+ wellness tools designed to turn emotional release into personal growth.
+
+Full Description:
+
+THE VOID is a premium voice-first mental wellness platform built for one thing: letting it out. At its core, this is a venting app. Users talk, scream, rant, or whisper — and five distinct AI personalities listen and respond in real time. Everything else in the app — meditation, journaling, mood tracking, sleep sounds, crisis support — wraps around that act of release.
+
+No other app starts here. THE VOID doesn't ask you to meditate first or fill out a form. It says: say what you need to say. Then it gives you 20+ tools to process what came out.
+
+CORE: VOICE VENTING ENGINE
+
+Record frustrations via voice with real-time transcription (OpenAI gpt-4o-mini-transcribe)
+Five AI personalities respond to every vent:
+Smart-Ass — sharp, witty, keeps it real
+Calming — gentle, grounding, reassuring
+Therapist — clinical insight, reflective questions
+Hype Man — pure energy, validation, motivation
+Roast Master — brutally funny, cathartic humor
+AI responses powered by GPT-5.2 with strict safety guardrails
+Text-to-speech audio responses with personality-matched voices
+Multi-turn conversation threads with full context retention
+Custom personality tuning: adjust sarcasm and empathy levels via sliders
+GROUNDBREAKING FEATURES (Only in THE VOID):
+
+Emotional Voice Fingerprint — AI analyzes vocal biomarkers during venting sessions: energy, tension, pace, warmth, and stability (0–100 scales). Detects dominant emotion. Builds a personal emotional baseline over time. Your vent reveals more than your words do.
+
+Living Mood Portrait — Generative AI creates unique abstract SVG artwork from your emotional data. Each portrait evolves as you interact. A growing gallery of your inner landscape, rendered as art.
+
+Void Echo (Time Capsule) — Record a message to your future self after venting. Set a delivery date. The void holds your words until the right moment arrives — so future you can see how far you've come.
+
+Voice Journal — Speak freely and AI transcribes, cleans up, and organizes your entries. A voice-native journaling experience with day-by-day chronological view.
+
+REFLECT & TRACK:
+
+Written Journal — Tag entries with 8 moods, get optional AI personality responses on your writing
+Mood Analytics — Visual dashboards with custom SVG line charts tracking before/after mood trends, stat cards, and recent check-in carousel
+Gamification — Daily venting streaks, 10 unlockable achievement badges, daily prompts (rotated by day of week), mood check-ins before and after every session
+Vent Library — Searchable, filterable archive of past venting sessions with personality filter, audio playback, full transcript and response modal view
+Daily Affirmations — AI-generated personalized affirmations displayed as premium quote cards, generate on demand
+RELAX & RECOVER:
+
+Zen Zone — Guided breathing exercises (Box Breathing, 4-7-8, Calming Breath), ambient sound selector (Rain, Ocean, Forest, Fire), customizable meditation timer (2–20 minutes)
+Sleep Sounds — Ambient soundscape mixer using Web Audio API with 6 sound layers (Rain, Ocean, Crickets, Thunder, Wind, Fireplace), sleep timer with volume fade, integrated 4-7-8 breathing guide
+Virtual Rage Room — Click to destroy virtual glass objects with Framer Motion smash animations and particle fragments. Session stats, streak tracking. Pure catharsis, zero cleanup.
+SAFETY & CRISIS:
+
+Crisis Toolkit — Quick-access panic breathing animation, 5-4-3-2-1 grounding exercise, crisis hotlines (988 Suicide & Crisis Lifeline, 741741 Crisis Text Line, SAMHSA, 911), editable personal safety plan (warning signals, coping strategies, support contacts, reasons for living)
+AI Safety Guardrails — Mandatory safety preambles on all AI responses, auto-detection of crisis situations with immediate crisis resource display
+CONNECT:
+
+Signal Chat — Real-time global chat system with crisis hotline integration, powered by Trust Layer SSO, JWT-based authentication, WebSockets
+Void ID System — Unique V-XXXXXXXX member identifiers for premium subscribers, serves as membership hallmark and affiliate referral code
+Blockchain Hallmark — SHA-256 hash-chained stamps minted for each Void ID on the Trust Layer v1 network with DW-STAMP-1.0 standard metadata
+Affiliate Program — Share your Void ID as a referral code. Referred conversions earn 5 bonus credits.
+Trust Layer Bridge — Void IDs linked to Trust Layer SSO chat accounts via JWT tokens for cross-ecosystem member recognition
+SMART MODES:
+
+Focus Mode — Everything tracked, logged, and reflected in analytics
+Play Mode — Mess around freely, show friends, demo features — nothing pollutes your real data
+SUBSCRIPTION & MONETIZATION (Stripe Integration):
+
+Founders Pricing: First 1,000 subscribers lock in $9.99/month forever
+Standard pricing: $14.99/month after founder spots fill
+Credit pack system for purchasing additional vents beyond plan limits
+Founders Badge and permanently preserved rate
+Live founder spots counter via /api/pricing/info
+Subscription confirmation emails via Resend
+DESIGN & UX:
+
+Premium dark glassmorphism aesthetic across every page
+Bento grid layout system
+Animated background orbs
+Carousel-based UI (no vertical stacking, no horizontal box layouts)
+Dark/light theme toggle with persistence
+Framer Motion animations throughout
+Google Fonts (Space Grotesk, Outfit)
+Fully responsive across all screen sizes
+CONTENT & SEO:
+
+AI Blog with 4 seed articles on mental wellness at /blog
+SEO-optimized with meta descriptions, Open Graph tags, sitemap.xml
+"From the Void" mission page telling DarkWave Studios' origin story
+SECURITY & ACCESS:
+
+PIN-based whitelist authentication with master key, first-login PIN change
+Replit Auth (OIDC) integration
+Express rate limiting across all API endpoints
+TrustShield.tech integration
+MOBILE & DISTRIBUTION:
+
+Full Progressive Web App (PWA) with manifest.json, service worker, offline fallback, branded offline page
+Apple mobile web app optimized (status bar, touch icon, standalone mode)
+Capacitor configured for native Android/iOS packaging (app ID: app.intothevoid.void)
+Google Play ready via Trusted Web Activity (TWA/Bubblewrap)
+Portrait-locked, viewport-optimized, touch-gesture enabled
+DEVELOPER TOOLS:
+
+Admin-only Developer portal with database-backed roadmap carousel
+Analytics dashboard with real-time metrics
+Contact form system
+TECH STACK:
+
+Frontend: React + Vite, Tailwind CSS, Framer Motion, shadcn/ui, Wouter routing, TanStack Query
+Backend: Express.js, Drizzle ORM, PostgreSQL
+AI: OpenAI GPT-5.2 (responses), gpt-4o-mini-transcribe (transcription), TTS
+Payments: Stripe (subscriptions, credit packs, webhooks, customer portal)
+Email: Resend
+Real-time: WebSockets (ws)
+Auth: Replit Auth OIDC + PIN whitelist
+Security: express-rate-limit, TrustShield.tech
+PAGES (27 total):
+Landing, Onboarding Slideshow, Home/Record, Conversations, Voice Journal, Voice Fingerprint, Mood Portrait, Void Echo, Written Journal, Mood Analytics, Vent Library, Affirmations, Gamification/Progress, Zen Zone, Sleep Sounds, Rage Room, Crisis Toolkit, Signal Chat, Blog, Mission, Settings, Developer Portal, Contact, Privacy Policy, Terms of Service, 404
+
+API ENDPOINTS: 72 routes covering venting, transcription, AI responses, conversations, journals, fingerprint analysis, mood portraits, time capsules, gamification, blog, subscriptions, payments, referrals, blockchain stamps, chat authentication, safety plans, analytics, and more.
+
+DATABASE: 20+ tables in PostgreSQL via Drizzle ORM covering users, sessions, vents, conversations, messages, subscriptions, journals, voice journals, voice fingerprints, mood portraits, void echoes, achievements, streaks, mood check-ins, blog articles, roadmap items, contact messages, user settings, whitelist, and daily usage tracking.
+
+Domain: intothevoid.app
+Studio: DarkWave Studios
+Tagline: Scream into the abyss. The abyss talks back.
+Price: $9.99/mo (Founders) | $14.99/mo (Standard)
+
+
+Scroll to latest
+
+Make, test, iterate…
+
