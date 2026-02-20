@@ -939,6 +939,17 @@ const widgetsList = [
     linesOfCode: "~1,500 lines (full stack)",
     complexity: "Advanced"
   },
+  {
+    id: "ecosystem-widget", name: "Ecosystem Widget", icon: Network, containerId: "demo-ecosystem-widget", color: "#06b6d4",
+    description: "Embeddable Trust Layer ecosystem badge with live app data", price: 99, priceId: "price_widget_ecosystem_widget",
+    fullDescription: "Embeddable ecosystem widget that displays your app's Trust Layer verification status, ecosystem membership badge, and live statistics. Loaded via a single script tag, it connects to the DarkWave Trust Layer API for real-time widget data including app count, verification status, and ecosystem metrics. Authenticates via Trust Layer SSO JWT in the Authorization header. Perfect for embedding in any ecosystem app to show its verified membership in the DarkWave network.",
+    features: ["Single script tag embed (<script src>)", "Trust Layer verification badge", "Live ecosystem app data via API", "JWT-based SSO authentication", "Real-time verification status", "Ecosystem membership display", "Customizable badge appearance", "Responsive embed sizing", "Cross-origin compatible"],
+    requirements: ["Any HTML page or React app", "Trust Layer SSO JWT token"],
+    includes: ["Full source code", "Embed script", "Widget data API endpoint", "JWT auth integration", "Customization options", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "TypeScript", "Trust Layer SSO", "REST API", "CSS3"],
+    linesOfCode: "~600 lines",
+    complexity: "Beginner-friendly"
+  },
 ];
 
 interface CartItem {
