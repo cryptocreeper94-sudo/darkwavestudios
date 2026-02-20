@@ -1,158 +1,301 @@
 import { Link } from "wouter";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { 
-  Code2, Shield, Boxes, Terminal, ExternalLink, ArrowRight, Zap, Lock, Globe, Bot, 
-  Sparkles, ChevronRight, Activity, TrendingUp, BarChart3, Clock, Layers, RefreshCw,
-  CheckCircle2, AlertTriangle, XCircle, Wifi, WifiOff, Timer, Server, Eye,
-  ArrowUpRight, Search, Filter, ChevronDown, Radio, Gauge, FileCode, Wrench,
-  Command, BookOpen, PenTool, Cpu
+  Code2, 
+  Shield, 
+  Boxes, 
+  Terminal, 
+  ExternalLink, 
+  ArrowRight,
+  Zap,
+  Lock,
+  Globe,
+  Bot,
+  Sparkles,
+  ChevronRight,
+  Copy,
+  Check,
+  Activity,
+  TrendingUp,
+  BarChart3,
+  Clock,
+  Newspaper,
+  Mail,
+  Megaphone,
+  Target,
+  Users,
+  Building2,
+  Wrench,
+  Home,
+  Layers
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
-import { motion, AnimatePresence } from "framer-motion";
-
-interface HealthApp {
-  id: string;
-  name: string;
-  url: string;
-  category: string;
-  loc: string;
-  pages: string;
-  status: "online" | "degraded" | "offline" | "timeout" | "checking";
-  statusCode: number;
-  responseTime: number;
-  checkedAt: string;
-  error?: string;
-}
-
-interface HealthSummary {
-  total: number;
-  online: number;
-  degraded: number;
-  offline: number;
-  avgResponseTime: number;
-}
-
-const categoryMeta: Record<string, { label: string; color: string; gradient: string }> = {
-  core: { label: "Core Platform", color: "cyan", gradient: "from-cyan-500 to-blue-600" },
-  trading: { label: "Trading & Crypto", color: "amber", gradient: "from-amber-500 to-orange-600" },
-  business: { label: "Business Ops", color: "emerald", gradient: "from-emerald-500 to-teal-600" },
-  trades: { label: "Trade Services", color: "violet", gradient: "from-violet-500 to-purple-600" },
-  auto: { label: "Auto & Delivery", color: "sky", gradient: "from-sky-500 to-blue-600" },
-  health: { label: "Health & Wellness", color: "rose", gradient: "from-rose-500 to-pink-600" },
-  gaming: { label: "Gaming", color: "purple", gradient: "from-purple-500 to-indigo-600" },
-  "real-estate": { label: "Real Estate", color: "green", gradient: "from-green-500 to-emerald-600" },
-  social: { label: "Social", color: "indigo", gradient: "from-indigo-500 to-blue-600" },
-  security: { label: "Security", color: "red", gradient: "from-red-500 to-rose-600" },
-};
-
-const quickActions = [
-  { label: "Shared Components", href: "/developers/components", icon: Layers, desc: "Manage ecosystem-wide UI", gradient: "from-cyan-500 to-teal-500" },
-  { label: "Command Center", href: "/command", icon: Command, desc: "Full feature access", gradient: "from-purple-500 to-indigo-500" },
-  { label: "Trust Layer Hub", href: "/hub", icon: Boxes, desc: "72 embeddable widgets", gradient: "from-amber-500 to-orange-500" },
-  { label: "API Documentation", href: "/developers/api", icon: BookOpen, desc: "Pulse API & endpoints", gradient: "from-emerald-500 to-green-500" },
-  { label: "Marketing Hub", href: "/marketing", icon: PenTool, desc: "Automated social posting", gradient: "from-rose-500 to-pink-500" },
-  { label: "Ecosystem Metrics", href: "/metrics", icon: BarChart3, desc: "Live stats & analytics", gradient: "from-blue-500 to-cyan-500" },
-];
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.04 } }
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35 } }
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
 };
 
-function StatusDot({ status }: { status: string }) {
-  const colors: Record<string, string> = {
-    online: "bg-green-400 shadow-green-400/50",
-    degraded: "bg-yellow-400 shadow-yellow-400/50",
-    offline: "bg-red-400 shadow-red-400/50",
-    timeout: "bg-orange-400 shadow-orange-400/50",
-    checking: "bg-cyan-400 shadow-cyan-400/50 animate-pulse",
+const developerProducts = [
+  {
+    id: "agents",
+    title: "AI Agent Marketplace",
+    description: "Create, deploy, and discover autonomous AI agents. Build trading bots, DeFi agents, NFT snipers, and more.",
+    icon: Bot,
+    href: "https://dwtl.io/ai-agents",
+    external: true,
+    gradient: "from-emerald-500 to-teal-500",
+    features: ["Agent builder", "Smart contract integration", "Revenue sharing", "Guardian AI certified"]
+  },
+  {
+    id: "guardian",
+    title: "Guardian AI",
+    description: "AI agent certification platform. Verify autonomous agents meet security, transparency, and reliability standards.",
+    icon: Shield,
+    href: "https://dwtl.io/guardian-ai",
+    external: true,
+    gradient: "from-red-500 to-orange-500",
+    features: ["Trust score ratings", "Security audits", "Compliance certification", "Public registry"]
+  },
+  {
+    id: "shield",
+    title: "Guardian Shield",
+    description: "24/7 continuous security monitoring for enterprise applications. Real-time threat detection and response.",
+    icon: Shield,
+    href: "https://trustshield.tech",
+    external: true,
+    gradient: "from-violet-500 to-purple-600",
+    features: ["Continuous monitoring", "Threat detection", "Enterprise security", "Real-time alerts"]
+  },
+  {
+    id: "hub",
+    title: "Trust Layer Hub",
+    description: "Blockchain-verified widget marketplace with 72 embeddable components for analytics, booking, lead capture, media editing, AI tools, and more.",
+    icon: Boxes,
+    href: "/hub",
+    gradient: "from-cyan-500 to-blue-600",
+    features: ["Live widget previews", "Full source code access", "One-click embed", "API documentation"]
+  },
+  {
+    id: "studio",
+    title: "Studio IDE",
+    description: "Integrated development environment for building, testing, and deploying Trust Layer widgets and applications.",
+    icon: Terminal,
+    href: "https://dwtl.io/studio",
+    external: true,
+    gradient: "from-purple-500 to-pink-500",
+    features: ["Visual builder", "Code editor", "Live preview", "One-click deploy"]
+  },
+  {
+    id: "shared-components",
+    title: "Shared Components",
+    description: "Centralized UI component manager. Update footers, headers, banners, and badges once — changes propagate to all 27 ecosystem apps instantly.",
+    icon: Layers,
+    href: "/developers/components",
+    gradient: "from-cyan-500 to-teal-500",
+    features: ["Form-based editing", "Live preview", "Code editor", "Instant propagation"]
+  },
+  {
+    id: "ecosystem-health",
+    title: "Ecosystem Health Monitor",
+    description: "Real-time health dashboard for all 27 production apps. Live status checks, response times, uptime ring, and category filtering across the entire ecosystem.",
+    icon: Activity,
+    href: "/developers/ecosystem",
+    gradient: "from-green-500 to-emerald-600",
+    features: ["Live health checks", "Response times", "Uptime visualization", "Search & filter"]
+  }
+];
+
+const apiFeatures = [
+  { icon: Zap, title: "REST APIs", description: "Simple, well-documented RESTful endpoints" },
+  { icon: Lock, title: "Secure Auth", description: "API key authentication with rate limiting" },
+  { icon: Globe, title: "Webhooks", description: "Real-time event notifications" },
+  { icon: Bot, title: "AI Integration", description: "GPT-4o powered content generation" },
+];
+
+const pulseEndpoints = [
+  {
+    method: "GET",
+    path: "/api/ml/stats",
+    title: "ML Prediction Stats",
+    description: "Returns comprehensive prediction statistics including total predictions, signal distribution, and win rates by time horizon.",
+    response: `{
+  "totalPredictions": 134937,
+  "buySignals": 16629,
+  "sellSignals": 39387,
+  "holdSignals": 4297,
+  "winRates": {
+    "1H": 0.68,
+    "4H": 0.71,
+    "24H": 0.74,
+    "7D": 0.65
+  }
+}`
+  },
+  {
+    method: "GET",
+    path: "/api/ml/predictions",
+    title: "Recent Predictions",
+    description: "Get the latest ML predictions with confidence levels, signals, and supporting data.",
+    response: `{
+  "predictions": [
+    {
+      "id": "pred_abc123",
+      "asset": "BTC/USD",
+      "signal": "BUY",
+      "confidence": 0.87,
+      "timeframe": "4H",
+      "timestamp": "2026-02-02T10:00:00Z"
+    }
+  ]
+}`
+  },
+  {
+    method: "GET",
+    path: "/api/ml/performance",
+    title: "Model Performance",
+    description: "Historical performance metrics and accuracy tracking for the ML models.",
+    response: `{
+  "accuracy": {
+    "overall": 0.72,
+    "1day": 0.75,
+    "7day": 0.68,
+    "30day": 0.71
+  },
+  "totalVerified": 100000
+}`
+  }
+];
+
+function PulseApiDocs() {
+  const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedEndpoint(id);
+    setTimeout(() => setCopiedEndpoint(null), 2000);
   };
-  return <div className={`w-2.5 h-2.5 rounded-full shadow-lg ${colors[status] || colors.checking}`} />;
-}
 
-function ResponseBadge({ ms }: { ms: number }) {
-  const color = ms < 500 ? "text-green-400" : ms < 1500 ? "text-yellow-400" : ms < 3000 ? "text-orange-400" : "text-red-400";
-  return <span className={`text-xs font-mono ${color}`}>{ms}ms</span>;
-}
-
-function HealthRing({ online, total }: { online: number; total: number }) {
-  const pct = total > 0 ? (online / total) * 100 : 0;
-  const r = 54;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (pct / 100) * circ;
-  const color = pct === 100 ? "#22c55e" : pct >= 80 ? "#eab308" : "#ef4444";
   return (
-    <div className="relative w-36 h-36">
-      <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
-        <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
-        <motion.circle
-          cx="60" cy="60" r={r} fill="none" stroke={color} strokeWidth="8" strokeLinecap="round"
-          strokeDasharray={circ} strokeDashoffset={circ}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <motion.span
-          className="text-3xl font-bold font-display"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          {Math.round(pct)}%
-        </motion.span>
-        <span className="text-xs text-muted-foreground">uptime</span>
-      </div>
-    </div>
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      className="mb-16 lg:mb-24"
+      data-testid="pulse-api-docs"
+    >
+      <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+            <Activity className="w-7 h-7 text-white" />
+          </div>
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold font-display">Pulse API</h2>
+            <p className="text-muted-foreground">Quant & Predictive AI Integration</p>
+          </div>
+          <div className="ml-auto hidden lg:flex items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-semibold flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              Live
+            </span>
+          </div>
+        </div>
+
+        <div className="bg-black/40 rounded-xl p-4 mb-8 border border-amber-500/20">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-muted-foreground">Production Base URL</span>
+            <button
+              onClick={() => copyToClipboard("https://darkwavepulse.com/api", "baseurl")}
+              className="flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 transition-colors"
+              data-testid="copy-base-url"
+            >
+              {copiedEndpoint === "baseurl" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedEndpoint === "baseurl" ? "Copied!" : "Copy"}
+            </button>
+          </div>
+          <code className="text-amber-400 font-mono text-sm lg:text-base">https://darkwavepulse.com/api</code>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-4 mb-8">
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
+            <TrendingUp className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-white">65-70%</div>
+            <div className="text-sm text-muted-foreground">Win Rate</div>
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
+            <BarChart3 className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-white">100K+</div>
+            <div className="text-sm text-muted-foreground">Predictions Verified</div>
+          </GlassCard>
+          <GlassCard variant="stat" className="rounded-xl p-4 text-center">
+            <Clock className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-white">Real-time</div>
+            <div className="text-sm text-muted-foreground">Data Updates</div>
+          </GlassCard>
+        </div>
+
+        <h3 className="text-xl font-bold font-display mb-4">Available Endpoints</h3>
+        
+        <div className="space-y-4">
+          {pulseEndpoints.map((endpoint) => (
+            <div key={endpoint.path} className="bg-black/30 rounded-xl border border-white/10 overflow-hidden" data-testid={`endpoint-${endpoint.path.replace(/\//g, '-')}`}>
+              <div className="p-4 border-b border-white/10">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="px-2 py-1 rounded text-xs font-bold bg-green-500/20 text-green-400">{endpoint.method}</span>
+                  <code className="text-sm font-mono text-white">{endpoint.path}</code>
+                  <button
+                    onClick={() => copyToClipboard(endpoint.path, endpoint.path)}
+                    className="ml-auto text-muted-foreground hover:text-white transition-colors"
+                    data-testid={`copy-${endpoint.path.replace(/\//g, '-')}`}
+                  >
+                    {copiedEndpoint === endpoint.path ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                  </button>
+                </div>
+                <h4 className="font-semibold text-white mb-1">{endpoint.title}</h4>
+                <p className="text-sm text-muted-foreground">{endpoint.description}</p>
+              </div>
+              <div className="p-4 bg-black/40">
+                <div className="text-xs text-muted-foreground mb-2">Sample Response</div>
+                <pre className="text-xs font-mono text-gray-300 overflow-x-auto"><code>{endpoint.response}</code></pre>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <h4 className="font-semibold text-amber-400 mb-1">API Access</h4>
+              <p className="text-sm text-muted-foreground">
+                Pulse API access is available to approved customers. Request access through the{" "}
+                <Link href="/hub" className="text-amber-400 hover:underline">Trust Layer Hub</Link> to receive your API credentials and onboarding documentation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+    </motion.section>
   );
 }
 
 export default function Developers() {
-  const [apps, setApps] = useState<HealthApp[]>([]);
-  const [summary, setSummary] = useState<HealthSummary>({ total: 27, online: 0, degraded: 0, offline: 0, avgResponseTime: 0 });
-  const [loading, setLoading] = useState(true);
-  const [lastChecked, setLastChecked] = useState<string>("");
-  const [filterCategory, setFilterCategory] = useState<string>("all");
-  const [filterStatus, setFilterStatus] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-
-  const fetchHealth = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/ecosystem/health");
-      const data = await res.json();
-      if (data.success) {
-        setApps(data.apps);
-        setSummary(data.summary || { total: data.apps.length, online: 0, degraded: 0, offline: 0, avgResponseTime: 0 });
-        setLastChecked(data.checkedAt);
-      }
-    } catch { }
-    setLoading(false);
-  }, []);
-
-  useEffect(() => { fetchHealth(); }, [fetchHealth]);
-
-  const filteredApps = apps.filter(app => {
-    if (filterCategory !== "all" && app.category !== filterCategory) return false;
-    if (filterStatus !== "all" && app.status !== filterStatus) return false;
-    if (searchQuery && !app.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-    return true;
-  });
-
-  const categories = Array.from(new Set(apps.map(a => a.category)));
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
-        title="Ecosystem Dashboard - DarkWave Studios"
-        description="Master control center for monitoring all 27 DarkWave ecosystem apps. Real-time health checks, response times, and quick access to developer tools."
-        keywords="ecosystem dashboard, health monitoring, developer tools, API, widgets"
+        title="Developers - DarkWave Studios"
+        description="Developer tools and APIs for building with DarkWave Studios. Access Trust Layer widgets, Guardian AI certification, and Studio IDE."
+        keywords="developer tools, API, widgets, embeddable components, AI certification, web development SDK"
       />
       <BreadcrumbSchema
         items={[
@@ -162,451 +305,387 @@ export default function Developers() {
       />
 
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(139,92,246,0.06),transparent_50%)] -z-10" />
-
-      {/* Animated grid background */}
-      <div className="fixed inset-0 -z-10 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(rgba(6,182,212,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.3) 1px, transparent 1px)`,
-        backgroundSize: "60px 60px"
-      }} />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)] -z-10" />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-home">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 lg:gap-4">
+            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
               <ChevronRight className="w-5 h-5 rotate-180" />
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                <Cpu className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <span className="font-display text-lg font-bold hidden sm:block">Ecosystem Dashboard</span>
-                <span className="font-display text-lg font-bold sm:hidden">Dashboard</span>
-              </div>
+              <Code2 className="w-6 h-6 text-primary" />
+              <span className="font-display text-lg lg:text-xl font-bold">Developer Hub</span>
             </div>
-            {!loading && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="hidden md:flex items-center gap-2 ml-4">
-                <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                  summary.online === summary.total ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"
-                }`}>
-                  <Radio className="w-3 h-3" />
-                  {summary.online}/{summary.total} Online
-                </div>
-              </motion.div>
-            )}
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={fetchHealth}
-              disabled={loading}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors disabled:opacity-40"
-              data-testid="button-refresh-health"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
-              <span className="hidden sm:inline">Refresh</span>
-            </button>
-            <Link
-              href="/command"
-              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
-              data-testid="link-command-center"
-            >
-              <Command className="w-3.5 h-3.5" /> Command
-            </Link>
-          </div>
+          <Link 
+            href="/hub"
+            className="btn-glow bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+            data-testid="button-browse-widgets"
+          >
+            Browse Widgets
+          </Link>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        {/* Hero Stats Row */}
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        {/* Hero */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 lg:mb-24"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center">
-            {/* Left: Title + Stats */}
-            <div>
-              <motion.h1
-                className="font-display font-bold text-3xl lg:text-5xl mb-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Master Control
-                </span>
-              </motion.h1>
-              <p className="text-muted-foreground text-sm lg:text-base mb-6 max-w-xl">
-                Real-time health monitoring across all 27 production apps. 1.8M+ lines of code, live status, and instant access to every developer tool.
-              </p>
-
-              {/* Summary Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[
-                  { label: "Online", value: summary.online, icon: CheckCircle2, color: "text-green-400", bg: "bg-green-500/10 border-green-500/20" },
-                  { label: "Degraded", value: summary.degraded, icon: AlertTriangle, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
-                  { label: "Offline", value: summary.offline, icon: XCircle, color: "text-red-400", bg: "bg-red-500/10 border-red-500/20" },
-                  { label: "Avg Response", value: `${summary.avgResponseTime}ms`, icon: Timer, color: "text-cyan-400", bg: "bg-cyan-500/10 border-cyan-500/20" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + i * 0.05 }}
-                  >
-                    <GlassCard variant="stat" className={`p-3 rounded-xl border ${stat.bg}`} data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}>
-                      <div className="flex items-center gap-2 mb-1">
-                        <stat.icon className={`w-4 h-4 ${stat.color}`} />
-                        <span className="text-xs text-muted-foreground">{stat.label}</span>
-                      </div>
-                      <div className={`text-xl font-bold font-display ${stat.color}`}>
-                        {loading ? "..." : stat.value}
-                      </div>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Health Ring */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="hidden lg:flex flex-col items-center"
-            >
-              <HealthRing online={summary.online} total={summary.total} />
-              {lastChecked && (
-                <span className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {new Date(lastChecked).toLocaleTimeString()}
-                </span>
-              )}
-            </motion.div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-6" data-testid="badge-developer-tools">
+            <Sparkles className="w-4 h-4" />
+            Developer Tools & APIs
           </div>
+          
+          <h1 className="font-display font-bold text-4xl lg:text-6xl mb-6" data-testid="text-hero-title">
+            Build with{" "}
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              Trust Layer
+            </span>
+          </h1>
+          
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Access our suite of developer tools, embeddable widgets, and APIs to enhance your applications with battle-tested, production-ready components.
+          </p>
         </motion.section>
 
-        {/* Quick Actions */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mb-8"
-        >
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Quick Actions</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {quickActions.map((action, i) => (
-              <motion.div key={action.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 + i * 0.04 }}>
-                <Link href={action.href} data-testid={`quick-${action.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <GlassCard className="p-3 rounded-xl group hover:border-white/20 transition-all cursor-pointer h-full">
-                    <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${action.gradient} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
-                      <action.icon className="w-4 h-4 text-white" />
-                    </div>
-                    <h3 className="text-sm font-semibold mb-0.5 group-hover:text-primary transition-colors">{action.label}</h3>
-                    <p className="text-[11px] text-muted-foreground leading-tight">{action.desc}</p>
-                  </GlassCard>
-                </Link>
+        {/* Products Grid */}
+        <section className="mb-16 lg:mb-24">
+          <h2 className="text-2xl lg:text-3xl font-bold font-display text-center mb-8 lg:mb-12">
+            Developer Products
+          </h2>
+          
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="grid lg:grid-cols-3 gap-6 lg:gap-8"
+          >
+            {developerProducts.map((product) => (
+              <motion.div key={product.id} variants={itemVariants}>
+              <GlassCard glow className="rounded-2xl p-6 lg:p-8 group" data-testid={`card-product-${product.id}`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                  <product.icon className="w-7 h-7 text-white" />
+                </div>
+                
+                <h3 className="text-xl lg:text-2xl font-bold font-display mb-3">{product.title}</h3>
+                <p className="text-muted-foreground mb-6">{product.description}</p>
+                
+                <ul className="space-y-2 mb-6">
+                  {product.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                
+                {product.external ? (
+                  <a 
+                    href={product.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-2 bg-gradient-to-r ${product.gradient} text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity`}
+                    data-testid={`link-${product.id}`}
+                  >
+                    Open Studio <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <Link 
+                    href={product.href}
+                    className={`inline-flex items-center gap-2 bg-gradient-to-r ${product.gradient} text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity`}
+                    data-testid={`link-${product.id}`}
+                  >
+                    Explore <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </GlassCard>
               </motion.div>
             ))}
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        {/* Filters & Search */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search apps..."
-              className="w-full bg-white/[0.03] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-              data-testid="input-search-apps"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition-colors ${
-                showFilters ? "bg-primary/10 border-primary/30 text-primary" : "bg-white/[0.03] border-white/10 text-muted-foreground hover:text-white"
-              }`}
-              data-testid="button-toggle-filters"
-            >
-              <Filter className="w-3.5 h-3.5" /> Filters
-              {(filterCategory !== "all" || filterStatus !== "all") && (
-                <span className="w-4 h-4 rounded-full bg-primary text-[10px] flex items-center justify-center text-white font-bold">
-                  {(filterCategory !== "all" ? 1 : 0) + (filterStatus !== "all" ? 1 : 0)}
-                </span>
-              )}
-            </button>
-            <div className="text-xs text-muted-foreground">
-              {filteredApps.length} of {apps.length} apps
-            </div>
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {showFilters && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mb-4 overflow-hidden"
-            >
-              <GlassCard className="p-4 rounded-xl">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs text-muted-foreground mb-1.5 block">Category</label>
-                    <div className="flex flex-wrap gap-1.5">
-                      <button
-                        onClick={() => setFilterCategory("all")}
-                        className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-                          filterCategory === "all" ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground hover:text-white"
-                        }`}
-                        data-testid="filter-category-all"
-                      >
-                        All
-                      </button>
-                      {categories.map(cat => (
-                        <button
-                          key={cat}
-                          onClick={() => setFilterCategory(cat)}
-                          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-                            filterCategory === cat ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground hover:text-white"
-                          }`}
-                          data-testid={`filter-category-${cat}`}
-                        >
-                          {categoryMeta[cat]?.label || cat}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-xs text-muted-foreground mb-1.5 block">Status</label>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["all", "online", "degraded", "offline", "timeout"].map(s => (
-                        <button
-                          key={s}
-                          onClick={() => setFilterStatus(s)}
-                          className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-                            filterStatus === s ? "bg-primary/20 text-primary" : "bg-white/5 text-muted-foreground hover:text-white"
-                          }`}
-                          data-testid={`filter-status-${s}`}
-                        >
-                          {s === "all" ? "All" : s.charAt(0).toUpperCase() + s.slice(1)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* App Health Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
-        >
-          {loading ? (
-            Array.from({ length: 9 }).map((_, i) => (
-              <motion.div key={i} variants={itemVariants}>
-                <GlassCard className="p-4 rounded-xl animate-pulse">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-white/10" />
-                    <div className="flex-1">
-                      <div className="w-24 h-4 bg-white/10 rounded mb-1" />
-                      <div className="w-16 h-3 bg-white/5 rounded" />
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="w-16 h-6 bg-white/5 rounded" />
-                    <div className="w-16 h-6 bg-white/5 rounded" />
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ))
-          ) : (
-            filteredApps.map(app => {
-              const meta = categoryMeta[app.category] || categoryMeta.core;
-              return (
-                <motion.div key={app.id} variants={itemVariants}>
-                  <GlassCard
-                    className={`p-4 rounded-xl group hover:border-white/20 transition-all duration-300 relative overflow-hidden ${
-                      app.status === "offline" || app.status === "timeout" ? "border-red-500/20" : ""
-                    }`}
-                    data-testid={`card-app-${app.id}`}
-                  >
-                    {/* Subtle category gradient overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${meta.gradient} opacity-[0.02] group-hover:opacity-[0.05] transition-opacity`} />
-
-                    <div className="relative">
-                      {/* Top row: Icon + Name + Status */}
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${meta.gradient} flex items-center justify-center flex-shrink-0`}>
-                            <span className="text-white text-xs font-bold">
-                              {app.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase()}
-                            </span>
-                          </div>
-                          <div className="min-w-0">
-                            <h3 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">{app.name}</h3>
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-${meta.color}-400`}>{meta.label}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-1.5 flex-shrink-0">
-                          <StatusDot status={app.status} />
-                        </div>
-                      </div>
-
-                      {/* Stats Row */}
-                      <div className="flex items-center gap-3 mb-3 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <FileCode className="w-3 h-3" /> {app.loc} LOC
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Layers className="w-3 h-3" /> {app.pages} pages
-                        </span>
-                        <div className="ml-auto">
-                          <ResponseBadge ms={app.responseTime || 0} />
-                        </div>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex items-center gap-2">
-                        <a
-                          href={app.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium transition-colors"
-                          data-testid={`link-visit-${app.id}`}
-                        >
-                          <Eye className="w-3 h-3" /> Visit
-                        </a>
-                        <a
-                          href={app.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-xs font-medium transition-colors"
-                          data-testid={`link-open-${app.id}`}
-                        >
-                          <ArrowUpRight className="w-3 h-3" /> Open App
-                        </a>
-                      </div>
-
-                      {/* Error indicator */}
-                      {(app.status === "offline" || app.status === "timeout") && app.error && (
-                        <div className="mt-2 px-2 py-1 rounded bg-red-500/10 text-red-400 text-[10px] truncate">
-                          {app.error}
-                        </div>
-                      )}
-                    </div>
-                  </GlassCard>
-                </motion.div>
-              );
-            })
-          )}
-        </motion.div>
-
-        {/* Empty state */}
-        {!loading && filteredApps.length === 0 && (
-          <GlassCard className="p-12 rounded-xl text-center">
-            <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No apps match your filters</h3>
-            <p className="text-sm text-muted-foreground mb-4">Try adjusting your search or filter criteria.</p>
-            <button
-              onClick={() => { setFilterCategory("all"); setFilterStatus("all"); setSearchQuery(""); }}
-              className="text-primary text-sm font-semibold hover:underline"
-              data-testid="button-clear-filters"
-            >
-              Clear all filters
-            </button>
-          </GlassCard>
-        )}
-
-        {/* Bottom Developer Tools Section */}
+        {/* API Features */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="mt-12 mb-8"
+          className="mb-16 lg:mb-24"
         >
-          <GlassCard glow className="rounded-2xl p-6 lg:p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                  <Wrench className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold font-display">Developer Tools</h2>
-                  <p className="text-xs text-muted-foreground">Build, manage, and monitor the ecosystem</p>
-                </div>
-              </div>
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
+            <div className="text-center mb-8 lg:mb-12">
+              <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">API Capabilities</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Integrate Trust Layer services into your applications with our comprehensive API suite.
+              </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { icon: Shield, label: "Guardian AI", desc: "Agent certification & security", href: "/guardian-ai", gradient: "from-red-500 to-orange-500" },
-                { icon: Bot, label: "AI Agent Marketplace", desc: "Build & deploy AI agents", href: "https://dwtl.io/ai-agents", ext: true, gradient: "from-emerald-500 to-teal-500" },
-                { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-purple-500 to-pink-500" },
-                { icon: Globe, label: "Ecosystem", desc: "All 27 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
-              ].map((tool, i) => (
-                tool.ext ? (
-                  <a key={tool.label} href={tool.href} target="_blank" rel="noopener noreferrer" data-testid={`tool-${tool.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <GlassCard variant="stat" className="p-4 rounded-xl group hover:border-white/20 transition-all cursor-pointer h-full">
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${tool.gradient} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                        <tool.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <h3 className="text-sm font-semibold mb-0.5">{tool.label}</h3>
-                      <p className="text-xs text-muted-foreground">{tool.desc}</p>
-                      <ExternalLink className="w-3 h-3 text-muted-foreground mt-2" />
-                    </GlassCard>
-                  </a>
-                ) : (
-                  <Link key={tool.label} href={tool.href} data-testid={`tool-${tool.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <GlassCard variant="stat" className="p-4 rounded-xl group hover:border-white/20 transition-all cursor-pointer h-full">
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${tool.gradient} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                        <tool.icon className="w-5 h-5 text-white" />
-                      </div>
-                      <h3 className="text-sm font-semibold mb-0.5">{tool.label}</h3>
-                      <p className="text-xs text-muted-foreground">{tool.desc}</p>
-                    </GlassCard>
-                  </Link>
-                )
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {apiFeatures.map((feature, i) => (
+                <GlassCard variant="stat" key={i} className="text-center p-6 rounded-xl" data-testid={`card-api-feature-${i}`}>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                </GlassCard>
               ))}
             </div>
           </GlassCard>
         </motion.section>
 
-        {/* Ecosystem Stats Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
+        {/* Pulse API Documentation */}
+        <PulseApiDocs />
+
+        {/* Publications & Outreach Directory */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 lg:mb-24"
+          data-testid="section-publications"
         >
-          {[
-            { label: "Total Apps", value: "27", icon: Server },
-            { label: "Total Widgets", value: "72", icon: Boxes },
-            { label: "Lines of Code", value: "1.8M+", icon: FileCode },
-            { label: "API Endpoints", value: "1,500+", icon: Zap },
-          ].map(stat => (
-            <GlassCard variant="stat" key={stat.label} className="p-4 rounded-xl text-center" data-testid={`stat-footer-${stat.label.toLowerCase().replace(/\s/g, '-')}`}>
-              <stat.icon className="w-5 h-5 text-primary mx-auto mb-2" />
-              <div className="text-xl font-bold font-display text-white">{stat.value}</div>
-              <div className="text-xs text-muted-foreground">{stat.label}</div>
-            </GlassCard>
-          ))}
-        </motion.div>
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
+            <div className="text-center mb-8 lg:mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary mb-6">
+                <Megaphone className="w-3.5 h-3.5" />
+                PR & OUTREACH DIRECTORY
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">Publications & Media Outreach</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Target publications for press coverage, product launches, and thought leadership across our ecosystem verticals.
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              {/* Tech & Startup Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Tech & Startup Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 27 production apps and 1.8M+ lines of code", icon: Zap },
+                    { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
+                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 27-app ecosystem as a solo developer", icon: Terminal },
+                    { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
+                    { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
+                    { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-cyan-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Blockchain & Web3 Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Blockchain & Web3 Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "CoinDesk", url: "https://www.coindesk.com/contact/", type: "Press inquiries", pitch: "Trust Layer L1 blockchain, Guardian AI agent certification, Signal digital asset", icon: Shield },
+                    { name: "The Block", url: "https://www.theblock.co/contact", type: "News tips", pitch: "First AI agent certification system for crypto — Guardian AI + Trust Shield", icon: Lock },
+                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 27 apps verified through Trust Layer", icon: Boxes },
+                    { name: "CoinTelegraph", url: "https://cointelegraph.com/press-releases", type: "Press releases", pitch: "Proof-of-Authority L1 with DeFi, NFT marketplace, DAO governance", icon: Globe },
+                    { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
+                    { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-purple-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Industry-Specific Publications */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Industry-Specific Publications</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "Painting Contractor Magazine", url: "https://www.paintmag.com", type: "Trade publication", pitch: "PaintPros.io + TradeWorks AI — 85+ calculators, voice-to-estimate, AI tools for painters", icon: Wrench, color: "amber" },
+                    { name: "Staffing Industry Analysts", url: "https://www2.staffingindustry.com", type: "Staffing industry news", pitch: "ORBIT Staffing OS — automated white-label staffing with GPS tracking, payroll, compliance", icon: Users, color: "amber" },
+                    { name: "Inman News", url: "https://www.inman.com/contribute/", type: "Real estate tech", pitch: "TrustHome — Expo React Native platform with Voice AI, blockchain doc vault, MLS integration", icon: Home, color: "amber" },
+                    { name: "HousingWire", url: "https://www.housingwire.com", type: "Real estate + fintech", pitch: "Blockchain-verified real estate transactions with TrustHome + Trust Layer", icon: Building2, color: "amber" },
+                    { name: "QSR Magazine", url: "https://www.qsrmagazine.com", type: "Food service industry", pitch: "TL Driver Connect / Happy Eats — multi-tenant delivery platform with zone ordering", icon: Target, color: "amber" },
+                    { name: "Venue Management Association", url: "https://www.iavm.org", type: "Venue operations", pitch: "Orby Commander — stadium/arena command center with emergency response + delivery tracking", icon: Building2, color: "amber" },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-amber-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* SaaS & Developer Platforms */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                    <Newspaper className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold">SaaS & Developer Platforms</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "27-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
+                    { name: "G2", url: "https://www.g2.com/products/new", type: "Software reviews", pitch: "List PaintPros, ORBIT, and individual products for verified reviews", icon: BarChart3 },
+                    { name: "Capterra", url: "https://www.capterra.com/vendors/sign-up", type: "Software directory", pitch: "List trade service tools, staffing software, and real estate platforms", icon: Target },
+                    { name: "AppSumo", url: "https://sell.appsumo.com", type: "Lifetime deal marketplace", pitch: "Trust Layer Hub widgets or Pulse API access as a limited-time deal", icon: Zap },
+                    { name: "AlternativeTo", url: "https://alternativeto.net/manage-apps/", type: "Software alternative directory", pitch: "Position against competitors — PaintPros vs Jobber, ORBIT vs Bullhorn", icon: Globe },
+                    { name: "StackShare", url: "https://stackshare.io", type: "Tech stack community", pitch: "Showcase the full ecosystem tech stack — great for developer credibility", icon: Boxes },
+                  ].map((pub, i) => (
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <pub.icon className="w-4 h-4 text-emerald-400" />
+                          <span className="font-semibold text-sm">{pub.name}</span>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">{pub.type}</span>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Outreach Tips */}
+              <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <Mail className="w-5 h-5 text-primary" />
+                  <h3 className="text-lg font-semibold">Outreach Best Practices</h3>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">1</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Lead with the story — solo developer building a 27-app, 1.8M+ line ecosystem is compelling and rare</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">2</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Pitch one product per publication — don't overwhelm. Match the product to the publication's audience</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">3</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Product Hunt launches work best on Tuesday–Thursday. Prepare assets, GIFs, and a maker comment in advance</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">4</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">For trade publications, offer to write a guest article — position yourself as a tech expert solving industry problems</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">5</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Include live demo links and the Ecosystem Metrics page — real numbers build credibility instantly</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-[10px] font-bold text-primary">6</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">Follow up once after 5–7 days. Keep pitches under 200 words. Journalists are busy — make it easy to say yes</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <p className="text-xs text-muted-foreground">
+                    Contact for all press inquiries: <span className="text-primary font-semibold">team@dwsc.io</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </GlassCard>
+        </motion.section>
+
+        {/* CTA */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12">
+            <h2 className="text-2xl lg:text-3xl font-bold font-display mb-4">Ready to Build?</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+              Start integrating Trust Layer widgets into your projects today. Browse our marketplace or contact us for custom solutions.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link 
+                href="/hub"
+                className="btn-glow inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+                data-testid="button-cta-widgets"
+              >
+                Browse Widgets <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link 
+                href="/contact"
+                className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors"
+                data-testid="button-cta-contact"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </GlassCard>
+        </motion.section>
       </main>
 
-      <footer className="border-t border-white/10 py-6">
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-8 mt-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.
