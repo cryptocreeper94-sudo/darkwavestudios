@@ -1358,6 +1358,99 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
+  const ecosystemHealthTargets = [
+    { id: "trust-layer", name: "Trust Layer", url: "https://dwsc.io", category: "core", loc: "243,958", pages: "233" },
+    { id: "trust-shield", name: "Guardian Shield", url: "https://trustshield.tech", category: "security", loc: "~15K", pages: "8" },
+    { id: "pulse", name: "Pulse", url: "https://darkwavepulse.com", category: "trading", loc: "~20K", pages: "12" },
+    { id: "strikeagent", name: "StrikeAgent", url: "https://strikeagent.io", category: "trading", loc: "~8K", pages: "6" },
+    { id: "orbit-staffing", name: "ORBIT Staffing OS", url: "https://orbitstaffing.io", category: "business", loc: "~25K", pages: "15" },
+    { id: "orby-commander", name: "Orby Commander", url: "https://orbycommander.com", category: "business", loc: "~12K", pages: "10" },
+    { id: "lot-ops-pro", name: "Lot Ops Pro", url: "https://lotopspro.com", category: "business", loc: "~10K", pages: "8" },
+    { id: "brew-board", name: "Brew & Board Coffee", url: "https://brewandboardcoffee.replit.app", category: "business", loc: "~6K", pages: "5" },
+    { id: "tradeworks-ai", name: "TradeWorks AI", url: "https://tradeworksai.io", category: "trades", loc: "11,231", pages: "7" },
+    { id: "paint-pros", name: "PaintPros.io", url: "https://paintpros.io", category: "trades", loc: "152,149", pages: "96" },
+    { id: "nash-paint-pros", name: "NashPaintPros.io", url: "https://nashpaintpros.io", category: "trades", loc: "3,950", pages: "4" },
+    { id: "garagebot", name: "GarageBot", url: "https://garagebot.io", category: "auto", loc: "88,700+", pages: "30+" },
+    { id: "torque", name: "TORQUE", url: "https://garagebot.io/torque", category: "auto", loc: "5,475", pages: "10" },
+    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://happyeats.app", category: "auto", loc: "183,458", pages: "59" },
+    { id: "vedasolus", name: "VedaSolus", url: "https://vedasolus.io", category: "health", loc: "~8K", pages: "6" },
+    { id: "tlid-io", name: "TLID.io", url: "https://dwsc.io/marketing", category: "business", loc: "7,133", pages: "11" },
+    { id: "chronicles", name: "Chronicles", url: "https://yourlegacy.io", category: "gaming", loc: "36,947", pages: "27" },
+    { id: "the-arcade", name: "The Arcade", url: "https://darkwavegames.io", category: "gaming", loc: "~15K", pages: "12" },
+    { id: "dwsc-studio", name: "DWSC Studio", url: "https://dwsc.io/studio", category: "core", loc: "7,006", pages: "5" },
+    { id: "trusthome", name: "TrustHome", url: "https://trusthome.replit.app", category: "real-estate", loc: "26,653", pages: "20" },
+    { id: "trustvault", name: "TrustVault", url: "https://trustvault.replit.app", category: "security", loc: "143,026", pages: "40+" },
+    { id: "guardian-scanner", name: "Guardian Scanner", url: "https://dwsc.io/guardian-scanner", category: "security", loc: "~5K", pages: "3" },
+    { id: "signal-chat", name: "Signal Chat", url: "https://dwsc.io/signal-chat", category: "social", loc: "~4K", pages: "2" },
+    { id: "the-void", name: "THE VOID", url: "https://intothevoid.app", category: "health", loc: "23,532", pages: "27" },
+    { id: "guardian-screener", name: "Guardian Screener", url: "https://dwsc.io/guardian-screener", category: "trading", loc: "~8K", pages: "5" },
+    { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
+    { id: "chronochat", name: "ChronoChat", url: "https://chronochat.io", category: "social", loc: "~4K", pages: "3" },
+  ];
+
+  let healthCache: { results: any[]; timestamp: number } | null = null;
+  const HEALTH_CACHE_TTL = 60000;
+
+  app.get("/api/ecosystem/health", async (req, res) => {
+    try {
+      if (healthCache && Date.now() - healthCache.timestamp < HEALTH_CACHE_TTL) {
+        return res.json({ success: true, cached: true, checkedAt: new Date(healthCache.timestamp).toISOString(), apps: healthCache.results });
+      }
+
+      const results = await Promise.allSettled(
+        ecosystemHealthTargets.map(async (target) => {
+          const start = Date.now();
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 8000);
+            const response = await fetch(target.url, {
+              method: "HEAD",
+              signal: controller.signal,
+              headers: { "User-Agent": "DarkWave-HealthCheck/1.0" },
+              redirect: "follow",
+            });
+            clearTimeout(timeout);
+            const responseTime = Date.now() - start;
+            return {
+              ...target,
+              status: response.ok ? "online" : "degraded",
+              statusCode: response.status,
+              responseTime,
+              checkedAt: new Date().toISOString(),
+            };
+          } catch (err: any) {
+            return {
+              ...target,
+              status: err.name === "AbortError" ? "timeout" : "offline",
+              statusCode: 0,
+              responseTime: Date.now() - start,
+              checkedAt: new Date().toISOString(),
+              error: err.message,
+            };
+          }
+        })
+      );
+
+      const healthResults = results.map(r => r.status === "fulfilled" ? r.value : { status: "error", error: "check failed" });
+      healthCache = { results: healthResults, timestamp: Date.now() };
+
+      const online = healthResults.filter((r: any) => r.status === "online").length;
+      const degraded = healthResults.filter((r: any) => r.status === "degraded").length;
+      const offline = healthResults.filter((r: any) => r.status === "offline" || r.status === "timeout").length;
+      const avgResponseTime = Math.round(healthResults.reduce((sum: number, r: any) => sum + (r.responseTime || 0), 0) / healthResults.length);
+
+      res.json({
+        success: true,
+        cached: false,
+        checkedAt: new Date().toISOString(),
+        summary: { total: healthResults.length, online, degraded, offline, avgResponseTime },
+        apps: healthResults,
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   app.get("/api/ecosystem/widget-data", async (req, res) => {
     try {
       const ecosystemAppsData = [
