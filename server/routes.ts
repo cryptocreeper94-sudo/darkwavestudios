@@ -1358,6 +1358,65 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
+  app.get("/api/ecosystem/widget-data", async (req, res) => {
+    try {
+      const ecosystemAppsData = [
+        { displayName: "DarkWave Studios", description: "Full-service web agency platform", icon: "DW", isVerified: true },
+        { displayName: "TL Driver Connect", description: "Logistics platform with dual PWA", icon: "DC", isVerified: true },
+        { displayName: "Chronicles", description: "Immersive RPG with procedural audio", icon: "CH", isVerified: true },
+        { displayName: "THE VOID", description: "Existential AI experience", icon: "TV", isVerified: true },
+        { displayName: "DarkWave Arcade", description: "12 retro arcade games", icon: "AR", isVerified: true },
+        { displayName: "Guardian AI", description: "AI agent security scanner", icon: "GA", isVerified: true },
+        { displayName: "Signal Chat", description: "Encrypted real-time messaging", icon: "SC", isVerified: true },
+        { displayName: "TrustVault Studio", description: "Cross-app media editor", icon: "TS", isVerified: true },
+        { displayName: "Crypto Exchange", description: "Digital asset trading platform", icon: "CE", isVerified: true },
+        { displayName: "ChronoChat", description: "Community messaging platform", icon: "CC", isVerified: true },
+        { displayName: "DarkWave Academy", description: "Learning & tutorials platform", icon: "DA", isVerified: true },
+        { displayName: "Blockchain Explorer", description: "Transaction verification tool", icon: "BE", isVerified: true },
+        { displayName: "NFT Gallery", description: "Curated digital art collections", icon: "NF", isVerified: true },
+        { displayName: "Food Truck Map", description: "Location-based food finder", icon: "FT", isVerified: true },
+        { displayName: "Fuel Finder", description: "Gas price comparison app", icon: "FF", isVerified: true },
+        { displayName: "CDL Directory", description: "Commercial driver resources", icon: "CD", isVerified: true },
+        { displayName: "AI Agent Marketplace", description: "Deploy & discover AI agents", icon: "AM", isVerified: true },
+        { displayName: "Marketing Hub", description: "Social media automation", icon: "MH", isVerified: true },
+        { displayName: "VedaSolus", description: "Health passport & wellness", icon: "VS", isVerified: true },
+        { displayName: "GarageBot", description: "Automotive shop management", icon: "GB", isVerified: true },
+        { displayName: "TORQUE", description: "Repair shop operations", icon: "TQ", isVerified: true },
+        { displayName: "Brew & Board", description: "Coffee & catering platform", icon: "BB", isVerified: true },
+        { displayName: "Orbit Staffing", description: "Workforce management", icon: "OS", isVerified: true },
+        { displayName: "DW Analytics", description: "Business intelligence dashboard", icon: "AN", isVerified: true },
+        { displayName: "Trust Layer SSO", description: "Cross-app identity system", icon: "TL", isVerified: true },
+        { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
+        { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
+      ];
+
+      res.json({
+        success: true,
+        stats: {
+          totalApps: 27,
+          verifiedApps: 27,
+          totalWidgets: 71,
+          totalLOC: "1.8M+"
+        },
+        apps: ecosystemAppsData,
+        verification: {
+          method: "Trust Layer SSO",
+          protocol: "JWT Bearer Token",
+          status: "active"
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/widget.js", async (req, res) => {
+    const path = await import('path');
+    res.sendFile(path.join(process.cwd(), 'client', 'public', 'widgets', 'tl-ecosystem.js'), {
+      headers: { 'Content-Type': 'application/javascript' }
+    });
+  });
+
   // Get Full Widget Code from file
   app.get("/api/ecosystem/widget-code/:widgetName", async (req, res) => {
     try {
@@ -1365,7 +1424,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       const validWidgets = [
         'tl-analytics', 'tl-booking', 'tl-chat', 'tl-crew-tracker',
         'tl-crm', 'tl-estimator', 'tl-lead-capture', 'tl-proposal',
-        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather', 'tl-effects-kit'
+        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather', 'tl-effects-kit',
+        'tl-ecosystem'
       ];
       
       if (!validWidgets.includes(widgetName)) {
