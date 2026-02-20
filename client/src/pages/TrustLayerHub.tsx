@@ -950,6 +950,17 @@ const widgetsList = [
     linesOfCode: "~600 lines",
     complexity: "Beginner-friendly"
   },
+  {
+    id: "shared-components", name: "Shared Components System", icon: Layers, containerId: "demo-shared-components", color: "#8b5cf6",
+    description: "Centralized UI component system for ecosystem-wide consistency", price: 199, priceId: "price_widget_shared_components",
+    fullDescription: "Centralized shared component system that lets you define any UI element once and deploy it across your entire ecosystem of apps instantly. Footer, header, announcement bar, trust badge, cookie consent, notification banner — create any component in the admin panel, and every app that includes the loader script gets the update in real-time. No redeployments needed. One script tag, unlimited shared components, instant ecosystem-wide consistency.",
+    features: ["One script tag installs all shared components", "Admin CRUD for creating/editing components", "Real-time updates — change once, propagate everywhere", "Component types: footer, header, banner, badge, and any custom", "Dark and light theme support via {{theme}} variable", "Bundle endpoint for loading multiple components at once", "Individual render endpoint per component", "Version tracking with auto-increment", "Event system for load/error callbacks", "Auto-placement (footers append, headers prepend)", "5-minute cache with instant cache-busting on update"],
+    requirements: ["Any HTML page, React app, or web application", "Network access to the Trust Layer API"],
+    includes: ["Full source code", "Universal loader script (tl-shared-loader.js)", "Admin API endpoints", "3 pre-built components (footer, announcement bar, trust badge)", "Component rendering engine", "Bundle system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "REST API", "Node.js", "Express", "PostgreSQL", "CSS3"],
+    linesOfCode: "~1,400 lines (full stack)",
+    complexity: "Intermediate"
+  },
 ];
 
 interface CartItem {

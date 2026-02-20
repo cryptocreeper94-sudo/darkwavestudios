@@ -781,6 +781,32 @@ export const AI_CREDIT_COSTS = {
   "image-enhance": { credits: 2, label: "AI Image Enhancement" },
 } as const;
 
+export const sharedComponents = pgTable("shared_components", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  type: varchar("type", { length: 50 }).notNull(),
+  description: text("description"),
+  htmlContent: text("html_content"),
+  cssContent: text("css_content"),
+  jsContent: text("js_content"),
+  config: text("config"),
+  version: integer("version").default(1),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertSharedComponentSchema = createInsertSchema(sharedComponents).omit({
+  id: true,
+  version: true,
+  isActive: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertSharedComponent = z.infer<typeof insertSharedComponentSchema>;
+export type SharedComponent = typeof sharedComponents.$inferSelect;
+
 export const CREDIT_PACKAGES = [
   { id: "starter", credits: 50, price: 299, label: "Starter Pack", description: "50 credits" },
   { id: "popular", credits: 100, price: 499, label: "Popular Pack", description: "100 credits", badge: "Best Value" },

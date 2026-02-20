@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES, sharedComponents, insertSharedComponentSchema } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
 import { eq, asc, desc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
@@ -1395,7 +1395,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         stats: {
           totalApps: 27,
           verifiedApps: 27,
-          totalWidgets: 71,
+          totalWidgets: 72,
           totalLOC: "1.8M+"
         },
         apps: ecosystemAppsData,
@@ -1417,6 +1417,123 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     });
   });
 
+  // ═══════════════════════════════════════════════════════
+  // TRUST LAYER SHARED COMPONENTS SYSTEM
+  // ═══════════════════════════════════════════════════════
+
+  app.get("/api/ecosystem/shared/loader.js", async (req, res) => {
+    const path = await import('path');
+    res.sendFile(path.join(process.cwd(), 'client', 'public', 'widgets', 'tl-shared-loader.js'), {
+      headers: { 'Content-Type': 'application/javascript', 'Cache-Control': 'public, max-age=300' }
+    });
+  });
+
+  app.get("/api/ecosystem/shared/components", async (req, res) => {
+    try {
+      const { type, slug } = req.query;
+      let query = db.select().from(sharedComponents).where(eq(sharedComponents.isActive, true));
+      const results = await query;
+      let filtered = results;
+      if (type) filtered = filtered.filter(c => c.type === type);
+      if (slug) filtered = filtered.filter(c => c.slug === slug);
+      res.json({ success: true, components: filtered, count: filtered.length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/shared/components/:slug", async (req, res) => {
+    try {
+      const [component] = await db.select().from(sharedComponents)
+        .where(and(eq(sharedComponents.slug, req.params.slug), eq(sharedComponents.isActive, true)));
+      if (!component) return res.status(404).json({ success: false, error: "Component not found" });
+      res.json({ success: true, component });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/shared/render/:slug", async (req, res) => {
+    try {
+      const [component] = await db.select().from(sharedComponents)
+        .where(and(eq(sharedComponents.slug, req.params.slug), eq(sharedComponents.isActive, true)));
+      if (!component) return res.status(404).send('<!-- Component not found -->');
+      const theme = (req.query.theme as string) || 'dark';
+      let output = '';
+      if (component.cssContent) output += '<style>' + component.cssContent + '</style>';
+      if (component.htmlContent) output += component.htmlContent.replace(/\{\{theme\}\}/g, theme);
+      if (component.jsContent) output += '<script>' + component.jsContent + '</script>';
+      res.setHeader('Content-Type', 'text/html');
+      res.setHeader('Cache-Control', 'public, max-age=300');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(output);
+    } catch (error: any) {
+      res.status(500).send('<!-- Error loading component -->');
+    }
+  });
+
+  app.get("/api/ecosystem/shared/bundle", async (req, res) => {
+    try {
+      const slugs = ((req.query.components as string) || '').split(',').filter(Boolean);
+      const theme = (req.query.theme as string) || 'dark';
+      const allActive = await db.select().from(sharedComponents).where(eq(sharedComponents.isActive, true));
+      const toRender = slugs.length > 0 ? allActive.filter(c => slugs.includes(c.slug)) : allActive;
+      let css = '';
+      let html = '';
+      let js = '';
+      for (const c of toRender) {
+        if (c.cssContent) css += '/* ' + c.slug + ' */\n' + c.cssContent + '\n';
+        if (c.htmlContent) html += '<!-- ' + c.slug + ' -->\n' + c.htmlContent.replace(/\{\{theme\}\}/g, theme) + '\n';
+        if (c.jsContent) js += '// ' + c.slug + '\n' + c.jsContent + '\n';
+      }
+      const versions = toRender.map(c => c.version || 1);
+      res.json({ success: true, css, html, js, components: toRender.map(c => c.slug), version: versions.length > 0 ? Math.max(...versions) : 0 });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/ecosystem/shared/components", requireAdminAuth, async (req, res) => {
+    try {
+      const parsed = insertSharedComponentSchema.parse(req.body);
+      const [component] = await db.insert(sharedComponents).values(parsed).returning();
+      res.json({ success: true, component });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put("/api/ecosystem/shared/components/:slug", requireAdminAuth, async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const [existing] = await db.select().from(sharedComponents).where(eq(sharedComponents.slug, slug));
+      if (!existing) return res.status(404).json({ success: false, error: "Component not found" });
+      const allowed = ['name', 'type', 'description', 'htmlContent', 'cssContent', 'jsContent', 'config', 'isActive'];
+      const updates: any = { updatedAt: new Date(), version: (existing.version || 1) + 1 };
+      for (const key of allowed) {
+        if (req.body[key] !== undefined) updates[key] = req.body[key];
+      }
+      const [updated] = await db.update(sharedComponents).set(updates).where(eq(sharedComponents.slug, slug)).returning();
+      res.json({ success: true, component: updated });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/ecosystem/shared/components/:slug", requireAdminAuth, async (req, res) => {
+    try {
+      const [deleted] = await db.update(sharedComponents)
+        .set({ isActive: false, updatedAt: new Date() })
+        .where(eq(sharedComponents.slug, req.params.slug)).returning();
+      if (!deleted) return res.status(404).json({ success: false, error: "Component not found" });
+      res.json({ success: true, message: "Component deactivated" });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ═══════════════════════════════════════════════════════
+
   // Get Full Widget Code from file
   app.get("/api/ecosystem/widget-code/:widgetName", async (req, res) => {
     try {
@@ -1425,7 +1542,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         'tl-analytics', 'tl-booking', 'tl-chat', 'tl-crew-tracker',
         'tl-crm', 'tl-estimator', 'tl-lead-capture', 'tl-proposal',
         'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather', 'tl-effects-kit',
-        'tl-ecosystem'
+        'tl-ecosystem', 'tl-shared-loader', 'tl-shared-footer'
       ];
       
       if (!validWidgets.includes(widgetName)) {
