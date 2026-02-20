@@ -1386,6 +1386,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "guardian-screener", name: "Guardian Screener", url: "https://dwsc.io/guardian-screener", category: "trading", loc: "~8K", pages: "5" },
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
     { id: "chronochat", name: "ChronoChat", url: "https://chronochat.io", category: "social", loc: "~4K", pages: "3" },
+    { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1481,13 +1482,14 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "Trust Layer SSO", description: "Cross-app identity system", icon: "TL", isVerified: true },
         { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
         { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
+        { displayName: "Verdara", description: "AI-powered outdoor recreation super-app", icon: "VD", isVerified: true },
       ];
 
       res.json({
         success: true,
         stats: {
-          totalApps: 27,
-          verifiedApps: 27,
+          totalApps: 28,
+          verifiedApps: 28,
           totalWidgets: 72,
           totalLOC: "1.8M+"
         },

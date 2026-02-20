@@ -53,7 +53,7 @@
       el.className = 'dw-footer dw-footer-' + cfg.theme;
       el.setAttribute('data-testid', 'dw-shared-footer');
 
-      var stats = data ? data.stats : { totalApps: 27, verifiedApps: 27, totalWidgets: 71, totalLOC: '1.8M+' };
+      var stats = data ? data.stats : { totalApps: 28, verifiedApps: 28, totalWidgets: 71, totalLOC: '1.8M+' };
       var apps = data ? data.apps : [];
       var topApps = apps.slice(0, cfg.maxApps);
 

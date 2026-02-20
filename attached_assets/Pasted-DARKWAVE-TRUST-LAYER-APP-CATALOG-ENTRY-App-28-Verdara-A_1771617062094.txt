@@ -1,0 +1,170 @@
+DARKWAVE TRUST LAYER — APP CATALOG ENTRY
+
+App #28 — Verdara
+
+App ID: dw_app_verdara
+App Name: Verdara
+Tagline: AI-Powered Outdoor Recreation Super-App
+Developer: DarkWave Studios
+Ecosystem: DarkWave Trust Layer
+Status: Active / Production-Ready
+Version: 1.0.0
+
+MARKETING DESCRIPTION (Short)
+
+Verdara is the definitive AI-powered outdoor recreation platform — a super-app that combines nature identification, nationwide trail and campground discovery, arborist business management, a wood economy marketplace, wild edibles and natural medicine databases, trip planning, and gear price comparison into one seamless experience. Powered by GPT-4o vision AI and blockchain-certified through the DarkWave Trust Layer.
+
+MARKETING DESCRIPTION (Full)
+
+Verdara reimagines the outdoor experience. Point your camera at any tree, plant, fish, or wildlife and Verdara's AI instantly identifies the species with confidence scores, habitat data, conservation status, and fun facts. Explore a living catalog of 145+ real US outdoor locations — from Appalachian trails to desert canyons — that grows daily with 10-15 new entries on the path to becoming the definitive non-governmental outdoor recreation reference.
+
+Plan trips with AI-assisted route building, gear checklists, and live weather forecasts. Compare gear prices across 62+ affiliate retailers. Discover wild edibles and natural medicine with safety warnings and VedaSolus wellness integration. Book campgrounds, buy and sell in a blockchain-verified wood economy marketplace with Stripe checkout and TrustShield escrow, or run your entire arborist business — clients, jobs, invoices, and equipment — all from one platform.
+
+Verdara connects to the full DarkWave Trust Layer ecosystem: Signal Chat for real-time communication, TrustVault for media management, GarageBot for equipment tracking, TrustHome for property tree assessments, and DW-STAMP blockchain certification on every major event. Every listing, every identification, every transaction — stamped to chain.
+
+EMBLEM / LOGO DESCRIPTION (for regeneration)
+
+A bold, modern shield-shaped emblem with rounded corners. Deep forest green background (#1a2f1a) with a stylized tree silhouette at center — a single trunk branching into a symmetrical canopy made of geometric leaf shapes. The canopy incorporates subtle circuit-board trace lines within the leaf veins, symbolizing the fusion of nature and AI technology. A thin amber/gold (#d4a44c) ring borders the shield. Below the tree, the word "VERDARA" in clean, wide-tracked sans-serif uppercase lettering in off-white. A small DarkWave Trust Layer badge (miniature "DW" monogram) sits at the bottom of the shield. The overall feel is premium, earthy, and technological — nature meets intelligence.
+
+Color Palette:
+
+Primary: Forest Green #2d5a27
+Secondary: Slate #1e293b
+Accent: Amber/Gold #d4a44c
+Background: Deep Dark #0a0f0a
+Text: Off-White #e8e4d9
+TECH STACK
+
+Layer	Technology
+Frontend Framework	React 18 + TypeScript
+Build Tool	Vite
+Styling	Tailwind CSS + Shadcn UI (47 components)
+Animation	Framer Motion
+Routing	Wouter
+State/Data	TanStack React Query v5
+Backend	Express.js + TypeScript
+Database	PostgreSQL (Neon-backed)
+ORM	Drizzle ORM
+Authentication	Custom email/password (bcrypt, cookie sessions) + Trust Layer SSO (JWT HS256)
+AI Engine	OpenAI GPT-4o (Vision + Text)
+Payments	Stripe (Checkout, Subscriptions, Webhooks)
+Email	Resend (transactional, verification)
+Maps	Leaflet.js
+Real-Time	WebSocket (ws) — Signal Chat
+Blockchain	DW-STAMP via dwsc.io
+Hosting	Replit (Nix environment)
+PWA	Service Worker with offline caching
+LINES OF CODE
+
+Category	LOC
+Total Application Code	~35,500
+Frontend (TSX — 99 components, 41 pages)	24,120
+Backend (TypeScript — server)	10,669
+Shared Schema & Types	452
+CSS / Styling	288
+Configuration (JSON, HTML, configs)	~200
+CODEBASE METRICS
+
+Metric	Count
+Total Source Files	150+
+React Components	99
+Frontend Pages	41
+Frontend Routes	36
+API Endpoints	116
+Database Tables	20
+Shadcn UI Components	47
+Photorealistic Images	96
+Production Dependencies	83
+Dev Dependencies	23
+DATABASE SCHEMA (20 Tables)
+
+users, sessions, activity_log, activity_locations, trails, campgrounds, campground_bookings, catalog_locations, location_submissions, reviews, marketplace_listings, identifications, trip_plans, arborist_clients, arborist_jobs, arborist_invoices, chat_users, chat_channels, chat_messages, blog_posts
+
+SEEDED DATA
+
+Dataset	Count
+US Outdoor Locations (catalog)	145
+Trails	8
+Campgrounds	8
+Marketplace Listings	10
+Blog Posts (Verdara Journal)	6
+Wild Edible/Medicinal Plants	15+
+FEATURE MODULES (24 Activity Categories)
+
+Command Center — Bento grid dashboard, weather widget, quick actions, activity feed
+AI Species Identification — GPT-4o Vision, camera/upload, confidence scoring
+Nationwide Catalog — 145+ living locations, search, reviews, ratings, Leaflet maps
+Trail Explorer — US trail directory with interactive map markers
+Campground Booking — Reservation system with full CRUD
+Marketplace — Wood economy, Stripe checkout, TrustShield escrow, seller management
+Arborist Pro — Client management, job scheduling, invoicing, GarageBot equipment
+Trip Planner — Route builder, gear checklists, weather forecasts
+Price Compare — Gear comparison across 62+ affiliate retailers
+Wild Edibles & Natural Medicine — 15+ plants, safety warnings, VedaSolus integration
+Fishing — Spots, species, conditions
+Camping — Gear guides, site recommendations
+Climbing — Routes, difficulty ratings
+Water Sports — Kayaking, canoeing, SUP
+Winter Sports — Skiing, snowboarding, snowshoeing
+Mountain Biking — Trail difficulty, gear
+Hunting — Seasons, regulations, public lands
+Caves & Caving — Spelunking locations, safety
+Coastal Activities — Beach, tidal pools, marine life
+Desert Exploration — Arid terrain, desert flora/fauna
+Prairie & Grasslands — Open-country recreation
+Wetlands — Marshes, birdwatching, ecosystem education
+E-Mobility — Electric bikes, scooters for outdoor access
+Survival Skills — Wilderness preparedness, bushcraft
+Additional Modules:
+
+Verdara Journal (Blog) — AI-assisted SEO blog, 16 categories, JSON-LD structured data
+Signal Chat — WebSocket real-time messaging, channels, typing indicators, presence
+Developer Portal — 9-phase roadmap, affiliate directory, business suite preview
+TrustVault Gallery — Media upload, embedded editors, project creation
+Pricing/Subscriptions — 6-tier Stripe subscription system with feature gating
+Public Lands — Federal/state land directory
+Charters — Guided outdoor excursion bookings
+Conservation — Environmental stewardship resources
+SUBSCRIPTION TIERS
+
+Tier	Level	Price
+Free Explorer	0	Free
+Outdoor Explorer	1	$19.99/year
+Craftsman Pro	2	$29.99/year
+Arborist Starter	3	$49/month
+Arborist Business	4	$99/month
+Arborist Enterprise	5	$199/month
+ECOSYSTEM INTEGRATIONS (9 Services)
+
+Service	Status	Protocol
+DW-STAMP (Blockchain)	Integrated	API Key + HMAC
+TrustShield (Vendor Verification)	Integrated	JWT
+Signal (SIG) Payments	Integrated	JWT
+Trust Vault (Wallet)	Integrated	HMAC-SHA256
+TrustVault (Media Platform)	Integrated	JWT
+TLID Identity (.tlid domains)	Integrated	REST
+Credits System	Integrated	JWT
+GarageBot (Equipment)	Integrated	JWT + Proxy
+TrustHome (Real Estate)	Integrated	HMAC-SHA256
+Additional Connections:
+
+VedaSolus (wellness hub) — outbound link integration
+DarkWave Shared Components (footer, announcement bar, trust badge) — script loader
+API CREDENTIALS
+
+Key	Value
+VERDARA_API_KEY	verdara_live_65f78d2c009bca0f34532cbe67c34a31
+VERDARA_API_SECRET	432d7f9eb6d70caa80bf9cc383428b12efc320fcb9acbdc6861ae4ec2d5da43a
+VERDARA_BASE_URL	(set upon publish)
+ECOSYSTEM ENDPOINTS EXPOSED
+
+GET  /api/ecosystem/status           — Health check
+POST /api/ecosystem/identify         — AI species identification
+POST /api/ecosystem/removal-plan     — Tree removal planning
+POST /api/ecosystem/assess           — Property tree assessment
+GET  /api/ecosystem/species/:id      — Species detail lookup
+POST /api/ecosystem/sync-user        — SSO user sync
+That's everything the cataloging agent needs. Once you publish the app, just update the VERDARA_BASE_URL with the live URL and the TrustHome connection will be fully operational.
+
+
+Scroll to latest
