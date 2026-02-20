@@ -1387,6 +1387,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
     { id: "chronochat", name: "ChronoChat", url: "https://chronochat.io", category: "social", loc: "~4K", pages: "3" },
     { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
+    { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1483,13 +1484,14 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
         { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
         { displayName: "Verdara", description: "AI-powered outdoor recreation super-app", icon: "VD", isVerified: true },
+        { displayName: "Arbora", description: "Professional arborist business management", icon: "AB", isVerified: true },
       ];
 
       res.json({
         success: true,
         stats: {
-          totalApps: 28,
-          verifiedApps: 28,
+          totalApps: 29,
+          verifiedApps: 29,
           totalWidgets: 72,
           totalLOC: "1.8M+"
         },
