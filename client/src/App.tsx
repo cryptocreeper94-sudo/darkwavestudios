@@ -40,6 +40,7 @@ import Studio from "@/pages/Studio";
 import Credits from "@/pages/Credits";
 import CommandCenter from "@/pages/CommandCenter";
 import Explore from "@/pages/Explore";
+import SharedComponentsManager from "@/pages/SharedComponentsManager";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -82,6 +83,7 @@ function Router() {
       <Route path="/credits" component={Credits}/>
       <Route path="/command" component={CommandCenter}/>
       <Route path="/explore" component={Explore}/>
+      <Route path="/developers/components" component={SharedComponentsManager}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -26,7 +26,8 @@ import {
   Users,
   Building2,
   Wrench,
-  Home
+  Home,
+  Layers
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
@@ -93,6 +94,15 @@ const developerProducts = [
     external: true,
     gradient: "from-purple-500 to-pink-500",
     features: ["Visual builder", "Code editor", "Live preview", "One-click deploy"]
+  },
+  {
+    id: "shared-components",
+    title: "Shared Components",
+    description: "Centralized UI component manager. Update footers, headers, banners, and badges once — changes propagate to all 27 ecosystem apps instantly.",
+    icon: Layers,
+    href: "/developers/components",
+    gradient: "from-cyan-500 to-teal-500",
+    features: ["Form-based editing", "Live preview", "Code editor", "Instant propagation"]
   }
 ];
 
