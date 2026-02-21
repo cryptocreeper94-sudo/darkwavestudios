@@ -1,0 +1,83 @@
+VERDARA — Complete App Description
+One-Liner
+Verdara is the ultimate outdoor recreation super-app — identify species, discover trails, plan trips, book campgrounds, and shop a verified marketplace, all in one place.
+
+Marketing Description
+Verdara puts the entire outdoors in your pocket. Whether you're a weekend hiker, a seasoned angler, a professional arborist, or someone who just wants to know what bird is singing outside your window, Verdara is built for you. Browse a living catalog of 125+ verified outdoor locations across 41 states, identify plants and wildlife with a snap of your camera, plan multi-day adventures with gear checklists and weather forecasts, compare prices across 90+ outdoor retailers, and tap into a blockchain-verified wood economy marketplace. Verdara is developed by DarkWave Studios as App #28 in the DarkWave Trust Layer ecosystem.
+
+Feature Set
+Core Features
+Species Identification — Snap a photo of any tree, plant, fish, or wildlife and get instant identification with confidence scores and detailed species profiles. Also supports audio identification for animal sounds.
+Outdoor Catalog — A continuously updated, encyclopedia-quality nationwide catalog of 125+ outdoor locations across 41 states, with detailed descriptions, activities, amenities, maps, and user reviews. Designed as a living catalog that grows over time.
+Trip Planner — Build multi-day itineraries with route planning, gear checklists, and integrated weather forecasts from Open-Meteo.
+Campground Booking — Full reservation system for campgrounds with availability search, site details, and booking management.
+GPS Trail Tracking — Real-time trail tracking with permission-gated location access.
+Price Compare — Template-driven universal comparison engine spanning 90+ affiliate retailers across 18 outdoor gear categories.
+Wild Edibles & Natural Medicine — Database of wild plants with foraging guides, edibility info, and medicinal uses, integrated with species identification.
+Marketplace & Commerce
+Wood Economy Marketplace — Buy and sell lumber with Stripe checkout, seller management, and vendor verification through TrustShield blockchain certification.
+Subscription Tiers — Free Explorer, Outdoor Explorer, Craftsman Pro, Arborist Starter, Arborist Business, and Arborist Enterprise tiers with feature gating and Stripe Checkout integration.
+Professional Tools
+Arborist Pro — Client management, job scheduling, and invoicing for tree care professionals.
+Arbora (App #29) — Standalone PWA at /arbora/* for arborist business management featuring CRM, estimates, job management, invoicing, calendar, crew management, and inventory tracking.
+Communication & Community
+Signal Chat — Real-time WebSocket chat with Trust Layer SSO, channel-based messaging, and user presence.
+Verdara Journal (Blog) — AI-assisted, SEO-optimized blog system with public listing, detail pages, and admin editor.
+User Reviews — Community-driven reviews and ratings on catalog locations.
+Intelligence & Assistance
+Evergreen Assistant — Floating chatbot accessible from any page, powered by GPT-4o-mini, for answering outdoor recreation questions.
+Developer Portal — Roadmap, affiliate network overview, and business suite preview.
+Visual & UX
+Cinematic Hero — Rotating flyover video slideshow with smooth crossfade transitions and dot navigation indicators on the landing page.
+Dark Mode Default — Earthy green, slate, and amber color palette with glassmorphism cards and bento grid layouts.
+60fps Animations — Framer Motion throughout for smooth transitions and micro-interactions.
+Mobile-First PWA — Bottom tab navigation on mobile, sidebar on desktop, fully responsive.
+Photorealistic Imagery — Every card and location features real photography, no gray placeholders.
+DarkWave Trust Layer Ecosystem Integration
+Trust Layer SSO — JWT-based cross-app authentication (HS256) with Trust Layer IDs (tl-xxxx-xxxx format)
+TrustShield — Marketplace vendor verification
+Signal (SIG) Payments — Native cryptocurrency acceptance
+GarageBot API — Equipment management proxy for Arborist Pro
+DW-STAMP — Blockchain certification for major events
+TrustVault — Media gallery, uploads, and project creation
+TLID Identity — Support for .tlid domain names
+Credits System — Trust Layer credits for identification features
+VedaSolus — Wellness hub integration for wild edible/medicinal plant data
+TrustHome — Ecosystem services API integration
+Tech Stack
+Frontend: React 18 + TypeScript, Vite, Tailwind CSS, Shadcn UI, Framer Motion, Wouter (routing), TanStack React Query
+Backend: Express.js + TypeScript
+Database: PostgreSQL with Drizzle ORM
+Authentication: Custom email/password with bcrypt hashing, cookie-based sessions, Resend for email verification, Trust Layer SSO
+Payments: Stripe (checkout, subscriptions, marketplace)
+Email: Resend for transactional delivery
+Weather: Open-Meteo API
+AI/ML: OpenAI GPT-4o (species identification via Vision API), GPT-4o-mini (Evergreen assistant), Whisper (audio identification)
+Hosting: Replit with autoscale deployment
+Activity Categories (18)
+Hiking, Mountain Biking, Fishing, Hunting, Camping, Winter Sports, Water Sports, E-Mobility, Arborist, Charters, Coastal & Beach, Desert & Canyon, Wetlands, Caves, Prairie, Wild Edibles, Survival, Conservation
+
+Revenue Model
+Tiered subscriptions (Free through Enterprise)
+Marketplace transaction fees
+Affiliate retail commissions (90+ retailers)
+Premium downloadable PDF outdoor guide (planned)
+Trust Layer credits for AI features
+Stats
+125+ verified outdoor locations
+41 states covered
+18 activity categories
+138+ features
+90+ affiliate retailers in Price Compare
+App Identity
+App Number: #28 in DarkWave Trust Layer ecosystem
+Developer: DarkWave Studios
+Companion App: Arbora (App #29) — standalone arborist PWA
+Tagline: "Your Complete Outdoor Recreation Platform"
+There you go — everything about Verdara in one place for your cataloging agent.
+
+
+Scroll to latest
+
+Make, test, iterate…
+
