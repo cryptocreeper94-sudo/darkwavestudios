@@ -1483,8 +1483,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "Trust Layer SSO", description: "Cross-app identity system", icon: "TL", isVerified: true },
         { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
         { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
-        { displayName: "Verdara", description: "AI-powered outdoor recreation super-app", icon: "VD", isVerified: true },
-        { displayName: "Arbora", description: "Professional arborist business management", icon: "AB", isVerified: true },
+        { displayName: "Verdara", description: "Ultimate outdoor recreation super-app — species ID, trails, trips, campgrounds & marketplace", icon: "VD", isVerified: true },
+        { displayName: "Arbora", description: "Standalone arborist PWA — CRM, estimates, jobs, invoicing & crew management", icon: "AB", isVerified: true },
       ];
 
       res.json({

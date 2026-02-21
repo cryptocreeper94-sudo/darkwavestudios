@@ -6,8 +6,9 @@ DarkWave Studios is a freelance web development agency portfolio and lead genera
 ## Recent Changes
 - **Feb 2026**: Updated Trust Layer LOC to 243,958 (555 files). Updated Chronicles to 36,947 lines (27 pages, 5 components, 9 server services, procedural audio engine). Updated TL Driver Connect to 183,458 lines (5,084 files, 59 pages, 192 endpoints, 49 tables, dual PWA).
 - **Feb 2026**: Updated Trust Layer LOC from 673,309 → 282,494 → 243,958. Ecosystem total now ~1.8M+ across 29 apps.
-- **Feb 2026**: Added Arbora as App #29.
-- **Feb 2026**: Added DarkWave Academy (dwsc.io/academy) and ChronoChat (chronochat.io) as new ecosystem apps (25 → 27). Added Verdara (verdara.replit.app) as App #28.
+- **Feb 2026**: Added Arbora as App #29 — standalone arborist PWA at verdara.replit.app/arbora (CRM, estimates, jobs, invoicing, crew management, inventory tracking, ~8K LOC, 10 pages).
+- **Feb 2026**: Added Verdara (verdara.replit.app) as App #28 — ultimate outdoor recreation super-app (species ID, trails, trip planner, campground booking, marketplace, 125+ locations across 41 states, 18 activity categories, 138+ features, 35.5K LOC, 41 pages). Companion app: Arbora (#29).
+- **Feb 2026**: Added DarkWave Academy (dwsc.io/academy) and ChronoChat (chronochat.io) as new ecosystem apps (25 → 27).
 - **Feb 2026**: Updated Trust Layer highlights: 233 pages, 158 components, 749 endpoints, 544 schema exports, 12 PWA manifests, 7 domains, 12 arcade games.
 - **Feb 2026**: Updated Arcade description to list all 12 games.
 - **Feb 2026**: All count/LOC references updated across Home, Explore, Ecosystem, EcosystemMetrics, Developers, CommandCenter, TrustLayerHub.
