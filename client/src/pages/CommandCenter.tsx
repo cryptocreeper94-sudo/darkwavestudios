@@ -6,8 +6,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import {
   Shield, LayoutDashboard, BarChart3, PenTool, Users,
@@ -15,7 +13,7 @@ import {
   Globe, Bot, Zap, Lock, Unlock, Eye, Sparkles, Terminal,
   Boxes, CreditCard, Search, Radio, Layers, FolderOpen,
   Megaphone, Store, Newspaper, ArrowLeft, Command, LogOut,
-  ChevronRight
+  ChevronLeft, ChevronRight
 } from "lucide-react";
 
 const ADMIN_KEY = "0424";
@@ -500,28 +498,40 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
             </CarouselItem>
           ))}
         </CarouselContent>
-        {cards.length > 1 && (
-          <>
-            <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
-            <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
-          </>
-        )}
       </Carousel>
       {cards.length > 1 && (
-        <div className="flex md:hidden items-center justify-center gap-2 mt-4">
-          {cards.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => api?.scrollTo(i)}
-              className={`rounded-full transition-all duration-300 ${
-                i === currentSlide
-                  ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
-                  : "w-2 h-2 bg-white/20 hover:bg-white/40"
-              }`}
-              data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button
+            onClick={() => api?.scrollPrev()}
+            className="h-8 w-8 rounded-full bg-black/60 border border-white/10 hover:bg-black/80 text-white backdrop-blur-sm flex items-center justify-center transition-colors"
+            data-testid={`prev-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="size-4" />
+          </button>
+          <div className="flex items-center gap-2">
+            {cards.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => api?.scrollTo(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === currentSlide
+                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
+                    : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                }`}
+                data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => api?.scrollNext()}
+            className="h-8 w-8 rounded-full bg-black/60 border border-white/10 hover:bg-black/80 text-white backdrop-blur-sm flex items-center justify-center transition-colors"
+            data-testid={`next-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
+            aria-label="Next slide"
+          >
+            <ChevronRight className="size-4" />
+          </button>
         </div>
       )}
     </div>
