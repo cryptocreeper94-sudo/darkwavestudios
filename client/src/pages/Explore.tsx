@@ -447,14 +447,9 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
       animate="show"
       transition={{ duration: 0.5, delay: catIndex * 0.1 }}
     >
-      <div className="flex items-start gap-3 mb-4">
-        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0`}>
-          {category.icon}
-        </div>
-        <div>
-          <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
-          <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
-        </div>
+      <div className="mb-4">
+        <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
+        <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
       </div>
 
       <div className="mt-4">
