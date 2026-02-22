@@ -42,6 +42,32 @@ export async function seedChatChannels() {
       });
       console.log("[Chat Seed] Created SignalBot user");
     }
+
+    const ecosystemMembers = [
+      { firstName: "Kathy", lastName: "Nguyen", email: "kathy@happyeats.io", password: "HappyEats@2025", pin: "7724", trustLayerId: "tl-kathy-he01", ecosystemApp: "Happy Eats" },
+      { firstName: "Marcus", lastName: "Chen", email: "marcus@trusthome.io", password: "TrustHome@2025", pin: "4419", trustLayerId: "tl-marc-th01", ecosystemApp: "TrustHome" },
+      { firstName: "Devon", lastName: "Park", email: "devon@signal.dw", password: "Signal@2025", pin: "8832", trustLayerId: "tl-devn-sg01", ecosystemApp: "Signal" },
+    ];
+
+    for (const m of ecosystemMembers) {
+      const [existing] = await db.select().from(chatUsers).where(eq(chatUsers.email, m.email));
+      if (!existing) {
+        const passwordHash = await hashPassword(m.password);
+        const pinHash = await hashPassword(m.pin);
+        await db.insert(chatUsers).values({
+          username: `${m.firstName.toLowerCase()}-${m.lastName.toLowerCase()}`,
+          email: m.email,
+          passwordHash,
+          displayName: `${m.firstName} ${m.lastName}`,
+          avatarColor: ["#ec4899", "#3b82f6", "#8b5cf6"][ecosystemMembers.indexOf(m)],
+          role: "member",
+          trustLayerId: m.trustLayerId,
+          ecosystemPinHash: pinHash,
+          ecosystemApp: m.ecosystemApp,
+        });
+        console.log(`[Chat Seed] Created ecosystem member: ${m.firstName} ${m.lastName} (${m.ecosystemApp})`);
+      }
+    }
   } catch (error) {
     console.error("[Chat Seed] Error:", error);
   }

@@ -2877,6 +2877,23 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
+  app.post("/api/chat/auth/ecosystem-login", async (req, res) => {
+    try {
+      const { identifier, credential } = req.body;
+      const { ecosystemLogin } = await import("./trustlayer-sso");
+      const result = await ecosystemLogin(identifier, credential);
+
+      if (!result.success) {
+        return res.status(401).json({ success: false, error: result.error });
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      console.error("Ecosystem login error:", error);
+      res.status(500).json({ success: false, error: "Login failed. Please try again." });
+    }
+  });
+
   app.post("/api/chat/auth/register", async (req, res) => {
     try {
       const { username, email, password, displayName } = req.body;

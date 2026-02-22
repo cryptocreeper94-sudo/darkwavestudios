@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff, Shield, Eye, EyeOff, Check, X, LogOut, Mail, User, Lock } from "lucide-react";
+import { Radio, Hash, Send, Users, ChevronLeft, MessageSquare, Wifi, WifiOff, Shield, Eye, EyeOff, Check, X, LogOut, Mail, User, Lock, Globe } from "lucide-react";
 import { Link } from "wouter";
 import { SEOHead } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
@@ -64,7 +64,9 @@ function PasswordRequirements({ password }: { password: string }) {
 export default function SignalChat() {
   const [currentUser, setCurrentUser] = useState<ChatUser | null>(null);
   const [authToken, setAuthToken] = useState<string | null>(null);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [authMode, setAuthMode] = useState<"login" | "register" | "ecosystem">("login");
+  const [ecosystemIdentifier, setEcosystemIdentifier] = useState("");
+  const [ecosystemCredential, setEcosystemCredential] = useState("");
   const [usernameInput, setUsernameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -309,8 +311,38 @@ export default function SignalChat() {
     }
   };
 
+  const handleEcosystemLogin = async () => {
+    if (!ecosystemIdentifier.trim() || !ecosystemCredential.trim()) return;
+
+    setAuthLoading(true);
+    setAuthError("");
+    try {
+      const res = await fetch("/api/chat/auth/ecosystem-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          identifier: ecosystemIdentifier.trim(),
+          credential: ecosystemCredential.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("tl-sso-token", data.token);
+        setAuthToken(data.token);
+        setCurrentUser(data.user);
+      } else {
+        setAuthError(data.error || "Ecosystem login failed");
+      }
+    } catch (e) {
+      setAuthError("Connection error. Please try again.");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
   const handleAuthSubmit = () => {
     if (authMode === "login") handleLogin();
+    else if (authMode === "ecosystem") handleEcosystemLogin();
     else handleRegister();
   };
 
@@ -359,7 +391,7 @@ export default function SignalChat() {
               <button
                 data-testid="button-auth-login"
                 onClick={() => { setAuthMode("login"); setAuthError(""); }}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   authMode === "login"
                     ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
                     : "text-gray-500 hover:text-gray-300"
@@ -370,13 +402,24 @@ export default function SignalChat() {
               <button
                 data-testid="button-auth-register"
                 onClick={() => { setAuthMode("register"); setAuthError(""); }}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   authMode === "register"
                     ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
                     : "text-gray-500 hover:text-gray-300"
                 }`}
               >
                 Create Account
+              </button>
+              <button
+                data-testid="button-auth-ecosystem"
+                onClick={() => { setAuthMode("ecosystem"); setAuthError(""); }}
+                className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
+                  authMode === "ecosystem"
+                    ? "bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-300 border border-emerald-500/30"
+                    : "text-gray-500 hover:text-gray-300"
+                }`}
+              >
+                Ecosystem
               </button>
             </div>
 
@@ -386,102 +429,173 @@ export default function SignalChat() {
               </div>
             )}
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">Username</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                  <input
-                    data-testid="input-chat-username"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                    placeholder="e.g. sarah-k"
-                    value={usernameInput}
-                    onChange={(e) => setUsernameInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
-                  />
+            {authMode === "ecosystem" ? (
+              <div className="space-y-4">
+                <div className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
+                  <p className="text-xs text-gray-400">
+                    Sign in with your Trust Layer ID or the email from any DarkWave ecosystem app
+                    (Happy Eats, TrustHome, Verdara, TrustVault, etc.)
+                  </p>
                 </div>
-              </div>
 
-              {authMode === "register" && (
-                <>
-                  <div>
-                    <label className="text-xs text-gray-400 mb-1 block">Email</label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                      <input
-                        data-testid="input-chat-email"
-                        type="email"
-                        className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                        placeholder="e.g. sarah@example.com"
-                        value={emailInput}
-                        onChange={(e) => setEmailInput(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
-                      />
-                    </div>
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">Trust Layer ID or Email</label>
+                  <div className="relative">
+                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <input
+                      data-testid="input-ecosystem-identifier"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
+                      placeholder="tl-xxxx-xxxx or you@example.com"
+                      autoComplete="username"
+                      autoCapitalize="off"
+                      value={ecosystemIdentifier}
+                      onChange={(e) => setEcosystemIdentifier(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                    />
                   </div>
-                  <div>
-                    <label className="text-xs text-gray-400 mb-1 block">Display Name</label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                      <input
-                        data-testid="input-chat-displayname"
-                        className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                        placeholder="e.g. Sarah K."
-                        value={displayNameInput}
-                        onChange={(e) => setDisplayNameInput(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
-
-              <div>
-                <label className="text-xs text-gray-400 mb-1 block">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                  <input
-                    data-testid="input-chat-password"
-                    type={showPassword ? "text" : "password"}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-12 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
-                    placeholder="Enter your password"
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
-                  />
-                  <button
-                    data-testid="button-toggle-password"
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
                 </div>
-                {authMode === "register" && <PasswordRequirements password={passwordInput} />}
-              </div>
 
-              <button
-                data-testid="button-chat-join"
-                onClick={handleAuthSubmit}
-                disabled={
-                  authLoading ||
-                  !usernameInput.trim() ||
-                  !passwordInput ||
-                  (authMode === "register" && (!emailInput.trim() || !displayNameInput.trim() || !isPasswordValid()))
-                }
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {authLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">Password or Ecosystem PIN</label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <input
+                      data-testid="input-ecosystem-credential"
+                      type={showPassword ? "text" : "password"}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-12 py-3 text-white placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
+                      placeholder="Password or PIN"
+                      autoComplete="current-password"
+                      value={ecosystemCredential}
+                      onChange={(e) => setEcosystemCredential(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-gray-500 mt-1">
+                    Use your full password or your ecosystem PIN if you've been whitelisted
+                  </p>
+                </div>
+
+                <button
+                  data-testid="button-ecosystem-login"
+                  onClick={handleAuthSubmit}
+                  disabled={authLoading || !ecosystemIdentifier.trim() || !ecosystemCredential.trim()}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {authLoading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Shield className="w-4 h-4" />
+                      Sign In with Trust Layer
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">Username</label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <input
+                      data-testid="input-chat-username"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                      placeholder="e.g. sarah-k"
+                      value={usernameInput}
+                      onChange={(e) => setUsernameInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                    />
+                  </div>
+                </div>
+
+                {authMode === "register" && (
                   <>
-                    <Shield className="w-4 h-4" />
-                    {authMode === "login" ? "Sign In with Trust Layer" : "Create Trust Layer Account"}
+                    <div>
+                      <label className="text-xs text-gray-400 mb-1 block">Email</label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <input
+                          data-testid="input-chat-email"
+                          type="email"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                          placeholder="e.g. sarah@example.com"
+                          value={emailInput}
+                          onChange={(e) => setEmailInput(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-400 mb-1 block">Display Name</label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <input
+                          data-testid="input-chat-displayname"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                          placeholder="e.g. Sarah K."
+                          value={displayNameInput}
+                          onChange={(e) => setDisplayNameInput(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                        />
+                      </div>
+                    </div>
                   </>
                 )}
-              </button>
-            </div>
+
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <input
+                      data-testid="input-chat-password"
+                      type={showPassword ? "text" : "password"}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-12 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                      placeholder="Enter your password"
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleAuthSubmit()}
+                    />
+                    <button
+                      data-testid="button-toggle-password"
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  {authMode === "register" && <PasswordRequirements password={passwordInput} />}
+                </div>
+
+                <button
+                  data-testid="button-chat-join"
+                  onClick={handleAuthSubmit}
+                  disabled={
+                    authLoading ||
+                    !usernameInput.trim() ||
+                    !passwordInput ||
+                    (authMode === "register" && (!emailInput.trim() || !displayNameInput.trim() || !isPasswordValid()))
+                  }
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {authLoading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Shield className="w-4 h-4" />
+                      {authMode === "login" ? "Sign In with Trust Layer" : "Create Trust Layer Account"}
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
 
             <div className="mt-6 pt-4 border-t border-white/5">
               <div className="flex items-center justify-center gap-3">
