@@ -21,7 +21,7 @@ function Studio() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const saved = localStorage.getItem("trustvault_token") || localStorage.getItem("signal_chat_token");
+    const saved = localStorage.getItem("tl-sso-token") || localStorage.getItem("trustvault_token") || localStorage.getItem("signal_chat_token");
     if (saved) setToken(saved);
   }, []);
 
@@ -37,7 +37,10 @@ function Studio() {
     onSuccess: (data) => {
       if (data.success) {
         setToken(data.token);
+        localStorage.setItem("tl-sso-token", data.token);
         localStorage.setItem("trustvault_token", data.token);
+        localStorage.setItem("signal_chat_token", data.token);
+        if (data.user) localStorage.setItem("signal_chat_user", JSON.stringify(data.user));
         setLoginError("");
       } else {
         setLoginError(data.error || "Login failed");
@@ -123,7 +126,10 @@ function Studio() {
 
   const handleLogout = () => {
     setToken(null);
+    localStorage.removeItem("tl-sso-token");
     localStorage.removeItem("trustvault_token");
+    localStorage.removeItem("signal_chat_token");
+    localStorage.removeItem("signal_chat_user");
   };
 
   const categoryIcons: Record<string, any> = {

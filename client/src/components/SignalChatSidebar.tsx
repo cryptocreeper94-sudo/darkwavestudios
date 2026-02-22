@@ -99,9 +99,17 @@ export default function SignalChatSidebar() {
             setAuthToken(savedToken);
           } else {
             localStorage.removeItem("tl-sso-token");
+            localStorage.removeItem("signal_chat_token");
+            localStorage.removeItem("signal_chat_user");
+            localStorage.removeItem("trustvault_token");
           }
         })
-        .catch(() => localStorage.removeItem("tl-sso-token"));
+        .catch(() => {
+          localStorage.removeItem("tl-sso-token");
+          localStorage.removeItem("signal_chat_token");
+          localStorage.removeItem("signal_chat_user");
+          localStorage.removeItem("trustvault_token");
+        });
     }
   }, []);
 
@@ -264,6 +272,8 @@ export default function SignalChatSidebar() {
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("tl-sso-token", data.token);
+        localStorage.setItem("signal_chat_token", data.token);
+        localStorage.setItem("signal_chat_user", JSON.stringify(data.user));
         setAuthToken(data.token);
         setCurrentUser(data.user);
       } else {
@@ -292,6 +302,8 @@ export default function SignalChatSidebar() {
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("tl-sso-token", data.token);
+        localStorage.setItem("signal_chat_token", data.token);
+        localStorage.setItem("signal_chat_user", JSON.stringify(data.user));
         setAuthToken(data.token);
         setCurrentUser(data.user);
       } else {
@@ -306,6 +318,9 @@ export default function SignalChatSidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("tl-sso-token");
+    localStorage.removeItem("signal_chat_token");
+    localStorage.removeItem("signal_chat_user");
+    localStorage.removeItem("trustvault_token");
     setCurrentUser(null);
     setAuthToken(null);
     setMessages([]);
