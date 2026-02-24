@@ -19,6 +19,19 @@ async function getCredentials() {
 
   fetchInProgress = (async () => {
     try {
+      const envPublishable = process.env.STRIPE_PUBLISHABLE_KEY;
+      const envSecret = process.env.STRIPE_SECRET_KEY;
+
+      if (envPublishable && envSecret) {
+        cachedCredentials = {
+          publishableKey: envPublishable,
+          secretKey: envSecret,
+        };
+        credentialsCacheTime = Date.now();
+        console.log('[Stripe] Using environment variable keys (live mode)');
+        return cachedCredentials;
+      }
+
       const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
       const xReplitToken = process.env.REPL_IDENTITY
         ? 'repl ' + process.env.REPL_IDENTITY
@@ -27,7 +40,7 @@ async function getCredentials() {
           : null;
 
       if (!xReplitToken) {
-        throw new Error('X_REPLIT_TOKEN not found for repl/depl');
+        throw new Error('No Stripe credentials found (no env vars or connector token)');
       }
 
       const connectorName = 'stripe';

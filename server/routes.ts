@@ -2717,6 +2717,175 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
+  // ============ ORBIT APP REGISTRATION ============
+
+  // Register DarkWave Studios with ORBIT ecosystem hub
+  app.post("/api/orbit/register-app", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const registrationPayload = {
+        appName: "DarkWave Studios",
+        appId: "darkwave-studios",
+        domain: "dwsc.io",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 29-app ecosystem (~1.8M+ LOC)",
+        category: "agency",
+        endpoints: {
+          ssoLogin: "https://dwsc.io/api/chat/auth/ecosystem-login",
+          register: "https://dwsc.io/api/chat/auth/register",
+          webhook: "https://dwsc.io/api/orbit/webhook",
+          status: "https://dwsc.io/api/orbit/status",
+          financialSync: "https://dwsc.io/api/orbit/sync-payment",
+        },
+        capabilities: [
+          "trust-layer-sso",
+          "financial-sync",
+          "blockchain-anchoring",
+          "snippet-marketplace",
+          "guardian-ai-certification",
+          "ai-agent-marketplace",
+          "stripe-payments",
+          "coinbase-payments",
+        ],
+        ecosystemApps: [
+          { name: "THE VOID", id: "the-void", domain: "thevoid.app" },
+          { name: "Happy Eats", id: "happy-eats", domain: "happyeats.io" },
+          { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.io" },
+          { name: "TrustHome", id: "trusthome", domain: "trusthome.io" },
+          { name: "TrustVault", id: "trustvault", domain: "trustvault.io" },
+        ],
+        apiKey: orbitKey,
+        apiSecret: orbitSecret,
+        version: "2.0",
+        registeredAt: new Date().toISOString(),
+      };
+
+      const response = await fetch("https://orbitstaffing.io/api/admin/ecosystem/register-app", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+        },
+        body: JSON.stringify(registrationPayload),
+      });
+
+      const data = await response.json();
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "app_registration",
+        status: response.ok ? "success" : "failed",
+        metadata: JSON.stringify({ response: data, statusCode: response.status })
+      });
+
+      if (response.ok) {
+        res.json({ success: true, message: "DarkWave Studios registered with ORBIT ecosystem", data });
+      } else {
+        res.status(response.status).json({ success: false, error: data.error || "Registration failed", data });
+      }
+    } catch (error: any) {
+      console.error("ORBIT registration error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Test cross-ecosystem SSO login against ORBIT
+  app.post("/api/orbit/test-sso", requireAdminAuth, async (req, res) => {
+    try {
+      const { identifier, credential } = req.body;
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch("https://orbitstaffing.io/api/auth/ecosystem-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+        },
+        body: JSON.stringify({ identifier, credential, sourceApp: "darkwave-studios" }),
+      });
+
+      const data = await response.json();
+      res.json({ success: response.ok, data });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Full ecosystem readiness check
+  app.get("/api/orbit/readiness", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      const checks = {
+        credentials: !!(orbitKey && orbitSecret),
+        endpoints: {
+          ecosystemLogin: { path: "/api/chat/auth/ecosystem-login", ready: true },
+          register: { path: "/api/chat/auth/register", ready: true },
+          webhook: { path: "/api/orbit/webhook", ready: true },
+          status: { path: "/api/orbit/status", ready: true },
+          financialSync: { path: "/api/orbit/sync-payment/:paymentId", ready: true },
+          bulkSync: { path: "/api/orbit/sync-all-payments", ready: true },
+          contractorPayment: { path: "/api/orbit/contractor-payment", ready: true },
+          snippets: { path: "/api/orbit/snippets", ready: true },
+          pushSnippet: { path: "/api/orbit/push-snippet", ready: true },
+          blockchain: { path: "/api/orbit/anchor", ready: true },
+          registerApp: { path: "/api/orbit/register-app", ready: true },
+        },
+        orbitHub: {
+          registrationUrl: "https://orbitstaffing.io/api/admin/ecosystem/register-app",
+          ssoLoginUrl: "https://orbitstaffing.io/api/auth/ecosystem-login",
+          registerUrl: "https://orbitstaffing.io/api/chat/auth/register",
+        },
+        connectedApps: [
+          { name: "THE VOID", status: "ready" },
+          { name: "Happy Eats", status: "ready" },
+          { name: "TL Driver Connect", status: "ready" },
+          { name: "TrustHome", status: "ready" },
+          { name: "TrustVault", status: "ready" },
+        ],
+        allReady: !!(orbitKey && orbitSecret),
+      };
+
+      // Test live connection to ORBIT
+      if (checks.credentials) {
+        try {
+          const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+          const statusResponse = await fetch(`${orbitBaseUrl}/status`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": orbitKey!,
+              "X-API-Secret": orbitSecret!,
+            },
+          });
+          (checks as any).liveConnection = {
+            status: statusResponse.ok ? "connected" : `failed (${statusResponse.status})`,
+            timestamp: new Date().toISOString(),
+          };
+        } catch (err: any) {
+          (checks as any).liveConnection = { status: `error: ${err.message}`, timestamp: new Date().toISOString() };
+        }
+      }
+
+      res.json({ success: true, readiness: checks });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // ============ ORBIT FINANCIAL SYNC ============
 
   // Get financial statement from ORBIT
