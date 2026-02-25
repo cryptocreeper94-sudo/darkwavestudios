@@ -10,7 +10,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-xs lg:text-sm text-muted-foreground">
             <a
-              href="https://dwsc.io/guardian-shield"
+              href="https://trustshield.tech"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 hover:text-primary transition-colors"

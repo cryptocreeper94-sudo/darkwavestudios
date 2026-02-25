@@ -1360,7 +1360,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
 
   const ecosystemHealthTargets = [
     { id: "trust-layer", name: "Trust Layer", url: "https://dwsc.io", category: "core", loc: "243,958", pages: "233" },
-    { id: "trust-shield", name: "Guardian Shield", url: "https://dwsc.io/guardian-shield", category: "security", loc: "~15K", pages: "8" },
+    { id: "trust-shield", name: "Guardian Shield", url: "https://trustshield.tech", category: "security", loc: "~15K", pages: "8" },
     { id: "pulse", name: "Pulse", url: "https://darkwavepulse.com", category: "trading", loc: "~20K", pages: "12" },
     { id: "strikeagent", name: "StrikeAgent", url: "https://strikeagent.io", category: "trading", loc: "~8K", pages: "6" },
     { id: "orbit-staffing", name: "ORBIT Staffing OS", url: "https://orbitstaffing.io", category: "business", loc: "~25K", pages: "15" },

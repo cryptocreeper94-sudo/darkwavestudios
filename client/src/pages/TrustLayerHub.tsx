@@ -4466,7 +4466,7 @@ export default function TrustLayerHub() {
                   <div>
                     <div className="text-xs font-semibold text-primary">DWSC Verified</div>
                     <p className="text-[10px] text-muted-foreground mt-0.5">
-                      Every purchase is hashed to the DWSC blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at dwsc.io/guardian-shield
+                      Every purchase is hashed to the DWSC blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at trustshield.tech
                     </p>
                   </div>
                 </div>

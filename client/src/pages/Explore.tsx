@@ -660,7 +660,7 @@ export default function Explore() {
           <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/30">
             <span>&copy; 2026 DarkWave Studios</span>
             <span className="text-white/10">|</span>
-            <a href="https://dwsc.io/guardian-shield" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustshield">
+            <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustshield">
               Protected by TrustShield.tech
             </a>
             <span className="text-white/10">|</span>

@@ -159,7 +159,7 @@ const projects = [
     tech: ["AI Certification", "Security", "Compliance", "Registry"],
     image: trustShieldImg,
     gradient: "from-teal-500/20 to-cyan-600/20",
-    url: "https://dwsc.io/guardian-shield",
+    url: "https://trustshield.tech",
     category: "Security"
   },
   {
@@ -279,7 +279,7 @@ const projects = [
     tech: ["AI Analytics", "Multi-Chain", "Real-time", "PWA"],
     image: "/projects/guardian-screener.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://dwsc.io/guardian-shield",
+    url: "https://trustshield.tech",
     category: "Trading"
   },
   {

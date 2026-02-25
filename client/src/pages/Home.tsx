@@ -81,7 +81,7 @@ const projects = [
     tech: ["Security", "Monitoring", "Enterprise"],
     image: "/ecosystem/trust-shield.png",
     gradient: "from-emerald-500/20 to-teal-600/20",
-    url: "https://dwsc.io/guardian-shield"
+    url: "https://trustshield.tech"
   },
   {
     id: 4,

@@ -39,7 +39,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "The World's First AI Agent Certification System",
     description: "Verify, certify, and protect autonomous AI agents across Security, Transparency, Reliability, and Compliance domains. Guardian Certification Program, continuous enterprise monitoring, public certification registry, and Guardian AI registry for autonomous agents.",
     image: "/ecosystem/trust-shield.png",
-    url: "https://dwsc.io/guardian-shield",
+    url: "https://trustshield.tech",
     category: "security"
   },
   {

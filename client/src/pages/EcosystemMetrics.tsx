@@ -242,7 +242,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trust-shield",
     name: "Guardian Shield / TrustShield",
-    url: "https://dwsc.io/guardian-shield",
+    url: "https://trustshield.tech",
     totalLines: 1224,
     totalFiles: 3,
     stack: ["React 18", "TypeScript", "Framer Motion", "Tailwind CSS", "Trust Layer"],
