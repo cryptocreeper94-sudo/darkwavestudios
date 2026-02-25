@@ -175,10 +175,10 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "Nationwide dual-PWA platform (Happy Eats + TL Driver Connect) with zone-based batch ordering across 11 delivery zones, Stripe live checkout, revenue analytics dashboard, customer referral program, vendor self-service portal, AI marketing hub, Trucker Talk + Signal Chat, CDL directory, fuel finder, business suite, and multi-tenant franchise system. 183,458 lines of code, 59 pages, 192 API endpoints, 49 database tables.",
-    tech: ["Dual PWA", "Stripe Live", "AI", "Franchise"],
+    description: "All-in-one driver services platform with GPS mileage tracking, expense management with receipt OCR, fuel finder (diesel/gas/EV), CDL program directory, driver concierge, weather dashboard, and office business suite. Delivery network integration with Happy Eats. Trucker Talk + Signal Chat community. Shared codebase with Happy Eats: 74,854 LOC, 63 pages, 212 API endpoints, 48 tables.",
+    tech: ["React 19", "Stripe Live", "GPS", "WebSocket"],
     image: happyEatsImg,
-    gradient: "from-yellow-500/20 to-amber-600/20",
+    gradient: "from-cyan-500/20 to-blue-500/20",
     url: "https://happyeats.app",
     category: "Delivery"
   },
@@ -285,11 +285,11 @@ const projects = [
   {
     id: 30,
     title: "Happy Eats",
-    description: "Zone-based food truck ordering platform serving the Nashville I-24 Corridor. Batch ordering with 11 AM daily cutoff, vendor registration and management, zone-based delivery routing, blockchain-verified transactions, cross-platform affiliate system with revenue sharing. Integrated into Trust Layer ecosystem with Stripe payments and Firebase Auth.",
-    tech: ["React 18", "Stripe", "Firebase", "Blockchain"],
+    description: "Zone-based food delivery platform for food truck vendors and mobile commissaries across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones (I-24/I-840 corridor), vendor self-service portal, AI marketing toolkit with flyer creator and TLI d.io social posting, customer rewards program, receipt scanning OCR, Stripe live checkout, and franchise model. Shared codebase with TL Driver Connect: 74,854 LOC, 63 pages, 212 API endpoints, 48 tables.",
+    tech: ["React 19", "Stripe Live", "AI", "Franchise"],
     image: "/emblems/happy-eats.png",
     gradient: "from-orange-500/20 to-red-500/20",
-    url: "https://happyeats.tlid.io",
+    url: "https://happyeats.app",
     category: "Food"
   },
   {

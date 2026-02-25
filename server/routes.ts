@@ -1372,7 +1372,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "nash-paint-pros", name: "NashPaintPros.io", url: "https://nashpaintpros.io", category: "trades", loc: "3,950", pages: "4" },
     { id: "garagebot", name: "GarageBot", url: "https://garagebot.io", category: "auto", loc: "88,700+", pages: "30+" },
     { id: "torque", name: "TORQUE", url: "https://garagebot.io/torque", category: "auto", loc: "5,475", pages: "10" },
-    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://happyeats.app", category: "auto", loc: "183,458", pages: "59" },
+    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://tldriverconnect.com", category: "auto", loc: "74,854", pages: "63" },
     { id: "vedasolus", name: "VedaSolus", url: "https://vedasolus.io", category: "health", loc: "~8K", pages: "6" },
     { id: "tlid-io", name: "TLID.io", url: "https://dwsc.io/marketing", category: "business", loc: "7,133", pages: "11" },
     { id: "chronicles", name: "Chronicles", url: "https://yourlegacy.io", category: "gaming", loc: "36,947", pages: "27" },
@@ -1387,7 +1387,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
     { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
     { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
-    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.tlid.io", category: "auto", loc: "~1K", pages: "3" },
+    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.app", category: "auto", loc: "74,854", pages: "63" },
     { id: "trust-book", name: "Trust Book", url: "https://trustbook.tlid.io", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
   ];
@@ -1459,7 +1459,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     try {
       const ecosystemAppsData = [
         { displayName: "DarkWave Studios", description: "Full-service web agency platform", icon: "DW", isVerified: true },
-        { displayName: "TL Driver Connect", description: "Logistics platform with dual PWA", icon: "DC", isVerified: true },
+        { displayName: "TL Driver Connect", description: "All-in-one driver services — mileage, fuel finder, CDL, concierge & delivery network", icon: "DC", isVerified: true },
         { displayName: "Chronicles", description: "Immersive RPG with procedural audio", icon: "CH", isVerified: true },
         { displayName: "THE VOID", description: "Existential AI experience", icon: "TV", isVerified: true },
         { displayName: "DarkWave Arcade", description: "12 retro arcade games", icon: "AR", isVerified: true },
@@ -1487,7 +1487,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
         { displayName: "Verdara", description: "Ultimate outdoor recreation super-app — species ID, trails, trips, campgrounds & marketplace", icon: "VD", isVerified: true },
         { displayName: "Arbora", description: "Standalone arborist PWA — CRM, estimates, jobs, invoicing & crew management", icon: "AB", isVerified: true },
-        { displayName: "Happy Eats", description: "Zone-based food truck ordering — Nashville I-24 Corridor, batch ordering & affiliates", icon: "HE", isVerified: true },
+        { displayName: "Happy Eats", description: "Zone-based food truck delivery — multi-truck carts, vendor portal, AI marketing & franchise model", icon: "HE", isVerified: true },
         { displayName: "Trust Book", description: "Censorship-free publishing — AI narration, e-reader, 110K word flagship title", icon: "TB", isVerified: true },
         { displayName: "Trust Golf", description: "Premium golf companion — 45+ courses, AI swing analysis, handicap tracking & deals", icon: "TG", isVerified: true },
       ];
@@ -2759,8 +2759,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         ],
         ecosystemApps: [
           { name: "THE VOID", id: "the-void", domain: "thevoid.app" },
-          { name: "Happy Eats", id: "happy-eats", domain: "happyeats.io" },
-          { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.io" },
+          { name: "Happy Eats", id: "happy-eats", domain: "happyeats.app" },
+          { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.com" },
           { name: "TrustHome", id: "trusthome", domain: "trusthome.io" },
           { name: "TrustVault", id: "trustvault", domain: "trustvault.io" },
         ],
