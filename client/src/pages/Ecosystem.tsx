@@ -266,6 +266,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/signal-chat.png",
     url: "https://chronochat.io",
     category: "social"
+  },
+  {
+    id: "trust-golf",
+    name: "Trust Golf",
+    tagline: "Your Premium Golf Companion",
+    description: "Premium mobile-first golf platform featuring 45+ courses, AI-powered swing analysis via GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven blog, vendor/partner signup, and self-hosted analytics. Cinematic explorer with video hero, glass-morphism UI, and installable PWA. 53 API endpoints, 13,900 lines of code.",
+    image: "/emblems/trust-golf.png",
+    url: "https://trustgolf.app",
+    category: "sports"
   }
 ];
 
@@ -279,7 +288,8 @@ const categories = [
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
-  { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" }
+  { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" },
+  { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" }
 ];
 
 function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {

@@ -4,7 +4,7 @@ import {
   ArrowLeft, Code2, FileCode2, Database, Globe, Layers, Terminal, 
   BarChart3, TrendingUp, Cpu, Shield, Sparkles, ChevronRight, 
   Server, Smartphone, Palette, Bot, Utensils, Truck, Heart, 
-  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid
+  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid, Trophy
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
@@ -492,6 +492,24 @@ const ecosystemMetrics: AppMetric[] = [
     highlights: ["Community Chat", "Invite System", "Cross-App Messaging", "WebSocket Real-Time", "Installable PWA"],
     icon: Radio,
     gradient: "from-indigo-500 to-purple-500",
+    status: "Production",
+  },
+  {
+    id: "trust-golf",
+    name: "Trust Golf",
+    url: "https://trustgolf.app",
+    totalLines: 13900,
+    totalFiles: 52,
+    apiEndpoints: 53,
+    stack: ["React Native", "Expo SDK 54", "TypeScript", "Express 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "PWA", "Resend"],
+    breakdown: [
+      { language: "TypeScript (Server)", lines: 3352, files: 7 },
+      { language: "TypeScript (Frontend)", lines: 9741, files: 40 },
+      { language: "Web/PWA", lines: 808, files: 5 },
+    ],
+    highlights: ["45+ Golf Courses", "AI Swing Analyzer", "USGA Handicap", "Score Tracking", "Tee Time Deals", "AI Blog", "Vendor Portal", "Self-Hosted Analytics", "TrustVault Integration", "Cinematic Explorer"],
+    icon: Trophy,
+    gradient: "from-emerald-600 to-green-500",
     status: "Production",
   },
 ];

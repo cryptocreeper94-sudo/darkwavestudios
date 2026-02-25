@@ -255,7 +255,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 29 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 30 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -281,6 +281,16 @@ const projects = [
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://dwsc.io/guardian-shield",
     category: "Trading"
+  },
+  {
+    id: 30,
+    title: "Trust Golf",
+    description: "Premium mobile-first golf platform with 45+ curated courses, AI-powered swing analysis using GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven SEO blog, vendor/partner signup, and self-hosted first-party analytics. Cinematic explorer page with video hero, glass-morphism UI, React Native + Expo SDK 54, and installable PWA. 13,900 lines of code, 52 files, 53 API endpoints.",
+    tech: ["React Native", "Expo", "GPT-4o", "PWA"],
+    image: "/emblems/trust-golf.png",
+    gradient: "from-emerald-600/20 to-green-500/20",
+    url: "https://trustgolf.app",
+    category: "Sports"
   }
 ];
 
@@ -288,8 +298,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 29 Web Applications & Ecosystem"
-        description="Explore 29 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 30 Web Applications & Ecosystem"
+        description="Explore 30 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
