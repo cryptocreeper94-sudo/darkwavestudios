@@ -39,7 +39,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "The World's First AI Agent Certification System",
     description: "Verify, certify, and protect autonomous AI agents across Security, Transparency, Reliability, and Compliance domains. Guardian Certification Program, continuous enterprise monitoring, public certification registry, and Guardian AI registry for autonomous agents.",
     image: "/ecosystem/trust-shield.png",
-    url: "https://trustshield.tech",
+    url: "https://dwsc.io/guardian-shield",
     category: "security"
   },
   {
@@ -75,7 +75,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Unify your venue operations with one powerful command center.",
     description: "Comprehensive PWA for stadiums and arenas. Emergency command center, delivery tracking, inventory counting, and team communications.",
     image: "/ecosystem/orby-commander.png",
-    url: "https://orbycommander.com",
+    url: "https://getorby.io",
     category: "business"
   },
   {
@@ -84,7 +84,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Move Smarter. Track Better. Manage Everything.",
     description: "Mobile-first driver performance and workflow management for auto auctions, dealerships, and industrial operations.",
     image: "/ecosystem/lot-ops-pro.png",
-    url: "https://lotopspro.com",
+    url: "https://lotopspro.io",
     category: "business"
   },
   {
@@ -93,7 +93,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Nashville's Premium B2B Coffee Concierge.",
     description: "B2B platform connecting businesses with premium local coffee shops and catering vendors. White label franchising available — Brew & Board Atlanta, Brew & Board Denver, or purchase a license for full self-branding. This is the working demo.",
     image: "/ecosystem/brew-board.png",
-    url: "https://brewandboardcoffee.replit.app",
+    url: "https://brewandboard.coffee",
     category: "business"
   },
   {
@@ -165,7 +165,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Automated Marketing That Works While You Work",
     description: "Self-service automated advertising for any business type. 5-step onboarding, organic posting, and ad campaigns. 11 pages with dedicated PWA manifest. 7,133 lines of production code.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "/marketing",
+    url: "https://tlid.io",
     category: "business"
   },
   {
@@ -273,7 +273,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Censorship-Free Publishing",
     description: "Premium ebook publishing and reading platform with AI narration, multi-format support, and blockchain-verified provenance. Features immersive e-reader with chapter navigation, OpenAI Nova HD AI narration, PDF/EPUB downloads, and the flagship title 'Through The Veil' — a 110,000-word investigative work spanning 54+ chapters across 15 volumes. Glassmorphism UI with Framer Motion animations.",
     image: "/emblems/trust-book.png",
-    url: "https://trustbook.tlid.io",
+    url: "https://dwsc.io/trust-book",
     category: "core"
   },
   {

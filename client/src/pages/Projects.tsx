@@ -69,7 +69,7 @@ const projects = [
     tech: ["Operations", "GPS", "Compliance", "Real-time"],
     image: orbyImg,
     gradient: "from-orange-500/20 to-red-600/20",
-    url: "https://orbycommander.com",
+    url: "https://getorby.io",
     category: "Operations"
   },
   {
@@ -99,7 +99,7 @@ const projects = [
     tech: ["GPS", "OCR", "AI", "Mobile PWA"],
     image: lotOpsImg,
     gradient: "from-blue-500/20 to-sky-600/20",
-    url: "https://lotopspro.com",
+    url: "https://lotopspro.io",
     category: "Logistics"
   },
   {
@@ -109,7 +109,7 @@ const projects = [
     tech: ["B2B", "Delivery", "Ordering", "Loyalty"],
     image: brewBoardImg,
     gradient: "from-amber-600/20 to-orange-600/20",
-    url: "https://brewandboardcoffee.replit.app",
+    url: "https://brewandboard.coffee",
     category: "Hospitality"
   },
   {
@@ -159,7 +159,7 @@ const projects = [
     tech: ["AI Certification", "Security", "Compliance", "Registry"],
     image: trustShieldImg,
     gradient: "from-teal-500/20 to-cyan-600/20",
-    url: "https://trustshield.tech",
+    url: "https://dwsc.io/guardian-shield",
     category: "Security"
   },
   {
@@ -179,7 +179,7 @@ const projects = [
     tech: ["React 19", "Stripe Live", "GPS", "WebSocket"],
     image: happyEatsImg,
     gradient: "from-cyan-500/20 to-blue-500/20",
-    url: "https://happyeats.app",
+    url: "https://tldriverconnect.com",
     category: "Delivery"
   },
   {
@@ -299,7 +299,7 @@ const projects = [
     tech: ["OpenAI TTS", "E-Reader", "PWA", "Blockchain"],
     image: "/emblems/trust-book.png",
     gradient: "from-cyan-500/20 to-purple-500/20",
-    url: "https://trustbook.tlid.io",
+    url: "https://dwsc.io/trust-book",
     category: "Publishing"
   },
   {

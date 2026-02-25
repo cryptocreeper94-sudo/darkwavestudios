@@ -71,7 +71,7 @@ const developerProducts = [
     title: "Guardian Shield",
     description: "24/7 continuous security monitoring for enterprise applications. Real-time threat detection and response.",
     icon: Shield,
-    href: "https://trustshield.tech",
+    href: "https://dwsc.io/guardian-shield",
     external: true,
     gradient: "from-violet-500 to-purple-600",
     features: ["Continuous monitoring", "Threat detection", "Enterprise security", "Real-time alerts"]

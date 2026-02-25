@@ -81,7 +81,7 @@ const projects = [
     tech: ["Security", "Monitoring", "Enterprise"],
     image: "/ecosystem/trust-shield.png",
     gradient: "from-emerald-500/20 to-teal-600/20",
-    url: "https://trustshield.tech"
+    url: "https://dwsc.io/guardian-shield"
   },
   {
     id: 4,
@@ -117,7 +117,7 @@ const projects = [
     tech: ["Operations", "PWA", "Venues"],
     image: "/ecosystem/orby-commander.png",
     gradient: "from-amber-500/20 to-orange-600/20",
-    url: "https://orbycommander.com"
+    url: "https://getorby.io"
   },
   {
     id: 8,
@@ -126,7 +126,7 @@ const projects = [
     tech: ["Automotive", "Workflow", "GPS"],
     image: "/ecosystem/lot-ops-pro.png",
     gradient: "from-blue-500/20 to-indigo-600/20",
-    url: "https://lotopspro.com"
+    url: "https://lotopspro.io"
   },
   {
     id: 9,
@@ -135,7 +135,7 @@ const projects = [
     tech: ["Delivery", "B2B", "Catering"],
     image: "/ecosystem/brew-board.png",
     gradient: "from-lime-500/20 to-green-600/20",
-    url: "https://brewandboardcoffee.replit.app"
+    url: "https://brewandboard.coffee"
   },
   {
     id: 10,
@@ -176,11 +176,11 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "Nationwide delivery and food truck ordering platform with 155+ API endpoints and 41 database tables",
+    description: "All-in-one driver services platform with GPS mileage, fuel finder, CDL directory, and delivery network",
     tech: ["Delivery", "PWA", "AI", "WebSocket"],
     image: "/ecosystem/happy-eats.png",
     gradient: "from-green-500/20 to-emerald-600/20",
-    url: "https://happyeats.app"
+    url: "https://tldriverconnect.com"
   },
   {
     id: 16,
@@ -484,7 +484,7 @@ export default function Home() {
                   Guardian AI
                 </Link>
                 <a 
-                  href="https://trustshield.tech" 
+                  href="https://dwsc.io/guardian-shield" 
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}

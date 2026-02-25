@@ -150,7 +150,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "lotops-pro",
     name: "LotOps Pro",
-    url: "https://lotopspro.com",
+    url: "https://lotopspro.io",
     totalLines: 109662,
     totalFiles: 319,
     stack: ["React", "TypeScript", "Express.js", "PostgreSQL", "Drizzle ORM", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion", "OpenAI", "Solana", "Stripe", "Twilio", "Tesseract.js OCR"],
@@ -168,7 +168,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "orby-commander",
     name: "Orby Commander",
-    url: "https://orbycommander.com",
+    url: "https://getorby.io",
     totalLines: 70473,
     totalFiles: 192,
     stack: ["React", "TypeScript", "Express", "PostgreSQL", "Drizzle ORM"],
@@ -187,7 +187,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "brew-board",
     name: "Brew & Board Coffee",
-    url: "https://brewandboardcoffee.replit.app",
+    url: "https://brewandboard.coffee",
     totalLines: 66124,
     totalFiles: 160,
     stack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Stripe", "Solana Blockchain", "Twilio", "DoorDash Drive API"],
@@ -242,7 +242,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trust-shield",
     name: "Guardian Shield / TrustShield",
-    url: "https://trustshield.tech",
+    url: "https://dwsc.io/guardian-shield",
     totalLines: 1224,
     totalFiles: 3,
     stack: ["React 18", "TypeScript", "Framer Motion", "Tailwind CSS", "Trust Layer"],
@@ -502,7 +502,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trust-book",
     name: "Trust Book",
-    url: "https://trustbook.tlid.io",
+    url: "https://dwsc.io/trust-book",
     totalLines: 9861,
     totalFiles: 4,
     apiEndpoints: 5,
