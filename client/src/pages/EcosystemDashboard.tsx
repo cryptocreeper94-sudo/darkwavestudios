@@ -151,7 +151,7 @@ export default function EcosystemDashboard() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem Dashboard - DarkWave Studios"
-        description="Master control center for monitoring all 29 DarkWave ecosystem apps. Real-time health checks, response times, and quick access to developer tools."
+        description="Master control center for monitoring all 31 DarkWave ecosystem apps. Real-time health checks, response times, and quick access to developer tools."
         keywords="ecosystem dashboard, health monitoring, developer tools, API, widgets"
       />
       <BreadcrumbSchema
@@ -241,7 +241,7 @@ export default function EcosystemDashboard() {
                 </span>
               </motion.h1>
               <p className="text-muted-foreground text-sm lg:text-base mb-6 max-w-xl">
-                Real-time health monitoring across all 29 production apps. 1.8M+ lines of code, live status, and instant access to every developer tool.
+                Real-time health monitoring across all 31 production apps. 1.8M+ lines of code, live status, and instant access to every developer tool.
               </p>
 
               {/* Summary Stats */}
@@ -555,7 +555,7 @@ export default function EcosystemDashboard() {
                 { icon: Shield, label: "Guardian AI", desc: "Agent certification & security", href: "/guardian-ai", gradient: "from-red-500 to-orange-500" },
                 { icon: Bot, label: "AI Agent Marketplace", desc: "Build & deploy AI agents", href: "https://dwtl.io/ai-agents", ext: true, gradient: "from-emerald-500 to-teal-500" },
                 { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-purple-500 to-pink-500" },
-                { icon: Globe, label: "Ecosystem", desc: "All 29 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
+                { icon: Globe, label: "Ecosystem", desc: "All 31 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
               ].map((tool, i) => (
                 tool.ext ? (
                   <a key={tool.label} href={tool.href} target="_blank" rel="noopener noreferrer" data-testid={`tool-${tool.label.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -592,7 +592,7 @@ export default function EcosystemDashboard() {
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
         >
           {[
-            { label: "Total Apps", value: "29", icon: Server },
+            { label: "Total Apps", value: "31", icon: Server },
             { label: "Total Widgets", value: "72", icon: Boxes },
             { label: "Lines of Code", value: "1.8M+", icon: FileCode },
             { label: "API Endpoints", value: "1,500+", icon: Zap },

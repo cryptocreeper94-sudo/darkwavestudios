@@ -1,0 +1,175 @@
+Trust Book — Full Product Catalog Entry
+Product Name: Trust Book
+Tagline: Censorship-Free Publishing
+Live URL: https://trustbook.tlid.io
+Internal Route: /trust-book
+Reader Route: /veil-reader
+Company: DarkWave Studios LLC
+Company URL: https://darkwavestudios.io
+Ecosystem: Trust Layer (dwtl.io)
+Copyright: © 2026 DarkWave Studios LLC
+Version: 1.0.0
+Status: Live / Published
+Platforms: Web (PWA), internal to Trust Layer portal
+Category: Publishing
+App #: 31
+
+Marketing Description (Short):
+Premium ebook publishing and reading platform with AI narration, multi-format support, and blockchain-verified provenance. Read, listen, and discover truth.
+
+Marketing Description (Full):
+Trust Book is the censorship-free publishing and reading platform built into the Trust Layer ecosystem. It features a premium 3-column bento grid landing page with glassmorphism UI, photorealistic hero images, and Framer Motion animations. The flagship launch title is "Through The Veil" — a 110,000-word investigative work spanning 54+ chapters across 15 volumes with 2 appendices. Readers get a full-screen immersive e-reader with chapter navigation, volume organization, progress tracking, and AI-powered narration using OpenAI Nova HD voice. The platform supports multi-format downloads (PDF and EPUB), offline reading capability, and plans for blockchain-verified provenance for all published works. An author publishing portal is roadmapped for future phases.
+
+Flagship Title:
+
+Title: "Through The Veil"
+Word Count: ~110,000 words
+Chapters: 54+ chapters, 15 volumes, 2 appendices
+Amazon KDP Price: $9.99
+Formats: Online reader, PDF download, EPUB download
+AI Narration: OpenAI Nova HD (chunked playback for full chapter coverage)
+Tech Stack:
+
+Layer	Technology
+Frontend Framework	React 18 + TypeScript
+Build Tool	Vite
+Routing	Wouter (lazy-loaded routes)
+State Management	React hooks, TanStack Query
+UI Components	Custom GlassCard with glow, Framer Motion animations, Lucide icons
+Styling	Tailwind CSS v4, glassmorphism, gradient text
+AI Narration	OpenAI TTS-1-HD (Nova voice)
+Backend	Node.js + Express.js + TypeScript
+Content Format	Markdown (parsed server-side into volumes/chapters)
+Download Formats	PDF (pre-built), EPUB (pre-built)
+Caching	Server-side chapter cache with mtime validation
+Database	PostgreSQL + Drizzle ORM (ecosystem integration)
+Lines of Code:
+
+Category	Files	LOC
+Trust Book Landing Page	1	521
+Veil Reader (e-reader + narration)	1	1,466
+Ebook Content (Markdown)	1	7,754
+Backend API (chapters, TTS, PDF, EPUB)	1 (within routes.ts)	~120
+Total	4	~9,861
+Features (8 Shipped):
+
+Premium Landing Page — 3-column bento grid, glassmorphism cards, photorealistic images, Framer Motion page transitions
+Immersive E-Reader — Full-screen reading with chapter/volume navigation, table of contents, progress tracking
+AI Narration — OpenAI Nova HD voice with intelligent chunked playback (handles chapters of any length), auto-advance to next chapter
+Multi-Format Downloads — PDF and EPUB download support
+Chapter Parsing — Server-side Markdown parser that organizes content into volumes, chapters, and sections
+Offline Support — PWA capability for offline reading
+Responsive Design — Mobile-first with 44px touch targets, responsive font sizing
+Ecosystem Integration — Listed in ecosystem app store, cross-linked from all ecosystem routers
+API Surface:
+4 endpoints:
+
+POST /api/voice/tts — AI text-to-speech (OpenAI Nova HD, 4000 char limit per chunk)
+GET /api/veil/chapters — Parsed chapter data with server-side caching
+GET /api/veil/epub — EPUB file download
+GET /api/veil/pdf — PDF file download
+GET /api/voice/voices — Available voice list
+Design System:
+
+Primary: Cyan (#06b6d4) / Purple (#7c3aed)
+Accent: Pink (#ec4899)
+UI Pattern: GlassCard with glow, glassmorphism (bg-white/5, backdrop-blur-xl, border-white/10)
+Font: System (Tailwind defaults)
+Theme: Dark only (bg-slate-950)
+Animations: Framer Motion page transitions, staggered children, hover glow effects
+URLs & Links:
+
+Resource	URL
+Live App	https://trustbook.tlid.io
+Internal Route	/trust-book
+Reader	/veil-reader
+Company	https://darkwavestudios.io
+Trust Layer	https://dwtl.io
+Amazon KDP	(Through The Veil listed at $9.99)
+Happy Eats — Full Product Catalog Entry
+Product Name: Happy Eats
+Tagline: Local Food Truck Orders
+Live URL: https://happyeats.tlid.io
+Company: DarkWave Studios LLC
+Company URL: https://darkwavestudios.io
+Ecosystem: Trust Layer (dwtl.io)
+Copyright: © 2026 DarkWave Studios LLC
+Version: 1.0.0
+Status: Live / Published
+Platforms: Web (PWA), internal to Trust Layer portal
+Category: Food & Delivery
+App #: 30
+
+Marketing Description (Short):
+Food truck ordering platform with zone-based batch ordering. Order from local food trucks in the Nashville I-24 Corridor with 11 AM daily cutoff and blockchain-verified transactions.
+
+Marketing Description (Full):
+Happy Eats is a zone-based food truck ordering platform serving the Nashville I-24 Corridor. It connects local food truck vendors with hungry customers through a streamlined batch ordering system with an 11 AM daily cutoff. The platform features vendor registration and management, zone-based delivery routing, and blockchain-verified transaction records through the Trust Layer ecosystem. Happy Eats integrates with the ecosystem's cross-platform affiliate system (he- prefix affiliate IDs), sharing a revenue model with TL Driver Connect — charging a 15% platform fee on all vendor orders with affiliate revenue share coming out of that fee. The platform supports vendor referral bonuses ($20 per qualified vendor) and tiered ongoing revenue share (1% Starter tier for 1-9 referrals, 2% Builder tier for 10+).
+
+Tech Stack:
+
+Layer	Technology
+Frontend Framework	React 18 + TypeScript
+Build Tool	Vite
+Routing	Wouter
+State Management	TanStack Query, React hooks
+UI Components	GlassCard, glassmorphism dark theme
+Styling	Tailwind CSS v4
+Backend	Node.js + Express.js + TypeScript
+Database	PostgreSQL + Drizzle ORM
+Auth	Firebase Auth (ecosystem SSO)
+Payments	Stripe (ecosystem integration)
+Blockchain	Trust Layer mainnet (transaction verification)
+Lines of Code:
+Happy Eats is integrated directly into the Trust Layer monolith rather than running as a standalone app. Its logic is distributed across:
+
+Category	Description	Estimated LOC
+Ecosystem Affiliate System	Cross-platform affiliate tracking (he- prefix)	~300
+Route Handlers	Order processing, vendor management	~200
+Frontend Components	Ordering UI, vendor dashboard	~400
+Shared Schema	Database tables for orders, vendors, zones	~100
+Total		~1,000
+Features (6 Shipped):
+
+Zone-Based Ordering — Batch food orders organized by Nashville I-24 Corridor delivery zones
+Daily Cutoff System — 11 AM daily order cutoff for batch processing and delivery
+Vendor Management — Food truck registration, menu management, order fulfillment
+Cross-Platform Affiliates — Ecosystem affiliate IDs (he- prefix) with cross-platform recognition across Trust Layer, TL Driver Connect, and GarageBot
+Revenue Sharing — 15% platform fee with tiered affiliate revenue share ($20 vendor referral bonus, 1-2% ongoing share)
+Blockchain Verification — All transactions recorded on Trust Layer mainnet
+Affiliate System:
+
+Affiliate ID Format: he-{base36-timestamp}-{8-char-hex-random} (e.g., he-m1abc2d-3e4f5a6b)
+Vendor Referral Bonus: $20 per qualified vendor
+Revenue Share Tiers: Starter (1-9 referrals, 1%), Builder (10+, 2%)
+Minimum Payout: $20.00
+Qualification: 14 days active, $100 minimum revenue
+Cross-Platform: Recognized across Trust Layer, TL Driver Connect, GarageBot
+API Surface:
+Integrated into the Trust Layer API. Key endpoints include:
+
+GET /api/affiliates/trust-layer-handoff — Full integration spec
+GET /api/affiliates/format-spec — Affiliate ID format documentation
+POST /api/affiliates/register — Register new affiliate
+GET /api/affiliates/:id/dashboard — Affiliate dashboard data
+GET /api/affiliates/lookup/:code — Cross-platform affiliate lookup
+POST /api/affiliates/referrals — Create referral (HMAC auth)
+POST /api/affiliates/referrals/:id/activate — Activate referral (HMAC auth)
+Design System:
+
+Primary Gradient: Orange (#f97316) to Red (#dc2626)
+UI Pattern: GlassCard, dark glassmorphism theme
+Theme: Dark only (ecosystem consistent)
+URLs & Links:
+
+Resource	URL
+Live App	https://happyeats.tlid.io
+Company	https://darkwavestudios.io
+Trust Layer	https://dwtl.io
+Affiliate Handoff Spec	/api/affiliates/trust-layer-handoff
+That should give the cataloging agent everything it needs for both apps. Let me know if anything needs adjusting or if there's more detail needed on either one.
+
+
+Scroll to latest
+
+Make, test, iterate…

@@ -259,6 +259,24 @@ const ecosystemApps: EcosystemApp[] = [
     category: "core"
   },
   {
+    id: "happy-eats",
+    name: "Happy Eats",
+    tagline: "Local Food Truck Orders",
+    description: "Zone-based food truck ordering platform serving the Nashville I-24 Corridor. Connects local food truck vendors with customers through batch ordering with 11 AM daily cutoff. Vendor registration, zone-based delivery routing, blockchain-verified transactions, and cross-platform affiliate system. Integrated into Trust Layer ecosystem with Stripe payments.",
+    image: "/emblems/happy-eats.png",
+    url: "https://happyeats.tlid.io",
+    category: "auto"
+  },
+  {
+    id: "trust-book",
+    name: "Trust Book",
+    tagline: "Censorship-Free Publishing",
+    description: "Premium ebook publishing and reading platform with AI narration, multi-format support, and blockchain-verified provenance. Features immersive e-reader with chapter navigation, OpenAI Nova HD AI narration, PDF/EPUB downloads, and the flagship title 'Through The Veil' — a 110,000-word investigative work spanning 54+ chapters across 15 volumes. Glassmorphism UI with Framer Motion animations.",
+    image: "/emblems/trust-book.png",
+    url: "https://trustbook.tlid.io",
+    category: "core"
+  },
+  {
     id: "trust-golf",
     name: "Trust Golf",
     tagline: "Your Premium Golf Companion",

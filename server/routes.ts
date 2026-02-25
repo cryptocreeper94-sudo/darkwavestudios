@@ -1387,6 +1387,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
     { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
     { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
+    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.tlid.io", category: "auto", loc: "~1K", pages: "3" },
+    { id: "trust-book", name: "Trust Book", url: "https://trustbook.tlid.io", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "13,900", pages: "16" },
   ];
 
@@ -1485,14 +1487,16 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
         { displayName: "Verdara", description: "Ultimate outdoor recreation super-app — species ID, trails, trips, campgrounds & marketplace", icon: "VD", isVerified: true },
         { displayName: "Arbora", description: "Standalone arborist PWA — CRM, estimates, jobs, invoicing & crew management", icon: "AB", isVerified: true },
+        { displayName: "Happy Eats", description: "Zone-based food truck ordering — Nashville I-24 Corridor, batch ordering & affiliates", icon: "HE", isVerified: true },
+        { displayName: "Trust Book", description: "Censorship-free publishing — AI narration, e-reader, 110K word flagship title", icon: "TB", isVerified: true },
         { displayName: "Trust Golf", description: "Premium golf companion — 45+ courses, AI swing analysis, handicap tracking & deals", icon: "TG", isVerified: true },
       ];
 
       res.json({
         success: true,
         stats: {
-          totalApps: 29,
-          verifiedApps: 29,
+          totalApps: 31,
+          verifiedApps: 31,
           totalWidgets: 72,
           totalLOC: "1.8M+"
         },
@@ -2734,7 +2738,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
         domain: "darkwavestudios.io",
-        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 29-app ecosystem (~1.8M+ LOC)",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 31-app ecosystem (~1.8M+ LOC)",
         category: "agency",
         endpoints: {
           ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",

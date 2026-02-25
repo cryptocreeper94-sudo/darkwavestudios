@@ -255,7 +255,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 29 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 31 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -284,6 +284,26 @@ const projects = [
   },
   {
     id: 30,
+    title: "Happy Eats",
+    description: "Zone-based food truck ordering platform serving the Nashville I-24 Corridor. Batch ordering with 11 AM daily cutoff, vendor registration and management, zone-based delivery routing, blockchain-verified transactions, cross-platform affiliate system with revenue sharing. Integrated into Trust Layer ecosystem with Stripe payments and Firebase Auth.",
+    tech: ["React 18", "Stripe", "Firebase", "Blockchain"],
+    image: "/emblems/happy-eats.png",
+    gradient: "from-orange-500/20 to-red-500/20",
+    url: "https://happyeats.tlid.io",
+    category: "Food"
+  },
+  {
+    id: 31,
+    title: "Trust Book",
+    description: "Censorship-free ebook publishing and reading platform with AI narration via OpenAI Nova HD, multi-format downloads (PDF/EPUB), and blockchain-verified provenance. Features immersive full-screen e-reader with chapter/volume navigation, progress tracking, and the flagship title 'Through The Veil' — 110,000 words, 54+ chapters, 15 volumes. Premium glassmorphism UI. 9,861 lines of code, 4 files, 5 API endpoints.",
+    tech: ["OpenAI TTS", "E-Reader", "PWA", "Blockchain"],
+    image: "/emblems/trust-book.png",
+    gradient: "from-cyan-500/20 to-purple-500/20",
+    url: "https://trustbook.tlid.io",
+    category: "Publishing"
+  },
+  {
+    id: 32,
     title: "Trust Golf",
     description: "Premium mobile-first golf platform with 45+ curated courses, AI-powered swing analysis using GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven SEO blog, vendor/partner signup, and self-hosted first-party analytics. Cinematic explorer page with video hero, glass-morphism UI, React Native + Expo SDK 54, and installable PWA. 13,900 lines of code, 52 files, 53 API endpoints.",
     tech: ["React Native", "Expo", "GPT-4o", "PWA"],
@@ -298,8 +318,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 29 Web Applications & Ecosystem"
-        description="Explore 29 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 31 Web Applications & Ecosystem"
+        description="Explore 31 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -343,7 +363,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            29 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            31 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </motion.div>
 

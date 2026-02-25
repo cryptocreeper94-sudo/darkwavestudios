@@ -4,7 +4,7 @@ import {
   ArrowLeft, Code2, FileCode2, Database, Globe, Layers, Terminal, 
   BarChart3, TrendingUp, Cpu, Shield, Sparkles, ChevronRight, 
   Server, Smartphone, Palette, Bot, Utensils, Truck, Heart, 
-  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid, Trophy
+  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid, Trophy, BookOpen
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
@@ -477,6 +477,43 @@ const ecosystemMetrics: AppMetric[] = [
     highlights: ["6 Course Tracks", "3 Certifications", "Stripe Subscriptions", "Installable PWA", "Education Platform"],
     icon: Sparkles,
     gradient: "from-yellow-500 to-amber-500",
+    status: "Production",
+  },
+  {
+    id: "happy-eats",
+    name: "Happy Eats",
+    url: "https://happyeats.tlid.io",
+    totalLines: 1000,
+    totalFiles: 4,
+    apiEndpoints: 6,
+    stack: ["React 18", "TypeScript", "Vite", "Express", "PostgreSQL", "Drizzle ORM", "Stripe", "Firebase Auth"],
+    breakdown: [
+      { language: "TypeScript (Frontend)", lines: 400, files: 2 },
+      { language: "TypeScript (Backend)", lines: 500, files: 1 },
+      { language: "Schema", lines: 100, files: 1 },
+    ],
+    highlights: ["Zone-Based Ordering", "Daily Cutoff System", "Vendor Management", "Cross-Platform Affiliates", "Blockchain Verification", "Revenue Sharing"],
+    icon: Utensils,
+    gradient: "from-orange-500 to-red-500",
+    status: "Production",
+  },
+  {
+    id: "trust-book",
+    name: "Trust Book",
+    url: "https://trustbook.tlid.io",
+    totalLines: 9861,
+    totalFiles: 4,
+    apiEndpoints: 5,
+    stack: ["React 18", "TypeScript", "Vite", "Wouter", "OpenAI TTS", "Framer Motion", "Express", "PostgreSQL", "Drizzle ORM"],
+    breakdown: [
+      { language: "TypeScript (Landing)", lines: 521, files: 1 },
+      { language: "TypeScript (Reader)", lines: 1466, files: 1 },
+      { language: "Markdown (Content)", lines: 7754, files: 1 },
+      { language: "TypeScript (API)", lines: 120, files: 1 },
+    ],
+    highlights: ["Immersive E-Reader", "AI Narration (Nova HD)", "PDF/EPUB Downloads", "110K Word Flagship Title", "Chapter Navigation", "Blockchain Provenance", "PWA"],
+    icon: BookOpen,
+    gradient: "from-cyan-500 to-purple-500",
     status: "Production",
   },
   {
