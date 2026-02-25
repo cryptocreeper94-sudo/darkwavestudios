@@ -1372,7 +1372,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "nash-paint-pros", name: "NashPaintPros.io", url: "https://nashpaintpros.io", category: "trades", loc: "3,950", pages: "4" },
     { id: "garagebot", name: "GarageBot", url: "https://garagebot.io", category: "auto", loc: "88,700+", pages: "30+" },
     { id: "torque", name: "TORQUE", url: "https://garagebot.io/torque", category: "auto", loc: "5,475", pages: "10" },
-    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://tldriverconnect.com", category: "auto", loc: "74,854", pages: "63" },
+    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://tldriverconnect.com", category: "auto", loc: "110,745", pages: "63" },
     { id: "vedasolus", name: "VedaSolus", url: "https://vedasolus.io", category: "health", loc: "~8K", pages: "6" },
     { id: "tlid-io", name: "TLID.io", url: "https://dwsc.io/marketing", category: "business", loc: "7,133", pages: "11" },
     { id: "chronicles", name: "Chronicles", url: "https://yourlegacy.io", category: "gaming", loc: "36,947", pages: "27" },
@@ -1387,7 +1387,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
     { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
     { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
-    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.app", category: "auto", loc: "74,854", pages: "63" },
+    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.app", category: "auto", loc: "110,745", pages: "63" },
     { id: "trust-book", name: "Trust Book", url: "https://trustbook.tlid.io", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
   ];

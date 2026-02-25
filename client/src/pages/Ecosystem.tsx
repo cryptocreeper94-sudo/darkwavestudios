@@ -145,7 +145,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "tl-driver-connect",
     name: "TL Driver Connect",
     tagline: "Everything a Driver Needs, One App",
-    description: "All-in-one platform for commercial and everyday drivers. GPS mileage tracking with automatic trip logging, expense management with receipt OCR scanning, fuel finder (diesel/gas/EV sorted by proximity), CDL program directory, driver concierge service, real-time weather dashboard, and office suite with financial tracking. Trucker Talk and Signal Chat for driver community. Delivery network integration with Happy Eats for zone-based food truck order assignments. Shared codebase: 74,854 LOC, 63 pages, 212 API endpoints, 48 database tables.",
+    description: "All-in-one platform for commercial and everyday drivers. GPS mileage tracking with automatic trip logging, expense management with receipt OCR scanning, fuel finder (diesel/gas/EV sorted by proximity), CDL program directory, driver concierge service, real-time weather dashboard, and office suite with financial tracking. Trucker Talk and Signal Chat for driver community. Delivery network integration with Happy Eats for zone-based food truck order assignments. Shared codebase: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 database tables.",
     image: "/ecosystem/happy-eats.png",
     url: "https://tldriverconnect.com",
     category: "auto"
@@ -262,7 +262,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "happy-eats",
     name: "Happy Eats",
     tagline: "Your Favorite Food Trucks, Delivered",
-    description: "Zone-based food delivery platform connecting food truck vendors and mobile commissaries with customers across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones along the I-24/I-840 corridor, vendor self-service portal with menu management, AI-powered marketing toolkit with flyer creator and TLI d.io social posting, customer rewards and referral program, receipt scanning (OCR), Stripe live checkout, and franchise model with territory isolation. Shared codebase with TL Driver Connect: 74,854 LOC, 63 pages, 212 API endpoints, 48 database tables.",
+    description: "Zone-based food delivery platform connecting food truck vendors and mobile commissaries with customers across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones along the I-24/I-840 corridor, vendor self-service portal with menu management, AI-powered marketing toolkit with flyer creator and TLI d.io social posting, customer rewards and referral program, receipt scanning (OCR), Stripe live checkout, and franchise model with territory isolation. Shared codebase with TL Driver Connect: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 database tables.",
     image: "/emblems/happy-eats.png",
     url: "https://happyeats.app",
     category: "auto"

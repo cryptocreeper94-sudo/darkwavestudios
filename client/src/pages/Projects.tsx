@@ -175,7 +175,7 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "All-in-one driver services platform with GPS mileage tracking, expense management with receipt OCR, fuel finder (diesel/gas/EV), CDL program directory, driver concierge, weather dashboard, and office business suite. Delivery network integration with Happy Eats. Trucker Talk + Signal Chat community. Shared codebase with Happy Eats: 74,854 LOC, 63 pages, 212 API endpoints, 48 tables.",
+    description: "All-in-one driver services platform with GPS mileage tracking, expense management with receipt OCR, fuel finder (diesel/gas/EV), CDL program directory, driver concierge, weather dashboard, and office business suite. Delivery network integration with Happy Eats. Trucker Talk + Signal Chat community. Shared codebase with Happy Eats: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 tables.",
     tech: ["React 19", "Stripe Live", "GPS", "WebSocket"],
     image: happyEatsImg,
     gradient: "from-cyan-500/20 to-blue-500/20",
@@ -285,7 +285,7 @@ const projects = [
   {
     id: 30,
     title: "Happy Eats",
-    description: "Zone-based food delivery platform for food truck vendors and mobile commissaries across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones (I-24/I-840 corridor), vendor self-service portal, AI marketing toolkit with flyer creator and TLI d.io social posting, customer rewards program, receipt scanning OCR, Stripe live checkout, and franchise model. Shared codebase with TL Driver Connect: 74,854 LOC, 63 pages, 212 API endpoints, 48 tables.",
+    description: "Zone-based food delivery platform for food truck vendors and mobile commissaries across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones (I-24/I-840 corridor), vendor self-service portal, AI marketing toolkit with flyer creator and TLI d.io social posting, customer rewards program, receipt scanning OCR, Stripe live checkout, and franchise model. Shared codebase with TL Driver Connect: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 tables.",
     tech: ["React 19", "Stripe Live", "AI", "Franchise"],
     image: "/emblems/happy-eats.png",
     gradient: "from-orange-500/20 to-red-500/20",
