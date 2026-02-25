@@ -1273,7 +1273,7 @@ export default function TrustLayerHub() {
     });
   }, []);
 
-  // Load live widget previews - ALL 11 widgets
+  // Load live widget previews - ALL 17 widgets
   useEffect(() => {
     const loadWidgets = () => {
       // All widget configurations
@@ -1289,6 +1289,12 @@ export default function TrustLayerHub() {
         { name: 'tl-proposal', container: 'demo-proposal', color: '#8b5cf6' },
         { name: 'tl-seo', container: 'demo-seo', color: '#22c55e' },
         { name: 'tl-weather', container: 'demo-weather', color: '#0ea5e9' },
+        { name: 'tl-golf-distance', container: 'demo-golf-distance', color: '#10b981' },
+        { name: 'tl-golf-handicap', container: 'demo-golf-handicap', color: '#f59e0b' },
+        { name: 'tl-golf-course-card', container: 'demo-golf-course-card', color: '#6366f1' },
+        { name: 'tl-golf-swing', container: 'demo-golf-swing', color: '#ec4899' },
+        { name: 'tl-golf-blog', container: 'demo-golf-blog', color: '#14b8a6' },
+        { name: 'tl-golf-analytics', container: 'demo-golf-analytics', color: '#8b5cf6' },
       ];
       
       // Clear existing widget content
