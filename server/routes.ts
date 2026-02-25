@@ -2732,15 +2732,15 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       const registrationPayload = {
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
-        domain: "dwsc.io",
+        domain: "darkwavestudios.io",
         description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 29-app ecosystem (~1.8M+ LOC)",
         category: "agency",
         endpoints: {
-          ssoLogin: "https://dwsc.io/api/chat/auth/ecosystem-login",
-          register: "https://dwsc.io/api/chat/auth/register",
-          webhook: "https://dwsc.io/api/orbit/webhook",
-          status: "https://dwsc.io/api/orbit/status",
-          financialSync: "https://dwsc.io/api/orbit/sync-payment",
+          ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",
+          register: "https://darkwavestudios.io/api/chat/auth/register",
+          webhook: "https://darkwavestudios.io/api/orbit/webhook",
+          status: "https://darkwavestudios.io/api/orbit/status",
+          financialSync: "https://darkwavestudios.io/api/orbit/sync-payment",
         },
         capabilities: [
           "trust-layer-sso",
