@@ -259,15 +259,6 @@ const ecosystemApps: EcosystemApp[] = [
     category: "core"
   },
   {
-    id: "chronochat",
-    name: "ChronoChat",
-    tagline: "Community Without Borders",
-    description: "Cross-app community chat platform with invite system, channel-based conversations, and real-time WebSocket messaging. Available as a standalone app at chronochat.io and integrated into the Trust Layer ecosystem at dwsc.io/chronochat. Installable PWA.",
-    image: "/ecosystem/signal-chat.png",
-    url: "https://chronochat.io",
-    category: "social"
-  },
-  {
     id: "trust-golf",
     name: "Trust Golf",
     tagline: "Your Premium Golf Companion",

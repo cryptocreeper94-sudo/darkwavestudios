@@ -480,21 +480,6 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
-    id: "chronochat",
-    name: "ChronoChat",
-    url: "https://chronochat.io",
-    totalLines: 1224,
-    totalFiles: 5,
-    stack: ["React 18", "TypeScript", "WebSocket", "JWT", "PWA", "Trust Layer"],
-    breakdown: [
-      { language: "Included in Trust Layer build", lines: 3000, files: 5 },
-    ],
-    highlights: ["Community Chat", "Invite System", "Cross-App Messaging", "WebSocket Real-Time", "Installable PWA"],
-    icon: Radio,
-    gradient: "from-indigo-500 to-purple-500",
-    status: "Production",
-  },
-  {
     id: "trust-golf",
     name: "Trust Golf",
     url: "https://trustgolf.app",

@@ -1385,7 +1385,6 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "the-void", name: "THE VOID", url: "https://intothevoid.app", category: "health", loc: "23,532", pages: "27" },
     { id: "guardian-screener", name: "Guardian Screener", url: "https://dwsc.io/guardian-screener", category: "trading", loc: "~8K", pages: "5" },
     { id: "darkwave-academy", name: "DarkWave Academy", url: "https://dwsc.io/academy", category: "core", loc: "~6K", pages: "4" },
-    { id: "chronochat", name: "ChronoChat", url: "https://chronochat.io", category: "social", loc: "~4K", pages: "3" },
     { id: "verdara", name: "Verdara", url: "https://verdara.replit.app", category: "health", loc: "35,500", pages: "41" },
     { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "13,900", pages: "16" },
@@ -1492,8 +1491,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       res.json({
         success: true,
         stats: {
-          totalApps: 30,
-          verifiedApps: 30,
+          totalApps: 29,
+          verifiedApps: 29,
           totalWidgets: 72,
           totalLOC: "1.8M+"
         },
@@ -2735,7 +2734,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
         domain: "darkwavestudios.io",
-        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 30-app ecosystem (~1.8M+ LOC)",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 29-app ecosystem (~1.8M+ LOC)",
         category: "agency",
         endpoints: {
           ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",
