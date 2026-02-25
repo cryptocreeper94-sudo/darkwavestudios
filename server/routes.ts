@@ -1389,7 +1389,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "arbora", name: "Arbora", url: "https://verdara.replit.app/arbora", category: "trades", loc: "~8K", pages: "10" },
     { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.tlid.io", category: "auto", loc: "~1K", pages: "3" },
     { id: "trust-book", name: "Trust Book", url: "https://trustbook.tlid.io", category: "core", loc: "9,861", pages: "3" },
-    { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "13,900", pages: "16" },
+    { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;

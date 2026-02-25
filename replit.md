@@ -5,7 +5,7 @@ DarkWave Studios is a freelance web development agency portfolio and lead genera
 
 ## Recent Changes
 - **Feb 2026**: Added Happy Eats (#30, happyeats.tlid.io, ~1K LOC) and Trust Book (#31, trustbook.tlid.io, 9,861 LOC, AI narration, e-reader). Ecosystem total now 31 apps.
-- **Feb 2026**: Added Trust Golf to ecosystem, removed ChronoChat (merged into Signal Chat). Trust Golf: premium mobile-first golf platform at trustgolf.app (45+ courses, AI swing analysis via GPT-4o, USGA handicap tracking, score logging, tee time deals, AI blog, vendor portal, self-hosted analytics, 13,900 LOC, 52 files, 53 endpoints).
+- **Feb 2026**: Added Trust Golf to ecosystem, removed ChronoChat (merged into Signal Chat). Trust Golf: premium mobile-first golf platform at trustgolf.app (45+ courses, AI swing analysis via GPT-4o, USGA handicap tracking, score logging, tee time deals, AI blog, vendor portal, self-hosted analytics, 14,576 LOC, 52 files, 53 endpoints).
 - **Feb 2026**: Updated Trust Layer LOC to 243,958 (555 files). Updated Chronicles to 36,947 lines (27 pages, 5 components, 9 server services, procedural audio engine). Updated TL Driver Connect to 183,458 lines (5,084 files, 59 pages, 192 endpoints, 49 tables, dual PWA).
 - **Feb 2026**: Updated Trust Layer LOC from 673,309 → 282,494 → 243,958. Ecosystem total now ~1.8M+ across 31 apps.
 - **Feb 2026**: Added Arbora as App #29 — standalone arborist PWA at verdara.replit.app/arbora (CRM, estimates, jobs, invoicing, crew management, inventory tracking, ~8K LOC, 10 pages).

@@ -305,7 +305,7 @@ const projects = [
   {
     id: 32,
     title: "Trust Golf",
-    description: "Premium mobile-first golf platform with 45+ curated courses, AI-powered swing analysis using GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven SEO blog, vendor/partner signup, and self-hosted first-party analytics. Cinematic explorer page with video hero, glass-morphism UI, React Native + Expo SDK 54, and installable PWA. 13,900 lines of code, 52 files, 53 API endpoints.",
+    description: "Premium mobile-first golf platform with 45+ curated courses, AI-powered swing analysis using GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven SEO blog, vendor/partner signup, and self-hosted first-party analytics. Cinematic explorer page with video hero, glass-morphism UI, React Native + Expo SDK 54, and installable PWA. 14,576 lines of code, 52 files, 53 API endpoints.",
     tech: ["React Native", "Expo", "GPT-4o", "PWA"],
     image: "/emblems/trust-golf.png",
     gradient: "from-emerald-600/20 to-green-500/20",

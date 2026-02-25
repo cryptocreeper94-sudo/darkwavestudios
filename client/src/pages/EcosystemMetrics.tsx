@@ -520,7 +520,7 @@ const ecosystemMetrics: AppMetric[] = [
     id: "trust-golf",
     name: "Trust Golf",
     url: "https://trustgolf.app",
-    totalLines: 13900,
+    totalLines: 14576,
     totalFiles: 52,
     apiEndpoints: 53,
     stack: ["React Native", "Expo SDK 54", "TypeScript", "Express 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "PWA", "Resend"],
