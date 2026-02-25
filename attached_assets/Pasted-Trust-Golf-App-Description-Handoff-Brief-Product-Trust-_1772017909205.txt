@@ -1,0 +1,52 @@
+Trust Golf — App Description & Handoff Brief
+Product: Trust Golf
+Company: DarkWave Studios LLC (darkwavestudios.io)
+Ecosystem: Trust Layer (dwtl.io)
+Live URL: trustgolf.app
+Copyright: © 2026 DarkWave Studios LLC
+Platforms: Web (PWA), iOS (Expo Go / App Store ready), Android (Expo Go / Google Play ready)
+
+What It Is
+Trust Golf is a premium mobile-first golf companion app built with React Native + Expo (SDK 54) on an Express/PostgreSQL backend. It covers course discovery, scoring, AI swing analysis, GPS distance finding, deals, blog content, partner onboarding, and analytics — all in a cinematic glass-morphism UI with a dark/light theme system.
+
+Tech Stack
+React Native 0.81 + Expo SDK 54, Expo Router (file-based), React Query, Express 5.0, PostgreSQL + Drizzle ORM, OpenAI GPT-4o, Resend (email), Leaflet + Esri (web maps), react-native-maps (native maps), expo-location, bcryptjs + JWT auth, Replit Object Storage, esbuild (server build), TypeScript throughout.
+
+Total LOC: ~14,576 (across 61 source files)
+Features (17 shipped)
+Cinematic Explorer Page — Video hero with 3 AI-generated golf videos cycling with cross-fade, category carousels, hot deals, top courses, quick actions
+Course Catalog (45 courses) — 20 world-class + 8 Upstate SC + 17 Middle TN/Nashville, filterable by state, full descriptions, designer info, year built, gallery images, amenities, contact info
+Score Tracking — Log rounds with stats (putts, FIR, GIR), view history, running averages
+USGA Handicap System — Auto-calculated Handicap Index using score differentials, updates per round
+Hole-by-Hole Scorecards — Real par/yardage/handicap data for 17 Middle TN courses
+AI Swing Analyzer — 9 club categories, photo + video mode, GPT-4o vision analysis with club-specific drills and tips
+Video Swing Playback — Slow-motion (0.25x/0.5x/1x), frame extraction, TrustVault upload + editing
+Exclusive Deals — Discounted tee times and packages with hot deal badges
+AI-Driven Blog — GPT-4o generated SEO posts, 6 categories, Markdown rendering, developer dashboard management
+Vendor/Partner Signup — Public application form, business type + tier selection, Resend confirmation email, developer dashboard approve/reject
+Self-Hosted Analytics — First-party tracking: sessions, page views, events, UTM, device/browser detection, 6 KPI cards, daily charts, date range filter
+Developer Dashboard — Pin-protected (0424) admin: course/deal/blog/vendor management, analytics, 14 affiliate programs, partnership guide
+TrustVault Integration — Media storage, video/image/audio editors, HMAC auth, webhook callbacks
+PWA — Service worker, install banner, manifest with shortcuts
+Full SEO Stack — JSON-LD, Open Graph, Twitter Cards, dynamic sitemap.xml (49+ URLs), robots.txt, server-rendered blog meta
+Auth System — Email + Resend verification, bcrypt, JWT, browse-first UX (login only gates premium features)
+GPS Distance Finder — Satellite map view of any course, tap-to-drop target pins with Haversine distance calculation, draggable simulation mode for off-course testing, yards/meters toggle, course picker for all 45 courses with real coordinates, pin-to-pin distance display. Platform-specific: react-native-maps on native, Leaflet + Esri satellite tiles on web. Accessible from every course detail page and the hamburger menu.
+Widget / Extension Opportunities
+These are natural extraction points where another agent could build standalone embeddable widgets or micro-apps from existing functionality:
+
+Distance Calculator Widget — The GPS Distance Finder's Haversine logic + Leaflet map could be extracted as a standalone embeddable widget for any golf website. All the coordinate data for 45 courses is already mapped. Drop it in an iframe or web component.
+Handicap Calculator Widget — The USGA Handicap Index engine (score differentials, running calculation) is self-contained. Could be a standalone tool for any golf site.
+Course Card / Embed Widget — Each course has rich structured data (name, location, designer, rating, slope, par, yardage, green fee, amenities, gallery images). A single-course embed card would be valuable for course websites, booking platforms, or travel blogs.
+Swing Analysis API — The AI swing analyzer endpoint (POST /api/swing-analyze) takes an image + club type and returns structured analysis. Could be exposed as a standalone API or embedded widget with a camera upload.
+Blog Content API — The AI blog generation endpoint (POST /api/blog/generate) creates SEO-optimized golf articles on demand. Could power content for partner sites or newsletters.
+Analytics Dashboard Embed — The self-hosted analytics system (12 API endpoints) could be packaged as a reusable first-party analytics module for other Trust Layer apps.
+Key Files
+app/gps-navigator.tsx, components/CourseMap.tsx, components/CourseMap.web.tsx, server/routes.ts, server/storage.ts, shared/schema.ts, app/(tabs)/index.tsx, app/course/[id].tsx, app/developer.tsx, app/+html.tsx, app/blog.tsx, constants/colors.ts, replit.md
+
+API Surface
+53+ endpoints across auth, courses, rounds, deals, swing analysis, stats, blog (CRUD + AI generation), vendor applications, analytics (12 endpoints), TrustVault (8 endpoints), SEO routes, and data seeding.
+
+Copy and paste that wherever you need it. The widget recommendations are real — each one maps directly to existing isolated logic that could be extracted without restructuring.
+
+
+Scroll
