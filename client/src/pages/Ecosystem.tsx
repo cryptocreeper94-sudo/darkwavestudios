@@ -280,7 +280,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trust-golf",
     name: "Trust Golf",
     tagline: "Your Premium Golf Companion",
-    description: "Premium mobile-first golf platform featuring 45+ courses, AI-powered swing analysis via GPT-4o vision, USGA handicap tracking, hole-by-hole scorecards, exclusive tee time deals, AI-driven blog, vendor/partner signup, and self-hosted analytics. Cinematic explorer with video hero, glass-morphism UI, and installable PWA. 53 API endpoints, 14,576 lines of code.",
+    description: "Premium mobile-first golf companion app with 45 courses (world-class + regional), AI swing analysis via GPT-4o vision with video playback (slow-motion 0.25x/0.5x/1x), USGA handicap system with auto-calculated index, hole-by-hole scorecards with real par/yardage data, GPS distance finder with satellite maps and Haversine calculation, exclusive tee time deals, AI-driven SEO blog, vendor/partner signup with Resend email, and self-hosted first-party analytics. Cinematic explorer with 3 AI-generated cycling videos, glass-morphism UI, React Native + Expo SDK 54, installable PWA. 17 features, 53+ API endpoints, 14,576 LOC across 61 files.",
     image: "/emblems/trust-golf.png",
     url: "https://trustgolf.app",
     category: "sports"

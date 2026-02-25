@@ -1497,7 +1497,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         stats: {
           totalApps: 31,
           verifiedApps: 31,
-          totalWidgets: 72,
+          totalWidgets: 78,
           totalLOC: "1.8M+"
         },
         apps: ecosystemAppsData,

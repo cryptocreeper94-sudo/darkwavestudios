@@ -49,7 +49,7 @@ const categoryMeta: Record<string, { label: string; color: string; gradient: str
 const quickActions = [
   { label: "Shared Components", href: "/developers/components", icon: Layers, desc: "Manage ecosystem-wide UI", gradient: "from-cyan-500 to-teal-500" },
   { label: "Command Center", href: "/command", icon: Command, desc: "Full feature access", gradient: "from-purple-500 to-indigo-500" },
-  { label: "Trust Layer Hub", href: "/hub", icon: Boxes, desc: "72 embeddable widgets", gradient: "from-amber-500 to-orange-500" },
+  { label: "Trust Layer Hub", href: "/hub", icon: Boxes, desc: "78 embeddable widgets", gradient: "from-amber-500 to-orange-500" },
   { label: "API Documentation", href: "/developers/api", icon: BookOpen, desc: "Pulse API & endpoints", gradient: "from-emerald-500 to-green-500" },
   { label: "Marketing Hub", href: "/marketing", icon: PenTool, desc: "Automated social posting", gradient: "from-rose-500 to-pink-500" },
   { label: "Ecosystem Metrics", href: "/metrics", icon: BarChart3, desc: "Live stats & analytics", gradient: "from-blue-500 to-cyan-500" },
@@ -593,7 +593,7 @@ export default function EcosystemDashboard() {
         >
           {[
             { label: "Total Apps", value: "31", icon: Server },
-            { label: "Total Widgets", value: "72", icon: Boxes },
+            { label: "Total Widgets", value: "78", icon: Boxes },
             { label: "Lines of Code", value: "1.8M+", icon: FileCode },
             { label: "API Endpoints", value: "1,500+", icon: Zap },
           ].map(stat => (

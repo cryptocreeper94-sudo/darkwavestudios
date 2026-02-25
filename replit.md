@@ -4,7 +4,8 @@
 DarkWave Studios is a freelance web development agency portfolio and lead generation platform. It showcases services, projects, and pricing, while capturing leads through various forms like contact, quote requests, bookings, and newsletter subscriptions. The platform functions as both a marketing site and a CRM, designed to manage potential clients. It also integrates with various AI-powered tools and an extensive ecosystem of 31 interconnected applications and widgets (1.8M+ total LOC), including an AI agent marketplace, a security scanner, and a media editing studio. The long-term vision includes a comprehensive ecosystem of interconnected applications and services built on a shared Trust Layer.
 
 ## Recent Changes
-- **Feb 2026**: Added Happy Eats (#30, happyeats.tlid.io, ~1K LOC) and Trust Book (#31, trustbook.tlid.io, 9,861 LOC, AI narration, e-reader). Ecosystem total now 31 apps.
+- **Feb 2026**: Added 6 Trust Golf widgets to Hub (Distance Calculator, USGA Handicap Calculator, Course Embed Card, AI Swing Analyzer, Golf Blog API, Self-Hosted Analytics). Widget count: 72 → 78. Updated Trust Golf description with 17 shipped features, GPS distance finder, video swing playback, 61 files.
+- **Feb 2026**: Added Happy Eats (#30, happyeats.app, shared codebase) and Trust Book (#31, dwsc.io/trust-book, 9,861 LOC, AI narration, e-reader). Ecosystem total now 31 apps.
 - **Feb 2026**: Added Trust Golf to ecosystem, removed ChronoChat (merged into Signal Chat). Trust Golf: premium mobile-first golf platform at trustgolf.app (45+ courses, AI swing analysis via GPT-4o, USGA handicap tracking, score logging, tee time deals, AI blog, vendor portal, self-hosted analytics, 14,576 LOC, 52 files, 53 endpoints).
 - **Feb 2026**: Updated Trust Layer LOC to 243,958 (555 files). Updated Chronicles to 36,947 lines (27 pages, 5 components, 9 server services, procedural audio engine). Updated TL Driver Connect + Happy Eats shared codebase to 110,745 lines (611 files, 63 pages, 83 components, 212 endpoints, 48 tables, dual PWA). TL Driver Connect: tldriverconnect.com. Happy Eats: happyeats.app.
 - **Feb 2026**: Updated Trust Layer LOC from 673,309 → 282,494 → 243,958. Ecosystem total now ~1.8M+ across 31 apps.
@@ -56,7 +57,7 @@ Admin routes are protected using an `X-Admin-Key` header middleware.
 Manages business documents such as the Business Plan, Executive Summary, Roadmap, Terms of Service, and Privacy Policy.
 
 ### Trust Layer Hub
-A blockchain-verified code marketplace offering 72 embeddable widgets with live previews and full code access.
+A blockchain-verified code marketplace offering 78 embeddable widgets with live previews and full code access.
 
 ### AI Agent Marketplace
 An external platform (`https://dwsc.io/ai-agents`) for creating, deploying, and discovering AI agents, integrated with Guardian AI for certification.

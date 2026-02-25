@@ -78,7 +78,11 @@ import {
   AlertTriangle,
   Fuel,
   Briefcase,
-  Brain
+  Brain,
+  Target,
+  Navigation,
+  BookOpen,
+  Crosshair
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
@@ -949,6 +953,72 @@ const widgetsList = [
     techStack: ["Vanilla JS", "TypeScript", "Trust Layer SSO", "REST API", "CSS3"],
     linesOfCode: "~600 lines",
     complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-distance-calculator", name: "Golf Distance Calculator", icon: Crosshair, containerId: "demo-golf-distance", color: "#10b981",
+    description: "GPS satellite map with tap-to-drop pin distance measurement", price: 199, priceId: "price_widget_golf_distance",
+    fullDescription: "Drop this widget onto any golf website and give players instant GPS distance measurement on a satellite map view. Tap to place target pins, get Haversine-calculated distances in yards or meters, drag pins for simulation mode, and pick from 45 pre-loaded courses with real coordinates. Platform-adaptive: Leaflet + Esri satellite tiles on web, react-native-maps on native. Extracted directly from Trust Golf's production GPS Distance Finder.",
+    features: ["Satellite map view with course overlay", "Tap-to-drop target pins with Haversine calculation", "Yards/meters toggle", "Draggable pin simulation mode", "45 pre-loaded courses with real GPS coordinates", "Pin-to-pin distance display", "Course picker dropdown", "Mobile-optimized touch targets", "Responsive embed sizing"],
+    requirements: ["React 18+ or vanilla JS", "Internet connection for map tiles"],
+    includes: ["Full source code", "45 courses coordinate dataset", "Leaflet + Esri integration", "Customization guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Leaflet", "Esri Satellite Tiles", "Haversine Formula", "Tailwind CSS"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "golf-handicap-calculator", name: "USGA Handicap Calculator", icon: Trophy, containerId: "demo-golf-handicap", color: "#f59e0b",
+    description: "Auto-calculated USGA Handicap Index from score differentials", price: 149, priceId: "price_widget_golf_handicap",
+    fullDescription: "Self-contained USGA Handicap Index calculator that computes handicap from score differentials using the official formula. Players enter round scores, course rating, and slope rating — the widget handles differential calculation, running averages, and index updates automatically. Clean glassmorphism UI with animated counters. Drop it into any golf site, club portal, or league management system. Extracted from Trust Golf's production handicap engine.",
+    features: ["Official USGA Handicap Index formula", "Score differential calculation", "Running average with best-of selection", "Round history tracking", "Animated handicap counter display", "Course rating & slope inputs", "Dark/light theme support", "Mobile-responsive design", "Export handicap data as JSON"],
+    requirements: ["React 18+ or vanilla JS", "No backend required — runs client-side"],
+    includes: ["Full source code", "USGA formula documentation", "Theme customization", "Integration examples", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~520 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-course-card", name: "Golf Course Embed Card", icon: MapPin, containerId: "demo-golf-course-card", color: "#6366f1",
+    description: "Rich course profile card with ratings, amenities, and gallery", price: 99, priceId: "price_widget_golf_course_card",
+    fullDescription: "Beautiful embeddable course profile card with structured data — name, location, designer, year built, rating, slope, par, yardage, green fees, amenities list, and gallery images. Each card renders as a premium glassmorphism component with hover effects and animated transitions. Perfect for course websites, booking platforms, travel blogs, or tournament pages. Includes all 45 Trust Golf course datasets ready to use. One embed tag, instant course showcase.",
+    features: ["Rich structured course data display", "Gallery image carousel", "Rating & slope visualization", "Amenities icon grid", "Designer & year built info", "Green fee display with booking CTA", "Glassmorphism card with glow effects", "Hover animations & micro-interactions", "45 pre-loaded course datasets", "Customizable color scheme"],
+    requirements: ["Any HTML page or React app", "No backend required"],
+    includes: ["Full source code", "45 course datasets", "Gallery component", "Theme variants", "Embed instructions", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "Embla Carousel"],
+    linesOfCode: "~680 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-swing-analyzer", name: "AI Swing Analyzer Widget", icon: Camera, containerId: "demo-golf-swing", color: "#ec4899",
+    description: "GPT-4o vision-powered swing analysis with club-specific coaching", price: 299, priceId: "price_widget_golf_swing",
+    fullDescription: "Embed an AI-powered swing analyzer on any golf platform. Users upload a photo or video of their swing, select from 9 club categories, and receive structured GPT-4o vision analysis with club-specific drills, tips, and corrections. Video mode includes slow-motion playback (0.25x/0.5x/1x) and frame extraction for key positions. The widget handles media upload, API communication, and renders beautiful analysis cards with actionable coaching feedback. Extracted from Trust Golf's production swing analysis engine.",
+    features: ["GPT-4o vision analysis", "9 club categories (Driver through Putter)", "Photo + video upload modes", "Slow-motion video playback (0.25x/0.5x/1x)", "Frame extraction at key positions", "Club-specific drills & tips", "Structured analysis cards", "TrustVault media storage integration", "Mobile camera capture support", "Loading states with swing animations"],
+    requirements: ["React 18+", "OpenAI API key (GPT-4o vision)", "Backend proxy for API calls"],
+    includes: ["Full source code", "Backend API route", "OpenAI prompt engineering", "Video player component", "9 club category configs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "golf-blog-generator", name: "Golf Blog Content API", icon: BookOpen, containerId: "demo-golf-blog", color: "#14b8a6",
+    description: "AI-generated SEO golf articles with 6 categories and Markdown output", price: 199, priceId: "price_widget_golf_blog",
+    fullDescription: "On-demand AI blog generation engine purpose-built for golf content. Feed it a topic and category, and it produces SEO-optimized articles with meta descriptions, keyword tags, structured headings, and Markdown formatting. Six content categories: instruction, equipment, courses, fitness, mental game, and news. Developer dashboard for managing posts with publish/draft workflow. Power your golf blog, newsletter, or partner content feeds without writing a word. Extracted from Trust Golf's production AI blog system.",
+    features: ["GPT-4o content generation", "6 golf content categories", "SEO meta descriptions & keywords", "Markdown output with structured headings", "Publish/draft workflow", "Developer dashboard management", "Bulk generation support", "RSS feed compatible output", "Category-specific tone & style", "Auto-tagging system"],
+    requirements: ["Node.js backend", "OpenAI API key", "Optional: PostgreSQL for post storage"],
+    includes: ["Full source code", "API routes", "Dashboard UI", "Prompt templates for 6 categories", "Markdown renderer", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "OpenAI GPT-4o", "React 18", "TypeScript", "Tailwind CSS"],
+    linesOfCode: "~900 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "golf-analytics-dashboard", name: "Self-Hosted Analytics Module", icon: BarChart3, containerId: "demo-golf-analytics", color: "#8b5cf6",
+    description: "First-party analytics with sessions, events, UTM tracking, and KPI dashboard", price: 249, priceId: "price_widget_golf_analytics",
+    fullDescription: "Drop-in first-party analytics system that runs entirely on your own infrastructure — no third-party scripts, no cookie banners, no data leaving your server. Tracks sessions, page views, custom events, UTM parameters, device/browser detection, and referrer data. Includes a premium admin dashboard with 6 KPI cards, daily trend charts, date range filtering, and real-time session counts. 12 API endpoints handle ingestion, aggregation, and dashboard queries. Extracted from Trust Golf's production self-hosted analytics — proven at scale.",
+    features: ["First-party tracking — no third-party scripts", "Session & page view tracking", "Custom event system", "UTM parameter capture", "Device & browser detection", "Referrer tracking", "6 KPI dashboard cards", "Daily trend charts (Recharts)", "Date range filtering", "Real-time session counter", "12 API endpoints", "Privacy-first — no cookies required"],
+    requirements: ["Node.js + Express backend", "PostgreSQL database"],
+    includes: ["Full source code", "12 API endpoints", "Dashboard UI with charts", "Database schema", "Tracking script (single tag)", "Setup & deployment guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "PostgreSQL", "Drizzle ORM", "React 18", "TypeScript", "Recharts", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
   },
   {
     id: "shared-components", name: "Shared Components System", icon: Layers, containerId: "demo-shared-components", color: "#8b5cf6",
