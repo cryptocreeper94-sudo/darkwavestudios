@@ -486,7 +486,7 @@ export default function Ecosystem() {
       <div className="fixed inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.5))] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-5 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-5 flex items-center justify-between overflow-hidden">
           <div className="flex items-center gap-4">
             <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
               <ArrowLeft className="w-5 h-5" />
@@ -498,20 +498,21 @@ export default function Ecosystem() {
               <span className="font-display text-xl lg:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Ecosystem</span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 lg:gap-3 flex-shrink-0">
             <Link 
               href="/metrics"
-              className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300"
+              className="px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs lg:text-sm font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 whitespace-nowrap"
               data-testid="button-ecosystem-metrics"
             >
               Metrics
             </Link>
             <Link 
               href="/developers"
-              className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+              className="group relative px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-xs lg:text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 whitespace-nowrap"
               data-testid="button-developer-tools"
             >
-              <span className="relative z-10">Developer Tools</span>
+              <span className="relative z-10 hidden sm:inline">Developer Tools</span>
+              <span className="relative z-10 sm:hidden">Dev Tools</span>
             </Link>
           </div>
         </div>
