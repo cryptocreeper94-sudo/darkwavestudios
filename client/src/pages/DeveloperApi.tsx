@@ -274,7 +274,7 @@ export default function DeveloperApi() {
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 31 production apps and 1.8M+ lines of code", icon: Zap },
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 31 production apps and 1.7M+ lines of code", icon: Zap },
                     { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
                     { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 31-app ecosystem as a solo developer", icon: Terminal },
                     { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
@@ -401,7 +401,7 @@ export default function DeveloperApi() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-3">
                     {[
-                      "Lead with the story — solo developer building a 31-app, 1.8M+ line ecosystem is compelling and rare",
+                      "Lead with the story — solo developer building a 31-app, 1.7M+ line ecosystem is compelling and rare",
                       "Pitch one product per publication — don't overwhelm. Match the product to the publication's audience",
                       "Product Hunt launches work best on Tuesday–Thursday. Prepare assets, GIFs, and a maker comment in advance",
                     ].map((tip, i) => (

@@ -1498,7 +1498,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           totalApps: 31,
           verifiedApps: 31,
           totalWidgets: 78,
-          totalLOC: "1.8M+"
+          totalLOC: "1.7M+"
         },
         apps: ecosystemAppsData,
         verification: {
@@ -2738,7 +2738,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
         domain: "darkwavestudios.io",
-        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 31-app ecosystem (~1.8M+ LOC)",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 31-app ecosystem (~1.7M+ LOC)",
         category: "agency",
         endpoints: {
           ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",
