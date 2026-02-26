@@ -54,15 +54,15 @@ const services = [
   },
   {
     icon: Globe,
-    title: "Domain & Hosting",
-    description: "Enterprise-grade hosting with 99.9% uptime, SSL certificates, and CDN included. We handle the technical infrastructure so you don't have to.",
+    title: "Domain & Blockchain Hosting",
+    description: "Register custom domains through TLID.io and deploy your application on blockchain-verified infrastructure through Trust Layer. Your code, your identity, fully verified.",
     image: domainImg,
     features: [
-      "Domain registration & management",
-      "Enterprise-grade hosting",
+      "Domain registration via TLID.io",
+      "Blockchain-verified deployment",
+      "Trust Layer identity integration",
       "Free SSL certificates",
-      "Global CDN for fast loading",
-      "Daily automated backups"
+      "99.9% uptime guarantee"
     ],
     pricing: "Starting at $50/month"
   },

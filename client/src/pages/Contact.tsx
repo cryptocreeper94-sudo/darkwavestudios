@@ -116,10 +116,10 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6"
         >
           
-          <GlassCard glow className="col-span-3 lg:col-span-7 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
+          <GlassCard glow className="col-span-1 lg:col-span-7 rounded-2xl lg:rounded-3xl p-6 lg:p-8">
             {submitted ? (
               <div className="text-center py-12">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-6 animate-pulse">
@@ -277,7 +277,7 @@ export default function Contact() {
             )}
           </GlassCard>
 
-          <div className="col-span-3 lg:col-span-5 space-y-4 lg:space-y-6">
+          <div className="col-span-1 lg:col-span-5 space-y-4 lg:space-y-6">
             
             <GlassCard glow className="rounded-2xl lg:rounded-3xl p-6">
               <h2 className="text-lg lg:text-xl font-bold font-display mb-5 gradient-text">Why DarkWave Studios?</h2>
