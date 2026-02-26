@@ -36,7 +36,7 @@ const services = [
       "Database design & optimization",
       "Scalable architecture"
     ],
-    pricing: "Starting at $5,000"
+    pricing: "Starting at $2,500"
   },
   {
     icon: Clock,
@@ -64,7 +64,7 @@ const services = [
       "Free SSL certificates",
       "99.9% uptime guarantee"
     ],
-    pricing: "Starting at $50/month"
+    pricing: "Starting at $25/month"
   },
   {
     icon: Palette,
@@ -78,7 +78,7 @@ const services = [
       "Marketing collateral",
       "Social media assets"
     ],
-    pricing: "Starting at $2,500"
+    pricing: "Starting at $1,000"
   },
   {
     icon: Smartphone,
@@ -92,7 +92,7 @@ const services = [
       "App store submission",
       "Push notifications"
     ],
-    pricing: "Starting at $10,000"
+    pricing: "Starting at $3,500"
   },
   {
     icon: Layers,
@@ -106,7 +106,7 @@ const services = [
       "Bug fixes",
       "Analytics & reporting"
     ],
-    pricing: "Starting at $200/month"
+    pricing: "Starting at $100/month"
   }
 ];
 
