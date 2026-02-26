@@ -127,7 +127,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "garagebot",
     name: "GarageBot",
     tagline: "Right Part. First Time. Every Engine.",
-    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, member referrals, affiliate program, and Google AdSense monetization. 88,700+ lines of source code, 422 API endpoints, 120+ database tables.",
+    description: "AI-powered parts aggregator unifying inventory from 93+ retailers across 20 categories. Buddy AI assistant with symptom diagnosis engine, DIY repair guides, VIN decoding, fleet management, TORQUE shop management OS, peer-to-peer parts marketplace, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, 54 active affiliate partnerships, and Google AdSense monetization. 111,000+ lines of code, 50+ pages, 436+ API endpoints, 134 database tables, 58 React components. Full PWA with offline support.",
     image: "/ecosystem/garagebot.png",
     url: "https://garagebot.io",
     category: "auto"
@@ -136,7 +136,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "torque",
     name: "TORQUE",
     tagline: "Shop Management OS powered by Trust Layer.",
-    description: "Standalone PWA shop management platform within GarageBot. 5-step onboarding with Solana blockchain verification, 11 dashboard tabs covering work orders, appointments, customers, inventory, invoices, team, and reports. 15 business tool integrations (QuickBooks, ADP, Gusto, PartsTech, and more), ORBIT payroll sync, and Partner API. 5,475 lines across 10 files.",
+    description: "Standalone PWA shop management platform within GarageBot. 5-step onboarding with Solana blockchain verification, 11 dashboard tabs covering work orders, appointments, customers, inventory, invoices, team, and reports. 15 business tool integrations (QuickBooks, ADP, Gusto, PartsTech, and more), ORBIT payroll sync, Marketing Hub with Meta/Facebook auto-posting and ad campaign management, and Partner API with API Key + Secret authentication and granular scopes. 5,475 lines across 10 files.",
     image: "/ecosystem/torque.png",
     url: "https://garagebot.io/torque",
     category: "auto"
@@ -208,7 +208,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustvault",
     name: "TrustVault",
     tagline: "Your Universal IP Storage & Creative Platform",
-    description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, drawing, stickers, AI auto-enhance, background removal, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, frame capture), and merge/combine studio. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $5.99/Pro $12.99/Studio $24.99), Signal Chat, AI Blog platform, Command Center with 37+ cards across 9 categories, and TrustLayer SSO. 143,026 lines of code, 132 API endpoints, 26 database tables.",
+    description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, layers, watermark, eyedropper, drawing, stickers, AI auto-enhance, background removal, smart erase, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, text overlays, frame capture, custom thumbnails), and merge/combine studio with 17 transition effects. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $9.99/Pro $19.99/Studio $49.99), Signal Chat, AI Blog platform, and TrustLayer SSO. 46,697 lines of code, 172 files, 29 pages, 30 components, 156 API endpoints, 12 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.replit.app",
     category: "security"
@@ -284,6 +284,24 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/emblems/trust-golf.png",
     url: "https://trustgolf.app",
     category: "sports"
+  },
+  {
+    id: "verdara",
+    name: "Verdara",
+    tagline: "The Ultimate Outdoor Recreation Super-App",
+    description: "Comprehensive outdoor recreation platform featuring AI-powered species identification, trail mapping, trip planner, campground booking, marketplace, 125+ locations across 41 states, 18 activity categories, and 138+ features. Companion app Arbora provides standalone arborist CRM. 35,500 lines of code, 41 pages.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://verdara.replit.app",
+    category: "outdoor"
+  },
+  {
+    id: "arbora",
+    name: "Arbora",
+    tagline: "Professional Arborist Management Platform",
+    description: "Standalone arborist PWA built within the Verdara ecosystem. Full CRM with customer management, estimates, job scheduling, invoicing, crew management, and inventory tracking. Mobile-optimized field tools for on-site assessments. ~8,000 lines of code, 10 pages.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://verdara.replit.app/arbora",
+    category: "trades"
   }
 ];
 
@@ -298,7 +316,8 @@ const categories = [
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" },
-  { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" }
+  { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" },
+  { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" }
 ];
 
 function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {

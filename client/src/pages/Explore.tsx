@@ -13,7 +13,8 @@ import {
   Home, Sparkles, TrendingUp, Mail, Store, Layers,
   FileText, Globe, BarChart3, Boxes, Terminal, Shield,
   Search, Zap, Radio, MessageSquare, Newspaper, Eye,
-  FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command
+  FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command,
+  Code2, Database, Cpu, Rocket
 } from "lucide-react";
 
 interface LaunchCard {
@@ -574,6 +575,42 @@ export default function Explore() {
               {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer, one click away.
             </p>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
+        >
+          {[
+            { icon: <Rocket className="w-5 h-5" />, value: "31", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
+            { icon: <Code2 className="w-5 h-5" />, value: "1.7M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
+            { icon: <Boxes className="w-5 h-5" />, value: "78", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
+            { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+            >
+              <div className="relative group rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-[0.08] group-hover:opacity-[0.15] transition-opacity`} />
+                <div className="relative p-4 lg:p-6 text-center">
+                  <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br ${stat.gradient} mb-3 shadow-lg`}>
+                    {stat.icon}
+                  </div>
+                  <div className="text-2xl lg:text-3xl font-bold font-display text-white mb-0.5" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-[11px] lg:text-xs text-white/40 font-medium uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
         <motion.div

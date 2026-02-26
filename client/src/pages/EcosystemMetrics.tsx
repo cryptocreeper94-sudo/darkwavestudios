@@ -1,10 +1,10 @@
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { 
-  ArrowLeft, Code2, FileCode2, Database, Globe, Layers, Terminal, 
+  ArrowLeft, Code2, FileCode2, Database, Globe, Globe2, Layers, Terminal, 
   BarChart3, TrendingUp, Cpu, Shield, Sparkles, ChevronRight, 
   Server, Smartphone, Palette, Bot, Utensils, Truck, Heart, 
-  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid, Trophy, BookOpen
+  Car, Building2, Paintbrush, Coffee, Gamepad2, Zap, Radio, Search, LayoutGrid, Trophy, BookOpen, TreePine
 } from "lucide-react";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
@@ -43,18 +43,18 @@ const ecosystemMetrics: AppMetric[] = [
     id: "garagebot",
     name: "GarageBot",
     url: "https://garagebot.io",
-    totalLines: 88700,
-    totalFiles: 360,
-    apiEndpoints: 422,
-    stack: ["React 18", "TypeScript", "Vite", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Solana Blockchain", "Stripe", "OpenAI GPT-4", "WebSocket", "Trust Layer SSO", "Resend", "Meta Graph API", "Google AdSense", "Amazon Associates", "RainViewer", "NOAA", "Leaflet"],
+    totalLines: 111000,
+    totalFiles: 400,
+    apiEndpoints: 436,
+    stack: ["React 18", "TypeScript", "Vite", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Solana Blockchain", "Stripe", "OpenAI GPT-4o-mini", "WebSocket", "Trust Layer SSO", "Resend", "Meta Graph API", "Google AdSense", "Amazon Associates", "RainViewer", "NOAA", "Leaflet"],
     breakdown: [
-      { language: "TypeScript", lines: 39000, files: 150 },
-      { language: "React/TSX", lines: 41500, files: 158 },
-      { language: "JSON", lines: 4500, files: 38 },
-      { language: "CSS", lines: 2500, files: 8 },
-      { language: "HTML", lines: 1200, files: 6 },
+      { language: "TypeScript", lines: 48000, files: 170 },
+      { language: "React/TSX", lines: 52000, files: 178 },
+      { language: "JSON", lines: 5500, files: 38 },
+      { language: "CSS", lines: 3500, files: 8 },
+      { language: "HTML", lines: 2000, files: 6 },
     ],
-    highlights: ["422 API Endpoints", "120+ Tables", "43+ Pages", "111 Components", "68+ Retailers", "Buddy AI Assistant", "Signal Chat", "Weather Radar", "CDL Directory", "Affiliate Program"],
+    highlights: ["436+ API Endpoints", "134 Tables", "50+ Pages", "58 Components", "93+ Retailers", "Buddy AI Symptom Diagnosis", "P2P Parts Marketplace", "TORQUE Shop OS", "Signal Chat", "54 Affiliate Partnerships"],
     icon: Car,
     gradient: "from-orange-500 to-red-500",
     status: "Production",
@@ -389,16 +389,16 @@ const ecosystemMetrics: AppMetric[] = [
     id: "trustvault",
     name: "TrustVault",
     url: "https://trustvault.replit.app",
-    totalLines: 143026,
-    totalFiles: 168,
-    apiEndpoints: 132,
-    stack: ["React 18", "TypeScript", "Vite", "shadcn/ui", "Framer Motion", "Wouter", "TanStack Query v5", "Express.js", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI GPT-5.1", "GPT-4.1-mini", "ElevenLabs TTS", "Web Speech API", "Replit Object Storage", "Uppy", "TrustLayer SSO", "WebSocket", "Resend", "Zod", "PWA"],
+    totalLines: 46697,
+    totalFiles: 172,
+    apiEndpoints: 156,
+    stack: ["React 18", "TypeScript", "Vite", "shadcn/ui", "Framer Motion", "Wouter", "TanStack Query v5", "Express.js", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI GPT-5.1", "GPT-4.1-mini", "ElevenLabs TTS", "Web Speech API", "Replit Object Storage", "Uppy", "TrustLayer SSO", "WebSocket", "Resend", "Zod", "FFmpeg", "JSZip", "PWA"],
     breakdown: [
-      { language: "React Components (.tsx)", lines: 31488, files: 106 },
-      { language: "TypeScript Backend/Shared (.ts)", lines: 11258, files: 61 },
-      { language: "CSS Styling", lines: 334, files: 1 },
+      { language: "React/TSX (29 pages, 30 components)", lines: 35641, files: 130 },
+      { language: "TypeScript Backend (Express)", lines: 10169, files: 38 },
+      { language: "Shared (schemas, contracts)", lines: 887, files: 4 },
     ],
-    highlights: ["14 AI Creative Tools + Spinny Agent", "Image/Audio/Video/Merge Editors", "AI Auto-Tag, Smart Search, Style DNA", "Voice-Commanded Editing", "Beat-Sync Video Maker", "4-Tier Stripe Subscriptions", "Command Center (37+ cards, 9 categories)", "Signal Chat + TrustLayer SSO", "AI Blog Platform", "Multi-Tenant Family Vault", "132 API Endpoints", "PWA + Offline Ready"],
+    highlights: ["14 AI Creative Tools + Spinny Agent", "Image/Audio/Video/Merge Editors", "17 Transition Effects (FFmpeg xfade)", "Layer Panel + Visual History (30 states)", "Watermark Tool + Eyedropper", "Voice-Commanded Editing", "Beat-Sync Video Maker", "4-Tier Stripe Subscriptions", "Signal Chat + TrustLayer SSO", "AI Blog Platform", "Multi-Tenant Family Vault", "156 API Endpoints", "PWA + Offline Ready"],
     icon: Shield,
     gradient: "from-emerald-500 to-cyan-500",
     status: "Production",
@@ -534,6 +534,42 @@ const ecosystemMetrics: AppMetric[] = [
     highlights: ["17 Shipped Features", "45 Courses (World-Class + Regional)", "AI Swing Analyzer (GPT-4o Vision)", "Video Playback (0.25x/0.5x/1x)", "GPS Distance Finder (Satellite + Haversine)", "USGA Handicap Index (Auto-Calculated)", "Hole-by-Hole Scorecards", "Cinematic Explorer (3 AI Videos)", "AI-Driven SEO Blog", "Self-Hosted First-Party Analytics", "Vendor/Partner Portal + Resend Email", "TrustVault Integration"],
     icon: Trophy,
     gradient: "from-emerald-600 to-green-500",
+    status: "Production",
+  },
+  {
+    id: "verdara",
+    name: "Verdara",
+    url: "https://verdara.replit.app",
+    totalLines: 35500,
+    totalFiles: 180,
+    apiEndpoints: 85,
+    stack: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Wouter", "TanStack Query", "Express", "PostgreSQL", "Drizzle ORM", "OpenAI", "Leaflet", "PWA"],
+    breakdown: [
+      { language: "TypeScript/TSX (41 pages)", lines: 27000, files: 140 },
+      { language: "TypeScript Backend", lines: 6500, files: 30 },
+      { language: "Shared/Config", lines: 2000, files: 10 },
+    ],
+    highlights: ["AI Species Identification", "Trail Mapping", "Trip Planner", "Campground Booking", "Marketplace", "125+ Locations", "41 States", "18 Activity Categories", "138+ Features", "Companion App: Arbora"],
+    icon: Globe2,
+    gradient: "from-lime-500 to-emerald-500",
+    status: "Production",
+  },
+  {
+    id: "arbora",
+    name: "Arbora",
+    url: "https://verdara.replit.app/arbora",
+    totalLines: 8000,
+    totalFiles: 28,
+    apiEndpoints: 22,
+    stack: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Express", "PostgreSQL", "Drizzle ORM", "PWA"],
+    breakdown: [
+      { language: "TypeScript/TSX (10 pages)", lines: 6200, files: 20 },
+      { language: "TypeScript Backend", lines: 1400, files: 6 },
+      { language: "Shared/Config", lines: 400, files: 2 },
+    ],
+    highlights: ["Full CRM", "Estimates & Invoicing", "Job Scheduling", "Crew Management", "Inventory Tracking", "Mobile Field Tools", "On-Site Assessments", "Standalone PWA", "10 Pages", "Verdara Ecosystem"],
+    icon: TreePine,
+    gradient: "from-green-500 to-teal-500",
     status: "Production",
   },
 ];
@@ -697,7 +733,7 @@ export default function EcosystemMetrics() {
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
-            { icon: LayoutGrid, label: "Widgets", value: 60, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
+            { icon: LayoutGrid, label: "Widgets", value: 78, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
             <motion.div key={i} variants={itemVariants}>
               <GlassCard variant="stat" className="rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1 group" data-testid={`stat-card-${i}`}>

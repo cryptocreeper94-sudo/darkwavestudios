@@ -167,7 +167,7 @@ const projects = [
   {
     id: 14,
     title: "GarageBot",
-    description: "Auto parts aggregator with VIN decoding and AI repair assistant",
+    description: "AI parts aggregator with 93+ retailers, VIN decoding, and AI symptom diagnosis engine",
     tech: ["AI", "Automotive", "E-commerce"],
     image: "/ecosystem/garagebot.png",
     gradient: "from-red-500/20 to-orange-600/20",
@@ -230,11 +230,119 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Universal media vault with image/audio/video editors, Spinny AI agent, 4 AI tools, and 132 API endpoints",
+    description: "Universal media vault with image/audio/video editors, Spinny AI agent, 14 AI tools, and 156 API endpoints",
     tech: ["Media", "AI", "Editors", "PWA"],
     image: "/ecosystem/trustvault.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://trustvault.replit.app"
+  },
+  {
+    id: 20,
+    title: "TORQUE",
+    description: "Shop management OS for professional auto repair shops with blockchain verification",
+    tech: ["PWA", "Auto", "Blockchain"],
+    image: "/ecosystem/torque.png",
+    gradient: "from-slate-500/20 to-zinc-600/20",
+    url: "https://garagebot.io/torque"
+  },
+  {
+    id: 21,
+    title: "TLID.io",
+    description: "Decentralized identity provider with passkey authentication and cross-app SSO",
+    tech: ["Identity", "Auth", "Blockchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-indigo-500/20 to-purple-600/20",
+    url: "https://tlid.io"
+  },
+  {
+    id: 23,
+    title: "Guardian Scanner",
+    description: "AI agent security scanner with trust scores and certification registry",
+    tech: ["Security", "AI", "Scanning"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-green-500/20 to-emerald-600/20",
+    url: "https://dwsc.io/guardian-scanner"
+  },
+  {
+    id: 25,
+    title: "Signal Chat",
+    description: "Real-time community chat with WebSocket channels and AI bot integration",
+    tech: ["Chat", "WebSocket", "AI"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-violet-500/20 to-purple-600/20",
+    url: "https://dwsc.io/chat"
+  },
+  {
+    id: 26,
+    title: "THE VOID",
+    description: "Immersive entertainment and digital experience platform",
+    tech: ["Entertainment", "AI", "Immersive"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-gray-500/20 to-slate-600/20",
+    url: "https://intothevoid.app"
+  },
+  {
+    id: 27,
+    title: "Guardian Screener",
+    description: "AI-powered DEX screener with rug pull detection and whale tracking",
+    tech: ["DeFi", "AI", "Security"],
+    image: "/projects/guardian-screener.png",
+    gradient: "from-red-500/20 to-rose-600/20",
+    url: "https://dwsc.io/guardian-screener"
+  },
+  {
+    id: 28,
+    title: "DarkWave Academy",
+    description: "Education and certification platform for the Trust Layer ecosystem",
+    tech: ["Education", "Certification", "Stripe"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-yellow-500/20 to-amber-600/20",
+    url: "https://dwsc.io/academy"
+  },
+  {
+    id: 29,
+    title: "Happy Eats",
+    description: "Zone-based food delivery connecting food trucks with customers across Tennessee",
+    tech: ["Delivery", "PWA", "Stripe"],
+    image: "/emblems/happy-eats.png",
+    gradient: "from-orange-500/20 to-amber-600/20",
+    url: "https://happyeats.app"
+  },
+  {
+    id: 30,
+    title: "Trust Book",
+    description: "Censorship-free ebook publishing platform with AI narration and blockchain provenance",
+    tech: ["Publishing", "AI", "E-Reader"],
+    image: "/emblems/trust-book.png",
+    gradient: "from-cyan-500/20 to-purple-600/20",
+    url: "https://dwsc.io/trust-book"
+  },
+  {
+    id: 31,
+    title: "Trust Golf",
+    description: "Premium golf companion with AI swing analysis, GPS distance, and USGA handicap tracking",
+    tech: ["Sports", "AI", "GPS"],
+    image: "/emblems/trust-golf.png",
+    gradient: "from-emerald-500/20 to-green-600/20",
+    url: "https://trustgolf.app"
+  },
+  {
+    id: 32,
+    title: "Verdara",
+    description: "Ultimate outdoor recreation super-app with species ID, trails, and campground booking",
+    tech: ["Outdoor", "AI", "PWA"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-lime-500/20 to-emerald-600/20",
+    url: "https://verdara.replit.app"
+  },
+  {
+    id: 33,
+    title: "Arbora",
+    description: "Professional arborist CRM with estimates, jobs, invoicing, and crew management",
+    tech: ["Arborist", "CRM", "PWA"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-green-500/20 to-teal-600/20",
+    url: "https://verdara.replit.app/arbora"
   }
 ];
 
@@ -691,7 +799,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="hidden lg:block lg:col-span-2">
               <GlassCard variant="stat" className="rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Layers className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display text-foreground">60</div>
+                <div className="text-3xl font-bold font-display text-foreground">78</div>
                 <div className="text-muted-foreground text-sm">Widgets</div>
               </GlassCard>
             </motion.div>

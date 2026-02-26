@@ -75,7 +75,7 @@ const projects = [
   {
     id: 5,
     title: "GarageBot",
-    description: "Auto parts aggregator unifying inventory from 68+ retailers across 16 categories. Buddy AI assistant, DIY repair guides, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, member referrals, affiliate program, and Google AdSense monetization. 88,700+ lines, 422 endpoints, 120+ tables.",
+    description: "AI-powered parts aggregator unifying inventory from 93+ retailers across 20 categories. Buddy AI assistant with symptom diagnosis engine, DIY repair guides, VIN decoding, fleet management, peer-to-peer parts marketplace, 54 affiliate partnerships, and Google AdSense monetization. 111,000+ lines, 436+ endpoints, 134 tables.",
     tech: ["Automotive", "AI Assistant", "Aggregation", "Blockchain"],
     image: garageBotImg,
     gradient: "from-slate-500/20 to-gray-600/20",
@@ -235,7 +235,7 @@ const projects = [
   {
     id: 19,
     title: "TrustVault",
-    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors, 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), voice-commanded editing, 4-tier Stripe subscriptions, Command Center with 37+ cards, Signal Chat, AI Blog, and TrustLayer SSO. 143,026 lines of code, 132 API endpoints, 26 database tables.",
+    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors (17 transition effects), 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), layer panel, watermark tool, eyedropper, voice-commanded editing, 4-tier Stripe subscriptions, Signal Chat, AI Blog, and TrustLayer SSO. 46,697 lines of code, 172 files, 156 API endpoints, 12 database tables.",
     tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
     image: trustVaultImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
