@@ -204,7 +204,7 @@ export default function Mission() {
 
         <footer className="relative z-10 glass-strong mt-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-            <p className="text-muted-foreground text-sm">© 2025 DarkWave Studios. Built with passion.</p>
+            <p className="text-muted-foreground text-sm">© 2026 DarkWave Studios. Built with passion.</p>
           </div>
         </footer>
       </div>

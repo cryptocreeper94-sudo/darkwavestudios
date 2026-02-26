@@ -233,7 +233,7 @@ export default function About() {
       <footer className="glass-strong mt-12 border-t border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
-          <div className="text-muted-foreground text-sm">© 2025. Built with passion, priced with honesty.</div>
+          <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>
         </div>
       </footer>
     </div>
