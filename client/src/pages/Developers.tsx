@@ -509,7 +509,7 @@ export default function Developers() {
                   {[
                     { name: "CoinDesk", url: "https://www.coindesk.com/contact/", type: "Press inquiries", pitch: "Trust Layer L1 blockchain, Guardian AI agent certification, Signal digital asset", icon: Shield },
                     { name: "The Block", url: "https://www.theblock.co/contact", type: "News tips", pitch: "First AI agent certification system for crypto — Guardian AI + Trust Shield", icon: Lock },
-                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 31 apps verified through Trust Layer", icon: Boxes },
+                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 32 apps verified through Trust Layer", icon: Boxes },
                     { name: "CoinTelegraph", url: "https://cointelegraph.com/press-releases", type: "Press releases", pitch: "Proof-of-Authority L1 with DeFi, NFT marketplace, DAO governance", icon: Globe },
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },

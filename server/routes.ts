@@ -1390,6 +1390,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.app", category: "auto", loc: "110,745", pages: "63" },
     { id: "trust-book", name: "Trust Book", url: "https://dwsc.io/trust-book", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
+    { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1495,8 +1496,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       res.json({
         success: true,
         stats: {
-          totalApps: 31,
-          verifiedApps: 31,
+          totalApps: 32,
+          verifiedApps: 32,
           totalWidgets: 78,
           totalLOC: "1.7M+"
         },

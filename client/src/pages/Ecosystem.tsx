@@ -302,6 +302,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://verdara.replit.app/arbora",
     category: "trades"
+  },
+  {
+    id: "bomber",
+    name: "Bomber",
+    tagline: "Drop. Destroy. Dominate.",
+    description: "Action arcade game in the Trust Layer gaming suite. Part of the Hallmark-verified ecosystem with blockchain-backed achievement records and SIG-denominated rewards. Installable PWA at bomber.tlid.io.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://bomber.tlid.io",
+    category: "gaming"
   }
 ];
 

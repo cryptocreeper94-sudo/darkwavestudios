@@ -343,6 +343,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-green-500/20 to-teal-600/20",
     url: "https://verdara.replit.app/arbora"
+  },
+  {
+    id: 34,
+    title: "Bomber",
+    description: "Action arcade game with blockchain-backed achievements and SIG rewards",
+    tech: ["Gaming", "Arcade", "Blockchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-red-500/20 to-yellow-600/20",
+    url: "https://bomber.tlid.io"
   }
 ];
 

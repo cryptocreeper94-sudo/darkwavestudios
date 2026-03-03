@@ -555,6 +555,22 @@ const ecosystemMetrics: AppMetric[] = [
     status: "Production",
   },
   {
+    id: "bomber",
+    name: "Bomber",
+    url: "https://bomber.tlid.io",
+    totalLines: 4500,
+    totalFiles: 15,
+    stack: ["React 18", "TypeScript", "Vite", "Canvas API", "Framer Motion", "Tailwind CSS", "Trust Layer", "PWA"],
+    breakdown: [
+      { language: "TypeScript/TSX", lines: 3800, files: 12 },
+      { language: "Config/PWA", lines: 700, files: 3 },
+    ],
+    highlights: ["Action Arcade Gameplay", "Blockchain Achievements", "SIG Rewards", "Hallmark-Verified Records", "Installable PWA", "Trust Layer Ecosystem"],
+    icon: Gamepad2,
+    gradient: "from-red-500 to-yellow-500",
+    status: "Production",
+  },
+  {
     id: "arbora",
     name: "Arbora",
     url: "https://verdara.replit.app/arbora",

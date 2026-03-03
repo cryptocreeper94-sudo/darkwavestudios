@@ -555,7 +555,7 @@ export default function EcosystemDashboard() {
                 { icon: Shield, label: "Guardian AI", desc: "Agent certification & security", href: "/guardian-ai", gradient: "from-red-500 to-orange-500" },
                 { icon: Bot, label: "AI Agent Marketplace", desc: "Build & deploy AI agents", href: "https://dwtl.io/ai-agents", ext: true, gradient: "from-emerald-500 to-teal-500" },
                 { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-purple-500 to-pink-500" },
-                { icon: Globe, label: "Ecosystem", desc: "All 31 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
+                { icon: Globe, label: "Ecosystem", desc: "All 32 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
               ].map((tool, i) => (
                 tool.ext ? (
                   <a key={tool.label} href={tool.href} target="_blank" rel="noopener noreferrer" data-testid={`tool-${tool.label.toLowerCase().replace(/\s+/g, '-')}`}>
