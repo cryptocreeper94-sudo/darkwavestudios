@@ -352,6 +352,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-red-500/20 to-yellow-600/20",
     url: "https://bomber.tlid.io"
+  },
+  {
+    id: 35,
+    title: "Trust Layer Hub",
+    description: "Central hub aggregating all ecosystem accounts, wallets, hallmarks, and activity into one dashboard",
+    tech: ["Hub", "SSO", "Blockchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-blue-600/20",
+    url: "https://trusthub.tlid.io"
   }
 ];
 

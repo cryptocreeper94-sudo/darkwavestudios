@@ -98,7 +98,7 @@ const developerProducts = [
   {
     id: "shared-components",
     title: "Shared Components",
-    description: "Centralized UI component manager. Update footers, headers, banners, and badges once — changes propagate to all 31 ecosystem apps instantly.",
+    description: "Centralized UI component manager. Update footers, headers, banners, and badges once — changes propagate to all 33 ecosystem apps instantly.",
     icon: Layers,
     href: "/developers/components",
     gradient: "from-cyan-500 to-teal-500",
@@ -509,7 +509,7 @@ export default function Developers() {
                   {[
                     { name: "CoinDesk", url: "https://www.coindesk.com/contact/", type: "Press inquiries", pitch: "Trust Layer L1 blockchain, Guardian AI agent certification, Signal digital asset", icon: Shield },
                     { name: "The Block", url: "https://www.theblock.co/contact", type: "News tips", pitch: "First AI agent certification system for crypto — Guardian AI + Trust Shield", icon: Lock },
-                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 32 apps verified through Trust Layer", icon: Boxes },
+                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 33 apps verified through Trust Layer", icon: Boxes },
                     { name: "CoinTelegraph", url: "https://cointelegraph.com/press-releases", type: "Press releases", pitch: "Proof-of-Authority L1 with DeFi, NFT marketplace, DAO governance", icon: Globe },
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },

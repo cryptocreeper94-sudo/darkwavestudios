@@ -25,6 +25,15 @@ interface EcosystemApp {
 
 const ecosystemApps: EcosystemApp[] = [
   {
+    id: "trust-hub",
+    name: "Trust Layer Hub",
+    tagline: "The Genesis Application — Your Entire Ecosystem in One Place",
+    description: "The central hub connecting all 33 Trust Layer ecosystem apps. Aggregates personal account information, wallet balances, hallmark records, affiliate earnings, trust stamps, and activity across every platform into a single unified dashboard. Genesis application (TH-00000001) and reference implementation for the Hallmark System and Affiliate Program.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://trusthub.tlid.io",
+    category: "core"
+  },
+  {
     id: "trust-layer",
     name: "Trust Layer",
     tagline: "The Coordinated Trust Layer",

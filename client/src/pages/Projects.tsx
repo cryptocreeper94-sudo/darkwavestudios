@@ -255,7 +255,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 31 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 33 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",

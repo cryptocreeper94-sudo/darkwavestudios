@@ -1391,6 +1391,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "trust-book", name: "Trust Book", url: "https://dwsc.io/trust-book", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
     { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
+    { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "~28K", pages: "15" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1496,8 +1497,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       res.json({
         success: true,
         stats: {
-          totalApps: 32,
-          verifiedApps: 32,
+          totalApps: 33,
+          verifiedApps: 33,
           totalWidgets: 78,
           totalLOC: "1.7M+"
         },

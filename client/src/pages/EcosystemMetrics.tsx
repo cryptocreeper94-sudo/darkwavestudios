@@ -40,6 +40,24 @@ interface AppMetric {
 
 const ecosystemMetrics: AppMetric[] = [
   {
+    id: "trust-hub",
+    name: "Trust Layer Hub",
+    url: "https://trusthub.tlid.io",
+    totalLines: 28000,
+    totalFiles: 95,
+    apiEndpoints: 85,
+    stack: ["React 18", "TypeScript", "Vite", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Trust Layer SSO", "SHA-256", "Stripe", "Framer Motion", "Tailwind CSS", "PWA"],
+    breakdown: [
+      { language: "TypeScript", lines: 12000, files: 38 },
+      { language: "React/TSX", lines: 14000, files: 45 },
+      { language: "Config/PWA", lines: 2000, files: 12 },
+    ],
+    highlights: ["Genesis Application (TH-00000001)", "Cross-App Account Aggregation", "Hallmark System Reference", "Affiliate Program Hub", "Trust Stamp Audit Trail", "Wallet Integration", "78 Embeddable Widgets", "SHA-256 Verification", "5-Tier Affiliate Program"],
+    icon: Layers,
+    gradient: "from-cyan-500 to-blue-500",
+    status: "Production",
+  },
+  {
     id: "garagebot",
     name: "GarageBot",
     url: "https://garagebot.io",
