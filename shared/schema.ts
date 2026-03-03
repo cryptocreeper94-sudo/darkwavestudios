@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean, timestamp, decimal } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp, decimal, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -9,6 +9,7 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   role: text("role").default("admin"),
+  uniqueHash: text("unique_hash"),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -808,6 +809,103 @@ export const insertSharedComponentSchema = createInsertSchema(sharedComponents).
 });
 export type InsertSharedComponent = z.infer<typeof insertSharedComponentSchema>;
 export type SharedComponent = typeof sharedComponents.$inferSelect;
+
+// ============ HALLMARK SYSTEM ============
+
+export const hallmarks = pgTable("hallmarks", {
+  id: serial("id").primaryKey(),
+  thId: text("th_id").notNull().unique(),
+  userId: varchar("user_id"),
+  appId: text("app_id"),
+  appName: text("app_name"),
+  productName: text("product_name"),
+  releaseType: text("release_type"),
+  metadata: text("metadata"),
+  dataHash: text("data_hash").notNull(),
+  txHash: text("tx_hash"),
+  blockHeight: text("block_height"),
+  qrCodeSvg: text("qr_code_svg"),
+  verificationUrl: text("verification_url"),
+  hallmarkId: integer("hallmark_id").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertHallmarkSchema = createInsertSchema(hallmarks).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertHallmark = z.infer<typeof insertHallmarkSchema>;
+export type Hallmark = typeof hallmarks.$inferSelect;
+
+export const trustStamps = pgTable("trust_stamps", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id"),
+  category: text("category").notNull(),
+  data: text("data"),
+  dataHash: text("data_hash").notNull(),
+  txHash: text("tx_hash"),
+  blockHeight: text("block_height"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertTrustStampSchema = createInsertSchema(trustStamps).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertTrustStamp = z.infer<typeof insertTrustStampSchema>;
+export type TrustStamp = typeof trustStamps.$inferSelect;
+
+export const hallmarkCounter = pgTable("hallmark_counter", {
+  id: text("id").primaryKey(),
+  currentSequence: text("current_sequence").notNull().default("0"),
+});
+
+export const insertHallmarkCounterSchema = createInsertSchema(hallmarkCounter);
+export type InsertHallmarkCounter = z.infer<typeof insertHallmarkCounterSchema>;
+export type HallmarkCounter = typeof hallmarkCounter.$inferSelect;
+
+// ============ AFFILIATE SYSTEM ============
+
+export const affiliateReferrals = pgTable("affiliate_referrals", {
+  id: serial("id").primaryKey(),
+  referrerId: varchar("referrer_id").notNull(),
+  referredUserId: varchar("referred_user_id"),
+  referralHash: text("referral_hash").notNull(),
+  platform: text("platform").notNull().default("darkwave-studio"),
+  status: text("status").notNull().default("pending"),
+  convertedAt: timestamp("converted_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertAffiliateReferralSchema = createInsertSchema(affiliateReferrals).omit({
+  id: true,
+  status: true,
+  convertedAt: true,
+  createdAt: true,
+});
+export type InsertAffiliateReferral = z.infer<typeof insertAffiliateReferralSchema>;
+export type AffiliateReferral = typeof affiliateReferrals.$inferSelect;
+
+export const affiliateCommissions = pgTable("affiliate_commissions", {
+  id: serial("id").primaryKey(),
+  referrerId: varchar("referrer_id").notNull(),
+  referralId: integer("referral_id"),
+  amount: text("amount").notNull(),
+  currency: text("currency").default("SIG"),
+  tier: text("tier").default("base"),
+  status: text("status").default("pending"),
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertAffiliateCommissionSchema = createInsertSchema(affiliateCommissions).omit({
+  id: true,
+  status: true,
+  paidAt: true,
+  createdAt: true,
+});
+export type InsertAffiliateCommission = z.infer<typeof insertAffiliateCommissionSchema>;
+export type AffiliateCommission = typeof affiliateCommissions.$inferSelect;
 
 export const CREDIT_PACKAGES = [
   { id: "starter", credits: 50, price: 299, label: "Starter Pack", description: "50 credits" },

@@ -40,7 +40,7 @@ Preferred communication style: Simple, everyday language.
 ### Data Storage
 - **Database**: PostgreSQL
 - **ORM**: Drizzle ORM with drizzle-zod
-- **Key Tables**: `users`, `leads`, `subscribers`, `blogPosts`, `testimonials`, `caseStudies`, `quoteRequests`, `bookings`, `pageViews`, `analyticsEvents`, `seoKeywords`, `chatChannels`, `chatUsers`, `chatMessages`, `guardianScans`, `aiCreditBalances`, `aiCreditTransactions`.
+- **Key Tables**: `users`, `leads`, `subscribers`, `blogPosts`, `testimonials`, `caseStudies`, `quoteRequests`, `bookings`, `pageViews`, `analyticsEvents`, `seoKeywords`, `chatChannels`, `chatUsers`, `chatMessages`, `guardianScans`, `aiCreditBalances`, `aiCreditTransactions`, `hallmarks`, `trustStamps`, `hallmarkCounter`, `affiliateReferrals`, `affiliateCommissions`.
 
 ### Analytics System
 Includes page view tracking, custom event tracking, SEO keyword monitoring, and a real-time dashboard.
@@ -57,6 +57,12 @@ Admin routes are protected using an `X-Admin-Key` header middleware.
 
 ### Documents System
 Manages business documents such as the Business Plan, Executive Summary, Roadmap, Terms of Service, and Privacy Policy.
+
+### Hallmark System
+Blockchain-native audit trail for the Trust Layer ecosystem. Every significant event (registration, purchases, certifications) generates a numbered hallmark with SHA-256 hash verification. App prefix: DS. Genesis hallmark: DS-00000001. Trust stamps provide lightweight automatic audit entries for routine actions (logins, profile updates, wallet events). Implementation: `server/hallmark.ts`, tables: `hallmarks`, `trust_stamps`, `hallmark_counter`.
+
+### Affiliate & Referral Program
+5-tier commission system (Base 10% → Diamond 20%) paid in SIG. Users get a unique referral hash for cross-app referral links. Tracks referrals, conversions, and commissions with trust stamp audit trail. Minimum payout: 10 SIG. Implementation: `server/affiliate.ts`, tables: `affiliate_referrals`, `affiliate_commissions`. Dashboard: `/affiliate`.
 
 ### Trust Layer Hub
 A blockchain-verified code marketplace offering 78 embeddable widgets with live previews and full code access.

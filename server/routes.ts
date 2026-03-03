@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES, sharedComponents, insertSharedComponentSchema } from "@shared/schema";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES, sharedComponents, insertSharedComponentSchema, hallmarks as hallmarksTable, trustStamps as trustStampsTable } from "@shared/schema";
 import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
 import { eq, asc, desc, sql, and, gte, lte } from "drizzle-orm";
 import { db } from "./db";
@@ -3508,6 +3508,101 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     if (!decoded) return res.status(401).json({ error: "Invalid token" });
     const events = getWebhookEvents(decoded.userId);
     res.json({ events });
+  });
+
+  // --- Hallmark System Routes ---
+  const { seedGenesisHallmark, verifyHallmark, generateHallmark, createTrustStamp } = await import("./hallmark");
+  const { getAffiliateDashboard, getAffiliateLink, trackReferral, requestPayout } = await import("./affiliate");
+
+  seedGenesisHallmark()
+    .then((h) => console.log(`Genesis hallmark ${h.thId} ready`))
+    .catch((e) => console.error("Genesis hallmark seeding failed:", e));
+
+  app.get("/api/hallmark/genesis", async (_req: Request, res: Response) => {
+    try {
+      const result = await verifyHallmark("DS-00000001");
+      if (!result.verified) return res.status(404).json({ error: "Genesis hallmark not found" });
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/hallmark/:id/verify", async (req: Request, res: Response) => {
+    try {
+      const result = await verifyHallmark(req.params.id);
+      if (!result.verified) return res.status(404).json({ verified: false, error: "Hallmark not found" });
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/hallmarks", async (req: Request, res: Response) => {
+    const adminKey = req.headers["x-admin-key"];
+    if (adminKey !== "0424") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const allHallmarks = await db.select().from(hallmarksTable).orderBy(desc(hallmarksTable.createdAt));
+      res.json(allHallmarks);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/trust-stamps", async (req: Request, res: Response) => {
+    const adminKey = req.headers["x-admin-key"];
+    if (adminKey !== "0424") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const allStamps = await db.select().from(trustStampsTable).orderBy(desc(trustStampsTable.createdAt));
+      res.json(allStamps);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  // --- Affiliate System Routes ---
+  app.get("/api/affiliate/dashboard", async (req: Request, res: Response) => {
+    const userId = req.query.userId as string;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const dashboard = await getAffiliateDashboard(userId);
+      res.json(dashboard);
+    } catch (e: any) {
+      res.status(404).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/affiliate/link", async (req: Request, res: Response) => {
+    const userId = req.query.userId as string;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const link = await getAffiliateLink(userId);
+      res.json(link);
+    } catch (e: any) {
+      res.status(404).json({ error: e.message });
+    }
+  });
+
+  app.post("/api/affiliate/track", async (req: Request, res: Response) => {
+    const { referralHash, platform } = req.body;
+    if (!referralHash) return res.status(400).json({ error: "referralHash is required" });
+    try {
+      const referral = await trackReferral(referralHash, platform || "darkwave-studio");
+      res.json({ success: true, referral });
+    } catch (e: any) {
+      res.status(400).json({ error: e.message });
+    }
+  });
+
+  app.post("/api/affiliate/request-payout", async (req: Request, res: Response) => {
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const result = await requestPayout(userId);
+      res.json(result);
+    } catch (e: any) {
+      res.status(400).json({ error: e.message });
+    }
   });
 
   return httpServer;
