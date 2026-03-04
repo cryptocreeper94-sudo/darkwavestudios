@@ -147,7 +147,7 @@ const categories: CommandCategory[] = [
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
         glowColor: "shadow-indigo-500/20",
-        badge: "31 Apps",
+        badge: "33 Apps",
         featured: true,
       },
       {

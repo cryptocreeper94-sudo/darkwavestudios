@@ -107,7 +107,7 @@ const developerProducts = [
   {
     id: "ecosystem-health",
     title: "Ecosystem Health Monitor",
-    description: "Real-time health dashboard for all 31 production apps. Live status checks, response times, uptime ring, and category filtering across the entire ecosystem.",
+    description: "Real-time health dashboard for all 33 production apps. Live status checks, response times, uptime ring, and category filtering across the entire ecosystem.",
     icon: Activity,
     href: "/developers/ecosystem",
     gradient: "from-green-500 to-emerald-600",
@@ -475,9 +475,9 @@ export default function Developers() {
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 31 production apps and 1.7M+ lines of code", icon: Zap },
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 33 production apps and 1.72M+ lines of code", icon: Zap },
                     { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
-                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 31-app ecosystem as a solo developer", icon: Terminal },
+                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 33-app ecosystem as a solo developer", icon: Terminal },
                     { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
                     { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
                     { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
@@ -571,7 +571,7 @@ export default function Developers() {
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "31-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
+                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "33-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
                     { name: "G2", url: "https://www.g2.com/products/new", type: "Software reviews", pitch: "List PaintPros, ORBIT, and individual products for verified reviews", icon: BarChart3 },
                     { name: "Capterra", url: "https://www.capterra.com/vendors/sign-up", type: "Software directory", pitch: "List trade service tools, staffing software, and real estate platforms", icon: Target },
                     { name: "AppSumo", url: "https://sell.appsumo.com", type: "Lifetime deal marketplace", pitch: "Trust Layer Hub widgets or Pulse API access as a limited-time deal", icon: Zap },
@@ -605,7 +605,7 @@ export default function Developers() {
                       <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-[10px] font-bold text-primary">1</span>
                       </div>
-                      <p className="text-sm text-muted-foreground">Lead with the story — solo developer building a 31-app, 1.7M+ line ecosystem is compelling and rare</p>
+                      <p className="text-sm text-muted-foreground">Lead with the story — solo developer building a 33-app, 1.72M+ line ecosystem is compelling and rare</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
