@@ -7,7 +7,7 @@ interface SignalPresaleBannerProps {
 }
 
 export function SignalPresaleBanner({ variant = "full", className = "" }: SignalPresaleBannerProps) {
-  const presaleUrl = "https://dwsc.io/presale";
+  const presaleUrl = "https://dwtl.io/presale";
 
   if (variant === "inline") {
     return (

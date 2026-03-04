@@ -89,7 +89,7 @@ const projects = [
     tech: ["Shop Management", "PWA", "Blockchain", "Integrations"],
     image: torqueImg,
     gradient: "from-zinc-500/20 to-slate-600/20",
-    url: "https://garagebot.io/torque",
+    url: "https://torque.tlid.io",
     category: "Automotive"
   },
   {
@@ -124,7 +124,7 @@ const projects = [
   },
   {
     id: 9,
-    title: "NashPaintPros.io",
+    title: "Nashville Painting Professionals",
     description: "Ecosystem hub connecting 20+ platforms with affiliate tracking and lead generation. 4 pages with dedicated PWA manifest. 3,950 lines of production code powered by PaintPros shared backend.",
     tech: ["Estimation", "Room Visualizer", "Booking", "SEO"],
     image: nashPaintImg,
@@ -134,7 +134,7 @@ const projects = [
   },
   {
     id: 11,
-    title: "PaintPros.io",
+    title: "PaintPros",
     description: "Flagship trade services platform with estimating, CRM, crew management, marketing automation, payments, AI tools, customer portals, and weather system. 74 pages with shared backend powering 4 interconnected platforms. 129,835 lines of production code across 96 combined pages.",
     tech: ["CRM", "Estimating", "AI Tools", "Payments"],
     image: paintProsImg,
@@ -149,7 +149,7 @@ const projects = [
     tech: ["Blockchain", "DeFi", "5 PWAs", "289 Tables"],
     image: trustLayerIconImg,
     gradient: "from-indigo-500/20 to-purple-600/20",
-    url: "https://dwsc.io",
+    url: "https://dwtl.io",
     category: "Blockchain"
   },
   {
@@ -214,12 +214,12 @@ const projects = [
   },
   {
     id: 24,
-    title: "DWSC Studio",
+    title: "DarkWave Studio",
     description: "Browser-based IDE for building on DWSC. Monaco-powered code editor, smart contract development, Docker sandboxed execution, JWT-authenticated sessions, project management, and developer portal. 7,006 lines of production code.",
     tech: ["IDE", "Smart Contracts", "Docker", "DevTools"],
     image: darkwaveStudioImg,
     gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://dwsc.io/studio",
+    url: "https://studio.tlid.io",
     category: "DevTools"
   },
   {
@@ -229,7 +229,7 @@ const projects = [
     tech: ["Real Estate", "Voice AI", "Expo", "Blockchain"],
     image: trustHomeImg,
     gradient: "from-sky-500/20 to-indigo-600/20",
-    url: "https://trusthome.replit.app",
+    url: "https://trusthome.tlid.io",
     category: "Real Estate"
   },
   {
@@ -239,7 +239,7 @@ const projects = [
     tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
     image: trustVaultImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
-    url: "https://trustvault.replit.app",
+    url: "https://trustvault.tlid.io",
     category: "Media"
   },
   {
@@ -249,7 +249,7 @@ const projects = [
     tech: ["AI Certification", "URL Scanner", "Registry", "PWA"],
     image: guardianScannerImg,
     gradient: "from-green-500/20 to-emerald-600/20",
-    url: "https://dwsc.io/guardian-scanner",
+    url: "https://guardianscanner.tlid.io",
     category: "FinTech"
   },
   {
@@ -259,7 +259,7 @@ const projects = [
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://dwsc.io",
+    url: "https://signalchat.tlid.io",
     category: "Social"
   },
   {
@@ -279,7 +279,7 @@ const projects = [
     tech: ["AI Analytics", "Multi-Chain", "Real-time", "PWA"],
     image: "/projects/guardian-screener.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://trustshield.tech",
+    url: "https://guardianscreener.tlid.io",
     category: "Trading"
   },
   {
@@ -299,7 +299,7 @@ const projects = [
     tech: ["OpenAI TTS", "E-Reader", "PWA", "Blockchain"],
     image: "/emblems/trust-book.png",
     gradient: "from-cyan-500/20 to-purple-500/20",
-    url: "https://dwsc.io/trust-book",
+    url: "https://trustbook.tlid.io",
     category: "Publishing"
   },
   {

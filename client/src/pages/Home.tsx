@@ -72,7 +72,7 @@ const projects = [
     tech: ["Blockchain", "Identity", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-pink-600/20",
-    url: "https://dwsc.io"
+    url: "https://dwtl.io"
   },
   {
     id: 3,
@@ -148,7 +148,7 @@ const projects = [
   },
   {
     id: 11,
-    title: "PaintPros.io",
+    title: "PaintPros",
     description: "Flagship trade services platform with estimating, CRM, and 74 pages",
     tech: ["SaaS", "Leads", "Marketing"],
     image: "/ecosystem/paint-pros.png",
@@ -157,7 +157,7 @@ const projects = [
   },
   {
     id: 12,
-    title: "NashPaintPros.io",
+    title: "Nashville Painting Professionals",
     description: "Ecosystem hub connecting 20+ platforms with affiliate tracking",
     tech: ["Painting", "Estimates", "Booking"],
     image: "/ecosystem/nash-paint-pros.png",
@@ -211,12 +211,12 @@ const projects = [
   },
   {
     id: 24,
-    title: "DWSC Studio",
+    title: "DarkWave Studio",
     description: "Browser-based IDE for smart contract development on DWSC",
     tech: ["IDE", "Smart Contracts", "DevTools"],
     image: "/ecosystem/darkwave-studio.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
-    url: "https://dwsc.io/studio"
+    url: "https://studio.tlid.io"
   },
   {
     id: 18,
@@ -225,7 +225,7 @@ const projects = [
     tech: ["Real Estate", "Voice AI", "CRM", "PWA"],
     image: "/ecosystem/trusthome.png",
     gradient: "from-sky-500/20 to-indigo-600/20",
-    url: "https://trusthome.replit.app"
+    url: "https://trusthome.tlid.io"
   },
   {
     id: 19,
@@ -234,7 +234,7 @@ const projects = [
     tech: ["Media", "AI", "Editors", "PWA"],
     image: "/ecosystem/trustvault.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
-    url: "https://trustvault.replit.app"
+    url: "https://trustvault.tlid.io"
   },
   {
     id: 20,
@@ -243,7 +243,7 @@ const projects = [
     tech: ["PWA", "Auto", "Blockchain"],
     image: "/ecosystem/torque.png",
     gradient: "from-slate-500/20 to-zinc-600/20",
-    url: "https://garagebot.io/torque"
+    url: "https://torque.tlid.io"
   },
   {
     id: 21,
@@ -261,7 +261,7 @@ const projects = [
     tech: ["Security", "AI", "Scanning"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-green-500/20 to-emerald-600/20",
-    url: "https://dwsc.io/guardian-scanner"
+    url: "https://guardianscanner.tlid.io"
   },
   {
     id: 25,
@@ -270,7 +270,7 @@ const projects = [
     tech: ["Chat", "WebSocket", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-violet-500/20 to-purple-600/20",
-    url: "https://dwsc.io/chat"
+    url: "https://signalchat.tlid.io"
   },
   {
     id: 26,
@@ -288,7 +288,7 @@ const projects = [
     tech: ["DeFi", "AI", "Security"],
     image: "/projects/guardian-screener.png",
     gradient: "from-red-500/20 to-rose-600/20",
-    url: "https://dwsc.io/guardian-screener"
+    url: "https://guardianscreener.tlid.io"
   },
   {
     id: 28,
@@ -297,7 +297,7 @@ const projects = [
     tech: ["Education", "Certification", "Stripe"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-yellow-500/20 to-amber-600/20",
-    url: "https://dwsc.io/academy"
+    url: "https://academy.tlid.io"
   },
   {
     id: 29,
@@ -315,7 +315,7 @@ const projects = [
     tech: ["Publishing", "AI", "E-Reader"],
     image: "/emblems/trust-book.png",
     gradient: "from-cyan-500/20 to-purple-600/20",
-    url: "https://dwsc.io/trust-book"
+    url: "https://trustbook.tlid.io"
   },
   {
     id: 31,
@@ -333,7 +333,7 @@ const projects = [
     tech: ["Outdoor", "AI", "PWA"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-lime-500/20 to-emerald-600/20",
-    url: "https://verdara.replit.app"
+    url: "https://verdara.tlid.io"
   },
   {
     id: 33,
@@ -342,7 +342,7 @@ const projects = [
     tech: ["Arborist", "CRM", "PWA"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-green-500/20 to-teal-600/20",
-    url: "https://verdara.replit.app/arbora"
+    url: "https://arbora.tlid.io"
   },
   {
     id: 34,
@@ -610,7 +610,7 @@ export default function Home() {
                   Guardian AI
                 </Link>
                 <a 
-                  href="https://dwsc.io/guardian-shield" 
+                  href="https://trustshield.tech" 
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}

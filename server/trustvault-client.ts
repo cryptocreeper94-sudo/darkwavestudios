@@ -1,6 +1,6 @@
 import { verifyToken } from "./trustlayer-sso";
 
-const TRUSTVAULT_BASE_URL = "https://trustvault.replit.app";
+const TRUSTVAULT_BASE_URL = "https://trustvault.tlid.io";
 const RATE_LIMIT_MAP = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 60;
 const RATE_WINDOW = 60_000;

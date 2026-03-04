@@ -80,7 +80,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "torque",
     name: "TORQUE",
-    url: "https://garagebot.io/torque",
+    url: "https://torque.tlid.io",
     totalLines: 5475,
     totalFiles: 10,
     stack: ["React 18", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS", "shadcn/ui", "Solana Blockchain", "Trust Layer SSO", "PWA", "Service Worker"],
@@ -116,7 +116,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trust-layer",
     name: "Trust Layer",
-    url: "https://dwsc.io",
+    url: "https://dwtl.io",
     totalLines: 243958,
     totalFiles: 555,
     apiEndpoints: 749,
@@ -151,7 +151,7 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "paintpros",
-    name: "PaintPros.io",
+    name: "PaintPros",
     url: "https://paintpros.io",
     totalLines: 131059,
     totalFiles: 290,
@@ -307,7 +307,7 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "nash-paint-pros",
-    name: "NashPaintPros.io",
+    name: "Nashville Painting Professionals",
     url: "https://nashpaintpros.io",
     totalLines: 5174,
     totalFiles: 18,
@@ -371,8 +371,8 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "dwsc-studio",
-    name: "DWSC Studio",
-    url: "https://dwsc.io/studio",
+    name: "DarkWave Studio",
+    url: "https://studio.tlid.io",
     totalLines: 8230,
     totalFiles: 32,
     stack: ["React 18", "TypeScript", "Framer Motion", "Monaco Editor", "Docker", "JWT", "Trust Layer"],
@@ -388,7 +388,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trusthome",
     name: "TrustHome",
-    url: "https://trusthome.replit.app",
+    url: "https://trusthome.tlid.io",
     totalLines: 27877,
     totalFiles: 109,
     apiEndpoints: 103,
@@ -406,7 +406,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trustvault",
     name: "TrustVault",
-    url: "https://trustvault.replit.app",
+    url: "https://trustvault.tlid.io",
     totalLines: 46697,
     totalFiles: 172,
     apiEndpoints: 156,
@@ -424,7 +424,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "guardian-scanner",
     name: "Guardian Scanner",
-    url: "https://dwsc.io/guardian-scanner",
+    url: "https://guardianscanner.tlid.io",
     totalLines: 1224,
     totalFiles: 12,
     stack: ["React 18", "TypeScript", "Axios", "WebSocket", "Trust Layer", "PWA"],
@@ -439,7 +439,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "signal-chat",
     name: "Signal Chat",
-    url: "https://dwsc.io/signal-chat",
+    url: "https://signalchat.tlid.io",
     totalLines: 1224,
     totalFiles: 8,
     stack: ["React 18", "TypeScript", "WebSocket", "JWT", "bcryptjs", "Trust Layer SSO"],
@@ -473,7 +473,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "guardian-screener",
     name: "Guardian Screener",
-    url: "https://dwsc.io/guardian-screener",
+    url: "https://guardianscreener.tlid.io",
     totalLines: 0,
     totalFiles: 0,
     stack: ["React 18", "Vite", "Tailwind CSS 4", "Framer Motion", "PWA", "TypeScript"],
@@ -486,7 +486,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "darkwave-academy",
     name: "DarkWave Academy",
-    url: "https://dwsc.io/academy",
+    url: "https://academy.tlid.io",
     totalLines: 1224,
     totalFiles: 6,
     stack: ["React 18", "TypeScript", "Stripe Subscriptions", "PWA", "Trust Layer"],
@@ -520,7 +520,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "trust-book",
     name: "Trust Book",
-    url: "https://dwsc.io/trust-book",
+    url: "https://trustbook.tlid.io",
     totalLines: 9861,
     totalFiles: 4,
     apiEndpoints: 5,
@@ -557,7 +557,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "verdara",
     name: "Verdara",
-    url: "https://verdara.replit.app",
+    url: "https://verdara.tlid.io",
     totalLines: 35500,
     totalFiles: 180,
     apiEndpoints: 85,
@@ -591,7 +591,7 @@ const ecosystemMetrics: AppMetric[] = [
   {
     id: "arbora",
     name: "Arbora",
-    url: "https://verdara.replit.app/arbora",
+    url: "https://arbora.tlid.io",
     totalLines: 8000,
     totalFiles: 28,
     apiEndpoints: 22,

@@ -701,7 +701,7 @@ export default function Explore() {
               Protected by TrustShield.tech
             </a>
             <span className="text-white/10">|</span>
-            <a href="https://dwsc.io" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustlayer">
+            <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustlayer">
               Powered by Trust Layer
             </a>
           </div>

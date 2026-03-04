@@ -21,7 +21,7 @@ export default function Footer() {
             </a>
             <span className="text-white/30">|</span>
             <a
-              href="https://dwsc.io"
+              href="https://dwtl.io"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"

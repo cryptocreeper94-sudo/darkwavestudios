@@ -39,7 +39,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "The Coordinated Trust Layer",
     description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) asset with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge (5 chains), staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 243,958 lines across 555 files, 12 PWA manifests, 7 host-based domains, 749 API endpoints, 544 schema exports, 233 pages, 158 components.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://dwsc.io",
+    url: "https://dwtl.io",
     category: "core"
   },
   {
@@ -116,7 +116,7 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "paint-pros",
-    name: "PaintPros.io",
+    name: "PaintPros",
     tagline: "Your Gateway to the Complete Trade Business System",
     description: "Flagship trade services platform with estimating, CRM, crew management, marketing automation, payments, AI tools, customer portals, and weather system. 74 pages with 42,415 lines of frontend code plus 87,420-line shared backend powering TradeWorks AI, NashPaintPros, and TLID.io. 152,149 combined lines across 96 pages.",
     image: "/ecosystem/paint-pros.png",
@@ -125,7 +125,7 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "nash-paint-pros",
-    name: "NashPaintPros.io",
+    name: "Nashville Painting Professionals",
     tagline: "Nashville's Trusted Painting Professionals",
     description: "Ecosystem hub connecting 20+ platforms with affiliate tracking and lead generation. 4 pages with dedicated PWA manifest. 3,950 lines of production code.",
     image: "/ecosystem/nash-paint-pros.png",
@@ -147,7 +147,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Shop Management OS powered by Trust Layer.",
     description: "Standalone PWA shop management platform within GarageBot. 5-step onboarding with Solana blockchain verification, 11 dashboard tabs covering work orders, appointments, customers, inventory, invoices, team, and reports. 15 business tool integrations (QuickBooks, ADP, Gusto, PartsTech, and more), ORBIT payroll sync, Marketing Hub with Meta/Facebook auto-posting and ad campaign management, and Partner API with API Key + Secret authentication and granular scopes. 5,475 lines across 10 files.",
     image: "/ecosystem/torque.png",
-    url: "https://garagebot.io/torque",
+    url: "https://torque.tlid.io",
     category: "auto"
   },
   {
@@ -197,11 +197,11 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "dwsc-studio",
-    name: "DWSC Studio",
+    name: "DarkWave Studio",
     tagline: "Build on DWSC.",
     description: "Browser-based integrated development environment for building on DWSC. Monaco-powered code editor, smart contract development, Docker container orchestration for sandboxed execution, JWT-authenticated sessions, resource enforcement, project management, and full developer portal. 7,006 lines of production code.",
     image: "/ecosystem/darkwave-studio.png",
-    url: "https://dwsc.io/studio",
+    url: "https://studio.tlid.io",
     category: "core"
   },
   {
@@ -210,7 +210,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Every Transaction. Verified. Transparent. Trusted.",
     description: "White-label real estate platform for agents, buyers, sellers, inspectors, and brokers. Expo React Native (iOS/Android/Web) with 20 app screens and 21 reusable components. Voice AI assistant (STT/TTS/Chat via GPT-5.2), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), Signal Chat, and 103 API endpoints across 6 database tables. 26,653 lines of production code. Woman-owned (WOSB eligible).",
     image: "/ecosystem/trusthome.png",
-    url: "https://trusthome.replit.app",
+    url: "https://trusthome.tlid.io",
     category: "real-estate"
   },
   {
@@ -219,7 +219,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Your Universal IP Storage & Creative Platform",
     description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, layers, watermark, eyedropper, drawing, stickers, AI auto-enhance, background removal, smart erase, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, text overlays, frame capture, custom thumbnails), and merge/combine studio with 17 transition effects. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $9.99/Pro $19.99/Studio $49.99), Signal Chat, AI Blog platform, and TrustLayer SSO. 46,697 lines of code, 172 files, 29 pages, 30 components, 156 API endpoints, 12 database tables.",
     image: "/ecosystem/trustvault.png",
-    url: "https://trustvault.replit.app",
+    url: "https://trustvault.tlid.io",
     category: "security"
   },
   {
@@ -228,7 +228,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "AI Agent & URL Security Verification",
     description: "AI-powered security verification platform that scans and certifies both autonomous AI agents and websites/URLs across the crypto ecosystem. AI Agent Scanning & Certification verifies agents across four dimensions: Security, Transparency, Reliability, and Compliance — agents receive a Guardian trust score and can earn certification through the Guardian Certification Program (Assurance Lite and Guardian Premier tiers). All certified agents are listed on the public Guardian AI Registry. Website & URL Scanning checks any project URL, token website, DEX link, airdrop claim page, or Discord invite for phishing indicators, malicious redirects, impersonation patterns, and known scam domains. Guardian Shield subscribers receive continuous monitoring with real-time alerts when certified agents or scanned websites change behavior. Mobile-first PWA installable on any device.",
     image: "/ecosystem/guardian-scanner.png",
-    url: "https://dwsc.io/guardian-scanner",
+    url: "https://guardianscanner.tlid.io",
     category: "security"
   },
   {
@@ -237,7 +237,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Connect Across Timelines",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all ecosystem apps.",
     image: "/ecosystem/signal-chat.png",
-    url: "https://dwsc.io/signal-chat",
+    url: "https://signalchat.tlid.io",
     category: "social"
   },
   {
@@ -255,16 +255,16 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "See the Market Before It Sees You",
     description: "AI-powered DEX screener with real-time monitoring across all major decentralized exchanges. Smart pattern detection, predictive analytics, rug pull and honeypot risk detection, whale concentration tracking, liquidity lock verification, and 24/7 security alerts. Multi-chain coverage across Solana, Ethereum, Base, BSC, Arbitrum, Polygon, and DWSC. Installable PWA. Part of the dwsc.io codebase.",
     image: "/projects/guardian-screener.png",
-    url: "https://dwsc.io/guardian-screener",
+    url: "https://guardianscreener.tlid.io",
     category: "trading"
   },
   {
     id: "darkwave-academy",
     name: "DarkWave Academy",
     tagline: "Learn. Build. Certify.",
-    description: "Education and certification platform for the Trust Layer ecosystem. 6 course tracks covering blockchain development, smart contract security, DeFi protocols, AI integration, full-stack development, and Trust Layer architecture. 3 certification tiers with Stripe-powered subscriptions. Installable PWA at dwsc.io/academy.",
+    description: "Education and certification platform for the Trust Layer ecosystem. 6 course tracks covering blockchain development, smart contract security, DeFi protocols, AI integration, full-stack development, and Trust Layer architecture. 3 certification tiers with Stripe-powered subscriptions. Installable PWA at academy.tlid.io.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://dwsc.io/academy",
+    url: "https://academy.tlid.io",
     category: "core"
   },
   {
@@ -282,7 +282,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Censorship-Free Publishing",
     description: "Premium ebook publishing and reading platform with AI narration, multi-format support, and blockchain-verified provenance. Features immersive e-reader with chapter navigation, OpenAI Nova HD AI narration, PDF/EPUB downloads, and the flagship title 'Through The Veil' — a 110,000-word investigative work spanning 54+ chapters across 15 volumes. Glassmorphism UI with Framer Motion animations.",
     image: "/emblems/trust-book.png",
-    url: "https://dwsc.io/trust-book",
+    url: "https://trustbook.tlid.io",
     category: "core"
   },
   {
@@ -300,7 +300,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "The Ultimate Outdoor Recreation Super-App",
     description: "Comprehensive outdoor recreation platform featuring AI-powered species identification, trail mapping, trip planner, campground booking, marketplace, 125+ locations across 41 states, 18 activity categories, and 138+ features. Companion app Arbora provides standalone arborist CRM. 35,500 lines of code, 41 pages.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://verdara.replit.app",
+    url: "https://verdara.tlid.io",
     category: "outdoor"
   },
   {
@@ -309,7 +309,7 @@ const ecosystemApps: EcosystemApp[] = [
     tagline: "Professional Arborist Management Platform",
     description: "Standalone arborist PWA built within the Verdara ecosystem. Full CRM with customer management, estimates, job scheduling, invoicing, crew management, and inventory tracking. Mobile-optimized field tools for on-site assessments. ~8,000 lines of code, 10 pages.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://verdara.replit.app/arbora",
+    url: "https://arbora.tlid.io",
     category: "trades"
   },
   {

@@ -1254,6 +1254,97 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
+  app.get("/api/ecosystem/catalog", async (_req, res) => {
+    try {
+      const catalog = ecosystemHealthTargets.map(app => ({
+        id: app.id,
+        name: app.name,
+        url: app.url,
+        category: app.category,
+        loc: app.loc,
+        pages: app.pages,
+        status: "production",
+      }));
+      res.json({
+        success: true,
+        totalApps: catalog.length,
+        totalLOC: "1,715,456",
+        catalog,
+        generatedAt: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/announcements", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        announcements: [
+          {
+            id: "ann-001",
+            title: "Trust Layer Hub Launch",
+            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 33 ecosystem apps.",
+            type: "release",
+            priority: "high",
+            createdAt: "2026-03-01T00:00:00.000Z",
+          },
+          {
+            id: "ann-002",
+            title: "Canonical URL Migration",
+            body: "All ecosystem apps have migrated to canonical TLID.io subdomains for decentralized identity routing.",
+            type: "infrastructure",
+            priority: "medium",
+            createdAt: "2026-03-04T00:00:00.000Z",
+          },
+          {
+            id: "ann-003",
+            title: "Ecosystem Milestone: 1.72M+ LOC",
+            body: "The DarkWave Studios ecosystem has surpassed 1.72 million lines of production code across 33 interconnected applications.",
+            type: "milestone",
+            priority: "low",
+            createdAt: "2026-02-28T00:00:00.000Z",
+          },
+        ],
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/developer/docs", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        documentation: {
+          overview: "DarkWave Studios public API provides access to ecosystem data, widget catalog, and developer resources.",
+          baseUrl: "https://darkwavestudios.io/api",
+          endpoints: [
+            { method: "GET", path: "/api/ecosystem/catalog", description: "Canonical 33-app ecosystem catalog with URLs, categories, LOC, and page counts", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/stats", description: "Ecosystem-wide aggregate statistics", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 33 ecosystem apps", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/shared/components", description: "Shared component library catalog", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/widget-data", description: "Embeddable widget data for Trust Layer Hub", auth: "none" },
+            { method: "GET", path: "/api/announcements", description: "Platform announcements and milestones", auth: "none" },
+            { method: "GET", path: "/api/hallmark/genesis", description: "Genesis hallmark (DS-00000001) with blockchain verification", auth: "none" },
+            { method: "GET", path: "/api/hallmark/:id/verify", description: "Verify any hallmark by ID", auth: "none" },
+            { method: "GET", path: "/api/developer/docs", description: "This documentation endpoint", auth: "none" },
+          ],
+          trustLayer: {
+            sso: "JWT-based cross-app SSO via TLID.io",
+            hallmarks: "SHA-256 blockchain-verified audit trail (prefix: DS)",
+            genesisHallmark: "DS-00000001",
+            parentGenesis: "TH-00000001",
+          },
+          contact: "team@dwsc.io",
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
   // List Connected Apps (public info only)
   app.get("/api/ecosystem/apps", async (req, res) => {
     try {
@@ -2763,8 +2854,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           { name: "THE VOID", id: "the-void", domain: "intothevoid.app" },
           { name: "Happy Eats", id: "happy-eats", domain: "happyeats.app" },
           { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.com" },
-          { name: "TrustHome", id: "trusthome", domain: "trusthome.replit.app" },
-          { name: "TrustVault", id: "trustvault", domain: "trustvault.replit.app" },
+          { name: "TrustHome", id: "trusthome", domain: "trusthome.tlid.io" },
+          { name: "TrustVault", id: "trustvault", domain: "trustvault.tlid.io" },
         ],
         apiKey: orbitKey,
         apiSecret: orbitSecret,
