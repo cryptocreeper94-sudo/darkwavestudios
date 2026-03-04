@@ -22,6 +22,48 @@ const TIERS: TierInfo[] = [
   { name: "base", rate: 0.10, minReferrals: 0 },
 ];
 
+const ECOSYSTEM_REGISTRY = [
+  { app: "Trust Layer Hub", domain: "trusthub.tlid.io", prefix: "TH" },
+  { app: "Trust Layer (L1)", domain: "dwtl.io", prefix: "TL" },
+  { app: "TrustHome", domain: "trusthome.tlid.io", prefix: "TR" },
+  { app: "TrustVault", domain: "trustvault.tlid.io", prefix: "TV" },
+  { app: "TLID.io", domain: "tlid.io", prefix: "TI" },
+  { app: "THE VOID", domain: "thevoid.tlid.io", prefix: "VO" },
+  { app: "Signal Chat", domain: "signalchat.tlid.io", prefix: "SC" },
+  { app: "DarkWave Studio", domain: "darkwavestudio.tlid.io", prefix: "DS" },
+  { app: "Guardian Shield", domain: "guardianshield.tlid.io", prefix: "GS" },
+  { app: "Guardian Scanner", domain: "guardianscanner.tlid.io", prefix: "GN" },
+  { app: "Guardian Screener", domain: "guardianscreener.tlid.io", prefix: "GR" },
+  { app: "TradeWorks AI", domain: "tradeworks.tlid.io", prefix: "TW" },
+  { app: "StrikeAgent", domain: "strikeagent.tlid.io", prefix: "SA" },
+  { app: "Pulse", domain: "pulse.tlid.io", prefix: "PU" },
+  { app: "Chronicles", domain: "chronicles.tlid.io", prefix: "CH" },
+  { app: "The Arcade", domain: "thearcade.tlid.io", prefix: "AR" },
+  { app: "Bomber", domain: "bomber.tlid.io", prefix: "BO" },
+  { app: "Trust Golf", domain: "trustgolf.tlid.io", prefix: "TG" },
+  { app: "ORBIT Staffing OS", domain: "orbit.tlid.io", prefix: "OR" },
+  { app: "Orby Commander", domain: "orby.tlid.io", prefix: "OC" },
+  { app: "GarageBot", domain: "garagebot.tlid.io", prefix: "GB" },
+  { app: "Lot Ops Pro", domain: "lotops.tlid.io", prefix: "LO" },
+  { app: "TORQUE", domain: "torque.tlid.io", prefix: "TQ" },
+  { app: "TL Driver Connect", domain: "driverconnect.tlid.io", prefix: "DC" },
+  { app: "VedaSolus", domain: "vedasolus.tlid.io", prefix: "VS" },
+  { app: "Verdara", domain: "verdara.tlid.io", prefix: "VD" },
+  { app: "Arbora", domain: "arbora.tlid.io", prefix: "AB" },
+  { app: "PaintPros", domain: "paintpros.tlid.io", prefix: "PP" },
+  { app: "Nashville Painting Professionals", domain: "nashvillepainting.tlid.io", prefix: "NP" },
+  { app: "Trust Book", domain: "trustbook.tlid.io", prefix: "TB" },
+  { app: "DarkWave Academy", domain: "darkwaveacademy.tlid.io", prefix: "DA" },
+  { app: "Happy Eats", domain: "happyeats.tlid.io", prefix: "HE" },
+  { app: "Brew & Board Coffee", domain: "brewandboard.tlid.io", prefix: "BB" },
+];
+
+function buildCrossPlatformLinks(hash: string) {
+  return ECOSYSTEM_REGISTRY
+    .filter(e => e.prefix !== "DS")
+    .map(e => ({ app: e.app, domain: e.domain, prefix: e.prefix, url: `https://${e.domain}/ref/${hash}` }));
+}
+
 export function calculateTier(convertedCount: number): TierInfo {
   for (const tier of TIERS) {
     if (convertedCount >= tier.minReferrals) {
@@ -62,17 +104,11 @@ export async function getAffiliateDashboard(userId: string) {
     .reduce((sum, c) => sum + parseFloat(c.amount), 0);
 
   const referralLink = user.uniqueHash
-    ? `https://darkwavestudios.io/ref/${user.uniqueHash}`
+    ? `https://darkwavestudio.tlid.io/ref/${user.uniqueHash}`
     : null;
 
   const crossPlatformLinks = user.uniqueHash
-    ? [
-        { app: "GarageBot", url: `https://garagebot.io/ref/${user.uniqueHash}` },
-        { app: "Trust Layer", url: `https://trustlayer.io/ref/${user.uniqueHash}` },
-        { app: "Orbit Staffing", url: `https://orbitstaffing.io/ref/${user.uniqueHash}` },
-        { app: "StrikeAgent", url: `https://strikeagent.io/ref/${user.uniqueHash}` },
-        { app: "VedaSolus", url: `https://vedasolus.io/ref/${user.uniqueHash}` },
-      ]
+    ? buildCrossPlatformLinks(user.uniqueHash)
     : [];
 
   return {
@@ -98,31 +134,17 @@ export async function getAffiliateLink(userId: string) {
   if (!user.uniqueHash) {
     const hash = randomBytes(8).toString("hex");
     await db.update(users).set({ uniqueHash: hash }).where(eq(users.id, userId));
-    const referralLink = `https://darkwavestudios.io/ref/${hash}`;
     return {
-      referralLink,
+      referralLink: `https://darkwavestudio.tlid.io/ref/${hash}`,
       uniqueHash: hash,
-      crossPlatformLinks: [
-        { app: "GarageBot", url: `https://garagebot.io/ref/${hash}` },
-        { app: "Trust Layer", url: `https://trustlayer.io/ref/${hash}` },
-        { app: "Orbit Staffing", url: `https://orbitstaffing.io/ref/${hash}` },
-        { app: "StrikeAgent", url: `https://strikeagent.io/ref/${hash}` },
-        { app: "VedaSolus", url: `https://vedasolus.io/ref/${hash}` },
-      ],
+      crossPlatformLinks: buildCrossPlatformLinks(hash),
     };
   }
 
-  const referralLink = `https://darkwavestudios.io/ref/${user.uniqueHash}`;
   return {
-    referralLink,
+    referralLink: `https://darkwavestudio.tlid.io/ref/${user.uniqueHash}`,
     uniqueHash: user.uniqueHash,
-    crossPlatformLinks: [
-      { app: "GarageBot", url: `https://garagebot.io/ref/${user.uniqueHash}` },
-      { app: "Trust Layer", url: `https://trustlayer.io/ref/${user.uniqueHash}` },
-      { app: "Orbit Staffing", url: `https://orbitstaffing.io/ref/${user.uniqueHash}` },
-      { app: "StrikeAgent", url: `https://strikeagent.io/ref/${user.uniqueHash}` },
-      { app: "VedaSolus", url: `https://vedasolus.io/ref/${user.uniqueHash}` },
-    ],
+    crossPlatformLinks: buildCrossPlatformLinks(user.uniqueHash),
   };
 }
 
