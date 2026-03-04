@@ -954,7 +954,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
 
 Key information about DarkWave:
 - Premium web development agency offering custom websites, apps, and AI solutions
-- Trust Layer Hub is a blockchain-verified widget marketplace with 50 embeddable widgets
+- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 78 embeddable widgets
 - Guardian AI provides AI agent certification services
 - DarkWave Pulse is a premium predictive AI system for market analysis
 - 60%+ savings compared to traditional agencies
@@ -1391,7 +1391,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "trust-book", name: "Trust Book", url: "https://dwsc.io/trust-book", category: "core", loc: "9,861", pages: "3" },
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
     { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
-    { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "~28K", pages: "15" },
+    { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "21,026", pages: "24" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1486,7 +1486,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "DW Analytics", description: "Business intelligence dashboard", icon: "AN", isVerified: true },
         { displayName: "Trust Layer SSO", description: "Cross-app identity system", icon: "TL", isVerified: true },
         { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
-        { displayName: "Trust Layer Hub", description: "Widget marketplace", icon: "TH", isVerified: true },
+        { displayName: "Trust Layer Hub", description: "Blockchain ecosystem command center — DeFi wallet, staking, chat, AI agent, multi-sig. 21,026 LOC", icon: "TH", isVerified: true },
         { displayName: "Verdara", description: "Ultimate outdoor recreation super-app — species ID, trails, trips, campgrounds & marketplace", icon: "VD", isVerified: true },
         { displayName: "Arbora", description: "Standalone arborist PWA — CRM, estimates, jobs, invoicing & crew management", icon: "AB", isVerified: true },
         { displayName: "Happy Eats", description: "Zone-based food truck delivery — multi-truck carts, vendor portal, AI marketing & franchise model", icon: "HE", isVerified: true },

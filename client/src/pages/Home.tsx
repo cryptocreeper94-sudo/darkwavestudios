@@ -356,8 +356,8 @@ const projects = [
   {
     id: 35,
     title: "Trust Layer Hub",
-    description: "Central hub aggregating all ecosystem accounts, wallets, hallmarks, and activity into one dashboard",
-    tech: ["Hub", "SSO", "Blockchain"],
+    description: "Unified mobile command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens",
+    tech: ["React Native", "Expo SDK 54", "DeFi", "PWA"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://trusthub.tlid.io"
