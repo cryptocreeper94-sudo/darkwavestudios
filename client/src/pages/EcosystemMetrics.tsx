@@ -606,6 +606,23 @@ const ecosystemMetrics: AppMetric[] = [
     gradient: "from-green-500 to-teal-500",
     status: "Production",
   },
+  {
+    id: "trustgen",
+    name: "TrustGen",
+    url: "https://trustgen.tlid.io",
+    totalLines: 11607,
+    totalFiles: 46,
+    apiEndpoints: 50,
+    stack: ["React 19", "TypeScript", "Vite", "Three.js", "React Three Fiber", "Drei", "Meshy.ai", "OpenAI GPT-4o", "Zustand", "React Router DOM v6", "Node.js", "Express", "PostgreSQL", "Stripe", "Twilio", "JWT", "Trust Layer", "PWA"],
+    breakdown: [
+      { language: "TypeScript/TSX (13 pages, 18 components)", lines: 6957, files: 31 },
+      { language: "CSS (glassmorphism)", lines: 4650, files: 1 },
+    ],
+    highlights: ["3D Creation Studio", "AI Text-to-3D (Meshy.ai)", "Keyframe Animation Timeline", "Post-Processing (Bloom, SSAO, DOF)", "Model Import/Export (GLTF/GLB/FBX)", "Blockchain Hallmarks", "Stripe Subscriptions", "Signal Chat", "AI Blog", "Developer Portal (PIN-gated)", "SMS Alerts (Twilio)", "50+ API Endpoints"],
+    icon: Sparkles,
+    gradient: "from-purple-500 to-cyan-500",
+    status: "Production",
+  },
 ];
 
 function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: number; duration?: number; suffix?: string }) {

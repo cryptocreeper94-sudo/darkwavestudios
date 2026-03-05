@@ -255,7 +255,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 33 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 34 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -311,6 +311,16 @@ const projects = [
     gradient: "from-emerald-600/20 to-green-500/20",
     url: "https://trustgolf.app",
     category: "Sports"
+  },
+  {
+    id: 34,
+    title: "TrustGen",
+    description: "Browser-based AI-powered 3D creation platform with blockchain provenance. Three.js real-time rendering, Meshy.ai text-to-3D generation (800 char prompts), keyframe animation timeline with easing curves, post-processing suite (bloom, SSAO, DOF, chromatic aberration, film grain), GLTF/GLB/FBX import/export. Every asset hallmarked on Trust Layer blockchain. Stripe subscriptions (Free/Pro $19/mo/Enterprise $49/mo), Signal Chat, AI blog, Twilio SMS alerts, PIN-gated developer portal. 11,607 LOC, 46 files, 13 pages, 50+ API endpoints, 8 database tables.",
+    tech: ["Three.js", "Meshy.ai", "React 19", "Stripe"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-purple-500/20 to-cyan-600/20",
+    url: "https://trustgen.tlid.io",
+    category: "Creative Tools"
   }
 ];
 

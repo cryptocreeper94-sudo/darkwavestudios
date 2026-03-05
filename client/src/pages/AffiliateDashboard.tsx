@@ -52,6 +52,7 @@ const ECOSYSTEM_APPS = [
   { app: "DarkWave Academy", domain: "darkwaveacademy.tlid.io", prefix: "DA", icon: "🎓" },
   { app: "Happy Eats", domain: "happyeats.tlid.io", prefix: "HE", icon: "🍔" },
   { app: "Brew & Board Coffee", domain: "brewandboard.tlid.io", prefix: "BB", icon: "☕" },
+  { app: "TrustGen", domain: "trustgen.tlid.io", prefix: "TN", icon: "🎨" },
 ];
 
 function getTierInfo(convertedCount: number) {

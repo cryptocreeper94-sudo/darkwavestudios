@@ -320,6 +320,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://bomber.tlid.io",
     category: "gaming"
+  },
+  {
+    id: "trustgen",
+    name: "TrustGen",
+    tagline: "AI-Powered 3D Creation with Blockchain Provenance",
+    description: "Browser-based AI-powered 3D creation platform where every asset is hallmarked on Trust Layer's blockchain. Three.js real-time rendering with Meshy.ai text-to-3D generation, keyframe animation timeline, post-processing (bloom, SSAO, DOF), model import/export (GLTF/GLB/FBX), Signal Chat, AI blog, and Stripe subscriptions (Free/Pro $19/mo/Enterprise $49/mo). PIN-gated developer portal. 11,607 lines of code, 46 files, 13 pages, 50+ API endpoints.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://trustgen.tlid.io",
+    category: "creative"
   }
 ];
 
@@ -335,7 +344,8 @@ const categories = [
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" },
   { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" },
-  { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" }
+  { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" },
+  { id: "creative", name: "Creative Tools", description: "3D creation, media production, and AI-powered design" }
 ];
 
 function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {

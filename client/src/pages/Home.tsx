@@ -361,6 +361,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://trusthub.tlid.io"
+  },
+  {
+    id: 36,
+    title: "TrustGen",
+    description: "AI-powered 3D creation platform with blockchain provenance — Three.js studio, Meshy.ai text-to-3D, animation timeline, and hallmark verification",
+    tech: ["Three.js", "AI", "3D", "Blockchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-purple-500/20 to-cyan-600/20",
+    url: "https://trustgen.tlid.io"
   }
 ];
 
