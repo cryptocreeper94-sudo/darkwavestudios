@@ -592,7 +592,7 @@ export default function EcosystemDashboard() {
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
         >
           {[
-            { label: "Total Apps", value: "33", icon: Server },
+            { label: "Total Apps", value: "34", icon: Server },
             { label: "Total Widgets", value: "96", icon: Boxes },
             { label: "Lines of Code", value: "1.73M+", icon: FileCode },
             { label: "API Endpoints", value: "1,500+", icon: Zap },

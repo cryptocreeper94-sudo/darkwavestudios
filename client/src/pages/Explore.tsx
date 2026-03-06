@@ -147,7 +147,7 @@ const categories: ExploreCategory[] = [
     cards: [
       {
         label: "Ecosystem",
-        description: "All 33 connected applications in one view",
+        description: "All 34 connected applications in one view",
         href: "/ecosystem",
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
@@ -584,7 +584,7 @@ export default function Explore() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
         >
           {[
-            { icon: <Rocket className="w-5 h-5" />, value: "33", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
+            { icon: <Rocket className="w-5 h-5" />, value: "34", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
             { icon: <Code2 className="w-5 h-5" />, value: "1.73M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
             { icon: <Boxes className="w-5 h-5" />, value: "96", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
