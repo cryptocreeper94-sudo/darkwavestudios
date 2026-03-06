@@ -954,7 +954,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
 
 Key information about DarkWave:
 - Premium web development agency offering custom websites, apps, and AI solutions
-- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 78 embeddable widgets
+- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 90 embeddable widgets
 - Guardian AI provides AI agent certification services
 - DarkWave Pulse is a premium predictive AI system for market analysis
 - 60%+ savings compared to traditional agencies
@@ -1591,7 +1591,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         stats: {
           totalApps: 34,
           verifiedApps: 34,
-          totalWidgets: 78,
+          totalWidgets: 90,
           totalLOC: "1.72M+"
         },
         apps: ecosystemAppsData,

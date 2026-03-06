@@ -82,7 +82,15 @@ import {
   Target,
   Navigation,
   BookOpen,
-  Crosshair
+  Crosshair,
+  Gamepad2,
+  Medal,
+  ArrowRightLeft,
+  BadgeCheck,
+  Boxes,
+  Volume2,
+  BookOpenCheck,
+  Gem
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
@@ -1030,6 +1038,138 @@ const widgetsList = [
     techStack: ["Vanilla JS", "REST API", "Node.js", "Express", "PostgreSQL", "CSS3"],
     linesOfCode: "~1,400 lines (full stack)",
     complexity: "Intermediate"
+  },
+  {
+    id: "ai-narration-player", name: "AI Narration Player", icon: Volume2, containerId: "demo-ai-narration", color: "#a855f7",
+    description: "OpenAI Nova HD text-to-speech narration with chapter controls and voice selection", price: 179, priceId: "price_widget_ai_narration",
+    fullDescription: "Drop-in AI narration engine that converts any text content into professional-grade spoken audio using OpenAI's Nova HD voice model. Supports chapter-by-chapter narration with automatic segmentation, playback speed controls (0.5x–2x), voice selection from 6 OpenAI voices, progress tracking with resume-from-last-position, and streaming audio for zero-wait playback. Beautiful floating audio player UI with waveform visualization, chapter navigation, and sleep timer. Perfect for blogs, documentation, ebooks, articles, or any long-form content. Extracted from Trust Book's production narration engine.",
+    features: ["OpenAI Nova HD text-to-speech", "6 selectable voice profiles", "Chapter-by-chapter narration", "Playback speed controls (0.5x–2x)", "Streaming audio — zero-wait start", "Progress tracking with resume", "Waveform visualization", "Sleep timer with auto-pause", "Floating mini-player mode", "Chapter navigation with titles", "Background audio playback", "Keyboard shortcuts (space/arrows)"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key (TTS model access)"],
+    includes: ["Full source code", "Audio player UI component", "Backend TTS proxy endpoint", "Chapter segmentation engine", "Progress persistence module", "Voice configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI TTS API", "Web Audio API", "Node.js", "Express", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,350 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "ereader-embed", name: "E-Reader Embed", icon: BookOpenCheck, containerId: "demo-ereader", color: "#6366f1",
+    description: "Immersive chapter-based reading experience with progress tracking and bookmarks", price: 149, priceId: "price_widget_ereader",
+    fullDescription: "Full-featured embeddable e-reader component with chapter-based navigation, reading progress persistence, bookmarking, customizable typography (font size, line height, font family), dark/light/sepia themes, and smooth Framer Motion page transitions. Table of contents sidebar with completion indicators per chapter, estimated reading time, and scroll position memory. Supports Markdown and HTML content input. Responsive design works beautifully on desktop, tablet, and mobile. Extracted from Trust Book's production e-reader powering 'Through The Veil' — 110,000 words across 54 chapters.",
+    features: ["Chapter-based navigation with TOC sidebar", "Reading progress persistence (local + API)", "Bookmarking system with notes", "Customizable typography (size/height/family)", "Dark, light, and sepia themes", "Estimated reading time per chapter", "Smooth page transition animations", "Scroll position memory per chapter", "Markdown and HTML content support", "Fullscreen reading mode", "Keyboard navigation (arrow keys)", "Mobile-optimized touch gestures"],
+    requirements: ["React 18+ frontend", "Optional: Backend for progress sync"],
+    includes: ["Full source code", "Reader UI component", "TOC sidebar component", "Theme engine", "Progress tracking module", "Bookmark manager", "Typography controls", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Tailwind CSS", "Marked (Markdown parser)"],
+    linesOfCode: "~1,100 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "pdf-epub-generator", name: "PDF/EPUB Generator", icon: FileText, containerId: "demo-pdf-epub", color: "#14b8a6",
+    description: "Server-side document export engine for PDF and EPUB with custom styling", price: 199, priceId: "price_widget_pdf_epub",
+    fullDescription: "Production-grade server-side document export engine that converts structured content into professionally formatted PDF and EPUB files. PDF generation uses Puppeteer with custom CSS print stylesheets for pixel-perfect output including cover pages, table of contents, page numbers, headers/footers, and chapter breaks. EPUB generation produces valid EPUB 3.0 files with metadata, cover image, chapter structure, and CSS styling that works across all major e-readers (Kindle, Apple Books, Kobo). Includes a download API endpoint with streaming response and progress callbacks. Extracted from Trust Book's production export system.",
+    features: ["PDF generation with Puppeteer", "EPUB 3.0 compliant output", "Custom CSS print stylesheets", "Cover page with metadata", "Auto-generated table of contents", "Page numbers and headers/footers", "Chapter break handling", "Cover image embedding", "Streaming download endpoint", "Progress callbacks during generation", "Batch export support", "Custom font embedding"],
+    requirements: ["Node.js backend", "Puppeteer (for PDF)", "archiver (for EPUB packaging)"],
+    includes: ["Full source code", "PDF generation engine", "EPUB builder module", "Print CSS stylesheets", "Download API endpoint", "Cover page template", "TOC generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "Puppeteer", "archiver", "TypeScript", "CSS Print Media"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "arcade-game-embed", name: "Arcade Game Embed", icon: Gamepad2, containerId: "demo-arcade-game", color: "#ef4444",
+    description: "Drop-in HTML5 canvas arcade game with leaderboard and score tracking", price: 129, priceId: "price_widget_arcade_game",
+    fullDescription: "Ready-to-embed HTML5 canvas arcade game engine with a complete game loop, sprite rendering, collision detection, particle effects, and progressive difficulty scaling. Includes a persistent leaderboard with player names and high scores, achievement unlocks with animated badge reveals, lives/score/level HUD, touch controls for mobile, and gamepad support. The embed adapts to any container size with automatic canvas scaling. Sound effects via Web Audio API with mute toggle. Perfect for gamification, engagement features, or entertainment sections on any website. Extracted from Bomber's production game engine.",
+    features: ["HTML5 Canvas game engine", "60fps game loop with delta timing", "Sprite rendering and animation", "Collision detection system", "Particle effects engine", "Progressive difficulty scaling", "Persistent leaderboard (top 100)", "Achievement unlock system", "Touch controls for mobile", "Gamepad API support", "Web Audio API sound effects", "Responsive canvas scaling", "Pause/resume functionality"],
+    requirements: ["Any HTML page or React app", "Optional: Backend for persistent leaderboards"],
+    includes: ["Full source code", "Game engine core", "Canvas renderer", "Leaderboard UI + API", "Achievement system", "Sound effects pack", "Touch/gamepad input handlers", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "HTML5 Canvas", "Web Audio API", "Gamepad API", "React 18", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "achievement-badges", name: "Achievement Badge System", icon: Medal, containerId: "demo-achievement-badges", color: "#f59e0b",
+    description: "Blockchain-verified achievement badges with animated reveals and progress tracking", price: 149, priceId: "price_widget_achievement_badges",
+    fullDescription: "Complete achievement and badge system with blockchain-verified provenance via Trust Layer hallmarks. Define achievement categories (milestones, challenges, streaks, special events), set unlock conditions with progress tracking, and award animated badge reveals with confetti effects when users hit targets. Each badge generates a hallmark entry for permanent verification. Includes a trophy case display component showing earned badges in a responsive grid with rarity tiers (Common, Rare, Epic, Legendary), tooltips with unlock dates, and shareable badge cards. Extracted from Bomber's blockchain achievement system with SIG reward integration.",
+    features: ["Customizable achievement definitions", "Progress tracking with percentage bars", "Animated badge reveal with confetti", "4 rarity tiers (Common/Rare/Epic/Legendary)", "Hallmark blockchain verification per badge", "Trophy case display component", "Streak tracking (daily/weekly/monthly)", "Shareable badge cards with QR code", "SIG reward integration hooks", "Category grouping and filtering", "Unlock notification system", "Admin panel for badge management"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Trust Layer API for hallmarks"],
+    includes: ["Full source code", "Badge display components", "Achievement engine", "Trophy case UI", "Admin management panel", "Hallmark integration module", "Confetti animation library", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "canvas-confetti"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "defi-wallet-connect", name: "DeFi Wallet Connect", icon: Wallet, containerId: "demo-defi-wallet", color: "#10b981",
+    description: "Embeddable DeFi wallet showing SIG/Shells/stSIG balances with send and receive", price: 299, priceId: "price_widget_defi_wallet",
+    fullDescription: "Full-featured embeddable DeFi wallet widget for the Trust Layer ecosystem. Displays real-time balances for SIG ($0.01), Shells ($0.001), and stSIG (staked SIG) with USD conversion. Includes send and receive flows with address validation, QR code generation for receiving, transaction history with status indicators (pending/confirmed/failed), and one-tap copy for wallet addresses. Connects via Trust Layer SSO JWT for secure authentication. Glassmorphism card design with animated balance counters and token icons. Extracted from Trust Layer Hub's production DeFi wallet — 21,026 LOC, battle-tested across 34 ecosystem apps.",
+    features: ["Real-time SIG/Shells/stSIG balances", "USD conversion display", "Send flow with address validation", "Receive flow with QR code generation", "Transaction history with status", "One-tap wallet address copy", "Trust Layer SSO JWT authentication", "Animated balance counters", "Token icon display", "Network fee estimation", "Balance refresh with pull-to-refresh", "Multi-wallet support"],
+    requirements: ["React 18+ frontend", "Trust Layer SSO JWT token", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Wallet UI component", "Send/receive flow components", "QR code generator", "Transaction history module", "SSO authentication handler", "Balance polling service", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Trust Layer SSO", "QRCode.js", "Framer Motion", "Tailwind CSS", "WebSocket"],
+    linesOfCode: "~2,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "staking-calculator", name: "Staking Calculator", icon: TrendingUp, containerId: "demo-staking-calc", color: "#8b5cf6",
+    description: "Interactive APY calculator for 5 staking pools with earnings projections", price: 149, priceId: "price_widget_staking_calc",
+    fullDescription: "Interactive staking calculator widget that lets users explore all 5 Trust Layer staking pools and project earnings over custom time periods. Each pool displays its APY (12%–38%), lock period, minimum stake, and risk level. Users input their SIG amount and see projected daily, weekly, monthly, and yearly earnings with compounding visualizations on animated Recharts line graphs. Includes a pool comparison mode side-by-side, auto-compounding toggle, and a 'What if?' slider for hypothetical SIG price scenarios. Clean glassmorphism cards with gradient pool indicators. Extracted from Trust Layer Hub's production staking interface.",
+    features: ["5 staking pools (12%–38% APY)", "Custom stake amount input", "Daily/weekly/monthly/yearly projections", "Compound interest visualization", "Interactive Recharts line graphs", "Pool comparison mode (side-by-side)", "Auto-compounding toggle", "SIG price 'What if?' slider", "Lock period and risk display", "Minimum stake requirements", "Animated earnings counter", "Responsive pool cards"],
+    requirements: ["React 18+ frontend", "No backend required — runs client-side"],
+    includes: ["Full source code", "Calculator UI component", "5 pool configurations", "Recharts visualization", "Compound math engine", "Comparison view", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Framer Motion", "Tailwind CSS"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "dex-swap-widget", name: "DEX Swap Widget", icon: ArrowRightLeft, containerId: "demo-dex-swap", color: "#06b6d4",
+    description: "Embeddable token swap interface for SIG/Shells/stSIG pairs with slippage controls", price: 249, priceId: "price_widget_dex_swap",
+    fullDescription: "Production-ready embeddable DEX swap widget for Trust Layer ecosystem tokens. Users select token pairs (SIG ↔ Shells, SIG ↔ stSIG, Shells ↔ stSIG), input amounts, and execute swaps with real-time price quotes, slippage tolerance controls (0.1%–5%), and price impact warnings. Animated swap button with confirmation modal showing exchange rate, fees, minimum received, and estimated gas. Includes swap history with receipt details and a price chart mini-view. Connects via Trust Layer SSO for authenticated transactions. Glassmorphism swap card with token selector dropdowns and animated flip button. Extracted from Trust Layer Hub's production DEX.",
+    features: ["3 token pairs (SIG/Shells/stSIG)", "Real-time price quotes", "Slippage tolerance controls (0.1%–5%)", "Price impact warnings", "Confirmation modal with fee breakdown", "Swap history with receipts", "Price chart mini-view", "Token selector dropdowns", "Animated swap flip button", "Minimum received calculation", "Gas estimation display", "Trust Layer SSO authentication"],
+    requirements: ["React 18+ frontend", "Trust Layer SSO JWT token", "Network access to Trust Layer DEX API"],
+    includes: ["Full source code", "Swap UI component", "Token selector", "Price quote engine", "Confirmation modal", "Swap history module", "Price chart component", "SSO handler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Trust Layer SSO", "Recharts", "Framer Motion", "Tailwind CSS", "WebSocket"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "trust-score-badge", name: "Trust Score Badge", icon: BadgeCheck, containerId: "demo-trust-score", color: "#22c55e",
+    description: "Animated trust verification badge with score meter and certification status", price: 99, priceId: "price_widget_trust_score",
+    fullDescription: "Lightweight embeddable trust verification badge that displays an app's or user's Trust Layer verification score with an animated circular meter, certification tier (Unverified, Bronze, Silver, Gold, Platinum), and real-time verification status via the Trust Layer API. Single script tag embed — loads asynchronously with zero layout shift. The badge glows with tier-appropriate colors (bronze shimmer, silver shine, gold pulse, platinum glow) and shows the verification date, hallmark count, and a 'Verify on Chain' link. Click-to-expand reveals full verification details. Perfect for proving ecosystem membership and building user trust. Extracted from Trust Layer Hub's verification system.",
+    features: ["Animated circular trust score meter", "5 certification tiers with colors", "Real-time verification via API", "Single script tag embed", "Zero layout shift async loading", "Tier-appropriate glow effects", "Click-to-expand detail view", "Hallmark count display", "Verification date stamp", "'Verify on Chain' deep link", "Dark and light theme support", "Customizable badge size (sm/md/lg)"],
+    requirements: ["Any HTML page or React app", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Embed script", "Badge component", "Verification API client", "Theme variants", "Size presets", "Animation library", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "CSS3 Animations", "Trust Layer API", "SVG", "TypeScript"],
+    linesOfCode: "~650 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "3d-model-viewer", name: "3D Model Viewer", icon: Boxes, containerId: "demo-3d-viewer", color: "#8b5cf6",
+    description: "Three.js embeddable 3D viewer with orbit controls, lighting presets, and GLTF/GLB support", price: 249, priceId: "price_widget_3d_viewer",
+    fullDescription: "Production-grade embeddable 3D model viewer powered by Three.js with full orbit/pan/zoom controls, 6 lighting presets (studio, outdoor, dramatic, soft, neon, custom), HDR environment maps, and support for GLTF, GLB, and FBX model formats. Includes auto-rotate with adjustable speed, model info overlay (vertices, triangles, materials), wireframe toggle, screenshot capture, fullscreen mode, and responsive container sizing. Drag-and-drop model loading for interactive demos. Ground plane with shadow casting and configurable background colors/gradients. Extracted from TrustGen's production 3D rendering pipeline — Three.js r170, battle-tested with complex models up to 500K triangles.",
+    features: ["Three.js r170 rendering engine", "GLTF, GLB, and FBX format support", "Orbit, pan, and zoom controls", "6 lighting presets + custom", "HDR environment maps", "Auto-rotate with speed control", "Model info overlay (verts/tris/materials)", "Wireframe toggle", "Screenshot capture (PNG)", "Fullscreen mode", "Drag-and-drop model loading", "Ground plane with shadow casting", "Responsive container sizing", "Configurable backgrounds"],
+    requirements: ["React 18+ or vanilla JS", "WebGL-capable browser"],
+    includes: ["Full source code", "Viewer component", "6 lighting preset configs", "HDR environment maps", "Model loader (GLTF/GLB/FBX)", "Controls system", "Screenshot module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Three.js r170", "React 18", "TypeScript", "@react-three/fiber", "@react-three/drei", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-text-to-3d", name: "AI Text-to-3D Preview", icon: Gem, containerId: "demo-text-to-3d", color: "#ec4899",
+    description: "Meshy.ai-powered text prompt to 3D model generation with rotating preview", price: 299, priceId: "price_widget_text_to_3d",
+    fullDescription: "Embeddable AI-powered 3D generation widget that converts text prompts into 3D models using the Meshy.ai API. Users type a description (e.g., 'a medieval castle with ivy'), select an art style (realistic, cartoon, low-poly, sculpt, PBR), and watch as the model generates with a real-time progress bar. Once complete, the model renders in an interactive Three.js viewport with auto-rotation. Includes prompt suggestions, generation history, and one-click GLTF/GLB download. Each generated model receives a Trust Layer hallmark for blockchain provenance tracking. Rate-limited to prevent API abuse with a clean queue UI. Extracted from TrustGen's production text-to-3D pipeline.",
+    features: ["Meshy.ai text-to-3D generation", "5 art styles (realistic/cartoon/low-poly/sculpt/PBR)", "Real-time generation progress bar", "Interactive Three.js preview viewport", "Auto-rotation on completion", "Prompt suggestions and templates", "Generation history gallery", "One-click GLTF/GLB download", "Trust Layer hallmark per model", "Rate limiting with queue display", "Art style preview thumbnails", "Negative prompt support"],
+    requirements: ["React 18+ frontend", "Node.js backend", "Meshy.ai API key", "Optional: Trust Layer API for hallmarks"],
+    includes: ["Full source code", "Prompt input UI", "Meshy.ai API integration", "Three.js preview component", "Generation queue manager", "Download handler", "Hallmark integration", "5 style configs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "Meshy.ai API", "Node.js", "Express", "Framer Motion", "Tailwind CSS"],
+    linesOfCode: "~2,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "hallmark-verification-badge", name: "Hallmark Verification Badge", icon: Shield, containerId: "demo-hallmark-badge", color: "#f97316",
+    description: "Universal blockchain provenance badge with SHA-256 hash and verification link", price: 79, priceId: "price_widget_hallmark_badge",
+    fullDescription: "Lightweight embeddable badge that proves the authenticity and provenance of any digital asset, app release, or transaction using Trust Layer's hallmark system. Displays the hallmark ID (e.g., DS-00000001), truncated SHA-256 data hash, timestamp, and a 'Verify on Chain' link that opens the full hallmark verification page. Single line embed — pass the hallmark ID as a data attribute and the badge auto-fetches verification data from the Trust Layer API. Animated shield icon pulses green when verified, red when unverified. Supports inline (horizontal) and card (vertical) layouts with dark/light themes. Perfect for proving software releases, NFT provenance, transaction receipts, or certificate authenticity across any ecosystem app.",
+    features: ["Single data-attribute embed", "Auto-fetch verification from API", "SHA-256 hash display (truncated)", "Hallmark ID with app prefix", "Timestamp display", "'Verify on Chain' deep link", "Animated shield (green=verified, red=unverified)", "Inline and card layout modes", "Dark and light themes", "Hover tooltip with full hash", "Copy hash to clipboard", "Loading skeleton animation"],
+    requirements: ["Any HTML page or React app", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Embed script", "Badge component (inline + card)", "API verification client", "Theme variants", "Animation library", "Clipboard handler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "CSS3 Animations", "Trust Layer API", "SVG", "TypeScript"],
+    linesOfCode: "~480 lines",
+    complexity: "Beginner-friendly"
   },
 ];
 

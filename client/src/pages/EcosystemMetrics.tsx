@@ -784,7 +784,7 @@ export default function EcosystemMetrics() {
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
-            { icon: LayoutGrid, label: "Widgets", value: 78, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
+            { icon: LayoutGrid, label: "Widgets", value: 90, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
             <motion.div key={i} variants={itemVariants}>
               <GlassCard variant="stat" className="rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1 group" data-testid={`stat-card-${i}`}>
