@@ -954,7 +954,7 @@ Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (mark
 
 Key information about DarkWave:
 - Premium web development agency offering custom websites, apps, and AI solutions
-- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 90 embeddable widgets
+- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 96 embeddable widgets
 - Guardian AI provides AI agent certification services
 - DarkWave Pulse is a premium predictive AI system for market analysis
 - 60%+ savings compared to traditional agencies
@@ -1300,7 +1300,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           },
           {
             id: "ann-003",
-            title: "Ecosystem Milestone: 1.72M+ LOC",
+            title: "Ecosystem Milestone: 1.73M+ LOC",
             body: "The DarkWave Studios ecosystem has surpassed 1.72 million lines of production code across 34 interconnected applications.",
             type: "milestone",
             priority: "low",
@@ -1483,7 +1483,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
     { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
     { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "21,026", pages: "24" },
-    { id: "trustgen", name: "TrustGen", url: "https://trustgen.tlid.io", category: "creative", loc: "11,607", pages: "13" },
+    { id: "trustgen", name: "TrustGen", url: "https://trustgen.tlid.io", category: "creative", loc: "18,700", pages: "7" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1591,8 +1591,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         stats: {
           totalApps: 34,
           verifiedApps: 34,
-          totalWidgets: 90,
-          totalLOC: "1.72M+"
+          totalWidgets: 96,
+          totalLOC: "1.73M+"
         },
         apps: ecosystemAppsData,
         verification: {
@@ -2832,7 +2832,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
         domain: "darkwavestudios.io",
-        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 33-app ecosystem (~1.72M+ LOC)",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 33-app ecosystem (~1.73M+ LOC)",
         category: "agency",
         endpoints: {
           ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",

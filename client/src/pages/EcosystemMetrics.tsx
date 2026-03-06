@@ -610,15 +610,16 @@ const ecosystemMetrics: AppMetric[] = [
     id: "trustgen",
     name: "TrustGen",
     url: "https://trustgen.tlid.io",
-    totalLines: 11607,
-    totalFiles: 46,
+    totalLines: 18700,
+    totalFiles: 62,
     apiEndpoints: 50,
-    stack: ["React 19", "TypeScript", "Vite", "Three.js", "React Three Fiber", "Drei", "Meshy.ai", "OpenAI GPT-4o", "Zustand", "React Router DOM v6", "Node.js", "Express", "PostgreSQL", "Stripe", "Twilio", "JWT", "Trust Layer", "PWA"],
+    stack: ["React 18", "TypeScript", "Vite", "Three.js", "React Three Fiber", "Drei", "Meshy.ai", "OpenAI GPT-4o", "Zustand", "Monaco Editor", "React Router DOM v6", "Node.js", "Express", "PostgreSQL", "Stripe", "Twilio", "JWT", "Trust Layer", "PWA"],
     breakdown: [
-      { language: "TypeScript/TSX (13 pages, 18 components)", lines: 6957, files: 31 },
-      { language: "CSS (glassmorphism)", lines: 4650, files: 1 },
+      { language: "TypeScript/TSX (7 pages, 17 components)", lines: 9300, files: 41 },
+      { language: "CSS (7,400+ lines hand-crafted)", lines: 7400, files: 14 },
+      { language: "Backend (Express API)", lines: 2000, files: 7 },
     ],
-    highlights: ["3D Creation Studio", "AI Text-to-3D (Meshy.ai)", "Keyframe Animation Timeline", "Post-Processing (Bloom, SSAO, DOF)", "Model Import/Export (GLTF/GLB/FBX)", "Blockchain Hallmarks", "Stripe Subscriptions", "Signal Chat", "AI Blog", "Developer Portal (PIN-gated)", "SMS Alerts (Twilio)", "50+ API Endpoints"],
+    highlights: ["3D Creation Studio", "Studio IDE (Monaco Editor)", "AI Text-to-3D (Meshy.ai)", "Auto-Rigging Engine", "Skeletal Animation Player", "GPU Particle System", "Post-Processing (7 FX)", "Animation Timeline (Keyframes)", "AI Code Assistant (GPT-4o)", "9 Project Templates", "Command Palette", "Scene Hierarchy", "20+ Database Tables", "Blockchain Hallmarks", "Deploy to .trustgen.app", "Stripe Subscriptions", "Signal Chat", "SMS Alerts (Twilio)"],
     icon: Sparkles,
     gradient: "from-purple-500 to-cyan-500",
     status: "Production",
@@ -784,7 +785,7 @@ export default function EcosystemMetrics() {
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
-            { icon: LayoutGrid, label: "Widgets", value: 90, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
+            { icon: LayoutGrid, label: "Widgets", value: 96, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
             <motion.div key={i} variants={itemVariants}>
               <GlassCard variant="stat" className="rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1 group" data-testid={`stat-card-${i}`}>

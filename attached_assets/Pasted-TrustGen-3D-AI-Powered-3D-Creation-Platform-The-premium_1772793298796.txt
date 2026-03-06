@@ -1,0 +1,102 @@
+TrustGen 3D — AI-Powered 3D Creation Platform
+
+The premium browser-based 3D creation and code studio in the Trust Layer ecosystem. TrustGen combines a full-featured 3D editor, AI model generation, animation timeline, integrated IDE with Monaco editor, and blockchain-verified provenance into a single platform.
+
+Live: trustgen.tlid.io | Repo: github.com/cryptocreeper94-sudo/trustgen
+Stack: React 18 + TypeScript + Vite | Three.js + React Three Fiber | Node.js + Express + PostgreSQL
+LOC: ~18,700 source lines across 62 files (~2,000 backend, ~7,400 CSS, ~9,300 frontend TS/TSX)
+
+═══ CORE ENGINE ═══
+
+• 3D Viewport — Real-time WebGL rendering with OrbitControls, grid, axes, selection outlines
+• Scene Hierarchy — Tree-based node management (meshes, lights, cameras, groups)
+• Material Editor — PBR materials, textures, transparency, emissive, metalness, roughness
+• Transform Controls — Translate/rotate/scale gizmos with snap-to-grid
+• Lighting System — Directional, point, spot, hemisphere, ambient lights with shadow mapping
+• Post-Processing — Bloom, SSAO, depth of field, chromatic aberration, film grain, color grading, vignette
+• AI Model Generation — Meshy.ai integration for text-to-3D (800 char prompts, polling, auto-import)
+• Animation Timeline — Keyframe system with easing curves, playback controls, per-property tracks
+• Model Import/Export — GLTF/GLB import with drag-and-drop, scene export
+• Auto-Rigging Engine — Skeleton generation for humanoid meshes with bone mapping and IK weights
+• Skeletal Animation Player — Play/pause/blend animations on rigged models
+
+═══ STUDIO IDE ═══
+
+• Monaco Editor — Full VS Code-grade editor with custom TrustGen Dark theme, JetBrains Mono font
+• Project Templates — 9 templates: React, Node.js, Python Flask, Vue, Next.js, Go, Rust, Django, TrustGen 3D Scene
+• File Tree — Sidebar file browser with icons, new file/folder creation, delete
+• Multi-Tab Editor — Open/close tabs, unsaved indicators, tab management
+• AI Assistant — Chat panel with code blocks (copy/replace/insert), agent mode, GPT-4o integration
+• Command Palette — Ctrl+K fuzzy search across files and commands
+• Hot Apply — Push editor code directly to the 3D viewport via CustomEvent bridge
+• Deploy Panel — One-click deploy to .trustgen.app domains with status polling and build logs
+• TrustHub Code Stamps — Blockchain-verified SHA-256 code provenance snapshots
+• Secrets Manager — Encrypted environment variable storage with masked UI
+• Config Manager — Project-level key-value configuration store
+• Terminal — Simulated command execution with blocked command security
+• Diagnostics — Real-time code linting (var→let/const, ===, eval, console.log, line length)
+• Git Panel — Commit history, commit creation, branch management
+• Search — Full-text search across all project files with line-level results
+
+═══ PLATFORM ═══
+
+• Trust Layer SSO — Unified authentication via dwtl.io OAuth
+• Subscription Tiers — Free/Pro/Enterprise with server-side API gating (requireTier middleware)
+• Hallmark System — Blockchain-verified creation stamps via Trust Layer API
+• Signal Chat Widget — Embedded real-time messaging (WebSocket)
+• SMS Notifications — Twilio-powered alerts for renders, invites, security
+• Billing Dashboard — Stripe integration for subscription management
+• Affiliate System — Referral tracking and commission management
+• Admin Diagnostics — Runtime health checks, API latency monitoring
+• Cinematic Landing Page — Hero carousel with crossfade, feature grid, animated CTAs
+
+═══ UI/UX ═══
+
+• Mobile-First Responsive — IDE goes full-screen on mobile (≤768px), compact tablet layout
+• Premium Glassmorphism — backdrop-filter blur on panels, command palette, headers
+• Micro-Animations — Panel slide-ins, hover lifts, template pulse glow, shimmer effects
+• Custom Scrollbars — 4px cyan-tinted scrollbars throughout IDE
+• Dark Theme — Void-black base (#06060a) with cyan (#06b6d4) / purple (#a855f7) accents
+• 7,400+ lines of hand-crafted CSS with design tokens and CSS variables
+
+═══ WIDGET BREAKDOWN ═══
+
+Frontend Widgets (React Components):
+├── Viewport.tsx — 3D canvas with R3F, OrbitControls, selection, grid
+├── SceneNode3D.tsx — Individual 3D object renderer with material application
+├── Sidebar.tsx — Properties panel, material editor, transform controls
+├── SceneHierarchy.tsx — Recursive tree view of scene objects
+├── StudioPanel.tsx — IDE main panel (870 lines): file tree, tabs, editor, bottom panel
+├── MonacoEditor.tsx — Monaco wrapper with custom theme and keybindings
+├── AiAssistantPanel.tsx — Chat interface with code blocks and Markdown rendering
+├── AutoRigger.tsx — Skeleton generation wizard with bone mapping UI
+├── SkeletalAnimationPlayer.tsx — Animation playback controls and blending
+├── PostProcessing.tsx — Real-time FX pipeline with controls
+├── CommandPalette.tsx — Fuzzy-search command launcher
+├── ParticleSystem.tsx — GPU particle emitter with physics
+├── HamburgerMenu.tsx — Mobile-friendly navigation drawer
+├── Toast.tsx — Notification toasts with auto-dismiss
+├── Tooltip.tsx / InfoBubble — Contextual help bubbles
+├── Footer.tsx — Site-wide footer with links
+└── AIPanel.tsx — 3D-specific AI generation interface
+
+Pages:
+├── ExplorePage.tsx — Cinematic landing with hero carousel + feature grid
+├── LoginPage.tsx — Auth with Trust Layer SSO + email/password
+├── WorkspacePage.tsx — User workspace and project dashboard
+├── AffiliatePage.tsx — Affiliate program dashboard
+├── BillingPage.tsx — Subscription management
+├── TermsPage.tsx — Legal documents
+└── Editor (App.tsx) — Main 3D editor + IDE split-screen
+
+State Management (Zustand Stores):
+├── studioStore.ts — IDE state (projects, files, editor, panels, diagnostics)
+├── rigStore.ts — Auto-rigging state (skeleton, bones, weights)
+├── projectStore.ts — Scene project state (objects, selection, transforms)
+└── tenantStore.ts — Multi-tenant auth and subscription state
+
+Backend:
+├── server/index.ts — Express API (~1,900 lines): auth, CRUD, Studio endpoints, AI chat
+└── server/trustLayerApi.ts — Trust Layer blockchain integration
+
+Database: 20+ PostgreSQL tables (users, projects, scene data, 7 studio tables, subscriptions, hallmarks, SMS)

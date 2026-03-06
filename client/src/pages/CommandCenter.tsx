@@ -161,12 +161,12 @@ const categories: CommandCategory[] = [
       },
       {
         label: "Trust Layer Hub",
-        description: "90 embeddable widgets with live previews & pricing",
+        description: "96 embeddable widgets with live previews & pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "90 Widgets",
+        badge: "96 Widgets",
       },
       {
         label: "Developer Tools",

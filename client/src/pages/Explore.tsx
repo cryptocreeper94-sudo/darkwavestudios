@@ -143,7 +143,7 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full Trust Layer ecosystem — 34 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.72M+ lines of code.",
+    description: "Explore the full Trust Layer ecosystem — 34 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.73M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
@@ -178,16 +178,16 @@ const categories: ExploreCategory[] = [
     title: "Tools & Widgets",
     icon: <Boxes className="size-4" />,
     gradient: "from-amber-500 to-orange-500",
-    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 90 embeddable widgets, or explore the developer API.",
+    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 96 embeddable widgets, or explore the developer API.",
     cards: [
       {
         label: "Trust Layer Hub",
-        description: "90 embeddable widgets with live previews and pricing",
+        description: "96 embeddable widgets with live previews and pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "90 Widgets",
+        badge: "96 Widgets",
         featured: true,
       },
       {
@@ -585,8 +585,8 @@ export default function Explore() {
         >
           {[
             { icon: <Rocket className="w-5 h-5" />, value: "33", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
-            { icon: <Code2 className="w-5 h-5" />, value: "1.72M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
-            { icon: <Boxes className="w-5 h-5" />, value: "90", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
+            { icon: <Code2 className="w-5 h-5" />, value: "1.73M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
+            { icon: <Boxes className="w-5 h-5" />, value: "96", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
           ].map((stat, i) => (
             <motion.div

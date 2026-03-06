@@ -315,8 +315,8 @@ const projects = [
   {
     id: 34,
     title: "TrustGen",
-    description: "Browser-based AI-powered 3D creation platform with blockchain provenance. Three.js real-time rendering, Meshy.ai text-to-3D generation (800 char prompts), keyframe animation timeline with easing curves, post-processing suite (bloom, SSAO, DOF, chromatic aberration, film grain), GLTF/GLB/FBX import/export. Every asset hallmarked on Trust Layer blockchain. Stripe subscriptions (Free/Pro $19/mo/Enterprise $49/mo), Signal Chat, AI blog, Twilio SMS alerts, PIN-gated developer portal. 11,607 LOC, 46 files, 13 pages, 50+ API endpoints, 8 database tables.",
-    tech: ["Three.js", "Meshy.ai", "React 19", "Stripe"],
+    description: "Premium browser-based 3D creation and code studio. Full 3D editor with OrbitControls, scene hierarchy, PBR material editor, transform gizmos, and 5 light types with shadow mapping. AI model generation via Meshy.ai (800 char prompts). Studio IDE with Monaco editor, 9 project templates, AI code assistant (GPT-4o), command palette, file tree, multi-tab editing, hot apply to viewport, and deploy to .trustgen.app. Auto-rigging engine with skeleton generation, skeletal animation player, GPU particle system, post-processing pipeline (7 FX), and keyframe animation timeline with easing curves. Blockchain hallmarks, Stripe subscriptions, Signal Chat, Twilio SMS. 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
+    tech: ["Three.js", "Meshy.ai", "Monaco Editor", "React 18", "Stripe"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io",

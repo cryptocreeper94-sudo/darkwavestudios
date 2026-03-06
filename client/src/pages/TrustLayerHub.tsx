@@ -1171,6 +1171,72 @@ const widgetsList = [
     linesOfCode: "~480 lines",
     complexity: "Beginner-friendly"
   },
+  {
+    id: "auto-rigging-engine", name: "Auto-Rigging Engine", icon: Fingerprint, containerId: "demo-auto-rigger", color: "#14b8a6",
+    description: "Automatic skeleton generation for humanoid meshes with bone mapping and IK weights", price: 349, priceId: "price_widget_auto_rigger",
+    fullDescription: "Production-grade auto-rigging engine that generates skeletal hierarchies for humanoid 3D meshes automatically. Upload or import any humanoid GLTF/GLB model, and the engine detects body proportions, generates a full bone hierarchy (spine, limbs, hands, head), computes inverse kinematics weight maps, and applies vertex skinning. Includes a visual bone mapping wizard where users can fine-tune joint positions, adjust IK chain lengths, and preview deformations in real-time. Supports T-pose and A-pose detection. Outputs rig-ready models compatible with any animation system. Extracted from TrustGen's production auto-rigging system.",
+    features: ["Automatic skeleton generation", "Humanoid body proportion detection", "Full bone hierarchy (30+ bones)", "Inverse kinematics weight computation", "Vertex skinning application", "Visual bone mapping wizard", "Joint position fine-tuning", "IK chain length adjustment", "Real-time deformation preview", "T-pose and A-pose detection", "Rig-ready GLTF/GLB export", "Bone group presets (full body, upper, lower, hands)"],
+    requirements: ["React 18+ frontend", "Three.js / React Three Fiber", "WebGL-capable browser"],
+    includes: ["Full source code", "Rigging engine core", "Bone mapping UI wizard", "IK solver module", "Skinning weight calculator", "Deformation preview component", "Pose detection module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "React Three Fiber", "Zustand", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,900 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "gpu-particle-system", name: "GPU Particle System", icon: Sparkles, containerId: "demo-gpu-particles", color: "#f43f5e",
+    description: "High-performance GPU particle emitter with physics simulation and visual presets", price: 199, priceId: "price_widget_gpu_particles",
+    fullDescription: "GPU-accelerated particle system that renders thousands of particles at 60fps using WebGL instanced rendering. Includes 12 built-in presets (fire, smoke, rain, snow, sparks, magic, confetti, dust, fireflies, aurora, nebula, explosion) with full parameter control — emission rate, lifetime, velocity, gravity, turbulence, color gradients over lifetime, size curves, and blend modes. Supports texture atlas sprites, billboarding, world and local space modes, and burst emission triggers. Visual editor panel lets designers tweak every parameter with instant preview. Drop it onto any Three.js scene or use standalone as a canvas overlay for website effects. Extracted from TrustGen's production particle pipeline.",
+    features: ["GPU instanced rendering (10K+ particles)", "12 built-in presets", "Emission rate and burst controls", "Particle lifetime with fade", "Velocity, gravity, and turbulence", "Color gradient over lifetime", "Size curve editor", "Blend modes (additive, alpha, multiply)", "Texture atlas sprite support", "Billboarding and orientation modes", "World and local space modes", "Visual parameter editor panel", "Standalone canvas overlay mode"],
+    requirements: ["React 18+ or vanilla JS", "WebGL 2.0 capable browser", "Optional: Three.js for 3D scene integration"],
+    includes: ["Full source code", "Particle engine core", "12 preset configurations", "Visual editor UI", "Texture atlas loader", "Standalone overlay mode", "Three.js integration module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "WebGL 2.0", "Three.js", "React 18", "GLSL Shaders", "Tailwind CSS"],
+    linesOfCode: "~1,700 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "post-processing-pipeline", name: "Post-Processing Pipeline", icon: Palette, containerId: "demo-post-processing", color: "#8b5cf6",
+    description: "7 real-time visual effects with per-effect controls for Three.js scenes", price: 249, priceId: "price_widget_post_processing",
+    fullDescription: "Complete real-time post-processing pipeline for Three.js scenes with 7 production-grade visual effects: bloom (threshold, intensity, radius), SSAO (ambient occlusion with kernel size and radius), depth of field (focus distance, aperture, max blur), chromatic aberration (offset and intensity), film grain (intensity and speed), color grading (brightness, contrast, saturation, hue shift with LUT support), and vignette (offset and darkness). Each effect has a dedicated control panel with sliders and toggles. Effects are composable — stack any combination with per-effect enable/disable. Includes 8 visual presets (cinematic, noir, dreamy, vibrant, horror, sci-fi, vintage, clean). Extracted from TrustGen's production post-processing system.",
+    features: ["Bloom (threshold, intensity, radius)", "SSAO (kernel size, radius, bias)", "Depth of Field (focus, aperture, blur)", "Chromatic Aberration (offset, intensity)", "Film Grain (intensity, speed)", "Color Grading (B/C/S/hue + LUT)", "Vignette (offset, darkness)", "Per-effect enable/disable toggles", "8 visual presets", "Composable effect stacking", "Real-time preview", "Export/import effect configurations"],
+    requirements: ["React 18+ with Three.js", "@react-three/postprocessing", "WebGL 2.0 capable browser"],
+    includes: ["Full source code", "7 effect modules", "Control panel UI", "8 preset configurations", "Effect composition manager", "Config import/export", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "@react-three/postprocessing", "pmndrs postprocessing", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "monaco-code-editor", name: "Monaco Code Editor", icon: Code2, containerId: "demo-monaco-editor", color: "#06b6d4",
+    description: "VS Code-grade embeddable editor with 9 project templates and custom themes", price: 299, priceId: "price_widget_monaco_editor",
+    fullDescription: "Full VS Code-grade code editor widget powered by Monaco Editor with custom TrustGen Dark theme, JetBrains Mono font, and 9 ready-to-use project templates (React, Node.js, Python Flask, Vue, Next.js, Go, Rust, Django, TrustGen 3D Scene). Includes multi-tab editing with unsaved indicators, sidebar file tree with icons, command palette (Ctrl+K) with fuzzy search, IntelliSense autocomplete, syntax highlighting for 20+ languages, minimap, bracket matching, and code folding. Standalone or embeddable — drop it into any web app as a code playground, documentation code editor, or interactive tutorial environment. Extracted from TrustGen's production Studio IDE.",
+    features: ["Monaco Editor core (VS Code engine)", "Custom dark theme with design tokens", "JetBrains Mono font integration", "9 project templates with scaffolding", "Multi-tab editor with unsaved indicators", "Sidebar file tree with file type icons", "Command palette (Ctrl+K) with fuzzy search", "IntelliSense autocomplete", "Syntax highlighting (20+ languages)", "Minimap with preview", "Bracket matching and code folding", "Find and replace with regex", "Configurable keybindings", "Responsive sizing"],
+    requirements: ["React 18+ frontend", "monaco-editor npm package"],
+    includes: ["Full source code", "Editor wrapper component", "File tree component", "Tab management system", "Command palette", "9 template scaffolds", "Custom theme definition", "Keybinding configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Monaco Editor", "JetBrains Mono", "Tailwind CSS", "Zustand"],
+    linesOfCode: "~2,400 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-code-assistant", name: "AI Code Assistant", icon: Bot, containerId: "demo-ai-code-assistant", color: "#22c55e",
+    description: "GPT-4o chat panel with code blocks, copy/replace/insert actions, and agent mode", price: 249, priceId: "price_widget_ai_code_assistant",
+    fullDescription: "Embeddable AI coding assistant chat panel powered by GPT-4o with rich code block rendering, one-click copy/replace/insert actions, Markdown formatting, and conversation memory. Agent mode allows the AI to chain multiple operations (write file, run command, analyze output) autonomously. Chat messages render with syntax-highlighted code blocks that include action buttons to copy to clipboard, replace selected code in the editor, or insert at cursor position. Supports system prompts, temperature control, and context injection from the current file. Conversation history persists across sessions. Extracted from TrustGen's production AI assistant.",
+    features: ["GPT-4o integration with streaming", "Rich code block rendering", "Copy/replace/insert code actions", "Markdown message formatting", "Conversation memory and history", "Agent mode (multi-step operations)", "System prompt customization", "Temperature and model controls", "Context injection from active file", "Syntax highlighting in responses", "Session persistence", "Loading states with typing indicator", "Collapsible chat panel"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key (GPT-4o)"],
+    includes: ["Full source code", "Chat panel UI", "Code block renderer with actions", "OpenAI streaming integration", "Agent mode engine", "Conversation persistence", "Backend proxy endpoint", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "Tailwind CSS", "Zustand"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "scene-hierarchy-tree", name: "Scene Hierarchy Tree", icon: Network, containerId: "demo-scene-hierarchy", color: "#f59e0b",
+    description: "Recursive tree view for managing 3D scene objects with drag-and-drop reordering", price: 129, priceId: "price_widget_scene_hierarchy",
+    fullDescription: "Reusable recursive tree-view component purpose-built for 3D scene management but adaptable to any hierarchical data. Displays nodes (meshes, lights, cameras, groups) in a collapsible tree with type-specific icons, visibility toggles, lock toggles, and selection highlighting. Supports drag-and-drop reordering and re-parenting of nodes within the hierarchy. Right-click context menu with rename, duplicate, delete, group, and ungroup actions. Includes search filtering across all nodes, multi-select with Shift/Ctrl, and keyboard navigation (arrow keys, Enter, Delete). Syncs with any external state manager via callback props. Extracted from TrustGen's production Scene Hierarchy panel.",
+    features: ["Recursive collapsible tree structure", "Type-specific node icons", "Visibility and lock toggles per node", "Selection highlighting with sync", "Drag-and-drop reordering", "Re-parenting via drag to group", "Right-click context menu", "Rename inline editing", "Duplicate and delete actions", "Group and ungroup operations", "Search filtering across nodes", "Multi-select (Shift/Ctrl)", "Keyboard navigation", "Callback props for state sync"],
+    requirements: ["React 18+ frontend"],
+    includes: ["Full source code", "Tree component", "Node renderer", "Drag-and-drop handler", "Context menu component", "Search filter module", "Multi-select manager", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "Zustand"],
+    linesOfCode: "~1,100 lines",
+    complexity: "Intermediate"
+  },
 ];
 
 interface CartItem {

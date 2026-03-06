@@ -325,7 +325,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustgen",
     name: "TrustGen",
     tagline: "AI-Powered 3D Creation with Blockchain Provenance",
-    description: "Browser-based AI-powered 3D creation platform where every asset is hallmarked on Trust Layer's blockchain. Three.js real-time rendering with Meshy.ai text-to-3D generation, keyframe animation timeline, post-processing (bloom, SSAO, DOF), model import/export (GLTF/GLB/FBX), Signal Chat, AI blog, and Stripe subscriptions (Free/Pro $19/mo/Enterprise $49/mo). PIN-gated developer portal. 11,607 lines of code, 46 files, 13 pages, 50+ API endpoints.",
+    description: "Premium browser-based 3D creation and code studio combining a full-featured 3D editor, AI model generation (Meshy.ai text-to-3D), integrated Studio IDE with Monaco editor and 9 project templates, auto-rigging engine, skeletal animation player, GPU particle system, post-processing pipeline (bloom, SSAO, DOF, chromatic aberration, film grain, color grading, vignette), animation timeline with keyframe easing, AI code assistant (GPT-4o), deploy to .trustgen.app, and blockchain-verified provenance. Stripe subscriptions (Free/Pro/Enterprise). 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://trustgen.tlid.io",
     category: "creative"
