@@ -53,6 +53,8 @@ import SharedComponentsManager from "@/pages/SharedComponentsManager";
 import DeveloperApi from "@/pages/DeveloperApi";
 import EcosystemDashboard from "@/pages/EcosystemDashboard";
 import AffiliateDashboard from "@/pages/AffiliateDashboard";
+import Lume from "@/pages/Lume";
+import Academy from "@/pages/Academy";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -99,6 +101,8 @@ function Router() {
       <Route path="/developers/api" component={DeveloperApi}/>
       <Route path="/developers/ecosystem" component={EcosystemDashboard}/>
       <Route path="/affiliate" component={AffiliateDashboard}/>
+      <Route path="/lume" component={Lume}/>
+      <Route path="/academy" component={Academy}/>
       <Route component={NotFound} />
     </Switch>
   );

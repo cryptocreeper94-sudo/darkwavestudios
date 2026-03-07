@@ -13,7 +13,7 @@ import {
   Globe, Bot, Zap, Lock, Unlock, Eye, Sparkles, Terminal,
   Boxes, CreditCard, Search, Radio, Layers, FolderOpen,
   Megaphone, Store, Newspaper, ArrowLeft, Command, LogOut,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, Code2, BookOpen
 } from "lucide-react";
 
 const ADMIN_KEY = "0424";
@@ -161,12 +161,12 @@ const categories: CommandCategory[] = [
       },
       {
         label: "Trust Layer Hub",
-        description: "96 embeddable widgets with live previews & pricing",
+        description: "102 embeddable widgets with live previews & pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "96 Widgets",
+        badge: "102 Widgets",
       },
       {
         label: "Developer Tools",
@@ -175,6 +175,25 @@ const categories: CommandCategory[] = [
         icon: <Terminal className="size-5" />,
         image: "/command/developers.png",
         glowColor: "shadow-green-500/20",
+      },
+      {
+        label: "Lume Language",
+        description: "The AI-native programming language — syntax, runtime, toolchain",
+        href: "/lume",
+        icon: <Code2 className="size-5" />,
+        image: "/command/developers.png",
+        glowColor: "shadow-cyan-500/20",
+        badge: "New",
+        featured: true,
+      },
+      {
+        label: "DarkWave Academy",
+        description: "Courses, certifications, and the Lume curriculum",
+        href: "/academy",
+        icon: <BookOpen className="size-5" />,
+        image: "/command/developers.png",
+        glowColor: "shadow-teal-500/20",
+        badge: "Learn",
       },
     ],
   },

@@ -14,7 +14,7 @@ import {
   FileText, Globe, BarChart3, Boxes, Terminal, Shield,
   Search, Zap, Radio, MessageSquare, Newspaper, Eye,
   FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command,
-  Code2, Database, Cpu, Rocket
+  Code2, Database, Cpu, Rocket, BookOpen
 } from "lucide-react";
 
 interface LaunchCard {
@@ -178,16 +178,16 @@ const categories: ExploreCategory[] = [
     title: "Tools & Widgets",
     icon: <Boxes className="size-4" />,
     gradient: "from-amber-500 to-orange-500",
-    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 96 embeddable widgets, or explore the developer API.",
+    description: "Access free tools and the widget marketplace. Run a website audit, scan AI agents for security, browse 102 embeddable widgets, or explore the developer API.",
     cards: [
       {
         label: "Trust Layer Hub",
-        description: "96 embeddable widgets with live previews and pricing",
+        description: "102 embeddable widgets with live previews and pricing",
         href: "/hub",
         icon: <Boxes className="size-5" />,
         image: "/command/trust-hub.png",
         glowColor: "shadow-amber-500/20",
-        badge: "96 Widgets",
+        badge: "102 Widgets",
         featured: true,
       },
       {
@@ -223,6 +223,25 @@ const categories: ExploreCategory[] = [
         icon: <Terminal className="size-5" />,
         image: "/command/developers.png",
         glowColor: "shadow-green-500/20",
+      },
+      {
+        label: "Lume Language",
+        description: "The AI-native programming language — ask/think/generate as syntax",
+        href: "/lume",
+        icon: <Code2 className="size-5" />,
+        image: "/command/developers.png",
+        glowColor: "shadow-cyan-500/20",
+        badge: "New",
+        featured: true,
+      },
+      {
+        label: "DarkWave Academy",
+        description: "The learning & building nexus — courses, certifications, Lume curriculum",
+        href: "/academy",
+        icon: <BookOpen className="size-5" />,
+        image: "/command/developers.png",
+        glowColor: "shadow-teal-500/20",
+        badge: "Learn",
       },
     ],
   },
@@ -586,7 +605,7 @@ export default function Explore() {
           {[
             { icon: <Rocket className="w-5 h-5" />, value: "35", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
             { icon: <Code2 className="w-5 h-5" />, value: "1.74M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
-            { icon: <Boxes className="w-5 h-5" />, value: "96", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
+            { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
           ].map((stat, i) => (
             <motion.div

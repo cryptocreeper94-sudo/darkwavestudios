@@ -1237,6 +1237,72 @@ const widgetsList = [
     linesOfCode: "~1,100 lines",
     complexity: "Intermediate"
   },
+  {
+    id: "lume-repl", name: "Lume REPL", icon: Terminal, containerId: "demo-lume-repl", color: "#06b6d4",
+    description: "Interactive REPL widget for running Lume code in the browser", price: 199, priceId: "price_widget_lume_repl",
+    fullDescription: "Drop an interactive Lume REPL into any webpage and let users write, edit, and execute Lume code directly in the browser. Supports multi-line input with history navigation, syntax highlighting powered by the Lume tokenizer, real-time output display with stdout/stderr separation, and transpiled JavaScript preview. Ideal for documentation sites, learning platforms, and live demos of the Lume language. Extracted from the Lume toolchain runtime.",
+    features: ["Multi-line code input with history", "Lume syntax highlighting", "Real-time execution output", "stdout/stderr separation", "Transpiled JS preview panel", "Input history navigation (up/down arrows)", "Auto-indentation", "Error highlighting with line numbers", "Copy output to clipboard", "Resizable panels", "Dark and light themes", "Keyboard shortcuts (Ctrl+Enter to run)"],
+    requirements: ["React 18+ or vanilla JS", "Lume runtime bundle (~45KB gzipped)", "Modern browser with ES2020+ support"],
+    includes: ["Full source code", "Lume runtime bundle", "Syntax theme definitions", "Keyboard shortcut config", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Lume Runtime", "CodeMirror 6", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "lume-playground", name: "Lume Code Playground", icon: Code2, containerId: "demo-lume-playground", color: "#14b8a6",
+    description: "Embeddable code editor with Lume syntax highlighting and transpiled JS output preview", price: 249, priceId: "price_widget_lume_playground",
+    fullDescription: "A full-featured embeddable code playground for the Lume programming language. Includes a split-pane editor with Lume source on the left and transpiled JavaScript output on the right, 12 example templates covering AI keywords, self-sustaining patterns, and standard library usage. Syntax highlighting follows the official Lume theme with support for all language constructs including ask/think/generate keywords. Real-time transpilation shows the JavaScript output as you type. Perfect for tutorials, documentation, and interactive learning experiences.",
+    features: ["Split-pane editor (Lume → JS)", "12 example templates", "Real-time transpilation preview", "Lume syntax highlighting (all keywords)", "ask/think/generate keyword support", "Auto-save with local storage", "Share via URL encoding", "Fullscreen mode", "Font size controls", "Line numbers and minimap", "Error overlay with suggestions", "Template gallery with descriptions"],
+    requirements: ["React 18+ frontend", "Lume transpiler bundle (~60KB gzipped)"],
+    includes: ["Full source code", "Lume transpiler bundle", "12 example templates", "Theme customization guide", "Embedding documentation", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Lume Transpiler", "Monaco Editor", "Tailwind CSS"],
+    linesOfCode: "~2,200 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "self-sustaining-dashboard", name: "Self-Sustaining Dashboard", icon: Activity, containerId: "demo-self-sustaining-dashboard", color: "#8b5cf6",
+    description: "Real-time monitoring dashboard for Lume's 4 self-sustaining runtime layers", price: 349, priceId: "price_widget_self_sustaining_dashboard",
+    fullDescription: "Monitor the four layers of Lume's self-sustaining runtime in real time: Self-Monitoring, Self-Healing, Self-Optimizing, and Self-Evolving. Each layer has its own metrics panel with live gauges, sparkline charts, event logs, and health indicators. The Self-Monitoring layer tracks memory usage, CPU cycles, and error rates. Self-Healing shows auto-recovery events, patch applications, and fallback activations. Self-Optimizing displays hot-path detection, cache hit rates, and JIT compilation stats. Self-Evolving visualizes model retraining cycles, fitness scores, and mutation history. Includes a unified timeline view that correlates events across all four layers.",
+    features: ["4-layer runtime monitoring", "Self-Monitoring: memory, CPU, errors", "Self-Healing: recovery events, patches", "Self-Optimizing: hot paths, cache, JIT", "Self-Evolving: retraining, fitness, mutations", "Live gauges and sparkline charts", "Event log with filtering", "Health status indicators", "Unified cross-layer timeline", "Configurable refresh intervals", "Alert thresholds with notifications", "Export metrics as JSON/CSV"],
+    requirements: ["React 18+ frontend", "WebSocket or SSE endpoint for live metrics", "Lume runtime with telemetry enabled"],
+    includes: ["Full source code", "4 layer panel components", "Gauge and sparkline components", "Timeline visualization", "Alert configuration", "Mock data generator for demos", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "WebSocket", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~3,200 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-keyword-demo", name: "AI Keyword Demo", icon: Brain, containerId: "demo-ai-keyword", color: "#38bdf8",
+    description: "Interactive widget demonstrating Lume's ask/think/generate keywords with live output", price: 149, priceId: "price_widget_ai_keyword_demo",
+    fullDescription: "An interactive demonstration widget that showcases Lume's three AI-native keywords: ask, think, and generate. Each keyword has its own tab with editable code examples, a run button, and a live output panel showing the AI response. The ask tab demonstrates natural language queries with structured responses. The think tab shows multi-step reasoning chains with intermediate outputs. The generate tab illustrates content creation with customizable parameters. Includes 6 pre-built examples per keyword and the ability to write custom prompts. Perfect for landing pages, documentation, and conference demos.",
+    features: ["Three-tab interface (ask/think/generate)", "Editable code examples per keyword", "Live output with streaming display", "6 pre-built examples per keyword", "Custom prompt input", "Response timing display", "Token usage breakdown", "Side-by-side Lume vs Python comparison", "Copy code snippets", "Shareable example URLs", "Dark and light themes", "Mobile-responsive layout"],
+    requirements: ["React 18+ or vanilla JS", "OpenAI API key for live demos", "Optional: Lume runtime for native execution"],
+    includes: ["Full source code", "18 pre-built examples", "API proxy endpoint", "Theme configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI API", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "lume-syntax-highlighter", name: "Lume Syntax Highlighter", icon: Palette, containerId: "demo-lume-syntax-highlighter", color: "#22c55e",
+    description: "Embeddable code block with Lume syntax highlighting, line numbers, and copy-to-clipboard", price: 79, priceId: "price_widget_lume_syntax_highlighter",
+    fullDescription: "A lightweight, embeddable syntax highlighter specifically designed for the Lume programming language. Renders Lume code blocks with accurate tokenization covering all language constructs: AI keywords (ask, think, generate), control flow, functions, types, string interpolation, and comments. Includes line numbers, copy-to-clipboard button, language badge, and four built-in themes (Dark Void, Cyberpunk, Ocean, Light). Supports line highlighting for tutorials, diff markers for changelogs, and word wrapping for responsive layouts. Under 15KB gzipped — perfect for blogs, documentation, and README files.",
+    features: ["Accurate Lume tokenization", "AI keyword highlighting (ask/think/generate)", "4 built-in themes", "Line numbers with toggle", "Copy-to-clipboard button", "Language badge display", "Line highlighting for tutorials", "Diff markers (+/-) support", "Word wrapping option", "Responsive layout", "SSR-compatible rendering", "Under 15KB gzipped"],
+    requirements: ["React 18+ or vanilla JS", "No external dependencies"],
+    includes: ["Full source code", "4 theme definitions", "Vanilla JS bundle", "React component wrapper", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS"],
+    linesOfCode: "~420 lines",
+    complexity: "Beginner"
+  },
+  {
+    id: "lume-pipeline-visualizer", name: "Language Pipeline Visualizer", icon: Layers, containerId: "demo-lume-pipeline", color: "#f59e0b",
+    description: "Animated visualization of the Lume compilation pipeline from source to JavaScript", price: 199, priceId: "price_widget_lume_pipeline",
+    fullDescription: "An animated, interactive visualization of the Lume language compilation pipeline. Shows the complete journey from .lume source code through the Lexer, Token Stream, Parser, AST, and Transpiler stages to final .js output. Each stage is a clickable node that expands to show intermediate representations — tokens with types, AST nodes as a collapsible tree, and the final JavaScript output. Animated data particles flow between stages to illustrate the transformation process. Users can input custom Lume code and watch it flow through the pipeline in real time. Includes a step-by-step mode for educational walkthroughs and a speed control for presentations.",
+    features: ["6-stage pipeline visualization", "Source → Lexer → Tokens → Parser → AST → JS", "Animated data flow particles", "Clickable stages with expanded views", "Token stream with type annotations", "AST as collapsible tree view", "Custom code input", "Real-time pipeline execution", "Step-by-step walkthrough mode", "Speed control for presentations", "Fullscreen mode", "Responsive SVG layout"],
+    requirements: ["React 18+ frontend", "Lume compiler bundle (~80KB gzipped)"],
+    includes: ["Full source code", "Pipeline stage components", "Animation engine", "Lume compiler integration", "5 example programs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Lume Compiler", "Tailwind CSS", "SVG"],
+    linesOfCode: "~1,800 lines",
+    complexity: "Intermediate"
+  },
 ];
 
 interface CartItem {
