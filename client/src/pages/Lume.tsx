@@ -240,11 +240,18 @@ export default function Lume() {
                 <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/lume/playground"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25"
+                  data-testid="cta-playground"
+                >
+                  <Terminal className="w-5 h-5" /> Open Playground
+                </Link>
                 <a
                   href="https://lume-lang.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25"
+                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
                   data-testid="cta-visit-lume"
                 >
                   Visit lume-lang.org <ExternalLink className="w-5 h-5" />

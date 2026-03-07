@@ -55,6 +55,7 @@ import EcosystemDashboard from "@/pages/EcosystemDashboard";
 import AffiliateDashboard from "@/pages/AffiliateDashboard";
 import Lume from "@/pages/Lume";
 import Academy from "@/pages/Academy";
+import LumePlayground from "@/pages/LumePlayground";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -102,6 +103,7 @@ function Router() {
       <Route path="/developers/ecosystem" component={EcosystemDashboard}/>
       <Route path="/affiliate" component={AffiliateDashboard}/>
       <Route path="/lume" component={Lume}/>
+      <Route path="/lume/playground" component={LumePlayground}/>
       <Route path="/academy" component={Academy}/>
       <Route component={NotFound} />
     </Switch>

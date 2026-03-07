@@ -16,6 +16,7 @@ import OpenAI from "openai";
 import multer from "multer";
 import widgetRoutes from "./widgets/widget-routes";
 import { trustVaultFetch, getCapabilities, storeWebhookEvent, getWebhookEvents, validateWebhookPayload } from "./trustvault-client";
+import { registerLumeRoutes } from "./lume-api";
 
 const uploadDir = "uploads/marketing";
 if (!fs.existsSync(uploadDir)) {
@@ -3130,6 +3131,9 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       res.status(500).json({ success: false, error: error.message });
     }
   });
+
+  // ============ LUME LANGUAGE API ============
+  registerLumeRoutes(app);
 
   // ============ TRUST LAYER WIDGET API ============
   app.use("/api/widgets", widgetRoutes);
