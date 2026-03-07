@@ -274,9 +274,9 @@ export default function DeveloperApi() {
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 34 production apps and 1.73M+ lines of code", icon: Zap },
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 35 production apps and 1.74M+ lines of code", icon: Zap },
                     { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
-                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 34-app ecosystem as a solo developer", icon: Terminal },
+                    { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 35-app ecosystem as a solo developer", icon: Terminal },
                     { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
                     { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
                     { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
@@ -308,7 +308,7 @@ export default function DeveloperApi() {
                   {[
                     { name: "CoinDesk", url: "https://www.coindesk.com/contact/", type: "Press inquiries", pitch: "Trust Layer L1 blockchain, Guardian AI agent certification, Signal digital asset", icon: Shield },
                     { name: "The Block", url: "https://www.theblock.co/contact", type: "News tips", pitch: "First AI agent certification system for crypto — Guardian AI + Trust Shield", icon: Lock },
-                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 34 apps verified through Trust Layer", icon: Boxes },
+                    { name: "Decrypt", url: "https://decrypt.co/contact", type: "Story pitches", pitch: "Real-world blockchain utility — 35 apps verified through Trust Layer", icon: Boxes },
                     { name: "CoinTelegraph", url: "https://cointelegraph.com/press-releases", type: "Press releases", pitch: "Proof-of-Authority L1 with DeFi, NFT marketplace, DAO governance", icon: Globe },
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
@@ -370,7 +370,7 @@ export default function DeveloperApi() {
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "34-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
+                    { name: "SaaStr", url: "https://www.saastr.com", type: "SaaS community + events", pitch: "35-app ecosystem with widget marketplace, subscription model, and AI credits system", icon: TrendingUp },
                     { name: "G2", url: "https://www.g2.com/products/new", type: "Software reviews", pitch: "List PaintPros, ORBIT, and individual products for verified reviews", icon: BarChart3 },
                     { name: "Capterra", url: "https://www.capterra.com/vendors/sign-up", type: "Software directory", pitch: "List trade service tools, staffing software, and real estate platforms", icon: Target },
                     { name: "AppSumo", url: "https://sell.appsumo.com", type: "Lifetime deal marketplace", pitch: "Trust Layer Hub widgets or Pulse API access as a limited-time deal", icon: Zap },
@@ -401,7 +401,7 @@ export default function DeveloperApi() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-3">
                     {[
-                      "Lead with the story — solo developer building a 34-app, 1.73M+ line ecosystem is compelling and rare",
+                      "Lead with the story — solo developer building a 35-app, 1.74M+ line ecosystem is compelling and rare",
                       "Pitch one product per publication — don't overwhelm. Match the product to the publication's audience",
                       "Product Hunt launches work best on Tuesday–Thursday. Prepare assets, GIFs, and a maker comment in advance",
                     ].map((tip, i) => (

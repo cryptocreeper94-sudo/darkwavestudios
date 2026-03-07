@@ -255,7 +255,7 @@ const projects = [
   {
     id: 21,
     title: "Signal Chat",
-    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 34 ecosystem apps.",
+    description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 35 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
     gradient: "from-purple-500/20 to-pink-600/20",
@@ -321,6 +321,16 @@ const projects = [
     gradient: "from-purple-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io",
     category: "Creative Tools"
+  },
+  {
+    id: 35,
+    title: "Lume",
+    description: "The first AI-native programming language where artificial intelligence is a syntax primitive. 'ask', 'think', and 'generate' are keywords — not library calls. 4-layer self-sustaining runtime: self-monitoring (function metrics, AI call stats, memory dashboards), self-healing (retry, circuit breakers, model fallback chains), self-optimizing (bottleneck detection, mutation log, rollback), self-evolving (pattern learning, cost analysis, evolution decisions). Full toolchain: lume run, build, test, fmt, lint, repl, watch, ast, tokens. 15 lint rules with suggested fixes. Interactive REPL with multi-line support. Custom VS Code grammar. 219 passing tests across 6 milestones, 100% pass rate. 90% less code than Python for equivalent AI operations. 12,215 LOC, 41 files, MIT license.",
+    tech: ["Node.js", "AI Syntax", "Self-Sustaining Runtime", "Vite + React 19"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-teal-600/20",
+    url: "https://lume-lang.org",
+    category: "Developer Tools"
   }
 ];
 
@@ -328,8 +338,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title="Portfolio - 31 Web Applications & Ecosystem"
-        description="Explore 31 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
+        title="Portfolio - 35 Web Applications & Ecosystem"
+        description="Explore 35 web applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
         keywords="web development portfolio, live web apps, case studies, AI applications, e-commerce development, SaaS examples, blockchain apps"
         type="website"
         url="https://darkwavestudios.com/projects"
@@ -373,7 +383,7 @@ export default function Projects() {
             Our <span className="gradient-text">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-projects-subtitle">
-            34 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
+            35 live applications powering real businesses. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure.
           </p>
         </motion.div>
 

@@ -57,6 +57,7 @@ const ECOSYSTEM_REGISTRY = [
   { app: "Happy Eats", domain: "happyeats.tlid.io", prefix: "HE" },
   { app: "Brew & Board Coffee", domain: "brewandboard.tlid.io", prefix: "BB" },
   { app: "TrustGen", domain: "trustgen.tlid.io", prefix: "TN" },
+  { app: "Lume", domain: "lume-lang.org", prefix: "LM" },
 ];
 
 function buildCrossPlatformLinks(hash: string) {

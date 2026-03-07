@@ -1097,7 +1097,7 @@ const widgetsList = [
   {
     id: "defi-wallet-connect", name: "DeFi Wallet Connect", icon: Wallet, containerId: "demo-defi-wallet", color: "#10b981",
     description: "Embeddable DeFi wallet showing SIG/Shells/stSIG balances with send and receive", price: 299, priceId: "price_widget_defi_wallet",
-    fullDescription: "Full-featured embeddable DeFi wallet widget for the Trust Layer ecosystem. Displays real-time balances for SIG ($0.01), Shells ($0.001), and stSIG (staked SIG) with USD conversion. Includes send and receive flows with address validation, QR code generation for receiving, transaction history with status indicators (pending/confirmed/failed), and one-tap copy for wallet addresses. Connects via Trust Layer SSO JWT for secure authentication. Glassmorphism card design with animated balance counters and token icons. Extracted from Trust Layer Hub's production DeFi wallet — 21,026 LOC, battle-tested across 34 ecosystem apps.",
+    fullDescription: "Full-featured embeddable DeFi wallet widget for the Trust Layer ecosystem. Displays real-time balances for SIG ($0.01), Shells ($0.001), and stSIG (staked SIG) with USD conversion. Includes send and receive flows with address validation, QR code generation for receiving, transaction history with status indicators (pending/confirmed/failed), and one-tap copy for wallet addresses. Connects via Trust Layer SSO JWT for secure authentication. Glassmorphism card design with animated balance counters and token icons. Extracted from Trust Layer Hub's production DeFi wallet — 21,026 LOC, battle-tested across 35 ecosystem apps.",
     features: ["Real-time SIG/Shells/stSIG balances", "USD conversion display", "Send flow with address validation", "Receive flow with QR code generation", "Transaction history with status", "One-tap wallet address copy", "Trust Layer SSO JWT authentication", "Animated balance counters", "Token icon display", "Network fee estimation", "Balance refresh with pull-to-refresh", "Multi-wallet support"],
     requirements: ["React 18+ frontend", "Trust Layer SSO JWT token", "Network access to Trust Layer API"],
     includes: ["Full source code", "Wallet UI component", "Send/receive flow components", "QR code generator", "Transaction history module", "SSO authentication handler", "Balance polling service", "Setup guide", "30-day email support", "Lifetime updates"],
@@ -2661,7 +2661,7 @@ export default function TrustLayerHub() {
                       }`}>⚡</div>
                       <div>
                         <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-100" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Trust Layer Ecosystem</div>
-                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-500"}`}>● 142 online across 34 apps</div>
+                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-500"}`}>● 142 online across 35 apps</div>
                       </div>
                     </div>
                     <div className="flex gap-1">

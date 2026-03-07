@@ -138,16 +138,16 @@ const categories: CommandCategory[] = [
     title: "Ecosystem & Platform",
     icon: <Layers className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "The full Trust Layer ecosystem. Browse all 34 connected applications, review codebase metrics, manage the widget marketplace, and access developer documentation.",
+    description: "The full Trust Layer ecosystem. Browse all 35 connected applications, review codebase metrics, manage the widget marketplace, and access developer documentation.",
     cards: [
       {
         label: "Ecosystem",
-        description: "All 34 connected applications with carousels",
+        description: "All 35 connected applications with carousels",
         href: "/ecosystem",
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
         glowColor: "shadow-indigo-500/20",
-        badge: "34 Apps",
+        badge: "35 Apps",
         featured: true,
       },
       {

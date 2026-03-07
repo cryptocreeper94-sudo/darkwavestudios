@@ -28,7 +28,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trust-hub",
     name: "Trust Layer Hub",
     tagline: "Your Blockchain Ecosystem Command Center",
-    description: "The unified mobile command center for the Trust Layer protocol ecosystem — the single point of entry to 32 interconnected decentralized applications. Full-featured DeFi wallet supporting SIG ($0.01), Shells ($0.001), and stSIG with 5 staking pools (12%–38% APY). Liquid staking, DEX swaps, Plaid bank linking, Stripe business dashboard, encrypted WebSocket chat, multi-sig vaults, AI agent with voice synthesis, 3-tier news engine, and 5-tier affiliate program. Built with React Native + Expo SDK 54 for iOS, Android, and Web (PWA). 21,026 LOC, 93 files, 66 endpoints, 15 tables, 24 screens, 13 components, 17 hooks. Genesis application (TH-00000001). Free forever — dark-only cyber-glassmorphism design. 200K+ TPS, 400ms block finality.",
+    description: "The unified mobile command center for the Trust Layer protocol ecosystem — the single point of entry to 35 interconnected decentralized applications. Full-featured DeFi wallet supporting SIG ($0.01), Shells ($0.001), and stSIG with 5 staking pools (12%–38% APY). Liquid staking, DEX swaps, Plaid bank linking, Stripe business dashboard, encrypted WebSocket chat, multi-sig vaults, AI agent with voice synthesis, 3-tier news engine, and 5-tier affiliate program. Built with React Native + Expo SDK 54 for iOS, Android, and Web (PWA). 21,026 LOC, 93 files, 66 endpoints, 15 tables, 24 screens, 13 components, 17 hooks. Genesis application (TH-00000001). Free forever — dark-only cyber-glassmorphism design. 200K+ TPS, 400ms block finality.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://trusthub.tlid.io",
     category: "core"
@@ -329,6 +329,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://trustgen.tlid.io",
     category: "creative"
+  },
+  {
+    id: "lume",
+    name: "Lume",
+    tagline: "The AI-Native Programming Language",
+    description: "The first programming language where artificial intelligence is a syntax primitive — not a library import. Write 'ask', 'think', and 'generate' as keywords the same way you write 'if' or 'for'. Lume programs are alive: they monitor their own performance, heal themselves when errors occur, optimize their own bottlenecks, and evolve their behavior over time. 4-layer self-sustaining runtime (self-monitoring, self-healing, self-optimizing, self-evolving). Full toolchain: formatter, linter, REPL, watcher, source maps, IDE grammar. 219 passing tests across 6 milestones. 90% less code than Python for equivalent AI operations. 12,215 LOC, 41 files.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://lume-lang.org",
+    category: "devtools"
   }
 ];
 
@@ -345,7 +354,8 @@ const categories = [
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" },
   { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" },
   { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" },
-  { id: "creative", name: "Creative Tools", description: "3D creation, media production, and AI-powered design" }
+  { id: "creative", name: "Creative Tools", description: "3D creation, media production, and AI-powered design" },
+  { id: "devtools", name: "Developer Tools", description: "Programming languages, SDKs, and developer infrastructure" }
 ];
 
 function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {

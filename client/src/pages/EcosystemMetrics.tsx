@@ -624,6 +624,26 @@ const ecosystemMetrics: AppMetric[] = [
     gradient: "from-purple-500 to-cyan-500",
     status: "Production",
   },
+  {
+    id: "lume",
+    name: "Lume",
+    url: "https://lume-lang.org",
+    totalLines: 12215,
+    totalFiles: 41,
+    apiEndpoints: 15,
+    stack: ["Node.js", "JavaScript", "Vite 6", "React 19", "React Router 7", "Framer Motion", "Custom CSS", "Trust Layer SSO", "Signal Chat", "WebSocket"],
+    breakdown: [
+      { language: "Language Core (lexer, parser, transpiler, formatter, linter, stdlib, runtime)", lines: 5128, files: 7 },
+      { language: "Self-Sustaining Runtime (monitor, healer, optimizer, evolver)", lines: 1223, files: 4 },
+      { language: "Test Suite (219 tests, 6 milestones)", lines: 1998, files: 6 },
+      { language: "Website (React SPA)", lines: 3519, files: 14 },
+      { language: "CLI + Editor Grammar + Config", lines: 1347, files: 10 },
+    ],
+    highlights: ["AI as Syntax (ask/think/generate)", "4-Layer Self-Sustaining Runtime", "219 Tests (100% Pass Rate)", "6 Milestones Complete", "Full Toolchain (run/build/test/fmt/lint/repl/watch)", "15 Lint Rules with Fixes", "Interactive REPL", "Source Maps", "VS Code Grammar", "Trust Layer SSO", "Signal Chat", "Blockchain Hallmarks", "4-Tier Affiliate Program"],
+    icon: Code2,
+    gradient: "from-cyan-500 to-teal-500",
+    status: "Production",
+  },
 ];
 
 function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: number; duration?: number; suffix?: string }) {

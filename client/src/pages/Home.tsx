@@ -370,6 +370,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-purple-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io"
+  },
+  {
+    id: 37,
+    title: "Lume",
+    description: "The AI-native programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, 219 tests, full toolchain",
+    tech: ["AI", "Language", "Runtime", "Toolchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-teal-600/20",
+    url: "https://lume-lang.org"
   }
 ];
 
@@ -799,7 +808,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
               <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
                 <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.73M+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.74M+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
               </GlassCard>
             </motion.div>

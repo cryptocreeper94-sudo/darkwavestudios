@@ -1285,7 +1285,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           {
             id: "ann-001",
             title: "Trust Layer Hub Launch",
-            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 34 ecosystem apps.",
+            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 35 ecosystem apps.",
             type: "release",
             priority: "high",
             createdAt: "2026-03-01T00:00:00.000Z",
@@ -1300,8 +1300,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           },
           {
             id: "ann-003",
-            title: "Ecosystem Milestone: 1.73M+ LOC",
-            body: "The DarkWave Studios ecosystem has surpassed 1.72 million lines of production code across 34 interconnected applications.",
+            title: "Ecosystem Milestone: 1.74M+ LOC",
+            body: "The DarkWave Studios ecosystem has surpassed 1.74 million lines of production code across 35 interconnected applications.",
             type: "milestone",
             priority: "low",
             createdAt: "2026-02-28T00:00:00.000Z",
@@ -1321,9 +1321,9 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           overview: "DarkWave Studios public API provides access to ecosystem data, widget catalog, and developer resources.",
           baseUrl: "https://darkwavestudios.io/api",
           endpoints: [
-            { method: "GET", path: "/api/ecosystem/catalog", description: "Canonical 34-app ecosystem catalog with URLs, categories, LOC, and page counts", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/catalog", description: "Canonical 35-app ecosystem catalog with URLs, categories, LOC, and page counts", auth: "none" },
             { method: "GET", path: "/api/ecosystem/stats", description: "Ecosystem-wide aggregate statistics", auth: "none" },
-            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 34 ecosystem apps", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 35 ecosystem apps", auth: "none" },
             { method: "GET", path: "/api/ecosystem/shared/components", description: "Shared component library catalog", auth: "none" },
             { method: "GET", path: "/api/ecosystem/widget-data", description: "Embeddable widget data for Trust Layer Hub", auth: "none" },
             { method: "GET", path: "/api/announcements", description: "Platform announcements and milestones", auth: "none" },
@@ -1484,6 +1484,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
     { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "21,026", pages: "24" },
     { id: "trustgen", name: "TrustGen", url: "https://trustgen.tlid.io", category: "creative", loc: "18,700", pages: "7" },
+    { id: "lume", name: "Lume", url: "https://lume-lang.org", category: "devtools", loc: "12,215", pages: "5" },
   ];
 
   let healthCache: { results: any[]; timestamp: number } | null = null;
@@ -1589,10 +1590,10 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
       res.json({
         success: true,
         stats: {
-          totalApps: 34,
+          totalApps: 35,
           verifiedApps: 34,
           totalWidgets: 96,
-          totalLOC: "1.73M+"
+          totalLOC: "1.74M+"
         },
         apps: ecosystemAppsData,
         verification: {
@@ -2832,7 +2833,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         appName: "DarkWave Studios",
         appId: "darkwave-studios",
         domain: "darkwavestudios.io",
-        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 34-app ecosystem (~1.73M+ LOC)",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 35-app ecosystem (~1.74M+ LOC)",
         category: "agency",
         endpoints: {
           ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",
