@@ -258,7 +258,41 @@ export default function Academy() {
         { name: "Academy", url: "https://darkwavestudios.com/academy" }
       ]} />
 
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 pt-20 pb-16 overflow-hidden" data-testid="section-hero">
+      <header className="sticky top-0 z-50 bg-[#06060a]/80 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link href="/" className="text-gray-400 hover:text-cyan-400 transition-colors" data-testid="link-home">
+              <ChevronRight className="w-5 h-5 rotate-180" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
+                <GraduationCap className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Academy</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/lume"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white"
+              data-testid="link-lume"
+            >
+              <Terminal className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Lume</span>
+            </Link>
+            <a
+              href="https://academy.tlid.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+              data-testid="link-academy-ext"
+            >
+              <ExternalLink className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Visit</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <section className="relative min-h-[80vh] sm:min-h-[90vh] flex items-center justify-center px-4 pt-12 sm:pt-20 pb-16 overflow-hidden" data-testid="section-hero">
         <div className="absolute inset-0">
           <motion.div
             className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
@@ -293,7 +327,7 @@ export default function Academy() {
           </motion.div>
 
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -516,20 +550,20 @@ export default function Academy() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-6 px-6 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-sm">
+            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 px-4 sm:px-6 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <span className="font-mono text-cyan-400">219</span>
-                <span className="text-white/40">tests passing</span>
+                <span className="text-white/40">tests</span>
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div className="flex items-center gap-2 text-sm">
+              <div className="w-px h-4 bg-white/10 hidden sm:block" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <span className="font-mono text-teal-400">12,215</span>
                 <span className="text-white/40">LOC</span>
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div className="flex items-center gap-2 text-sm">
+              <div className="w-px h-4 bg-white/10 hidden sm:block" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <span className="font-mono text-sky-400">90%</span>
-                <span className="text-white/40">less code than Python</span>
+                <span className="text-white/40">less code</span>
               </div>
             </div>
           </motion.div>
@@ -739,7 +773,7 @@ export default function Academy() {
 
       <section className="relative px-4 py-20" data-testid="section-cta">
         <div className="max-w-4xl mx-auto">
-          <GlassCard glow className="p-10 md:p-16 text-center">
+          <GlassCard glow className="p-6 sm:p-10 md:p-16 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

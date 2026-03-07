@@ -193,19 +193,19 @@ export default function Lume() {
               href="https://lume-lang.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white"
               data-testid="link-lume-lang"
             >
-              <Globe className="w-3.5 h-3.5" /> Website
+              <Globe className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Website</span>
             </a>
             <a
               href="https://github.com/darkwavestudios/lume"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
               data-testid="link-github"
             >
-              <Code2 className="w-3.5 h-3.5" /> GitHub
+              <Code2 className="w-3.5 h-3.5" /> <span className="hidden sm:inline">GitHub</span>
             </a>
           </div>
         </div>
@@ -231,13 +231,13 @@ export default function Lume() {
                 <br />
                 <span className="text-white">Programming Language</span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed" data-testid="text-hero-tagline">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed px-2" data-testid="text-hero-tagline">
                 The first language where artificial intelligence is a <span className="text-cyan-400 font-semibold">syntax primitive</span> — not a library import.
-                Write <code className="bg-white/10 px-1.5 py-0.5 rounded text-cyan-300 text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>,{" "}
-                <code className="bg-white/10 px-1.5 py-0.5 rounded text-teal-300 text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>, and{" "}
-                <code className="bg-white/10 px-1.5 py-0.5 rounded text-sky-300 text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
-                as keywords the same way you write <code className="bg-white/10 px-1.5 py-0.5 rounded text-gray-300 text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>if</code> or{" "}
-                <code className="bg-white/10 px-1.5 py-0.5 rounded text-gray-300 text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>.
+                Write <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-cyan-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>,{" "}
+                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-teal-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>, and{" "}
+                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-sky-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
+                as keywords the same way you write <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>if</code> or{" "}
+                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a
@@ -341,7 +341,7 @@ export default function Lume() {
               </p>
             </motion.div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
               {pipelineSteps.map((step, i) => (
                 <motion.div
                   key={step.label}
@@ -349,22 +349,17 @@ export default function Lume() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="flex items-center gap-3"
+                  className="relative"
                 >
-                  <GlassCard glow className="p-4 rounded-xl text-center min-w-[120px]" data-testid={`pipeline-step-${i}`}>
-                    <step.icon className="w-6 h-6 text-cyan-400 mx-auto mb-2" />
-                    <div className="text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
-                    <div className="text-[11px] text-gray-500 mt-1">{step.desc}</div>
+                  <GlassCard glow className="p-3 sm:p-4 rounded-xl text-center h-full" data-testid={`pipeline-step-${i}`}>
+                    <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 mx-auto mb-1.5 sm:mb-2" />
+                    <div className="text-xs sm:text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
+                    <div className="text-[10px] sm:text-[11px] text-gray-500 mt-1 hidden sm:block">{step.desc}</div>
                   </GlassCard>
                   {i < pipelineSteps.length - 1 && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.08 + 0.2 }}
-                    >
-                      <ArrowRight className="w-5 h-5 text-cyan-500/50 hidden sm:block" />
-                    </motion.div>
+                    <div className="hidden lg:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
+                      <ArrowRight className="w-4 h-4 text-cyan-500/50" />
+                    </div>
                   )}
                 </motion.div>
               ))}
@@ -610,7 +605,7 @@ export default function Lume() {
         <section className="py-12" data-testid="section-stats">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <GlassCard variant="elevated" className="p-6 rounded-2xl">
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-6">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 sm:gap-6">
                 {stats.map((stat) => (
                   <motion.div
                     key={stat.label}
@@ -620,10 +615,10 @@ export default function Lume() {
                     className="text-center"
                     data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
                   >
-                    <div className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                    <div className="text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                       {stat.value}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-500 mt-1">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -648,12 +643,12 @@ export default function Lume() {
               <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
                 Explore the language, read the docs, or dive into the Academy curriculum.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-3 sm:gap-4">
                 <a
                   href="https://lume-lang.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25 col-span-2"
                   data-testid="cta-bottom-lume"
                 >
                   lume-lang.org <ExternalLink className="w-4 h-4" />
@@ -662,14 +657,14 @@ export default function Lume() {
                   href="https://github.com/darkwavestudios/lume"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
                   data-testid="cta-bottom-github"
                 >
                   <Code2 className="w-4 h-4" /> GitHub
                 </a>
                 <Link
                   href="/academy"
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
                   data-testid="cta-bottom-academy"
                 >
                   <BookOpen className="w-4 h-4" /> Academy
@@ -678,10 +673,10 @@ export default function Lume() {
                   href="https://lume-lang.org/docs"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors col-span-2 sm:col-span-1"
                   data-testid="cta-bottom-docs"
                 >
-                  <FileCode className="w-4 h-4" /> Documentation
+                  <FileCode className="w-4 h-4" /> Docs
                 </a>
               </div>
             </motion.div>
