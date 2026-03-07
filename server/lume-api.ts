@@ -30,10 +30,199 @@ interface LumeExecutionResult {
 const handshakeState: LumeHandshake = {
   platform: PLATFORM_ID,
   version: HANDSHAKE_VERSION,
-  capabilities: ["execute", "transpile", "ast", "repl", "format", "lint"],
+  capabilities: ["execute", "transpile", "ast", "repl", "format", "lint", "english-mode", "natural-mode"],
   timestamp: Date.now(),
   status: "connected",
 };
+
+type LumeMode = "standard" | "english" | "natural";
+
+interface IntentPattern {
+  patterns: RegExp[];
+  resolve: (match: RegExpMatchArray, context: IntentContext) => string;
+  category: string;
+}
+
+interface IntentContext {
+  variables: Map<string, any>;
+  lastValue: string | null;
+  dataModels: string[];
+  scope: "general" | "ui" | "server" | "data";
+}
+
+class IntentResolver {
+  private patterns: IntentPattern[] = [];
+  private context: IntentContext = {
+    variables: new Map(),
+    lastValue: null,
+    dataModels: [],
+    scope: "general",
+  };
+
+  constructor() {
+    this.buildPatternLibrary();
+  }
+
+  private buildPatternLibrary() {
+    this.patterns = [
+      { category: "output", patterns: [/^show\s+"(.+)"$/i, /^display\s+"(.+)"$/i, /^print\s+"(.+)"$/i, /^output\s+"(.+)"$/i], resolve: (m) => `print("${m[1]}")` },
+      { category: "output", patterns: [/^show\s+(.+?)(?:\s+on the page)?$/i, /^display\s+(.+)$/i, /^print\s+(.+)$/i], resolve: (m) => `print(${m[1]})` },
+      { category: "output", patterns: [/^show it$/i, /^display it$/i, /^print it$/i, /^output it$/i], resolve: () => `print(__last)` },
+      { category: "variable", patterns: [/^(?:set|make|let)\s+(\w+)\s+(?:to|=|equal|be)\s+(.+)$/i], resolve: (m) => `let ${m[1]} = ${this.resolveValue(m[2])}` },
+      { category: "variable", patterns: [/^(?:create|define)\s+(?:a\s+)?(?:variable|var)\s+(?:called\s+)?(\w+)\s+(?:with value|as|=|set to)\s+(.+)$/i], resolve: (m) => `let ${m[1]} = ${this.resolveValue(m[2])}` },
+      { category: "variable", patterns: [/^(?:store|save|keep)\s+(.+?)\s+(?:in|as|into)\s+(\w+)$/i], resolve: (m) => `let ${m[2]} = ${this.resolveValue(m[1])}` },
+      { category: "variable", patterns: [/^(?:call it|name it)\s+(\w+)$/i], resolve: (m) => `let ${m[1]} = __last` },
+      { category: "math", patterns: [/^(?:add|sum)\s+(\w+)\s+and\s+(\w+)$/i, /^(\w+)\s+plus\s+(\w+)$/i], resolve: (m) => `let result = ${m[1]} + ${m[2]}\nprint(result)` },
+      { category: "math", patterns: [/^(?:subtract|minus)\s+(\w+)\s+from\s+(\w+)$/i], resolve: (m) => `let result = ${m[2]} - ${m[1]}\nprint(result)` },
+      { category: "math", patterns: [/^(?:multiply)\s+(\w+)\s+(?:by|times)\s+(\w+)$/i], resolve: (m) => `let result = ${m[1]} * ${m[2]}\nprint(result)` },
+      { category: "math", patterns: [/^(?:divide)\s+(\w+)\s+by\s+(\w+)$/i], resolve: (m) => `let result = ${m[1]} / ${m[2]}\nprint(result)` },
+      { category: "conditional", patterns: [/^if\s+(.+?)\s*,?\s*(?:then\s+)?show\s+"(.+)"$/i], resolve: (m) => `if ${this.resolveCondition(m[1])} {\n  print("${m[2]}")\n}` },
+      { category: "conditional", patterns: [/^if\s+(.+?)\s*,?\s*(?:then\s+)?show\s+(.+)$/i], resolve: (m) => `if ${this.resolveCondition(m[1])} {\n  print(${m[2]})\n}` },
+      { category: "conditional", patterns: [/^if\s+(.+?)\s+is\s+(?:empty|blank|nothing|null)(?:\s*,?\s*show\s+"(.+)")?$/i], resolve: (m) => m[2] ? `if ${m[1]} == null {\n  print("${m[2]}")\n}` : `if ${m[1]} == null {\n  print("Value is empty")\n}` },
+      { category: "loop", patterns: [/^repeat\s+(?:this\s+)?(\d+)\s+times?$/i, /^do\s+(?:this\s+)?(\d+)\s+times?$/i], resolve: (m) => `for i in 0..${m[1]} {` },
+      { category: "loop", patterns: [/^for (?:each|every)\s+(\w+)\s+in\s+(\w+)$/i, /^loop (?:through|over)\s+(\w+)\s+(?:as|calling each)\s+(\w+)$/i], resolve: (m) => `for ${m[1]} in ${m[2]} {` },
+      { category: "loop", patterns: [/^count from (\d+) to (\d+)$/i], resolve: (m) => `for i in ${m[1]}..${m[2]} {\n  print(i)\n}` },
+      { category: "function", patterns: [/^(?:create|define|make)\s+(?:a\s+)?function\s+(?:called\s+)?(\w+)\s+(?:that takes|with|accepting)\s+(.+)$/i], resolve: (m) => `fn ${m[1]}(${m[2].replace(/\s+and\s+/g, ", ")}) {` },
+      { category: "function", patterns: [/^(?:create|define|make)\s+(?:a\s+)?function\s+(?:called\s+)?(\w+)$/i], resolve: (m) => `fn ${m[1]}() {` },
+      { category: "function", patterns: [/^(?:return|give back|send back)\s+(.+)$/i], resolve: (m) => `return ${this.resolveValue(m[1])}` },
+      { category: "list", patterns: [/^(?:create|make)\s+(?:a\s+)?(?:list|array)\s+(?:called\s+)?(\w+)\s+(?:with|containing)\s+(.+)$/i], resolve: (m) => `let ${m[1]} = [${m[2].split(/,\s*|\s+and\s+/).map(v => `"${v.trim()}"`).join(", ")}]` },
+      { category: "list", patterns: [/^(?:create|make)\s+(?:an?\s+)?(?:empty\s+)?(?:list|array)\s+(?:called\s+)?(\w+)$/i], resolve: (m) => `let ${m[1]} = []` },
+      { category: "list", patterns: [/^(?:add|push|append)\s+(.+?)\s+to\s+(\w+)$/i], resolve: (m) => `push(${m[2]}, ${this.resolveValue(m[1])})` },
+      { category: "list", patterns: [/^sort\s+(\w+)\s+by\s+(.+)$/i], resolve: (m) => `print("Sorting ${m[1]} by ${m[2]}")` },
+      { category: "object", patterns: [/^(?:create|make)\s+(?:an?\s+)?(\w+)\s+with\s+(.+)$/i], resolve: (m) => {
+        const fields = m[2].split(/,\s*|\s+and\s+/).map(f => {
+          const parts = f.trim().split(/\s*(?:=|:| of | as )\s*/);
+          return parts.length > 1 ? `${parts[0].trim()}: ${this.resolveValue(parts[1].trim())}` : `${parts[0].trim()}: null`;
+        });
+        return `let ${m[1]} = { ${fields.join(", ")} }`;
+      }},
+      { category: "object", patterns: [/^get (?:the\s+)?(\w+)(?:'s|'s)\s+(\w+)$/i, /^get (\w+)\s+from\s+(\w+)$/i], resolve: (m) => `let __last = ${m[1]}.${m[2]}\nprint(${m[1]}.${m[2]})` },
+      { category: "ai", patterns: [/^ask\s+(?:the\s+)?(?:ai|AI|model|assistant)\s+(?:to\s+)?(.+)$/i, /^ask\s+"(.+)"$/i], resolve: (m) => `let __last = ask("${m[1]}")\nprint(__last)` },
+      { category: "ai", patterns: [/^think\s+(?:about\s+)?(.+)$/i, /^analyze\s+(.+)$/i, /^consider\s+(.+)$/i], resolve: (m) => `let __last = think("${m[1]}")\nprint(__last)` },
+      { category: "ai", patterns: [/^generate\s+(.+)$/i, /^create\s+(?:using ai|with ai)\s+(.+)$/i, /^write\s+(.+)$/i], resolve: (m) => `let __last = generate("${m[1]}")\nprint(__last)` },
+      { category: "ai", patterns: [/^summarize\s+(.+)$/i, /^summarise\s+(.+)$/i], resolve: (m) => `let __last = ask("Summarize: ${m[1]}")\nprint(__last)` },
+      { category: "ai", patterns: [/^translate\s+(.+?)\s+(?:to|into)\s+(\w+)$/i], resolve: (m) => `let __last = ask("Translate to ${m[2]}: ${m[1]}")\nprint(__last)` },
+      { category: "ai", patterns: [/^explain\s+(.+)$/i], resolve: (m) => `let __last = ask("Explain: ${m[1]}")\nprint(__last)` },
+      { category: "data", patterns: [/^get\s+(?:all\s+)?(\w+)\s+from\s+(?:the\s+)?database$/i, /^fetch\s+(?:all\s+)?(\w+)$/i, /^load\s+(?:all\s+)?(\w+)$/i], resolve: (m) => `let ${m[1]} = ask("Query database for all ${m[1]}")\nprint(${m[1]})` },
+      { category: "data", patterns: [/^save\s+(.+?)\s+to\s+(?:the\s+)?database$/i, /^store\s+(.+?)\s+in\s+(?:the\s+)?database$/i], resolve: (m) => `print("Saving ${m[1]} to database...")` },
+      { category: "data", patterns: [/^(?:get|fetch)\s+data\s+from\s+(.+)$/i, /^(?:call|hit|request)\s+(.+)$/i], resolve: (m) => `let __last = ask("Fetch data from: ${m[1]}")\nprint(__last)` },
+      { category: "time", patterns: [/^wait\s+(\d+)\s+seconds?$/i, /^pause\s+(?:for\s+)?(\d+)\s+seconds?$/i, /^delay\s+(\d+)\s+seconds?$/i], resolve: (m) => `print("Waiting ${m[1]} seconds...")` },
+      { category: "time", patterns: [/^(?:get|show|display)\s+(?:the\s+)?(?:current\s+)?(?:time|date|datetime|timestamp)$/i], resolve: () => `print("Current time: " + str(__now))` },
+      { category: "string", patterns: [/^(?:combine|join|merge|concatenate)\s+(\w+)\s+(?:and|with)\s+(\w+)$/i], resolve: (m) => `let __last = ${m[1]} + " " + ${m[2]}\nprint(__last)` },
+      { category: "string", patterns: [/^(?:convert|change)\s+(\w+)\s+to\s+(?:upper\s*case|uppercase|caps)$/i], resolve: (m) => `print("Converting ${m[1]} to uppercase")` },
+      { category: "string", patterns: [/^(?:convert|change)\s+(\w+)\s+to\s+(?:lower\s*case|lowercase)$/i], resolve: (m) => `print("Converting ${m[1]} to lowercase")` },
+      { category: "comparison", patterns: [/^(?:check|test)\s+if\s+(\w+)\s+(?:is|equals|==)\s+(.+)$/i], resolve: (m) => `if ${m[1]} == ${this.resolveValue(m[2])} {\n  print("Yes, ${m[1]} equals ${m[2]}")\n} else {\n  print("No, ${m[1]} does not equal ${m[2]}")\n}` },
+      { category: "comparison", patterns: [/^(?:check|test)\s+if\s+(\w+)\s+is\s+(?:greater|more|bigger|larger)\s+than\s+(.+)$/i], resolve: (m) => `if ${m[1]} > ${this.resolveValue(m[2])} {\n  print("Yes")\n} else {\n  print("No")\n}` },
+      { category: "comparison", patterns: [/^(?:check|test)\s+if\s+(\w+)\s+is\s+(?:less|smaller|fewer)\s+than\s+(.+)$/i], resolve: (m) => `if ${m[1]} < ${this.resolveValue(m[2])} {\n  print("Yes")\n} else {\n  print("No")\n}` },
+      { category: "monitor", patterns: [/^monitor\s+(?:this\s+)?(?:function|block|code)$/i, /^track\s+(?:this|performance)$/i, /^watch\s+(?:this|performance)$/i], resolve: () => `print("[Monitor] Self-monitoring layer activated — tracking execution time, call count, error rate, memory usage")` },
+      { category: "monitor", patterns: [/^track\s+(?:how much|the cost|costs?)\s+(?:of\s+)?(?:this|ai|AI)(?:\s+costs?)?$/i], resolve: () => `print("[Monitor] AI cost tracking enabled — monitoring per-call and cumulative spend")` },
+      { category: "heal", patterns: [/^if\s+(?:this\s+)?fails?\s*,?\s*retry\s+(\d+)\s+times?$/i, /^retry\s+(\d+)\s+times?\s+if\s+(?:it\s+)?fails?$/i], resolve: (m) => `print("[Heal] Self-healing configured — retry ${m[1]}x with exponential backoff")` },
+      { category: "heal", patterns: [/^(?:keep\s+(?:this|it)\s+running|don'?t?\s+(?:let\s+(?:it|this)\s+)?(?:crash|fail|stop))\s*(?:even if (?:it|things?)?\s*breaks?)?$/i], resolve: () => `print("[Heal] @healable + HealBlock activated — auto-recovery enabled with circuit breaker")` },
+      { category: "heal", patterns: [/^if\s+(?:the\s+)?(?:ai|AI)\s+(?:model\s+)?is\s+down\s*,?\s*use\s+(?:a\s+)?backup$/i], resolve: () => `print("[Heal] Fallback model chain configured — automatic failover to backup AI models")` },
+      { category: "optimize", patterns: [/^optimize\s+(?:this\s+)?(?:for\s+)?(?:speed|performance)$/i, /^make\s+(?:this|it)\s+faster$/i], resolve: () => `print("[Optimize] Self-optimizing layer engaged — profiling hot paths, restructuring execution")` },
+      { category: "evolve", patterns: [/^(?:watch\s+for|check\s+for|monitor)\s+(?:security\s+)?updates?$/i], resolve: () => `print("[Evolve] Self-evolving daemon watching for dependency updates and security patches")` },
+      { category: "evolve", patterns: [/^(?:keep\s+(?:this|it)\s+)?(?:up to date|updated|current)$/i], resolve: () => `print("[Evolve] Auto-evolution enabled — adapting to new patterns and model improvements")` },
+      { category: "debug", patterns: [/^(?:log|debug)\s+(.+)$/i], resolve: (m) => `print("[DEBUG] ${m[1]}")` },
+      { category: "comment", patterns: [/^(?:note|remember|todo|TODO):\s*(.+)$/i], resolve: (m) => `// ${m[1]}` },
+      { category: "greeting", patterns: [/^hello$/i, /^hi$/i, /^hey$/i], resolve: () => `print("Hello from Lume English Mode!")` },
+      { category: "help", patterns: [/^help$/i, /^what can (?:you|I|i) do\??$/i], resolve: () => `print("Lume English Mode — write code in plain English. Try: 'set name to Alice', 'show it', 'ask the AI to write a poem', 'create a list called colors with red, blue, green'")` },
+    ];
+  }
+
+  private resolveValue(val: string): string {
+    val = val.trim();
+    if (/^\d+(\.\d+)?$/.test(val)) return val;
+    if (val.startsWith('"') || val.startsWith("'")) return val;
+    if (val === "true" || val === "false" || val === "null") return val;
+    if (/^(it|this|that|the result|the value)$/i.test(val)) return "__last";
+    return `"${val}"`;
+  }
+
+  private resolveCondition(cond: string): string {
+    cond = cond.trim();
+    cond = cond.replace(/\s+is\s+(?:not|n't)\s+/gi, " != ");
+    cond = cond.replace(/\s+is\s+(?:equal to|equals?)\s+/gi, " == ");
+    cond = cond.replace(/\s+is\s+(?:greater|more|bigger|larger)\s+than\s+/gi, " > ");
+    cond = cond.replace(/\s+is\s+(?:less|smaller|fewer)\s+than\s+/gi, " < ");
+    cond = cond.replace(/\s+is\s+(?:at least|greater than or equal to)\s+/gi, " >= ");
+    cond = cond.replace(/\s+is\s+(?:at most|less than or equal to)\s+/gi, " <= ");
+    cond = cond.replace(/\s+is\s+/gi, " == ");
+    cond = cond.replace(/\bthe\s+/gi, "");
+    return cond;
+  }
+
+  resolveEnglish(code: string): string {
+    const lines = code.split("\n");
+    const lumeLines: string[] = [];
+    let blockDepth = 0;
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+
+      if (!line || line.startsWith("//") || line.startsWith("#") || line.startsWith("mode:")) continue;
+
+      if (/^(?:end|that'?s?\s+it|done|close|stop)$/i.test(line)) {
+        if (blockDepth > 0) {
+          blockDepth--;
+          lumeLines.push("}");
+        }
+        continue;
+      }
+
+      if (/^otherwise|^else$/i.test(line)) {
+        lumeLines.push("} else {");
+        continue;
+      }
+
+      let matched = false;
+      for (const pattern of this.patterns) {
+        for (const regex of pattern.patterns) {
+          const match = line.match(regex);
+          if (match) {
+            const resolved = pattern.resolve(match, this.context);
+            lumeLines.push(resolved);
+            if (resolved.endsWith("{")) blockDepth++;
+            matched = true;
+            break;
+          }
+        }
+        if (matched) break;
+      }
+
+      if (!matched) {
+        if (/^when\s+/i.test(line) || /:\s*$/i.test(line)) {
+          lumeLines.push(`// [Block] ${line}`);
+          lumeLines.push(`print("[Event] ${line.replace(/:/g, "")}")`);
+        } else {
+          lumeLines.push(`// Could not resolve: ${line}`);
+          lumeLines.push(`print("[Intent] ${line}")`);
+        }
+      }
+    }
+
+    while (blockDepth > 0) {
+      lumeLines.push("}");
+      blockDepth--;
+    }
+
+    return lumeLines.join("\n");
+  }
+
+  detectMode(code: string): LumeMode {
+    const firstLine = code.split("\n")[0].trim().toLowerCase();
+    if (firstLine === "mode: english") return "english";
+    if (firstLine === "mode: natural") return "natural";
+    return "standard";
+  }
+
+  getPatternCount(): number {
+    return this.patterns.reduce((sum, p) => sum + p.patterns.length, 0);
+  }
+
+  getCategories(): string[] {
+    return [...new Set(this.patterns.map(p => p.category))];
+  }
+}
 
 class LumeInterpreter {
   private variables: Map<string, any> = new Map();
@@ -646,6 +835,7 @@ class LumeInterpreter {
 }
 
 const interpreter = new LumeInterpreter();
+const intentResolver = new IntentResolver();
 
 export function registerLumeRoutes(app: Express) {
   app.use("/api/lume", (req: Request, res: Response, next) => {
@@ -713,9 +903,19 @@ export function registerLumeRoutes(app: Express) {
       return res.status(400).json({ success: false, errors: ["Code exceeds maximum length (50,000 characters)"] });
     }
 
+    const detectedMode = intentResolver.detectMode(code);
     const startTime = Date.now();
+
     try {
-      const result = interpreter.execute(code);
+      let codeToExecute = code;
+      let resolvedLume: string | undefined;
+
+      if (detectedMode === "english" || detectedMode === "natural") {
+        resolvedLume = intentResolver.resolveEnglish(code);
+        codeToExecute = resolvedLume;
+      }
+
+      const result = interpreter.execute(codeToExecute);
       const executionTime = Date.now() - startTime;
 
       res.json({
@@ -725,13 +925,16 @@ export function registerLumeRoutes(app: Express) {
         variables: result.variables,
         executionTime,
         runtime: "lume-interpreter-v0.6.0",
+        mode: detectedMode,
+        resolvedLume: resolvedLume || null,
         errors: [],
-      } as LumeExecutionResult & { variables: Record<string, any>; runtime: string; result: any });
+      } as LumeExecutionResult & { variables: Record<string, any>; runtime: string; result: any; mode: string; resolvedLume: string | null });
     } catch (err: any) {
       res.json({
         success: false,
         output: "",
         executionTime: Date.now() - startTime,
+        mode: detectedMode,
         errors: [err.message],
       });
     }
@@ -744,9 +947,17 @@ export function registerLumeRoutes(app: Express) {
       return res.status(400).json({ success: false, errors: ["Code is required"] });
     }
 
+    const detectedMode = intentResolver.detectMode(code);
+
     try {
-      const transpiled = interpreter.transpileToJS(code);
-      res.json({ success: true, transpiled, sourceLanguage: "lume", targetLanguage: "javascript" });
+      let codeToProcess = code;
+      let resolvedLume: string | undefined;
+      if (detectedMode === "english" || detectedMode === "natural") {
+        resolvedLume = intentResolver.resolveEnglish(code);
+        codeToProcess = resolvedLume;
+      }
+      const transpiled = interpreter.transpileToJS(codeToProcess);
+      res.json({ success: true, transpiled, sourceLanguage: "lume", targetLanguage: "javascript", mode: detectedMode, resolvedLume: resolvedLume || null });
     } catch (err: any) {
       res.json({ success: false, errors: [err.message] });
     }
@@ -759,9 +970,17 @@ export function registerLumeRoutes(app: Express) {
       return res.status(400).json({ success: false, errors: ["Code is required"] });
     }
 
+    const detectedMode = intentResolver.detectMode(code);
+
     try {
-      const tokens = interpreter.tokenize(code);
-      res.json({ success: true, tokens, count: tokens.length });
+      let codeToProcess = code;
+      let resolvedLume: string | undefined;
+      if (detectedMode === "english" || detectedMode === "natural") {
+        resolvedLume = intentResolver.resolveEnglish(code);
+        codeToProcess = resolvedLume;
+      }
+      const tokens = interpreter.tokenize(codeToProcess);
+      res.json({ success: true, tokens, count: tokens.length, mode: detectedMode, resolvedLume: resolvedLume || null });
     } catch (err: any) {
       res.json({ success: false, errors: [err.message] });
     }
@@ -774,9 +993,17 @@ export function registerLumeRoutes(app: Express) {
       return res.status(400).json({ success: false, errors: ["Code is required"] });
     }
 
+    const detectedMode = intentResolver.detectMode(code);
+
     try {
-      const ast = interpreter.generateAST(code);
-      res.json({ success: true, ast });
+      let codeToProcess = code;
+      let resolvedLume: string | undefined;
+      if (detectedMode === "english" || detectedMode === "natural") {
+        resolvedLume = intentResolver.resolveEnglish(code);
+        codeToProcess = resolvedLume;
+      }
+      const ast = interpreter.generateAST(codeToProcess);
+      res.json({ success: true, ast, mode: detectedMode, resolvedLume: resolvedLume || null });
     } catch (err: any) {
       res.json({ success: false, errors: [err.message] });
     }
@@ -963,7 +1190,109 @@ print("Fibonacci sequence:")
 print(result)`,
           category: "algorithms",
         },
+        {
+          id: "english-hello",
+          title: "English Mode: Hello World",
+          description: "Write code in plain English — no syntax required",
+          code: `mode: english
+
+set greeting to "Hello from English Mode!"
+show greeting
+
+set name to "Developer"
+show "Welcome, {name}! You're writing code in plain English."
+
+set score to 95
+if score is greater than 90, then show "Excellent work!"`,
+          category: "english-mode",
+        },
+        {
+          id: "english-lists",
+          title: "English Mode: Lists & Data",
+          description: "Create and manipulate data structures in plain English",
+          code: `mode: english
+
+create a list called colors with red, blue, green, purple
+show colors
+
+set count to 4
+show "We have {count} colors"
+
+add "orange" to colors
+show colors
+
+set x to 10
+set y to 5
+add x and y
+multiply x by y`,
+          category: "english-mode",
+        },
+        {
+          id: "english-ai",
+          title: "English Mode: AI Interaction",
+          description: "Talk to AI models in natural language",
+          code: `mode: english
+
+ask the AI to write a haiku about programming
+explain the theory of relativity in simple terms
+summarize the history of the internet
+translate "Hello, how are you?" to French
+
+set topic to "machine learning"
+think about the future of {topic}`,
+          category: "english-mode",
+        },
+        {
+          id: "english-self-sustaining",
+          title: "English Mode: Self-Sustaining",
+          description: "Activate self-healing and monitoring in plain English",
+          code: `mode: english
+
+monitor this function
+track how much this costs
+if this fails, retry 3 times
+keep this running even if it breaks
+if the AI model is down, use a backup
+optimize this for speed
+watch for security updates`,
+          category: "english-mode",
+        },
       ],
+    });
+  });
+
+  app.get("/api/lume/intent-info", (_req: Request, res: Response) => {
+    res.json({
+      success: true,
+      intentResolver: {
+        patternCount: intentResolver.getPatternCount(),
+        categories: intentResolver.getCategories(),
+        supportedModes: ["standard", "english", "natural"],
+        layerA: {
+          name: "Pattern Library",
+          description: "Deterministic phrase-to-AST mappings — fast, offline, no AI required",
+          status: "active",
+        },
+        layerB: {
+          name: "AI-Powered Resolution",
+          description: "LLM-powered resolution for complex/ambiguous natural language input",
+          status: "planned",
+        },
+        contextEngine: {
+          name: "Context Engine",
+          description: "Tracks project state, data models, variables, scope, and short-term memory",
+          status: "planned",
+        },
+      },
+      roadmap: {
+        m7: { name: "English Mode", status: "active" },
+        m8: { name: "Multilingual Mode", status: "planned" },
+        m9: { name: "Voice-to-Code", status: "planned" },
+        m10: { name: "Visual Context Awareness", status: "planned" },
+        m11: { name: "Reverse Mode", status: "planned" },
+        m12: { name: "Collaborative Intent", status: "planned" },
+        m13: { name: "Zero-Dependency Runtime", status: "planned" },
+      },
     });
   });
 

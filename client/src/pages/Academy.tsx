@@ -33,7 +33,8 @@ import {
   FileCode2,
   Sparkles,
   Target,
-  BadgeCheck
+  BadgeCheck,
+  Languages
 } from "lucide-react";
 
 const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
@@ -99,6 +100,16 @@ const learningPaths = [
     courses: 6,
     hours: 30,
     level: "Advanced"
+  },
+  {
+    id: "natural-language",
+    title: "Natural Language Programming",
+    description: "Write code in plain English or any human language. Master intent resolution, voice-to-code, and multilingual compilation.",
+    icon: Languages,
+    color: "from-violet-500 to-cyan-500",
+    courses: 8,
+    hours: 36,
+    level: "All Levels"
   }
 ];
 
@@ -162,6 +173,16 @@ const featuredCourses = [
     lessons: 20,
     path: "Web Development",
     icon: Layers
+  },
+  {
+    id: "english-mode",
+    title: "English Mode Programming",
+    description: "Write full programs in plain English sentences. Learn pattern matching, intent resolution, and voice-to-code workflows.",
+    level: "Beginner",
+    duration: "7 hours",
+    lessons: 28,
+    path: "Natural Language Programming",
+    icon: Languages
   }
 ];
 
@@ -223,13 +244,20 @@ const certifications = [
     icon: Trophy,
     tier: "Diamond",
     color: "from-blue-400 to-cyan-500"
+  },
+  {
+    title: "Natural Language Developer",
+    description: "Certified in English Mode, multilingual compilation, voice-to-code, and intent resolution across all human languages.",
+    icon: Languages,
+    tier: "CNLD",
+    color: "from-violet-400 to-cyan-500"
   }
 ];
 
 const stats = [
-  { label: "Courses", value: "52+", icon: BookOpen },
-  { label: "Learning Hours", value: "260+", icon: Clock },
-  { label: "Certification Tracks", value: "4", icon: Award },
+  { label: "Courses", value: "60+", icon: BookOpen },
+  { label: "Learning Hours", value: "296+", icon: Clock },
+  { label: "Certification Tracks", value: "5", icon: Award },
   { label: "Ecosystem Apps Covered", value: "35+", icon: Rocket }
 ];
 
@@ -636,7 +664,7 @@ export default function Academy() {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"

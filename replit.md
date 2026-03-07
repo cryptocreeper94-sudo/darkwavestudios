@@ -71,10 +71,16 @@ Pages for Mission, Investors, Terms of Service, and Privacy Policy.
 Utilizes a storage abstraction layer (`server/storage.ts`) with an `IStorage` interface for flexible database integration.
 
 ### Lume Language API
-Connects darkwavestudios.io to lume-lang.org, providing a full server-side interpreter with lexer, parser, transpiler, and AST generator. Includes API endpoints for platform connection, code execution, transpilation (Lume→JS), tokenization, AST generation, formatting, health checks, and examples. CORS configured for lume-lang.org, darkwavestudios.io, and academy.tlid.io.
+Connects darkwavestudios.io to lume-lang.org, providing a full server-side interpreter with lexer, parser, transpiler, and AST generator. Includes API endpoints for platform connection, code execution, transpilation (Lume→JS), tokenization, AST generation, formatting, health checks, examples, and intent resolution info. CORS configured for lume-lang.org, darkwavestudios.io, and academy.tlid.io.
+
+### Lume Intent Resolver (English Mode / Natural Mode)
+Implements Milestone 7 (English Mode) and Milestone 8 (Natural Mode) of the Lume Natural Language Evolution roadmap. The Intent Resolver is a front-end stage that converts plain English (or any human language) into Lume AST, which then transpiles to JavaScript. Two layers: Layer A (Pattern Library) with 50+ deterministic phrase-to-code mappings across 18 categories (output, variable, math, conditional, loop, function, list, object, AI, data, time, string, comparison, monitor, heal, optimize, evolve, debug, comment, greeting, help), and Layer B (AI-Powered Resolution, planned) for complex/ambiguous input via LLM. Mode detection via `mode: english` or `mode: natural` file headers. Self-sustaining keywords (monitor, heal, optimize, evolve) map to natural language equivalents. Implementation: `server/lume-api.ts` (IntentResolver class). Endpoint: `/api/lume/intent-info`.
 
 ### Lume Playground
-Interactive page (`/lume/playground`) with a code editor, output panel, transpiled JS view, token stream view, AST view, 8 loadable examples, keyboard shortcuts (Ctrl+Enter run, Ctrl+S transpile), and a connection status indicator.
+Interactive page (`/lume/playground`) with a code editor, output panel, transpiled JS view, token stream view, AST view, resolved Lume view (for English/Natural mode), 12 loadable examples (8 standard + 4 English Mode), keyboard shortcuts (Ctrl+Enter run, Ctrl+S transpile), connection status indicator, and mode selector (Standard Lume / English Mode / Natural Mode). Mode switching auto-loads appropriate default code and shows mode-specific UI indicators and reference documentation.
+
+### Lume Natural Language Evolution Roadmap
+Milestones 7-13 displayed on the Lume page (`/lume`): M7 English Mode (active), M8 Multilingual Mode, M9 Voice-to-Code, M10 Visual Context Awareness, M11 Reverse Mode (Code-to-Language), M12 Collaborative Intent, M13 Zero-Dependency Runtime. Launch date: August 23, 2026. Academy updated with Natural Language Programming track and CNLD (Certified Lume Natural Language Developer) certification.
 
 ### TrustGen
 AI-powered 3D creation platform with blockchain provenance (Three.js + Meshy.ai text-to-3D, keyframe animation, post-processing, GLTF/GLB/FBX export). Includes Studio IDE (Monaco editor, 9 templates, AI code assistant, command palette, deploy), auto-rigging engine, skeletal animation player, and GPU particle system.

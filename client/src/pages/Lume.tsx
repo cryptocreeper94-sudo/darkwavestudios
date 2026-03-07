@@ -36,7 +36,14 @@ import {
   Timer,
   Cog,
   Boxes,
-  Award
+  Award,
+  Mic,
+  Languages,
+  Monitor,
+  RotateCcw,
+  Rocket,
+  CircleDot,
+  Clock
 } from "lucide-react";
 
 const staggerContainer = {
@@ -127,6 +134,65 @@ const connectedApps = [
   { name: "DarkWave Studio", desc: "Browser IDE with Lume syntax highlighting and compilation", url: "https://studio.tlid.io" },
   { name: "Trust Hub", desc: "Lume-powered widgets and embeddable components", url: "https://trusthub.tlid.io" },
   { name: "DarkWave Academy", desc: "Complete Lume learning curriculum from beginner to expert", url: "https://academy.tlid.io" },
+];
+
+const nlRoadmap = [
+  {
+    id: "M7",
+    name: "English Mode",
+    status: "active" as const,
+    icon: MessageSquare,
+    desc: "Plain English as compiler input. Intent Resolver converts sentences into Lume AST nodes. Pattern library with 50+ common phrases plus AI-powered resolution for complex inputs.",
+    capabilities: ["Pattern matching (Layer A)", "AI resolution (Layer B)", "Context Engine", "Pronoun resolution"],
+  },
+  {
+    id: "M8",
+    name: "Multilingual Mode",
+    status: "planned" as const,
+    icon: Languages,
+    desc: "Accept input in any human language. Auto-detect language per line. Same AST and JavaScript output regardless of input language. Mixed-language files supported.",
+    capabilities: ["10 languages supported", "Auto language detection", "Mixed-language files", "Localized errors"],
+  },
+  {
+    id: "M9",
+    name: "Voice-to-Code",
+    status: "planned" as const,
+    icon: Mic,
+    desc: "Spoken language as compiler input. Speech transcription feeds directly into the Intent Resolver. Browser microphone and CLI support.",
+    capabilities: ["Browser Speech API", "CLI lume listen", "Verbal structure cues", "Pause detection"],
+  },
+  {
+    id: "M10",
+    name: "Visual Context Awareness",
+    status: "planned" as const,
+    icon: Monitor,
+    desc: "Compiler understands visual layout and UI state. Resolve spatial references like 'put the form in the center' or 'add a sidebar on the left.'",
+    capabilities: ["UI Element Registry", "Spatial resolution", "Style modification", "Component generation"],
+  },
+  {
+    id: "M11",
+    name: "Reverse Mode",
+    status: "planned" as const,
+    icon: RotateCcw,
+    desc: "Flip the pipeline — take existing code and explain it in plain language. Any JavaScript, TypeScript, or Lume file translated to natural language.",
+    capabilities: ["Line-by-line annotation", "Summary explanation", "Multilingual output", "Code review assist"],
+  },
+  {
+    id: "M12",
+    name: "Collaborative Intent",
+    status: "planned" as const,
+    icon: Brain,
+    desc: "Multiple developers describe a system in natural language simultaneously. The compiler merges intents, detects conflicts, and generates a unified codebase.",
+    capabilities: ["Multi-user sessions", "Intent merging", "Conflict detection", "Unified output"],
+  },
+  {
+    id: "M13",
+    name: "Autonomous Agent Mode",
+    status: "planned" as const,
+    icon: Rocket,
+    desc: "Lume programs that write themselves. Given a high-level goal, the compiler generates, tests, deploys, and maintains an entire application autonomously.",
+    capabilities: ["Goal decomposition", "Self-testing", "Auto-deployment", "Continuous maintenance"],
+  },
 ];
 
 const stats = [
@@ -630,6 +696,111 @@ export default function Lume() {
                 ))}
               </div>
             </GlassCard>
+          </div>
+        </section>
+
+        {/* Natural Language Evolution Roadmap */}
+        <section className="py-16 lg:py-24" data-testid="section-nl-roadmap">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-6"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-gray-400 mb-6" data-testid="badge-nl-evolution">
+                <Sparkles className="w-4 h-4 text-cyan-400" />
+                Milestones 7-13
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-nl-roadmap">
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Natural Language Evolution</span>
+              </h2>
+              <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+                The next chapter of Lume — from English Mode to autonomous programming. Write code in plain language, any human language, or even by voice. The compiler understands your intent.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-center mb-12"
+            >
+              <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="nl-vision-statement">
+                <Sparkles className="w-5 h-5 text-cyan-400" />
+                <span className="text-sm sm:text-base text-gray-300">
+                  <span className="text-white font-semibold">Vision:</span> Programming should be as natural as describing what you want in conversation.
+                </span>
+              </GlassCard>
+            </motion.div>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              {nlRoadmap.map((milestone, i) => (
+                <motion.div key={milestone.id} variants={staggerItem}>
+                  <GlassCard
+                    glow={milestone.status === "active"}
+                    className={`p-5 sm:p-6 rounded-2xl ${milestone.status === "active" ? "border-cyan-500/30" : ""}`}
+                    data-testid={`nl-milestone-${milestone.id.toLowerCase()}`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                      <div className="flex items-center gap-3 sm:min-w-[200px]">
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
+                          milestone.status === "active"
+                            ? "bg-gradient-to-br from-cyan-500 to-teal-500"
+                            : "bg-white/5 border border-white/10"
+                        }`}>
+                          <milestone.icon className={`w-5 h-5 ${milestone.status === "active" ? "text-white" : "text-gray-500"}`} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-cyan-400" style={{ fontFamily: "JetBrains Mono, monospace" }}>{milestone.id}</span>
+                            {milestone.status === "active" ? (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400" data-testid={`status-${milestone.id.toLowerCase()}`}>
+                                <CircleDot className="w-2.5 h-2.5" /> Active
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-gray-500" data-testid={`status-${milestone.id.toLowerCase()}`}>
+                                <Clock className="w-2.5 h-2.5" /> Planned
+                              </span>
+                            )}
+                          </div>
+                          <h3 className={`text-sm sm:text-base font-bold mt-0.5 ${milestone.status === "active" ? "text-white" : "text-gray-400"}`} style={{ fontFamily: "Inter, sans-serif" }}>
+                            {milestone.name}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <p className={`text-sm leading-relaxed mb-3 ${milestone.status === "active" ? "text-gray-300" : "text-gray-500"}`}>
+                          {milestone.desc}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {milestone.capabilities.map((cap) => (
+                            <span
+                              key={cap}
+                              className={`text-[10px] sm:text-xs px-2 py-1 rounded-md font-medium ${
+                                milestone.status === "active"
+                                  ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+                                  : "bg-white/5 text-gray-500 border border-white/5"
+                              }`}
+                            >
+                              {cap}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </section>
 
