@@ -487,12 +487,12 @@ export default function Lume() {
                       data-testid={`cognitive-row-${i}`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-1.5">
-                        <div className="flex items-center gap-3 sm:min-w-[200px]">
-                          <span className="text-xs font-mono text-gray-500 w-10 shrink-0">{row.era}</span>
-                          <span className="text-sm font-semibold text-white">{row.lang}</span>
+                        <div className="flex items-center gap-2 sm:gap-3 sm:min-w-[200px]">
+                          <span className="text-[10px] sm:text-xs font-mono text-gray-500 w-8 sm:w-10 shrink-0">{row.era}</span>
+                          <span className="text-xs sm:text-sm font-semibold text-white truncate">{row.lang}</span>
                         </div>
-                        <div className="flex-1 flex items-center gap-3">
-                          <div className="flex-1 h-3 rounded-full bg-white/5 overflow-hidden">
+                        <div className="flex-1 flex items-center gap-2 sm:gap-3">
+                          <div className="flex-1 h-2 sm:h-3 rounded-full bg-white/5 overflow-hidden">
                             <motion.div
                               className={`h-full rounded-full bg-gradient-to-r ${row.color}`}
                               initial={{ width: 0 }}
@@ -501,12 +501,12 @@ export default function Lume() {
                               transition={{ duration: 1.2, delay: i * 0.15, ease: "easeOut" }}
                             />
                           </div>
-                          <span className={`text-xs font-semibold shrink-0 w-28 text-right ${row.percent <= 10 ? "text-cyan-400" : row.percent <= 55 ? "text-blue-400" : "text-slate-400"}`}>
+                          <span className={`text-[10px] sm:text-xs font-semibold shrink-0 w-20 sm:w-28 text-right ${row.percent <= 10 ? "text-cyan-400" : row.percent <= 55 ? "text-blue-400" : "text-slate-400"}`}>
                             {row.distance}
                           </span>
                         </div>
                       </div>
-                      <p className="text-[11px] sm:text-xs text-gray-500 pl-[52px] sm:pl-[200px] font-mono group-hover:text-gray-400 transition-colors">
+                      <p className="text-[11px] sm:text-xs text-gray-500 pl-0 sm:pl-[200px] font-mono group-hover:text-gray-400 transition-colors mt-1 sm:mt-0">
                         {row.example}
                       </p>
                     </motion.div>
@@ -1015,7 +1015,7 @@ export default function Lume() {
                         lume {tool.cmd}
                       </code>
                     </div>
-                    <p className="text-sm text-gray-400 pl-12">{tool.desc}</p>
+                    <p className="text-sm text-gray-400 pl-0 sm:pl-12">{tool.desc}</p>
                   </GlassCard>
                 </motion.div>
               ))}
