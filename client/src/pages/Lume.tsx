@@ -42,7 +42,21 @@ import {
   RotateCcw,
   Rocket,
   CircleDot,
-  Clock
+  Clock,
+  FileText,
+  GraduationCap,
+  ShieldCheck,
+  ScanLine,
+  Container,
+  Volume2,
+  AudioLines,
+  Hash,
+  BadgeCheck,
+  AlertTriangle,
+  ShieldAlert,
+  BookOpenCheck,
+  Eraser,
+  Columns2,
 } from "lucide-react";
 
 const staggerContainer = {
@@ -54,11 +68,12 @@ const staggerItem = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
-const lumeCode = `fn analyze_sentiment(text) {
-  let result = ask("Analyze sentiment: {text}")
-  let score = think("Rate 1-10: {result}")
-  return { sentiment: result, score }
-}`;
+const lumeCode = `to analyze_sentiment(text: text) -> map:
+  let result = ask "Analyze sentiment: " + text
+  let score = think "Rate 1-10: " + result
+  show result
+  define output = { sentiment: result, score: score }
+  return output`;
 
 const pythonCode = `import openai
 import json
@@ -105,7 +120,7 @@ const runtimeLayers = [
   { name: "Self-Monitoring", icon: Eye, color: "from-cyan-400 to-cyan-600", desc: "Continuously tracks performance metrics, memory usage, and execution patterns in real-time" },
   { name: "Self-Healing", icon: RefreshCw, color: "from-teal-400 to-teal-600", desc: "Detects runtime failures and automatically applies recovery strategies without manual intervention" },
   { name: "Self-Optimizing", icon: Zap, color: "from-sky-400 to-sky-600", desc: "Profiles hot paths and dynamically restructures code execution for optimal throughput" },
-  { name: "Self-Evolving", icon: Brain, color: "from-blue-400 to-blue-600", desc: "Learns from past executions to improve future performance and adapt behavior patterns" },
+  { name: "Self-Evolving", icon: Brain, color: "from-sky-500 to-cyan-600", desc: "Learns from past executions to improve future performance and adapt behavior patterns" },
 ];
 
 const toolchainCommands = [
@@ -118,6 +133,86 @@ const toolchainCommands = [
   { cmd: "watch", icon: Eye, desc: "Hot-reload on file changes with instant feedback" },
   { cmd: "ast", icon: GitBranch, desc: "Visualize the Abstract Syntax Tree of any program" },
   { cmd: "tokens", icon: Search, desc: "Display the token stream from the lexer stage" },
+  { cmd: "voice", icon: Mic, desc: "Interactive voice coding — speak instructions, say 'compile' when done" },
+  { cmd: "explain", icon: BookOpenCheck, desc: "Explain code in plain language with line-by-line annotations" },
+  { cmd: "verify", icon: ShieldCheck, desc: "Verify security certificate hash of compiled output" },
+  { cmd: "canonicalize", icon: Eraser, desc: "Normalize English instructions to canonical form" },
+];
+
+const securityLayers = [
+  {
+    name: "Input Security",
+    subtitle: "Pre-Compilation",
+    icon: ShieldAlert,
+    color: "from-slate-400 to-slate-600",
+    desc: "Scans English instructions for dangerous operations across 11 threat categories before any code compiles.",
+    categories: ["File system destruction", "Credential exposure", "Network exfiltration", "System commands", "Semantic camouflage", "Resource exhaustion"],
+  },
+  {
+    name: "Guardian Output Scanner",
+    subtitle: "Live AST-Level",
+    icon: ScanLine,
+    color: "from-cyan-400 to-teal-500",
+    desc: "Scans each AST node in real-time as it is created during Intent Resolution — not after compilation.",
+    categories: ["Destructive operations", "Privilege escalation", "Mass operations", "Infinite execution", "Cross-node analysis", "Semantic camouflage"],
+  },
+  {
+    name: "Sandbox Mode",
+    subtitle: "Post-Compilation",
+    icon: Container,
+    color: "from-sky-400 to-blue-500",
+    desc: "First-run or >20% change triggers sandbox. Shows what the program WOULD do before executing for real.",
+    categories: ["Database reads/writes", "File operations", "HTTP requests", "Record deletions", "Approval required", "Isolated execution"],
+  },
+];
+
+const securityCertificate = `/**
+ * LUME SECURITY CERTIFIED
+ * Source: app.lume (mode: english, 47 lines)
+ * AST nodes scanned: 47/47 passed
+ * Raw blocks scanned: 2/2 passed
+ * Scan level: standard
+ * Input method: voice | text
+ * Compiled: 2026-09-15T14:30:00Z
+ * Certificate hash: a3f8b2c1e9d4...
+ * Verify: lume verify --hash a3f8b2c1e9d4...
+ */`;
+
+const standardModeCode = `let name = "Ada"
+let age = 28
+
+to greet(person: text) -> text:
+    return "Hello, " + person
+
+if user is verified and user.age is at least 18:
+    allow access`;
+
+const englishModeCode = `mode: english
+
+get the user's name and email from the database
+if the name is empty, show "No name provided"
+otherwise, show "Hello, {name}" on the page
+
+when the submit button is clicked:
+  save the form data to the database
+  show "Saved!" for 3 seconds
+  then redirect to the dashboard`;
+
+const voicePipelineSteps = [
+  { label: "Audio", icon: Volume2, desc: "Microphone input or audio file", color: "text-cyan-400" },
+  { label: "Speech-to-Text", icon: AudioLines, desc: "Web Speech API or Whisper engine", color: "text-teal-400" },
+  { label: "Transcription Cleanup", icon: Eraser, desc: "7-step normalization pipeline", color: "text-sky-400" },
+  { label: "Text Input", icon: FileText, desc: "Clean text indistinguishable from typed", color: "text-cyan-300" },
+];
+
+const cleanupSteps = [
+  { step: 1, name: "Stutter/Repeat Collapse", example: '"get get the users" → "get the users"' },
+  { step: 2, name: "Spoken Punctuation", example: '"period" → . | "new line" → line break' },
+  { step: 3, name: "Filler Word Stripping", example: 'Removes: um, uh, like, you know, basically...' },
+  { step: 4, name: "Homophone Resolution", example: '"for/four", "write/right" — resolved by context' },
+  { step: 5, name: "Number Word Conversion", example: '"twenty three" → 23 | "a dozen" → 12' },
+  { step: 6, name: "Variable Name Extraction", example: '"call it user count" → userCount' },
+  { step: 7, name: "Structural Cue Parsing", example: '"when", "if", "done" → indent/dedent markers' },
 ];
 
 const milestones = [
@@ -215,9 +310,9 @@ export default function Lume() {
   return (
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
-        title="Lume - The AI-Native Programming Language"
-        description="The first programming language where AI is a syntax primitive. Write ask, think, and generate as keywords. Self-sustaining runtime with 366+ passing tests. Built by DarkWave Studios."
-        keywords="Lume, programming language, AI-native, self-sustaining runtime, DarkWave Studios, transpiler, AST"
+        title="Lume - Eliminating Cognitive Distance | AI-Native Programming Language"
+        description="Lume eliminates cognitive distance between developer intent and compiled code. The first programming language where AI is a syntax primitive with natural language compilation, voice-to-code input, and certified-at-birth security. 366+ passing tests. Built by DarkWave Systems Collective."
+        keywords="Lume, programming language, AI-native, cognitive distance, natural language compilation, voice-to-code, certified security, self-sustaining runtime, DarkWave Studios, transpiler, AST, intent resolution"
         url="https://darkwavestudios.io/lume"
       />
       <BreadcrumbSchema
@@ -273,7 +368,7 @@ export default function Lume() {
               <Globe className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Website</span>
             </a>
             <a
-              href="https://github.com/darkwavestudios/lume"
+              href="https://github.com/cryptocreeper94-sudo/lume"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
@@ -298,13 +393,16 @@ export default function Lume() {
                 <Sparkles className="w-4 h-4 text-cyan-400" />
                 DarkWave Ecosystem — Developer Tools
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-hero">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 leading-tight" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-hero">
                 <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">
                   The AI-Native
                 </span>
                 <br />
                 <span className="text-white">Programming Language</span>
               </h1>
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 font-medium mb-6 tracking-wide" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-hero-subtitle">
+                Eliminating Cognitive Distance
+              </p>
               <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed px-2" data-testid="text-hero-tagline">
                 The first language where artificial intelligence is a <span className="text-cyan-400 font-semibold">syntax primitive</span> — not a library import.
                 Write <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-cyan-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>,{" "}
@@ -331,7 +429,7 @@ export default function Lume() {
                   Visit lume-lang.org <ExternalLink className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://github.com/darkwavestudios/lume"
+                  href="https://github.com/cryptocreeper94-sudo/lume"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
@@ -340,6 +438,110 @@ export default function Lume() {
                   <Code2 className="w-5 h-5" /> View on GitHub
                 </a>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Cognitive Distance Framework */}
+        <section className="py-16 lg:py-24" data-testid="section-cognitive-distance">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-cognitive-distance">
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Eliminating Cognitive Distance</span>
+              </h2>
+              <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                The entire history of programming languages is an incremental effort to close the gap between what developers <span className="text-cyan-400 font-semibold">think</span> and what they must <span className="text-teal-400 font-semibold">type</span>.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-10"
+            >
+              <GlassCard glow className="p-6 sm:p-8 rounded-2xl">
+                <div className="space-y-4">
+                  {[
+                    { era: "1950s", lang: "Assembly", distance: "Maximum", percent: 100, color: "from-slate-400 to-slate-600", example: '"Add two numbers" → MOV AX, 5 / ADD AX, 3' },
+                    { era: "1970s", lang: "C", distance: "High", percent: 80, color: "from-slate-500 to-gray-600", example: '"Add two numbers" → int result = a + b;' },
+                    { era: "1990s", lang: "Python", distance: "Medium", percent: 55, color: "from-blue-500 to-blue-700", example: '"Add two numbers" → result = a + b' },
+                    { era: "2020s", lang: "AI Agents", distance: "Medium-High*", percent: 65, color: "from-slate-400 to-blue-600", example: '"Add two numbers" → ask AI → review → run' },
+                    { era: "2026", lang: "Lume (text)", distance: "Near-Zero", percent: 10, color: "from-cyan-400 to-teal-500", example: '"Add two numbers" → add two numbers' },
+                    { era: "2026", lang: "Lume (voice)", distance: "Approaching Zero", percent: 3, color: "from-teal-400 to-sky-500", example: "Think → say → compiled" },
+                  ].map((row, i) => (
+                    <motion.div
+                      key={row.lang}
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      className="group"
+                      data-testid={`cognitive-row-${i}`}
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-1.5">
+                        <div className="flex items-center gap-3 sm:min-w-[200px]">
+                          <span className="text-xs font-mono text-gray-500 w-10 shrink-0">{row.era}</span>
+                          <span className="text-sm font-semibold text-white">{row.lang}</span>
+                        </div>
+                        <div className="flex-1 flex items-center gap-3">
+                          <div className="flex-1 h-3 rounded-full bg-white/5 overflow-hidden">
+                            <motion.div
+                              className={`h-full rounded-full bg-gradient-to-r ${row.color}`}
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${row.percent}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1.2, delay: i * 0.15, ease: "easeOut" }}
+                            />
+                          </div>
+                          <span className={`text-xs font-semibold shrink-0 w-28 text-right ${row.percent <= 10 ? "text-cyan-400" : row.percent <= 55 ? "text-blue-400" : "text-slate-400"}`}>
+                            {row.distance}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-gray-500 pl-[52px] sm:pl-[200px] font-mono group-hover:text-gray-400 transition-colors">
+                        {row.example}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <p className="text-[11px] text-gray-500 italic" data-testid="text-ai-agents-note">
+                    *AI coding agents (Copilot, ChatGPT) actually <span className="text-sky-400">increased</span> translation layers: human → AI → review → compiler (3 layers). Lume eliminates the middleman — the compiler <span className="text-cyan-400">is</span> the understanding layer.
+                  </p>
+                </div>
+              </GlassCard>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <GlassCard className="p-6 sm:p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-teal-500/5">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shrink-0 mt-0.5">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <blockquote className="text-lg sm:text-xl lg:text-2xl font-semibold text-white leading-relaxed mb-3" style={{ fontFamily: "Inter, sans-serif" }} data-testid="quote-thesis">
+                      "Other tools add an AI between you and your code. Lume removes the code between you and your machine."
+                    </blockquote>
+                    <p className="text-sm text-gray-400">
+                      — The Lume Thesis: Cognitive distance is the quantification of cognitive dissonance in programming. The dissonance disappears when the distance approaches zero.
+                    </p>
+                  </div>
+                </div>
+              </GlassCard>
             </motion.div>
           </div>
         </section>
@@ -374,7 +576,7 @@ export default function Lume() {
                     <div className="w-6 h-6 rounded bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
                       <Zap className="w-3.5 h-3.5 text-white" />
                     </div>
-                    <span className="text-sm font-semibold text-cyan-400">Lume — 5 lines</span>
+                    <span className="text-sm font-semibold text-cyan-400">Lume — 6 lines</span>
                   </div>
                   <pre className="text-sm leading-relaxed overflow-x-auto" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="code-lume">
                     <code className="text-gray-300">{lumeCode}</code>
@@ -486,6 +688,257 @@ export default function Lume() {
           </div>
         </section>
 
+        {/* Three-Layer Security Architecture */}
+        <section className="py-16 lg:py-24" data-testid="section-security-architecture">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-security-architecture">
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Three-Layer Security Architecture</span>
+              </h2>
+              <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                Security is not optional, not a premium feature, and not a separate tool — it is built into the compiler and runs on every compilation.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid lg:grid-cols-3 gap-6 mb-12"
+            >
+              {securityLayers.map((layer, i) => (
+                <motion.div key={layer.name} variants={staggerItem}>
+                  <GlassCard glow className="p-6 rounded-2xl h-full" data-testid={`security-layer-${i}`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${layer.color} flex items-center justify-center mb-4`}>
+                      <layer.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-bold text-white" style={{ fontFamily: "Inter, sans-serif" }}>{layer.name}</h3>
+                    </div>
+                    <span className="text-xs font-semibold text-cyan-400 mb-3 block" style={{ fontFamily: "JetBrains Mono, monospace" }}>{layer.subtitle}</span>
+                    <p className="text-sm text-gray-400 leading-relaxed mb-4">{layer.desc}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {layer.categories.map((cat) => (
+                        <span key={cat} className="text-[10px] px-2 py-1 rounded-md bg-white/5 text-gray-500 border border-white/5 font-medium">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <GlassCard glow className="p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto" data-testid="security-certificate-display">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center">
+                    <BadgeCheck className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white" style={{ fontFamily: "Inter, sans-serif" }}>Certified at Birth</h3>
+                    <p className="text-xs text-gray-500">Code that is provably security-verified from the moment it is compiled</p>
+                  </div>
+                </div>
+                <pre className="text-xs sm:text-sm leading-relaxed overflow-x-auto rounded-lg bg-black/40 p-4 border border-cyan-500/20" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                  <code className="text-cyan-400">{securityCertificate}</code>
+                </pre>
+                <div className="flex flex-wrap items-center gap-3 mt-4">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <Hash className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>SHA-256 tamper detection</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>CI/CD certificate enforcement</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <AlertTriangle className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Post-modification invalidation</span>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Dual-Mode Compilation */}
+        <section className="py-16 lg:py-24" data-testid="section-dual-mode">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-dual-mode">
+                <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">Dual-Mode Compilation</span>
+              </h2>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                Two input modes that produce identical AST representations — traditional syntax or plain English.
+              </p>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-6">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <GlassCard glow className="p-6 rounded-2xl h-full" data-testid="dual-mode-standard">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-6 h-6 rounded bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
+                      <Code2 className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="text-sm font-semibold text-cyan-400">Standard Mode</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium">Natural-language-friendly syntax</span>
+                  </div>
+                  <pre className="text-sm leading-relaxed overflow-x-auto" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                    <code className="text-gray-300">{standardModeCode}</code>
+                  </pre>
+                </GlassCard>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <GlassCard glow className="p-6 rounded-2xl h-full" data-testid="dual-mode-english">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-6 h-6 rounded bg-gradient-to-br from-teal-500 to-sky-500 flex items-center justify-center">
+                      <MessageSquare className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="text-sm font-semibold text-teal-400">English Mode</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20 font-medium">Plain English as source code</span>
+                  </div>
+                  <pre className="text-sm leading-relaxed overflow-x-auto" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                    <code className="text-gray-300">{englishModeCode}</code>
+                  </pre>
+                </GlassCard>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-center mt-8"
+            >
+              <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="dual-mode-note">
+                <Columns2 className="w-5 h-5 text-teal-400" />
+                <span className="text-sm text-gray-300">
+                  Both modes compile to the <span className="text-white font-semibold">same AST</span> — identical output, different input.
+                </span>
+              </GlassCard>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Voice-to-Code Pipeline */}
+        <section className="py-16 lg:py-24" data-testid="section-voice-pipeline">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-voice-pipeline">
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Voice-to-Code Pipeline</span>
+              </h2>
+              <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                Voice input flows through the compiler's own pipeline — the first system where spoken language is a native compiler input, not an IDE plugin.
+              </p>
+            </motion.div>
+
+            <div className="mb-10">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                <span className="text-sm font-semibold text-cyan-400" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="label-voice-pipeline">Voice Pipeline Extension</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {voicePipelineSteps.map((step, i) => (
+                  <motion.div
+                    key={step.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="relative"
+                  >
+                    <GlassCard glow className="p-4 rounded-xl text-center h-full" data-testid={`voice-step-${i}`}>
+                      <step.icon className={`w-6 h-6 ${step.color} mx-auto mb-2`} />
+                      <div className="text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
+                      <div className="text-[11px] text-gray-500 mt-1">{step.desc}</div>
+                    </GlassCard>
+                    {i < voicePipelineSteps.length - 1 && (
+                      <div className="hidden sm:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
+                        <ArrowRight className="w-4 h-4 text-cyan-500/50" />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500">
+                <ArrowRight className="w-4 h-4 text-cyan-500/30" />
+                <span>Then feeds into the existing Standard or English Mode pipeline</span>
+                <ArrowRight className="w-4 h-4 text-cyan-500/30" />
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-teal-400" />
+                <span className="text-sm font-semibold text-teal-400" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="label-cleanup-steps">Transcription Cleanup — 7-Step Pipeline</span>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {cleanupSteps.map((step, i) => (
+                  <motion.div
+                    key={step.step}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.06 }}
+                  >
+                    <GlassCard className="p-4 rounded-xl h-full" data-testid={`cleanup-step-${step.step}`}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-bold text-teal-400 bg-teal-500/10 border border-teal-500/20 rounded-full w-6 h-6 flex items-center justify-center" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                          {step.step}
+                        </span>
+                        <span className="text-xs font-semibold text-white">{step.name}</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500 leading-relaxed" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.example}</p>
+                    </GlassCard>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Self-Sustaining Runtime */}
         <section className="py-16 lg:py-24" data-testid="section-runtime">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -540,7 +993,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Toolchain</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                9 built-in commands for a complete development workflow.
+                13 built-in commands for a complete development workflow.
               </p>
             </motion.div>
 
@@ -878,7 +1331,7 @@ export default function Lume() {
                   lume-lang.org <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://github.com/darkwavestudios/lume"
+                  href="https://github.com/cryptocreeper94-sudo/lume"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
@@ -903,6 +1356,73 @@ export default function Lume() {
                   <FileCode className="w-4 h-4" /> Docs
                 </a>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Whitepaper Citation */}
+        <section className="py-16 lg:py-24" data-testid="section-citation">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <GlassCard glow className="p-6 sm:p-8 rounded-2xl" data-testid="card-citation">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <GraduationCap className="w-4 h-4 text-cyan-400" />
+                      <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">Academic Whitepaper</span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-citation-title">
+                      LUME: Eliminating Cognitive Distance — An AI-Native Programming Language with Natural Language Compilation, Voice Input, and Certified Security
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="space-y-4 pl-0 sm:pl-16">
+                  <div>
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Authors</span>
+                    <p className="text-sm text-gray-300 mt-1" data-testid="text-citation-authors">Jason (Trust Layer / DarkWave Systems Collective)</p>
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Affiliation</span>
+                    <p className="text-sm text-gray-300 mt-1" data-testid="text-citation-affiliation">DarkWave Systems Collective (DWSC) — team@dwsc.io</p>
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Contact</span>
+                    <p className="text-sm text-gray-300 mt-1">
+                      <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">lume-lang.com</a>
+                      {" | "}
+                      <a href="https://lume-lang.org" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition-colors">lume-lang.org</a>
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keywords</span>
+                    <div className="flex flex-wrap gap-2 mt-2" data-testid="citation-keywords">
+                      {["programming languages", "natural language processing", "voice-to-code", "compiler security", "cognitive distance", "intent resolution", "AI-native computation", "accessibility"].map((keyword) => (
+                        <span
+                          key={keyword}
+                          className="text-xs px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-white/10 pl-0 sm:pl-16">
+                  <blockquote className="text-sm sm:text-base text-gray-300 italic leading-relaxed" data-testid="text-citation-quote">
+                    "Other tools add an AI between you and your code. Lume removes the code between you and your machine."
+                  </blockquote>
+                </div>
+              </GlassCard>
             </motion.div>
           </div>
         </section>
