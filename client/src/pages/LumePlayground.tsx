@@ -57,14 +57,24 @@ const MODE_DEFAULTS: Record<LumeMode, string> = {
   standard: `// Welcome to the Lume Playground
 // The AI-native programming language
 
-print("Hello from Lume!")
+show "Hello from Lume!"
 
 let name = "World"
-print("Hello, {name}!")
+show "Hello, {name}!"
+
+// Constants use 'define'
+define MAX_RETRIES = 3
+show "Max retries: {MAX_RETRIES}"
+
+// Functions use 'to'
+to greet(person: text) -> text:
+    return "Hello, " + person
+
+show greet("Ada")
 
 // Try the AI keywords:
-let response = ask("What makes Lume unique?")
-print(response)
+let response = ask "What makes Lume unique?"
+show response
 `,
   english: `mode: english
 
@@ -75,7 +85,7 @@ set name to "Developer"
 show "Welcome, {name}!"
 
 set score to 95
-if score is greater than 90, then show "Excellent work!"
+if score is greater than 90 then show "Excellent work!"
 
 create a list called colors with red, blue, green
 show colors
@@ -99,7 +109,7 @@ ask the AI to explain quantum computing in simple terms
 };
 
 const MODE_INFO: Record<LumeMode, { label: string; badge: string; color: string; description: string }> = {
-  standard: { label: "Standard Lume", badge: "v0.6.0", color: "cyan", description: "Traditional Lume syntax with AI-native keywords" },
+  standard: { label: "Standard Lume", badge: "v1.0.0", color: "cyan", description: "Traditional Lume syntax with AI-native keywords" },
   english: { label: "English Mode", badge: "M7", color: "violet", description: "Write code in plain English — no syntax required" },
   natural: { label: "Natural Mode", badge: "M8", color: "emerald", description: "Write code in any human language" },
 };
@@ -597,14 +607,20 @@ export default function LumePlayground() {
                 </h3>
                 {mode === "standard" ? (
                   <p className="text-xs text-gray-500">
-                    AI keywords: <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>{" "}
+                    AI: <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>{" "}
                     <code className="text-teal-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>{" "}
                     <code className="text-sky-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
-                    | Control: <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>fn</code>{" "}
-                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>let</code>{" "}
+                    | Core: <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>let</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>define</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>to</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>show</code>{" "}
                     <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>if</code>{" "}
                     <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>{" "}
-                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>print</code>
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>when</code>{" "}
+                    | Types: <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>text</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>number</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>boolean</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>list</code>
                   </p>
                 ) : (
                   <p className="text-xs text-gray-500">

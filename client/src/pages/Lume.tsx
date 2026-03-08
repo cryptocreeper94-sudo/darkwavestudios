@@ -16,7 +16,6 @@ import {
   Play,
   FileCode,
   CheckCircle2,
-  Activity,
   Brain,
   Sparkles,
   Eye,
@@ -83,14 +82,23 @@ def analyze_sentiment(text):
     score = response2.choices[0].message.content
     return {"sentiment": result, "score": score}`;
 
-const pipelineSteps = [
-  { label: ".lume source", icon: FileCode, desc: "Your Lume source code" },
+const standardPipeline = [
+  { label: "Lume Source", icon: FileCode, desc: "Your Lume source code" },
   { label: "Lexer", icon: Search, desc: "Tokenizes source into lexemes" },
-  { label: "Token Stream", icon: Activity, desc: "Structured token sequence" },
   { label: "Parser", icon: Layers, desc: "Builds syntax tree from tokens" },
   { label: "AST", icon: GitBranch, desc: "Abstract Syntax Tree representation" },
   { label: "Transpiler", icon: Cog, desc: "Generates target output code" },
-  { label: ".js", icon: Code2, desc: "Executable JavaScript output" },
+  { label: "JavaScript", icon: Code2, desc: "Executable JavaScript output" },
+];
+
+const englishPipeline = [
+  { label: "English Source", icon: FileCode, desc: "Plain English instructions" },
+  { label: "Auto-Correct", icon: Wrench, desc: "Spell check & context-aware correction" },
+  { label: "Intent Resolver", icon: Brain, desc: "Tolerance Chain (7-step fallback)" },
+  { label: "Security Check", icon: Shield, desc: "Live AST-level scanning" },
+  { label: "AST", icon: GitBranch, desc: "Abstract Syntax Tree representation" },
+  { label: "Transpiler", icon: Cog, desc: "Generates target output code" },
+  { label: "Certified JS", icon: Code2, desc: "JavaScript + Security Certificate" },
 ];
 
 const runtimeLayers = [
@@ -113,12 +121,12 @@ const toolchainCommands = [
 ];
 
 const milestones = [
-  { name: "M1: Lexer", tests: 28, total: 28 },
-  { name: "M2: Parser", tests: 41, total: 41 },
-  { name: "M3: Transpiler", tests: 38, total: 38 },
-  { name: "M4: Runtime", tests: 44, total: 44 },
-  { name: "M5: Toolchain", tests: 35, total: 35 },
-  { name: "M6: Self-Sustaining", tests: 33, total: 33 },
+  { name: "M1: Core Language & Compiler", tests: 28, total: 28 },
+  { name: "M2: Full Core Language", tests: 41, total: 41 },
+  { name: "M3: AI Integration", tests: 38, total: 38 },
+  { name: "M4: JavaScript Interop & CLI", tests: 102, total: 102 },
+  { name: "M5: IDE Tooling & DX", tests: 81, total: 81 },
+  { name: "M6: Self-Sustaining Runtime", tests: 76, total: 76 },
 ];
 
 const ecosystemIntegrations = [
@@ -142,15 +150,15 @@ const nlRoadmap = [
     name: "English Mode",
     status: "active" as const,
     icon: MessageSquare,
-    desc: "Plain English as compiler input. Intent Resolver converts sentences into Lume AST nodes. Pattern library with 50+ common phrases plus AI-powered resolution for complex inputs.",
-    capabilities: ["Pattern matching (Layer A)", "AI resolution (Layer B)", "Context Engine", "Pronoun resolution"],
+    desc: "Plain English as source code via Intent Resolver. Tolerance Chain with 7-step fallback from exact pattern match to AI resolution. Auto-Correct layer, Context Engine, and Guardian Output Scanner with live AST-level security scanning.",
+    capabilities: ["Pattern matching (Layer A)", "AI resolution (Layer B)", "7-step Tolerance Chain", "Guardian Output Scanner"],
   },
   {
     id: "M8",
     name: "Multilingual Mode",
     status: "planned" as const,
     icon: Languages,
-    desc: "Accept input in any human language. Auto-detect language per line. Same AST and JavaScript output regardless of input language. Mixed-language files supported.",
+    desc: "Any human language as input. Auto-detect language per line with same AST output regardless of input language. Pattern library translated for top 10 languages with 50+ patterns each. Mixed-language files supported.",
     capabilities: ["10 languages supported", "Auto language detection", "Mixed-language files", "Localized errors"],
   },
   {
@@ -166,15 +174,15 @@ const nlRoadmap = [
     name: "Visual Context Awareness",
     status: "planned" as const,
     icon: Monitor,
-    desc: "Compiler understands visual layout and UI state. Resolve spatial references like 'put the form in the center' or 'add a sidebar on the left.'",
-    capabilities: ["UI Element Registry", "Spatial resolution", "Style modification", "Component generation"],
+    desc: "UI element registry, spatial and style resolution, full-stack app generation from visual descriptions. Resolve references like 'put the form in the center' or 'add a sidebar on the left.'",
+    capabilities: ["UI Element Registry", "Spatial resolution", "Style modification", "Full-stack generation"],
   },
   {
     id: "M11",
     name: "Reverse Mode",
     status: "planned" as const,
     icon: RotateCcw,
-    desc: "Flip the pipeline — take existing code and explain it in plain language. Any JavaScript, TypeScript, or Lume file translated to natural language.",
+    desc: "Code-to-language: explain existing code in any human language. Any JavaScript, TypeScript, or Lume file translated to natural language with line-by-line annotation.",
     capabilities: ["Line-by-line annotation", "Summary explanation", "Multilingual output", "Code review assist"],
   },
   {
@@ -182,25 +190,25 @@ const nlRoadmap = [
     name: "Collaborative Intent",
     status: "planned" as const,
     icon: Brain,
-    desc: "Multiple developers describe a system in natural language simultaneously. The compiler merges intents, detects conflicts, and generates a unified codebase.",
-    capabilities: ["Multi-user sessions", "Intent merging", "Conflict detection", "Unified output"],
+    desc: "Multi-developer, multi-language collaboration. Multiple developers describe a system simultaneously. The compiler merges intents via AST-level diffing, detects conflicts, and generates a unified codebase.",
+    capabilities: ["Multi-user sessions", "Intent merging", "AST-level diffing", "Unified output"],
   },
   {
     id: "M13",
-    name: "Autonomous Agent Mode",
+    name: "Zero-Dependency Runtime",
     status: "planned" as const,
     icon: Rocket,
-    desc: "Lume programs that write themselves. Given a high-level goal, the compiler generates, tests, deploys, and maintains an entire application autonomously.",
-    capabilities: ["Goal decomposition", "Self-testing", "Auto-deployment", "Continuous maintenance"],
+    desc: "Standalone executables from natural language. One file in, one executable out. Single-file JS output, standalone binary via Bun compile, and cross-compilation for linux, macOS, windows, and WASM.",
+    capabilities: ["Single-file JS bundle", "Standalone binary (Bun compile)", "Cross-compilation", "WebAssembly output"],
   },
 ];
 
 const stats = [
   { label: "Lines of Code", value: "12,215" },
   { label: "Files", value: "41" },
-  { label: "Tests", value: "219" },
-  { label: "Milestones", value: "6" },
-  { label: "Version", value: "v0.6.0" },
+  { label: "Tests", value: "366+" },
+  { label: "Milestones", value: "13" },
+  { label: "Version", value: "v1.0.0" },
 ];
 
 export default function Lume() {
@@ -208,7 +216,7 @@ export default function Lume() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume - The AI-Native Programming Language"
-        description="The first programming language where AI is a syntax primitive. Write ask, think, and generate as keywords. Self-sustaining runtime with 219 passing tests. Built by DarkWave Studios."
+        description="The first programming language where AI is a syntax primitive. Write ask, think, and generate as keywords. Self-sustaining runtime with 366+ passing tests. Built by DarkWave Studios."
         keywords="Lume, programming language, AI-native, self-sustaining runtime, DarkWave Studios, transpiler, AST"
         url="https://darkwavestudios.io/lume"
       />
@@ -251,7 +259,7 @@ export default function Lume() {
                 <Code2 className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Lume</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-semibold">v0.6.0</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-semibold">v1.0.0</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -410,32 +418,70 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Language Pipeline</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                From source to execution — every stage of Lume's compilation pipeline.
+                From source to execution — two compilation paths for standard Lume syntax and English Mode.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-              {pipelineSteps.map((step, i) => (
-                <motion.div
-                  key={step.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="relative"
-                >
-                  <GlassCard glow className="p-3 sm:p-4 rounded-xl text-center h-full" data-testid={`pipeline-step-${i}`}>
-                    <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 mx-auto mb-1.5 sm:mb-2" />
-                    <div className="text-xs sm:text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
-                    <div className="text-[10px] sm:text-[11px] text-gray-500 mt-1 hidden sm:block">{step.desc}</div>
-                  </GlassCard>
-                  {i < pipelineSteps.length - 1 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
-                      <ArrowRight className="w-4 h-4 text-cyan-500/50" />
-                    </div>
-                  )}
-                </motion.div>
-              ))}
+            <div className="space-y-8">
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                  <span className="text-sm font-semibold text-cyan-400" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="label-standard-pipeline">Standard Pipeline</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                  {standardPipeline.map((step, i) => (
+                    <motion.div
+                      key={step.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
+                      className="relative"
+                    >
+                      <GlassCard glow className="p-3 sm:p-4 rounded-xl text-center h-full" data-testid={`pipeline-standard-step-${i}`}>
+                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 mx-auto mb-1.5 sm:mb-2" />
+                        <div className="text-xs sm:text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
+                        <div className="text-[10px] sm:text-[11px] text-gray-500 mt-1 hidden sm:block">{step.desc}</div>
+                      </GlassCard>
+                      {i < standardPipeline.length - 1 && (
+                        <div className="hidden lg:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
+                          <ArrowRight className="w-4 h-4 text-cyan-500/50" />
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-teal-400" />
+                  <span className="text-sm font-semibold text-teal-400" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="label-english-pipeline">English Mode Pipeline</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+                  {englishPipeline.map((step, i) => (
+                    <motion.div
+                      key={step.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
+                      className="relative"
+                    >
+                      <GlassCard glow className="p-3 sm:p-4 rounded-xl text-center h-full" data-testid={`pipeline-english-step-${i}`}>
+                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400 mx-auto mb-1.5 sm:mb-2" />
+                        <div className="text-xs sm:text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
+                        <div className="text-[10px] sm:text-[11px] text-gray-500 mt-1 hidden sm:block">{step.desc}</div>
+                      </GlassCard>
+                      {i < englishPipeline.length - 1 && (
+                        <div className="hidden lg:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
+                          <ArrowRight className="w-4 h-4 text-teal-500/50" />
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -538,7 +584,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Test Coverage</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                219 passing tests across 6 milestones — 100% pass rate.
+                366+ passing tests across 6 milestones — 100% pass rate.
               </p>
             </motion.div>
 
@@ -585,7 +631,7 @@ export default function Lume() {
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="total-tests">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-lg font-bold text-white">219/219 Tests Passing</span>
+                <span className="text-lg font-bold text-white">366/366 Tests Passing</span>
                 <span className="text-sm text-green-400 font-semibold">100%</span>
               </GlassCard>
             </motion.div>

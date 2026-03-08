@@ -58,9 +58,35 @@ class IntentResolver {
     dataModels: [],
     scope: "general",
   };
+  private synonymRings: Map<string, string> = new Map();
 
   constructor() {
+    this.buildSynonymRings();
     this.buildPatternLibrary();
+  }
+
+  private buildSynonymRings() {
+    const rings: Record<string, string[]> = {
+      get: ["fetch", "grab", "pull", "obtain"],
+      show: ["display", "render", "present", "print"],
+      save: ["store", "persist", "write", "keep"],
+      delete: ["remove", "destroy", "erase", "clear"],
+      create: ["make", "build", "construct"],
+      send: ["dispatch", "fire", "emit"],
+      calculate: ["compute", "process", "evaluate"],
+    };
+    for (const [canonical, synonyms] of Object.entries(rings)) {
+      for (const syn of synonyms) {
+        this.synonymRings.set(syn, canonical);
+      }
+    }
+  }
+
+  normalizeSynonyms(input: string): string {
+    return input.replace(/\b\w+\b/g, (word) => {
+      const lower = word.toLowerCase();
+      return this.synonymRings.get(lower) || word;
+    });
   }
 
   private buildPatternLibrary() {
@@ -161,7 +187,10 @@ class IntentResolver {
 
       if (!line || line.startsWith("//") || line.startsWith("#") || line.startsWith("mode:")) continue;
 
-      if (/^(?:end|that'?s?\s+it|done|close|stop)$/i.test(line)) {
+      const normalizedLine = this.normalizeSynonyms(line);
+      const lineToMatch = normalizedLine !== line ? normalizedLine : line;
+
+      if (/^(?:end|that'?s?\s+it|done|close|stop)$/i.test(lineToMatch)) {
         if (blockDepth > 0) {
           blockDepth--;
           lumeLines.push("}");
@@ -169,7 +198,7 @@ class IntentResolver {
         continue;
       }
 
-      if (/^otherwise|^else$/i.test(line)) {
+      if (/^otherwise|^else$/i.test(lineToMatch)) {
         lumeLines.push("} else {");
         continue;
       }
@@ -177,7 +206,7 @@ class IntentResolver {
       let matched = false;
       for (const pattern of this.patterns) {
         for (const regex of pattern.patterns) {
-          const match = line.match(regex);
+          const match = lineToMatch.match(regex);
           if (match) {
             const resolved = pattern.resolve(match, this.context);
             lumeLines.push(resolved);
@@ -190,12 +219,12 @@ class IntentResolver {
       }
 
       if (!matched) {
-        if (/^when\s+/i.test(line) || /:\s*$/i.test(line)) {
-          lumeLines.push(`// [Block] ${line}`);
-          lumeLines.push(`print("[Event] ${line.replace(/:/g, "")}")`);
+        if (/^when\s+/i.test(lineToMatch) || /:\s*$/i.test(lineToMatch)) {
+          lumeLines.push(`// [Block] ${lineToMatch}`);
+          lumeLines.push(`print("[Event] ${lineToMatch.replace(/:/g, "")}")`);
         } else {
-          lumeLines.push(`// Could not resolve: ${line}`);
-          lumeLines.push(`print("[Intent] ${line}")`);
+          lumeLines.push(`// Could not resolve: ${lineToMatch}`);
+          lumeLines.push(`print("[Intent] ${lineToMatch}")`);
         }
       }
     }
@@ -240,9 +269,17 @@ class LumeInterpreter {
     const lines = code.split("\n");
 
     const keywords = [
-      "fn", "let", "return", "if", "else", "for", "while", "in",
-      "ask", "think", "generate", "true", "false", "null", "print",
-      "import", "export", "struct", "match", "break", "continue"
+      "let", "define", "set", "to", "return", "if", "else", "when", "is", "and", "or", "not",
+      "for", "each", "in", "while", "break", "continue", "show", "log", "then", "by",
+      "ask", "think", "generate", "as",
+      "use", "export", "from", "all",
+      "text", "number", "boolean", "list", "map", "of", "any", "nothing", "maybe",
+      "ok", "error", "fail", "with", "try",
+      "test", "expect", "equal", "intent", "given", "expects",
+      "true", "false", "null",
+      "default",
+      "monitor", "heal", "healable", "optimize", "evolve", "rollback", "suggest", "auto", "daemon",
+      "fn", "print", "struct", "match"
     ];
 
     for (let lineNum = 0; lineNum < lines.length; lineNum++) {
@@ -566,11 +603,11 @@ class LumeInterpreter {
     while (i < lines.length) {
       const line = lines[i];
 
-      if (line.startsWith("fn ")) {
-        const fnMatch = line.match(/^fn\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(([^)]*)\)\s*\{?$/);
+      if (line.startsWith("fn ") || line.startsWith("to ")) {
+        const fnMatch = line.match(/^(?:fn|to)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(([^)]*)\)\s*(?:->.*?)?\s*[:{]?\s*$/);
         if (fnMatch) {
           const name = fnMatch[1];
-          const params = fnMatch[2].split(",").map(p => p.trim()).filter(Boolean);
+          const params = fnMatch[2].split(",").map(p => p.trim().split(":")[0].trim()).filter(Boolean);
           let body = "";
           let depth = 1;
           i++;
@@ -585,8 +622,8 @@ class LumeInterpreter {
         }
       }
 
-      if (line.startsWith("let ")) {
-        const letMatch = line.match(/^let\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*(.+)$/);
+      if (line.startsWith("let ") || line.startsWith("define ") || line.startsWith("set ")) {
+        const letMatch = line.match(/^(?:let|define|set)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?:=|to)\s*(.+)$/);
         if (letMatch) {
           this.variables.set(letMatch[1], this.evaluateExpression(letMatch[2]));
           i++;
@@ -684,12 +721,26 @@ class LumeInterpreter {
         }
       }
 
-      if (line.startsWith("print(") || line.startsWith("print (")) {
-        const argMatch = line.match(/^print\s*\((.+)\)$/);
-        if (argMatch) {
-          const val = this.evaluateExpression(argMatch[1]);
+      if (line.startsWith("print(") || line.startsWith("print (") || line.startsWith("show ") || line.startsWith("log ")) {
+        let val: any;
+        const printArgMatch = line.match(/^print\s*\((.+)\)$/);
+        const showArgMatch = line.match(/^(?:show|log)\s+(.+)$/);
+        const argStr = printArgMatch?.[1] || showArgMatch?.[1];
+        if (argStr) {
+          val = this.evaluateExpression(argStr);
           const formatted = typeof val === "object" ? JSON.stringify(val, null, 2) : String(val);
           this.output.push(formatted);
+          i++;
+          continue;
+        }
+      }
+
+      if (line.startsWith("ask ") || line.startsWith("think ") || line.startsWith("generate ")) {
+        const aiMatch = line.match(/^(ask|think|generate)\s+(.+)$/);
+        if (aiMatch) {
+          const action = aiMatch[1];
+          const prompt = aiMatch[2].replace(/^["']|["']$/g, "");
+          this.output.push(`[AI ${action}] ${prompt}`);
           i++;
           continue;
         }
@@ -757,7 +808,7 @@ class LumeInterpreter {
     }
 
     const header = [
-      "// Transpiled from Lume v0.6.0",
+      "// Transpiled from Lume v1.0.0",
       "// Self-sustaining runtime: active",
       `// Generated: ${new Date().toISOString()}`,
       "",
@@ -783,7 +834,7 @@ class LumeInterpreter {
     const ast: any = {
       type: "Program",
       source: "lume",
-      version: "0.6.0",
+      version: "1.0.0",
       body: [],
     };
 
@@ -880,7 +931,7 @@ export function registerLumeRoutes(app: Express) {
   app.get("/api/lume/health", (_req: Request, res: Response) => {
     res.json({
       status: "operational",
-      runtime: "lume-interpreter-v0.6.0",
+      runtime: "lume-interpreter-v1.0.0",
       platform: PLATFORM_ID,
       uptime: process.uptime(),
       capabilities: handshakeState.capabilities,
@@ -888,6 +939,11 @@ export function registerLumeRoutes(app: Express) {
         origin: LUME_ORIGIN,
         status: handshakeState.status,
         lastHandshake: handshakeState.timestamp,
+      },
+      milestones: {
+        total: 13,
+        completed: ["M1 Core Language & Compiler", "M2 Full Core Language", "M3 AI Integration", "M4 JavaScript Interop & CLI", "M5 IDE Tooling & DX", "M6 Self-Sustaining Runtime"],
+        specComplete: ["M7 English Mode", "M8 Multilingual Mode", "M9 Voice-to-Code", "M10 Visual Context Awareness", "M11 Reverse Mode", "M12 Collaborative Intent", "M13 Zero-Dependency Runtime"],
       },
     });
   });
@@ -924,7 +980,7 @@ export function registerLumeRoutes(app: Express) {
         result: result.result !== undefined ? String(result.result) : null,
         variables: result.variables,
         executionTime,
-        runtime: "lume-interpreter-v0.6.0",
+        runtime: "lume-interpreter-v1.0.0",
         mode: detectedMode,
         resolvedLume: resolvedLume || null,
         errors: [],
@@ -1300,20 +1356,37 @@ watch for security updates`,
     res.json({
       success: true,
       language: "Lume",
-      version: "0.6.0",
+      version: "1.0.0",
       website: LUME_ORIGIN,
       sections: {
         keywords: {
-          ai: ["ask", "think", "generate"],
-          control: ["if", "else", "for", "while", "in", "match", "break", "continue"],
-          declarations: ["fn", "let", "return", "struct", "import", "export"],
+          core: ["let", "define", "set", "to", "return", "if", "else", "when", "is", "and", "or", "not", "for", "each", "in", "while", "break", "continue", "show", "log", "then", "by"],
+          ai: ["ask", "think", "generate", "as"],
+          modules: ["use", "export", "from", "all"],
+          types: ["text", "number", "boolean", "list", "map", "of", "any", "nothing", "maybe"],
+          errorHandling: ["ok", "error", "fail", "with", "or", "try"],
+          testing: ["test", "expect", "to", "equal", "intent", "given", "expects"],
           literals: ["true", "false", "null"],
-          io: ["print"],
+          patternMatching: ["default"],
+          selfSustaining: ["monitor", "heal", "healable", "optimize", "evolve", "rollback", "suggest", "auto", "daemon"],
         },
-        types: ["string", "number", "boolean", "array", "object", "null"],
-        builtins: ["print", "len", "type", "str", "num", "keys", "values", "push", "join", "map", "filter"],
-        operators: ["+", "-", "*", "/", "%", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "!"],
-        toolchain: ["run", "build", "test", "fmt", "lint", "repl", "watch", "ast", "tokens"],
+        types: ["text", "number", "boolean", "list", "map", "any", "nothing", "maybe", "null"],
+        naturalLanguageOperators: {
+          "is": "==",
+          "is not": "!=",
+          "is greater than": ">",
+          "is less than": "<",
+          "is at least": ">=",
+          "is at most": "<=",
+        },
+        builtins: ["show", "log", "fetch", "ask", "think", "generate", "type", "of", "len", "str", "num", "keys", "values", "push", "join", "map", "filter"],
+        operators: ["+", "-", "*", "/", "%", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "!", "=", "+=", "-=", "*=", "/=", "->", ":", "...", ".", "[]"],
+        toolchain: ["run", "build", "test", "fmt", "lint", "repl", "watch", "ast", "tokens", "init", "monitor", "heal", "optimize", "evolve", "verify", "fix", "canonicalize", "upgrade"],
+        modes: {
+          standard: "Lume Source → Lexer → Parser → AST → Transpiler → JavaScript",
+          english: "English Source → Auto-Correct → Intent Resolver (Tolerance Chain) → Security Check → AST → Transpiler → Certified JavaScript",
+          natural: "Natural language input resolved via Intent Resolver with AI-powered fallback",
+        },
         runtime: {
           layers: ["Self-Monitoring", "Self-Healing", "Self-Optimizing", "Self-Evolving"],
           description: "The 4-layer self-sustaining runtime continuously monitors, heals, optimizes, and evolves running programs.",
