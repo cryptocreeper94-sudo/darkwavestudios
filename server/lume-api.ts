@@ -890,7 +890,7 @@ const intentResolver = new IntentResolver();
 
 export function registerLumeRoutes(app: Express) {
   app.use("/api/lume", (req: Request, res: Response, next) => {
-    const allowedOrigins = [LUME_ORIGIN, "https://darkwavestudios.io", "https://academy.tlid.io"];
+    const allowedOrigins = [LUME_ORIGIN, "https://lume-lang.com", "https://darkwavestudios.io", "https://academy.tlid.io"];
     const origin = req.headers.origin;
     if (origin && allowedOrigins.includes(origin)) {
       res.header("Access-Control-Allow-Origin", origin);
@@ -922,7 +922,7 @@ export function registerLumeRoutes(app: Express) {
       },
       origin: LUME_ORIGIN,
       cors: {
-        allowedOrigins: [LUME_ORIGIN, "https://darkwavestudios.io", "https://academy.tlid.io"],
+        allowedOrigins: [LUME_ORIGIN, "https://lume-lang.com", "https://darkwavestudios.io", "https://academy.tlid.io"],
         methods: ["GET", "POST", "OPTIONS"],
       },
     });
@@ -1381,7 +1381,7 @@ watch for security updates`,
         },
         builtins: ["show", "log", "fetch", "ask", "think", "generate", "type", "of", "len", "str", "num", "keys", "values", "push", "join", "map", "filter"],
         operators: ["+", "-", "*", "/", "%", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "!", "=", "+=", "-=", "*=", "/=", "->", ":", "...", ".", "[]"],
-        toolchain: ["run", "build", "test", "fmt", "lint", "repl", "watch", "ast", "tokens", "init", "monitor", "heal", "optimize", "evolve", "verify", "fix", "canonicalize", "upgrade"],
+        toolchain: ["run", "build", "test", "fmt", "lint", "repl", "watch", "ast", "tokens", "init", "monitor", "heal", "optimize", "evolve", "verify", "fix", "canonicalize", "upgrade", "voice", "explain", "merge", "docs", "audit", "transpile"],
         modes: {
           standard: "Lume Source → Lexer → Parser → AST → Transpiler → JavaScript",
           english: "English Source → Auto-Correct → Intent Resolver (Tolerance Chain) → Security Check → AST → Transpiler → Certified JavaScript",

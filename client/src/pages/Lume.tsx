@@ -129,7 +129,7 @@ const toolchainCommands = [
   { cmd: "test", icon: TestTube, desc: "Run the full test suite with coverage reporting" },
   { cmd: "fmt", icon: Palette, desc: "Auto-format source code to canonical Lume style" },
   { cmd: "lint", icon: Bug, desc: "Static analysis for errors, warnings, and best practices" },
-  { cmd: "repl", icon: Terminal, desc: "Interactive REPL with multi-line support and history" },
+  { cmd: "repl", icon: Terminal, desc: "Interactive REPL with tab autocomplete, persistent history, and .scope/.run commands" },
   { cmd: "watch", icon: Eye, desc: "Hot-reload on file changes with instant feedback" },
   { cmd: "ast", icon: GitBranch, desc: "Visualize the Abstract Syntax Tree of any program" },
   { cmd: "tokens", icon: Search, desc: "Display the token stream from the lexer stage" },
@@ -137,24 +137,29 @@ const toolchainCommands = [
   { cmd: "explain", icon: BookOpenCheck, desc: "Explain code in plain language with line-by-line annotations" },
   { cmd: "verify", icon: ShieldCheck, desc: "Verify security certificate hash of compiled output" },
   { cmd: "canonicalize", icon: Eraser, desc: "Normalize English instructions to canonical form" },
+  { cmd: "merge", icon: GitBranch, desc: "AST-aware 3-way merge driver for .lume files" },
+  { cmd: "docs", icon: BookOpen, desc: "Open CLI, API, patterns, or voice documentation" },
+  { cmd: "audit", icon: Shield, desc: "Full security audit — prompt injection, output sanitization, rate limiting" },
+  { cmd: "init", icon: Rocket, desc: "Scaffold a new Lume project with config and directory structure" },
+  { cmd: "transpile", icon: Layers, desc: "Compile Lume source to JavaScript with security certificate" },
 ];
 
 const securityLayers = [
   {
     name: "Input Security",
-    subtitle: "Pre-Compilation",
+    subtitle: "Pre-Compilation + Prompt Injection Defense",
     icon: ShieldAlert,
     color: "from-slate-400 to-slate-600",
-    desc: "Scans English instructions for dangerous operations across 11 threat categories before any code compiles.",
-    categories: ["File system destruction", "Credential exposure", "Network exfiltration", "System commands", "Semantic camouflage", "Resource exhaustion"],
+    desc: "Scans English instructions for dangerous operations across 11 threat categories plus 8 prompt injection patterns before any code compiles.",
+    categories: ["File system destruction", "Credential exposure", "Network exfiltration", "System commands", "Semantic camouflage", "Prompt injection (8 patterns)", "Rate limiting"],
   },
   {
     name: "Guardian Output Scanner",
-    subtitle: "Live AST-Level",
+    subtitle: "Live AST-Level + Output Sanitization",
     icon: ScanLine,
     color: "from-cyan-400 to-teal-500",
-    desc: "Scans each AST node in real-time as it is created during Intent Resolution — not after compilation.",
-    categories: ["Destructive operations", "Privilege escalation", "Mass operations", "Infinite execution", "Cross-node analysis", "Semantic camouflage"],
+    desc: "Scans each AST node in real-time as it is created during Intent Resolution. Output sanitization catches 11 dangerous JS patterns in compiled code.",
+    categories: ["Destructive operations", "Privilege escalation", "eval() blocking", "child_process detection", "__proto__ access", "process.exit prevention", "innerHTML sanitization"],
   },
   {
     name: "Sandbox Mode",
@@ -222,6 +227,7 @@ const milestones = [
   { name: "M4: JavaScript Interop & CLI", tests: 102, total: 102 },
   { name: "M5: IDE Tooling & DX", tests: 81, total: 81 },
   { name: "M6: Self-Sustaining Runtime", tests: 76, total: 76 },
+  { name: "Phase 14B: Security & Finalization", tests: 186, total: 186 },
 ];
 
 const ecosystemIntegrations = [
@@ -229,6 +235,8 @@ const ecosystemIntegrations = [
   { name: "Signal Chat", icon: MessageSquare, desc: "Real-time developer community chat with #lume-dev channel" },
   { name: "Blockchain Hallmarks", icon: Award, desc: "Immutable provenance records for Lume packages and deployments" },
   { name: "Signal Rewards", icon: Coins, desc: "Earn SIG tokens for contributions to the Lume ecosystem" },
+  { name: "VS Code Extension", icon: Code2, desc: "Full TextMate syntax highlighting, 19 snippets, bracket/indent rules, and language configuration" },
+  { name: "Documentation Suite", icon: BookOpen, desc: "CLI reference, patterns catalog (102 patterns), programmatic API docs, and voice pipeline docs" },
 ];
 
 const connectedApps = [
@@ -299,9 +307,9 @@ const nlRoadmap = [
 ];
 
 const stats = [
-  { label: "Lines of Code", value: "12,215" },
-  { label: "Files", value: "41" },
-  { label: "Tests", value: "366+" },
+  { label: "Lines of Code", value: "11K+" },
+  { label: "CLI Commands", value: "18+" },
+  { label: "Tests", value: "552" },
   { label: "Milestones", value: "13" },
   { label: "Version", value: "v1.0.0" },
 ];
@@ -311,7 +319,7 @@ export default function Lume() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume - Eliminating Cognitive Distance | AI-Native Programming Language"
-        description="Lume eliminates cognitive distance between developer intent and compiled code. The first programming language where AI is a syntax primitive with natural language compilation, voice-to-code input, and certified-at-birth security. 366+ passing tests. Built by DarkWave Systems Collective."
+        description="Lume eliminates cognitive distance between developer intent and compiled code. The first programming language where AI is a syntax primitive with natural language compilation, voice-to-code input, and certified-at-birth security. 552 passing tests. Built by DarkWave Systems Collective."
         keywords="Lume, programming language, AI-native, cognitive distance, natural language compilation, voice-to-code, certified security, self-sustaining runtime, DarkWave Studios, transpiler, AST, intent resolution"
         url="https://darkwavestudios.io/lume"
       />
@@ -993,7 +1001,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Toolchain</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                13 built-in commands for a complete development workflow.
+                18+ built-in commands for a complete development workflow.
               </p>
             </motion.div>
 
@@ -1037,7 +1045,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Test Coverage</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                366+ passing tests across 6 milestones — 100% pass rate.
+                552 passing tests across 7 phases — 100% pass rate.
               </p>
             </motion.div>
 
@@ -1084,7 +1092,7 @@ export default function Lume() {
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="total-tests">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-lg font-bold text-white">366/366 Tests Passing</span>
+                <span className="text-lg font-bold text-white">552/552 Tests Passing</span>
                 <span className="text-sm text-green-400 font-semibold">100%</span>
               </GlassCard>
             </motion.div>
